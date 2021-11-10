@@ -16,11 +16,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class ImageService {
+
     public static Image getAppIcon() {
         URL url = ImageService.class.getResource("/icon/logo.png");
         return new ImageIcon(url).getImage();
     }
-    
+
     public static ImageIcon readImage(String fileName, JLabel lblAnh) {
         File path = new File("logos", fileName);
         ImageIcon icon1 = new ImageIcon(path.getAbsolutePath());
@@ -28,13 +29,13 @@ public class ImageService {
         ImageIcon icon = new ImageIcon(im.getScaledInstance(lblAnh.getWidth(), lblAnh.getHeight(), im.SCALE_SMOOTH));
         return icon;
     }
-    
+
     public static void save(File src) {
         File dst = new File("logos", src.getName());
-        if(!dst.getParentFile().exists()) {
+        if (!dst.getParentFile().exists()) {
             dst.getParentFile().mkdirs();
         }
-        
+
         try {
             Path from = Paths.get(src.getAbsolutePath());
             Path to = Paths.get(dst.getAbsolutePath());
@@ -42,5 +43,10 @@ public class ImageService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static ImageIcon readLogo(String fileName) {
+        File path = new File("image\\", fileName);
+        return new ImageIcon(path.getAbsolutePath());
     }
 }
