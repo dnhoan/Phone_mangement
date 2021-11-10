@@ -7,6 +7,8 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -31,6 +33,9 @@ public class Home extends javax.swing.JInternalFrame {
         
 
     }
+    public void showPopUp(MouseEvent e){
+        PopMenu.show(this, e.getX(),e.getY());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,16 +46,39 @@ public class Home extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PopMenu = new javax.swing.JPopupMenu();
+        Exit = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(51, 255, 51));
-        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 500));
+        Exit.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/exit_1.png"))); // NOI18N
+        Exit.setText("Exit");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
+        PopMenu.add(Exit);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(102, 255, 153));
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 300, 200));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Logo o day");
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\DUCNAM\\Desktop\\Phone_Management\\image\\z2921058777779_e85c01ef9cc3ffd53f5e4af4023c07ea (1).jpg")); // NOI18N
+        jLabel1.setText("HỆ THỐNG QUẢN LÝ CỬA HÀNG BÁN ĐIỆN THOẠI");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jPanel1.add(jLabel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -67,8 +95,33 @@ public class Home extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        if(evt.isPopupTrigger()){
+            showPopUp(evt);
+        }
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseReleased
+         if(evt.isPopupTrigger()){
+            showPopUp(evt);
+        }
+    }//GEN-LAST:event_formMouseReleased
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        int chooser = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thoát không ???","Thông Báo",JOptionPane.YES_NO_OPTION);
+        if(chooser==JOptionPane.YES_OPTION){
+            System.exit(0);
+            
+        }
+        else{
+            return;
+        }
+    }//GEN-LAST:event_ExitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Exit;
+    private javax.swing.JPopupMenu PopMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
