@@ -16,6 +16,9 @@ public interface ILoaiSanPhamService {
     String SELECT_BY_ID = "SELECT MaSP, TenSP, DongSP.MaDong, TenDong, HangSanPham.MaHang, TenHang FROM SanPham JOIN \n"
             + "DongSP ON DongSP.MaDong = SanPham.MaDong JOIN\n"
             + "HangSanPham ON DongSP.MaHang = HangSanPham.MaHang WHERE SANPHAM.TrangThai = 1 AND masp = ?";
+    String SELECT_BY_ID_DONG = "SELECT MaSP, TenSP, DongSP.MaDong, TenDong, HangSanPham.MaHang, TenHang FROM SanPham JOIN \n"
+            + "DongSP ON DongSP.MaDong = SanPham.MaDong JOIN\n"
+            + "HangSanPham ON DongSP.MaHang = HangSanPham.MaHang WHERE sanpham.madong = ?";
     String UPDATE = "UPDATE SanPham SET TenSP =?, MaDong = ? WHERE MaSP = ?";
     String DELETE = "UPDATE SanPham SET TrangThai = 0 WHERE MaSP = ?";
     String SELECT_BY_STATUS = "SELECT * FROM SANPHAM WHERE TrangThai = 1";

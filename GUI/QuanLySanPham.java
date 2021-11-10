@@ -43,7 +43,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -524,6 +523,11 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         txtSoluongNhap.setForeground(new java.awt.Color(255, 0, 51));
 
         cboSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboSanPham.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboSanPhamItemStateChanged(evt);
+            }
+        });
 
         btnLoaiSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/editing.png"))); // NOI18N
         btnLoaiSanPham.addActionListener(new java.awt.event.ActionListener() {
@@ -755,7 +759,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboHangItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-//            this.fillDongCombo();
+            this.fillDongCombo();
         }
     }//GEN-LAST:event_cboHangItemStateChanged
 
@@ -855,6 +859,12 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private void btnLoaiSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoaiSanPhamActionPerformed
         new QLLoaiSanPham().setVisible(true);
     }//GEN-LAST:event_btnLoaiSanPhamActionPerformed
+
+    private void cboSanPhamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboSanPhamItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.fillTenSanPhamCombo();
+        }
+    }//GEN-LAST:event_cboSanPhamItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1037,36 +1047,35 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         sp.setTonKho(Integer.parseInt(txtTonKho.getText()));
         sp.setHinh(lblImage.getToolTipText());
         sp.setMota(txtMota.getText());
-        
-//        BusCameraModel busCameraModel = (BusCameraModel) cboCamera.getSelectedItem();
-//        sp.setMaCamera(busCameraModel.getMaCamera());
-        sp.setMaCamera(3);
+
+        BusCameraModel busCameraModel = (BusCameraModel) cboCamera.getSelectedItem();
+        sp.setMaCamera(busCameraModel.getMaCamera());
+
         BusCPUModel busCPUModel = (BusCPUModel) cboCpu.getSelectedItem();
         sp.setMaSp(busCPUModel.getMaCPU());
         sp.setMaCpu(2);
-        
+
         BusSanPham busSanPham = (BusSanPham) cboSanPham.getSelectedItem();
         sp.setMaSp(busSanPham.getMasp());
-        
+
         BusHeDieuHanhModel busHeDieuHanhModel = (BusHeDieuHanhModel) cboHeDieuHanh.getSelectedItem();
         sp.setMaHeDieuHanh(Integer.parseInt(busHeDieuHanhModel.getMaHeDieuHanh()));
-        
+
         BusManHinhModel busManHinhModel = (BusManHinhModel) cboManHinh.getSelectedItem();
         sp.setMaManHinh(Integer.parseInt(busManHinhModel.getMaManHinh()));
-        
+
         BusRamModel busRamModel = (BusRamModel) cboRam.getSelectedItem();
         sp.setMaRam(busRamModel.getMaRam());
-        
+
         BusPinModel busPinModel = (BusPinModel) cboPin.getSelectedItem();
         sp.setMaLoaiPin(Integer.parseInt(busPinModel.getMaLoaiPin()));
-        
-        
+
         BusRomModel busRomModel = (BusRomModel) cboRom.getSelectedItem();
         sp.setMaRom(busRomModel.getMaRom());
-        
+
         BusXuatXuModel busXuatXuModel = (BusXuatXuModel) cboXuatXu.getSelectedItem();
         sp.setMaXuatXu(busXuatXuModel.getMaXuatXu());
-        
+
         return sp;
     }
 
@@ -1200,23 +1209,31 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     void fillDongCombo() {
         this.dongspModel = (DefaultComboBoxModel) cboDongsp.getModel();
         this.dongspModel.removeAllElements();
+        BusHangModel busHangModel = (BusHangModel) cboHang.getSelectedItem();
         try {
-            this.listDong = dongSPService.selectAll();
-            if (this.listDong != null) {
-                for (BusDongSpModel dong : this.listDong) {
-                    this.dongspModel.addElement(dong);
+            if (busHangModel != null) {
+                this.listDong = dongSPService.selectByHangsp(busHangModel.getMaHang());
+                if (this.listDong != null) {
+                    for (BusDongSpModel dong : this.listDong) {
+                        this.dongspModel.addElement(dong);
+                    }
                 }
+                this.fillTenSanPhamCombo();
             }
-            this.fillTenSanPhamCombo();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     void fillTenSanPhamCombo() {
         this.sanPhamModel = (DefaultComboBoxModel) cboSanPham.getModel();
         this.sanPhamModel.removeAllElements();
+        BusDongSpModel busDongSpModel = (BusDongSpModel) cboDongsp.getSelectedItem();
         try {
-            this.listLoaisp = loaiSPService.selectBySearch("");
+            if (busDongSpModel != null) {
+                this.listLoaisp = loaiSPService.selectByDongsp(busDongSpModel.getMaDong());
+            }
+
             if (this.listLoaisp != null) {
                 for (BusSanPham sp : this.listLoaisp) {
                     this.sanPhamModel.addElement(sp);
@@ -1236,6 +1253,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                 for (BusHangModel hang : this.listHang) {
                     this.hangspModel.addElement(hang);
                 }
+                this.fillDongCombo();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1255,6 +1273,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         } catch (Exception e) {
             e.printStackTrace();
         }
+        fillDongCombo();
     }
 
     void fillManHinhCombo() {
@@ -1270,7 +1289,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fillDongCombo();
+
     }
 
     void fillPinCombo() {
@@ -1360,6 +1379,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             this.edit();
         }
     }
+
     void sortDesc() {
         Comparator<BusCTSanPhamModel> comparator = new Comparator<BusCTSanPhamModel>() {
             @Override
@@ -1367,11 +1387,13 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                 return Float.compare(o1.getGiaBan(), o2.getGiaBan());
             }
         };
-        
+
     }
+
     void sortAsend() {
-        
+
     }
+
     @Override
     public boolean validateForm(boolean isEdit) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -1379,7 +1401,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     @Override
     public BusCTSanPhamModel getForm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
 }

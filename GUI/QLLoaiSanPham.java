@@ -312,7 +312,8 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     }//GEN-LAST:event_btnBackupActionPerformed
 
     private void tblXOaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblXOaMouseClicked
-        // TODO add your handling code here:
+        this.rowRecycle = tblXOa.getSelectedRow();
+        
     }//GEN-LAST:event_tblXOaMouseClicked
 
     private void txtSearchBoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBoxKeyTyped
@@ -400,6 +401,7 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     @Override
     public void init() {
         this.setTitle("Quan ly sp");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.fillTable();
         this.fillHangCombo();
@@ -533,17 +535,40 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
 
     @Override
     public void insert() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DalLoaiSanPham dalLoaiSanPham = this.getInfoForm();
+        try {
+            loaiSPService.insert(dalLoaiSanPham);
+            this.clearForm();
+            this.fillTable();
+        } catch (Exception e) {
+            MessageService.alert(this, "errr");
+        }
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DalLoaiSanPham dalLoaiSanPham = this.getInfoForm();
+        dalLoaiSanPham.setMasp((int) tblHoatDong.getValueAt(row, 0));
+        try {
+            loaiSPService.update(dalLoaiSanPham);
+            this.fillTable();
+        } catch (Exception e) {
+            MessageService.alert(this, "errr");
+        }
     }
 
     @Override
     public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int id = (int) tblHoatDong.getValueAt(row, 0);
+        try {
+            loaiSPService.delete(id);
+            this.clearForm();
+            this.fillTableRecycle();
+            this.fillTable();
+            MessageService.alert(this, "ok");
+        } catch (Exception e) {
+            MessageService.alert(this, "error");
+        }
     }
 
     @Override

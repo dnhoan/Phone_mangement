@@ -14,5 +14,6 @@ public interface ICameraService {
     String SELECT_ALL = "SELECT * FROM CameraSP";
     String SELECT_BY_ID = "SELECT * FROM CameraSP WHERE MaCamera = ?";
     String UPDATE = "UPDATE CameraSP SET LoaiCamera = ?, DoPhanGiai = ?, TrangThai = ? WHERE MaCamera = ?";
-    String SELECT_BY_STATUS = "SELECT * FROM CameraSP WHERE TrangThai = 1";
+    String SELECT_BY_USING = "SELECT * FROM CameraSP WHERE TrangThai = 1";
+    String SELECT_BY_RECYCLE = "SELECT * FROM CameraSP WHERE TrangThai = 0";
 }

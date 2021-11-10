@@ -26,7 +26,7 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
     @Override
     public void insert(DalLoaiSanPham sp) {
         try {
-            this.selectBySql(INSERT,
+            this.select(INSERT,
                     sp.getTensp(),
                     sp.getMaDong()
             );
@@ -37,19 +37,20 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
     @Override
     public void update(DalLoaiSanPham sp) {
         try {
-            this.selectBySql(UPDATE,
+            this.select(UPDATE,
                     sp.getTensp(),
                     sp.getMaDong(),
                     sp.getMasp()
             );
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void delete(Integer id) {
         try {
-            this.selectBySql(UPDATE,id
+            this.select(DELETE, id
             );
         } catch (Exception e) {
         }
@@ -62,7 +63,7 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
 
     public void backup(Integer id) {
         try {
-            this.selectBySql(BACK_UP, id
+            this.select(BACK_UP, id
             );
         } catch (Exception e) {
         }
@@ -85,18 +86,23 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
             }
             resultSet.getStatement().close();
             return listProducts;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (Exception e) {
         }
+        return null;
     }
 
     public List<BusSanPham> selectInRecycle() {
-        if (this.select(SELECT_RECYCLE).isEmpty()) {
+        if (this.select(SELECT_RECYCLE) == null) {
             return null;
         }
         return this.select(SELECT_RECYCLE);
     }
-
+    public List<BusSanPham> selectByDongsp(Integer id) {
+        if (this.select(SELECT_RECYCLE, id) == null) {
+            return null;
+        }
+        return this.select(SELECT_RECYCLE, id);
+    } 
     public List<BusSanPham> selectBySearch(String keyWord) {
         return this.select(SELECT_BY_KEYWORD, "%" + keyWord + "%");
     }
