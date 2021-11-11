@@ -5,34 +5,17 @@
  */
 package GUI;
 
-import BUS.Models.BusDongSpModel;
-import BUS.Models.BusHangModel;
-import BUS.Services.DongSPService;
-import BUS.Services.HangService;
-import GUI.Services.IEditService;
-import GUI.Services.MessageService;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author ADMIN
  */
-public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDongSpModel> {
+public class QLDongSP extends javax.swing.JFrame {
 
     /**
      * Creates new form QLDongSP
      */
-    int row = -1;
-    DongSPService dongSPService = new DongSPService();
-    HangService hangService = new HangService();
-
     public QLDongSP() {
         initComponents();
-        this.init();
     }
 
     /**
@@ -42,255 +25,113 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jPanel54 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel53 = new javax.swing.JPanel();
+        btnXoa4 = new javax.swing.JButton();
         btnSua4 = new javax.swing.JButton();
         btnThem4 = new javax.swing.JButton();
         btnLamMoiForm4 = new javax.swing.JButton();
-        rdo0 = new javax.swing.JRadioButton();
-        rdo1 = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtTenDongsp = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        TAB = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbldsd = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblnsd = new javax.swing.JTable();
-        cboHangsp = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel54.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
-
-        btnSua4.setText("Sửa");
-        btnSua4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSua4ActionPerformed(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Mã dòng sp", "Tên dòng sp", "Title 3", "Trạng thái"
             }
-        });
-        jPanel54.add(btnSua4);
-
-        btnThem4.setText("Thêm");
-        btnThem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem4ActionPerformed(evt);
-            }
-        });
-        jPanel54.add(btnThem4);
-
-        btnLamMoiForm4.setText("Làm mới");
-        btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLamMoiForm4ActionPerformed(evt);
-            }
-        });
-        jPanel54.add(btnLamMoiForm4);
-
-        buttonGroup1.add(rdo0);
-        rdo0.setText("Ngừng sử dụng");
-
-        buttonGroup1.add(rdo1);
-        rdo1.setSelected(true);
-        rdo1.setText("Đang sử dụng");
-
-        jLabel3.setText("Trạng thái");
-
-        jLabel2.setText("Hãng sản phẩm");
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setText("Tên dòng sản phẩm");
 
-        TAB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TABMouseClicked(evt);
-            }
-        });
+        jRadioButton1.setText("Đang hoạt động");
 
-        tbldsd.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Mã dòng", "Tên dòng sản phẩm", "Hãng sản phẩm", "Trạng thái"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
+        jRadioButton2.setText("Ngừng hoạt động");
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbldsd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbldsdMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tbldsd);
+        jLabel3.setText("Trạng thái");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
-        TAB.addTab("Đang sử dụng", jPanel2);
+        btnXoa4.setText("Xóa");
+        jPanel53.add(btnXoa4);
 
-        tblnsd.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Mã dòng sản phẩm", "Tên dòng sản phẩm", "Hãng sản phẩm", "Trạng thái"
-            }
-        ));
-        tblnsd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblnsdMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblnsd);
+        btnSua4.setText("Sửa");
+        jPanel53.add(btnSua4);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        btnThem4.setText("Thêm");
+        jPanel53.add(btnThem4);
 
-        TAB.addTab("Ngừng sử dụng", jPanel3);
+        btnLamMoiForm4.setText("Làm mới");
+        jPanel53.add(btnLamMoiForm4);
 
-        cboHangsp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel2.setText("Tên hãng sản phẩm");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(479, Short.MAX_VALUE)
-                .addComponent(cboHangsp, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(27, 27, 27)
-                    .addComponent(TAB)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(rdo1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(rdo0, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1)
-                        .addComponent(txtTenDongsp, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
-                    .addGap(27, 27, 27)))
+                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(130, 130, 130)
-                .addComponent(cboHangsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtTenDongsp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jLabel2)
-                            .addGap(54, 54, 54)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(rdo1)
-                                .addComponent(rdo0))
-                            .addGap(18, 18, 18)
-                            .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(TAB, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(16, Short.MAX_VALUE)))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboHangsp, txtTenDongsp});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jComboBox1, jTextField1});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSua4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua4ActionPerformed
-        // TODO add your handling code here:
-        if (TAB.getSelectedIndex() == 0) {
-            update();
-        } else {
-            update2();
-        }
-    }//GEN-LAST:event_btnSua4ActionPerformed
-
-    private void btnThem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem4ActionPerformed
-        insert();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem4ActionPerformed
-
-    private void btnLamMoiForm4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiForm4ActionPerformed
-        // TODO add your handling code here:
-        clearForm();
-    }//GEN-LAST:event_btnLamMoiForm4ActionPerformed
-
-    private void tbldsdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldsdMouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 1) {
-            this.row = tbldsd.getSelectedRow();
-            this.edit();
-
-        }
-    }//GEN-LAST:event_tbldsdMouseClicked
-
-    private void tblnsdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnsdMouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 1) {
-            this.row = tblnsd.getSelectedRow();
-            this.edit();
-        }
-    }//GEN-LAST:event_tblnsdMouseClicked
-
-    private void TABMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TABMouseClicked
-        // TODO add your handling code here:
-        if (TAB.getSelectedIndex() == 0) {
-            clearForm();
-            updateStatus();
-        } else {
-            clearForm();
-            updateStatus2();
-        }
-    }//GEN-LAST:event_TABMouseClicked
 
     /**
      * @param args the command line arguments
@@ -328,227 +169,19 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane TAB;
     private javax.swing.JButton btnLamMoiForm4;
     private javax.swing.JButton btnSua4;
     private javax.swing.JButton btnThem4;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cboHangsp;
+    private javax.swing.JButton btnXoa4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel54;
+    private javax.swing.JPanel jPanel53;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton rdo0;
-    private javax.swing.JRadioButton rdo1;
-    private javax.swing.JTable tbldsd;
-    private javax.swing.JTable tblnsd;
-    private javax.swing.JTextField txtTenDongsp;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-
-    DefaultComboBoxModel<BusHangModel> hangModel;
-    List<BusHangModel> listHang = new ArrayList<>();
-
-    @Override
-    public void init() {
-        this.setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.fillTableDsd();
-        this.fillTableNsd();
-        updateStatus();
-        this.row = -1;
-        this.fillToCombo();
-    }
-
-    void fillTableDsd() {
-        DefaultTableModel modelsd = (DefaultTableModel) tbldsd.getModel();
-        modelsd.setRowCount(0);
-        try {
-            List<BusDongSpModel> listdsd = dongSPService.selectAll();
-            for (BusDongSpModel x : listdsd) {
-                Object[] row = {x.getMaDong(), x.getTenDong(), x.getBusHangModel(),
-                    x.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
-                modelsd.addRow(row);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    void fillTableNsd() {
-        DefaultTableModel modelnsd = (DefaultTableModel) tblnsd.getModel();
-        modelnsd.setRowCount(0);
-        try {
-            List<BusDongSpModel> listnsd = dongSPService.selectRecycle();
-            if (listnsd != null) {
-                for (BusDongSpModel x : listnsd) {
-                    Object[] row = {x.getMaDong(), x.getTenDong(), x.getBusHangModel().getTenHang(),
-                        x.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
-                    modelnsd.addRow(row);
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void clearForm() {
-        BusDongSpModel busCameraModel = new BusDongSpModel();
-        this.row = -1;
-        this.setForm(busCameraModel);
-        this.updateStatus();
-    }
-
-    @Override
-    public void setForm(BusDongSpModel entity) {
-        txtTenDongsp.setText(entity.getTenDong());
-        cboHangsp.getModel().setSelectedItem(entity.getBusHangModel());
-        if (entity.isTrangThai()) {
-            rdo1.setSelected(true);
-        } else {
-            rdo0.setSelected(true);
-        }
-    }
-
-    @Override
-    public void updateStatus() {
-        boolean edit = (this.row >= 0);
-        btnThem4.setEnabled(!edit);
-        btnSua4.setEnabled(edit);
-        btnLamMoiForm4.setEnabled(true);
-    }
-
-    public void updateStatus2() {
-        boolean edit = (this.row >= 0);
-        btnThem4.setEnabled(false);
-        btnSua4.setEnabled(edit);
-        btnLamMoiForm4.setEnabled(false);
-    }
-
-    @Override
-    public void insert() {
-        BusDongSpModel busDongSpModel = this.getForm();
-        try {
-            dongSPService.insert(busDongSpModel);
-            this.fillTableDsd();
-            this.fillTableNsd();
-            this.clearForm();
-            this.updateStatus();
-            MessageService.alert(this, "ok");
-        } catch (Exception e) {
-            MessageService.alert(this, "err");
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void update() {
-        BusDongSpModel busCameraModel = this.getForm();
-        int idDongsp = (int) tbldsd.getValueAt(this.row, 0);
-        busCameraModel.setMaDong(idDongsp);
-        try {
-            dongSPService.update(busCameraModel);
-            this.fillTableDsd();
-            this.fillTableNsd();
-            MessageService.alert(this, "ok");
-        } catch (Exception e) {
-            MessageService.alert(this, "err");
-
-        }
-    }
-
-    public void update2() {
-        BusDongSpModel busCameraModel = this.getForm();
-        int idDongsp = (int) tblnsd.getValueAt(this.row, 0);
-        busCameraModel.setMaDong(idDongsp);
-        try {
-            dongSPService.update(busCameraModel);
-            this.fillTableNsd();
-            this.fillTableDsd();
-            MessageService.alert(this, "ok");
-        } catch (Exception e) {
-            MessageService.alert(this, "err");
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void edit() {
-        if (TAB.getSelectedIndex() == 0) {
-            int idDongsp = (int) tbldsd.getValueAt(this.row, 0);
-            BusDongSpModel busCameraModel = this.dongSPService.selectByID(idDongsp);
-            setForm(busCameraModel);
-            updateStatus();
-        } else {
-            int idDongsp = (int) tblnsd.getValueAt(this.row, 0);
-            BusDongSpModel busCameraModel = this.dongSPService.selectByID(idDongsp);
-            setForm(busCameraModel);
-            updateStatus2();
-
-        }
-    }
-
-    public void fillToCombo() {
-        hangModel = (DefaultComboBoxModel) cboHangsp.getModel();
-        hangModel.removeAllElements();
-        try {
-            listHang = hangService.selectAll();
-            if (listHang != null) {
-                for (BusHangModel busHangModel : listHang) {
-                    hangModel.addElement(busHangModel);
-                }
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    @Override
-    public void fillTable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void first() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void last() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void next() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void previous() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean validateForm(boolean isEdit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public BusDongSpModel getForm() {
-        BusDongSpModel busDongSpModel = new BusDongSpModel();
-        busDongSpModel.setTenDong(txtTenDongsp.getText());
-        busDongSpModel.setBusHangModel((BusHangModel) cboHangsp.getSelectedItem());
-        busDongSpModel.setTrangThai(rdo1.isSelected());
-        return busDongSpModel;
-    }
 }

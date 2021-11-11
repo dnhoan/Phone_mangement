@@ -30,7 +30,6 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     /**
      * Creates new form QLLoaiSanPham
      */
-    int currentId;
     public QLLoaiSanPham() {
         initComponents();
         this.init();
@@ -287,8 +286,7 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
 
     private void tblHoatDongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoatDongMouseClicked
         this.row = tblHoatDong.getSelectedRow();
-        this.currentId = (int) tblHoatDong.getValueAt(row, 0);
-       this.edit();
+        this.edit();
     }//GEN-LAST:event_tblHoatDongMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -314,8 +312,7 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     }//GEN-LAST:event_btnBackupActionPerformed
 
     private void tblXOaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblXOaMouseClicked
-        this.rowRecycle = tblXOa.getSelectedRow();
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_tblXOaMouseClicked
 
     private void txtSearchBoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBoxKeyTyped
@@ -389,7 +386,6 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
 
     int row = -1;
     int rowRecycle = -1;
-    
     List<BusSanPham> listSanPham = new ArrayList<>();
     List<BusSanPham> listRecycle = new ArrayList<>();
     DefaultTableModel modelChinh, modelXoa;
@@ -404,7 +400,6 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     @Override
     public void init() {
         this.setTitle("Quan ly sp");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.fillTable();
         this.fillHangCombo();
@@ -538,48 +533,25 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
 
     @Override
     public void insert() {
-        DalLoaiSanPham dalLoaiSanPham = this.getInfoForm();
-        try {
-            loaiSPService.insert(dalLoaiSanPham);
-            this.clearForm();
-            this.fillTable();
-        } catch (Exception e) {
-            MessageService.alert(this, "errr");
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void update() {
-        DalLoaiSanPham dalLoaiSanPham = this.getInfoForm();
-        dalLoaiSanPham.setMasp(this.currentId);
-        try {
-            loaiSPService.update(dalLoaiSanPham);
-            this.fillTable();
-        } catch (Exception e) {
-            MessageService.alert(this, "errr");
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void delete() {
-//        int id = (int) tblHoatDong.getValueAt(row, 0);
-        try {
-            loaiSPService.delete(currentId);
-            this.clearForm();
-            this.fillTableRecycle();
-            this.fillTable();
-            MessageService.alert(this, "ok");
-        } catch (Exception e) {
-            MessageService.alert(this, "error");
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void edit() {
         BusSanPham busSanPham = new BusSanPham();
-//        int id = (int) tblHoatDong.getValueAt(this.row, 0);
+        int id = (int) tblHoatDong.getValueAt(this.row, 0);
         try {
-            busSanPham = loaiSPService.selectID(this.currentId);
+            busSanPham = loaiSPService.selectID(id);
             this.setForm(busSanPham);
             this.updateStatus();
         } catch (Exception e) {

@@ -9,6 +9,8 @@ import Animacion.Animacion;
 import GUI.Home;
 import GUI.QuanLySanPham;
 import GUI.QuanLyKhachHang;
+import GUI.Services.AuthService;
+import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -47,7 +49,9 @@ public class Main extends javax.swing.JFrame {
         int h = d.height;
         int w = d.width;
         this.setSize(w, h);
+        new Login(this, true).setVisible(true);
         setExtendedState(MAXIMIZED_BOTH);
+
         Home home = new Home();
         jDesktopPane1.removeAll();
         jDesktopPane1.add(home).setVisible(true);
@@ -67,6 +71,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         PopMenu = new javax.swing.JPopupMenu();
+        LogOut = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         bg = new javax.swing.JPanel();
         sidepanel = new javax.swing.JPanel();
@@ -92,8 +97,17 @@ public class Main extends javax.swing.JFrame {
         jpnThongKe = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
         btnMenu = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+
+        LogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout.png"))); // NOI18N
+        LogOut.setText("Log out");
+        LogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogOutActionPerformed(evt);
+            }
+        });
+        PopMenu.add(LogOut);
 
         Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/exit_1.png"))); // NOI18N
         Exit.setText("Exit");
@@ -105,7 +119,6 @@ public class Main extends javax.swing.JFrame {
         PopMenu.add(Exit);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -122,11 +135,14 @@ public class Main extends javax.swing.JFrame {
 
         sidepanel.setBackground(new java.awt.Color(255, 255, 102));
         org.jdesktop.swingx.border.DropShadowBorder dropShadowBorder1 = new org.jdesktop.swingx.border.DropShadowBorder();
+        dropShadowBorder1.setShowLeftShadow(true);
+        dropShadowBorder1.setShowTopShadow(true);
         sidepanel.setBorder(dropShadowBorder1);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/output-onlinepngtools.png"))); // NOI18N
 
         jpnHome.setBackground(new java.awt.Color(255, 255, 102));
         jpnHome.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -426,25 +442,22 @@ public class Main extends javax.swing.JFrame {
         sidepanelLayout.setHorizontalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidepanelLayout.createSequentialGroup()
-                .addGroup(sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpnHangHoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpnCauHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpnGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jpnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(sidepanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38))
+                .addGap(5, 5, 5)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jpnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnHangHoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnCauHinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnGiaoDich, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jpnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         sidepanelLayout.setVerticalGroup(
             sidepanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidepanelLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(5, 5, 5)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(64, 64, 64)
                 .addComponent(jpnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jpnHangHoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,14 +470,10 @@ public class Main extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(jpnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jpnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jpnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        bg.add(sidepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 190, -1));
-
-        jDesktopPane1.setAutoscrolls(true);
-        jDesktopPane1.setPreferredSize(new java.awt.Dimension(1800, 1080));
+        bg.add(sidepanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 0, 190, 1060));
 
         btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/list.png"))); // NOI18N
         btnMenu.setBorder(null);
@@ -486,39 +495,33 @@ public class Main extends javax.swing.JFrame {
                 btnMenuActionPerformed(evt);
             }
         });
+        bg.add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
 
-        jDesktopPane1.setLayer(btnMenu, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setAutoscrolls(true);
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(1670, 1080));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2180, Short.MAX_VALUE))
+            .addGap(0, 1670, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(952, Short.MAX_VALUE))
+            .addGap(0, 1080, Short.MAX_VALUE)
         );
 
-        bg.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 2220, -1));
+        bg.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1670, 1080));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 767, Short.MAX_VALUE)
+            .addComponent(bg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -554,9 +557,14 @@ public class Main extends javax.swing.JFrame {
     private void jpnHangHoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHangHoaMouseClicked
         // TODO add your handling code here:
 //        QuanLyKhoJFrame sp = new QuanLyKhoJFrame();
-        QuanLySanPham sp = new QuanLySanPham();
-        jDesktopPane1.removeAll();
-        jDesktopPane1.add(sp).setVisible(true);
+        if (AuthService.isLogin()) {
+            QuanLySanPham sp = new QuanLySanPham();
+            jDesktopPane1.removeAll();
+            jDesktopPane1.add(sp).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
+
     }//GEN-LAST:event_jpnHangHoaMouseClicked
 
     private void jpnHangHoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHangHoaMouseEntered
@@ -673,6 +681,11 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ExitActionPerformed
 
+    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
+       AuthService.clear();
+        new Login(this, true).setVisible(true);
+    }//GEN-LAST:event_LogOutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -717,6 +730,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Exit;
+    private javax.swing.JMenuItem LogOut;
     private javax.swing.JPopupMenu PopMenu;
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnMenu;

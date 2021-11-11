@@ -26,7 +26,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
     @Override
     public void insert(DalCTSanPhamModel sp) {
         try {
-            JDBCHelper.executeQuery(INSERT,
+            this.selectBySql(INSERT,
                     sp.getGiaNhap(),
                     sp.getGiaBan(),
                     sp.getSoLuongNhap(),
@@ -44,14 +44,13 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                     sp.getMaSp()
             );
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     public void update(DalCTSanPhamModel sp) {
         try {
-            JDBCHelper.executeQuery(UPDATE,
+            this.selectBySql(UPDATE,
                     sp.getGiaNhap(),
                     sp.getGiaBan(),
                     sp.getSoLuongNhap(),
@@ -70,38 +69,26 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                     sp.getMactsp()
             );
         } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void backup(Integer id) {
-        try {
-            JDBCHelper.executeUpdate(BACKUP, id);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     public void delete(Integer id) {
-        System.out.println(id);
         try {
-            JDBCHelper.executeUpdate(DELETE, id);
+            this.selectBySql(DELETE, id);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     public DalCTSanPhamModel selectByID(Integer id) {
-        if (this.selectBySql(SELECT_BY_ID, id) == null) {
+        if (this.selectBySql(SELECT_BY_ID, id).isEmpty()) {
             return null;
         }
         return this.selectBySql(SELECT_BY_ID, id).get(0);
     }
-
     public BusCTSanPhamModel selectID(Integer id) {
-        if (this.select(SELECT_BY_ID, id) == null) {
+        if (this.select(SELECT_BY_ID, id).isEmpty()) {
             return null;
         }
         return this.select(SELECT_BY_ID, id).get(0);
@@ -109,7 +96,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
 
     @Override
     public List<DalCTSanPhamModel> selectAll() {
-        if (this.selectBySql(SELECT_ALL) == null) {
+        if (this.selectBySql(SELECT_ALL).isEmpty()) {
             return null;
         }
         return this.selectBySql(SELECT_ALL);
@@ -131,18 +118,14 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
             resultSet.getStatement().close();
             return listProducts;
         } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
-        return null;
     }
 
-//    public static void main(String[] args) {
-//        SanPhamService sanPhamService = new SanPhamService();
-//        BusCTSanPhamModel busCTSanPhamModel = sanPhamService.selectID(5);
+    public static void main(String[] args) {
+        SanPhamService sanPhamService = new SanPhamService();
+        BusCTSanPhamModel busCTSanPhamModel = sanPhamService.selectID(5);
 //        List<BusCTSanPhamModel> list = sanPhamService.selectBySearch("");
-//    }
-
-    public List<BusCTSanPhamModel> selectRecycle(String keyWord) {
-        return this.select(SELECT_RECYCLE_BY_KEYWORD, "%" + keyWord + "%");
     }
 
     public List<BusCTSanPhamModel> selectBySearch(String keyWord) {
@@ -181,7 +164,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         BusXuatXuModel xuatXuModel = new BusXuatXuModel(
                 rs.getInt("maxuatxu"),
                 rs.getString("noixuatxu")
-        //                rs.getBoolean("TrangThai")
+//                rs.getBoolean("TrangThai")
         );
         BusPinModel pinModel = new BusPinModel(
                 rs.getString("MaPin"),
@@ -197,7 +180,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         BusCPUModel cPUModel = new BusCPUModel(
                 rs.getInt("macpu"),
                 rs.getString("tencpu")
-        //                rs.getBoolean("TrangThai")
+//                rs.getBoolean("TrangThai")
         );
         sp.setCameraModel(cameraModel);
         sp.setRomModel(romModel);

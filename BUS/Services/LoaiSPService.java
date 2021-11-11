@@ -26,7 +26,7 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
     @Override
     public void insert(DalLoaiSanPham sp) {
         try {
-            this.select(INSERT,
+            this.selectBySql(INSERT,
                     sp.getTensp(),
                     sp.getMaDong()
             );
@@ -37,20 +37,19 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
     @Override
     public void update(DalLoaiSanPham sp) {
         try {
-            this.select(UPDATE,
+            this.selectBySql(UPDATE,
                     sp.getTensp(),
                     sp.getMaDong(),
                     sp.getMasp()
             );
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     public void delete(Integer id) {
         try {
-            this.select(DELETE, id
+            this.selectBySql(UPDATE,id
             );
         } catch (Exception e) {
         }
@@ -63,7 +62,7 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
 
     public void backup(Integer id) {
         try {
-            this.select(BACK_UP, id
+            this.selectBySql(BACK_UP, id
             );
         } catch (Exception e) {
         }
@@ -86,23 +85,18 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
             }
             resultSet.getStatement().close();
             return listProducts;
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
-        return null;
     }
 
     public List<BusSanPham> selectInRecycle() {
-        if (this.select(SELECT_RECYCLE) == null) {
+        if (this.select(SELECT_RECYCLE).isEmpty()) {
             return null;
         }
         return this.select(SELECT_RECYCLE);
     }
-    public List<BusSanPham> selectByDongsp(Integer idDong) {
-        if (this.select(SELECT_BY_ID_DONG, idDong) == null) {
-            return null;
-        }
-        return this.select(SELECT_BY_ID_DONG, idDong);
-    } 
+
     public List<BusSanPham> selectBySearch(String keyWord) {
         return this.select(SELECT_BY_KEYWORD, "%" + keyWord + "%");
     }
@@ -120,8 +114,7 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
         BusSanPham sanPham = new BusSanPham(
                 rs.getInt("masp"),
                 rs.getString("tensp"),
-                busDongSpModel,
-                rs.getBoolean("trangthai"));
+                busDongSpModel);
         return sanPham;
     }
 
