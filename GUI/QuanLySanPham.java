@@ -829,32 +829,38 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboRomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboRomItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-
+            this.fillRomCombo();
         }
     }//GEN-LAST:event_cboRomItemStateChanged
 
     private void cboRamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboRamItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-
+            this.fillRamCombo();
         }
     }//GEN-LAST:event_cboRamItemStateChanged
 
     private void cboManHinhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboManHinhItemStateChanged
-        // TODO add your handling code here:
+      if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.fillManHinhCombo();
+        }
     }//GEN-LAST:event_cboManHinhItemStateChanged
 
     private void cboHeDieuHanhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboHeDieuHanhItemStateChanged
-        // TODO add your handling code here:
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            this.fillHeDieuHanhCombo();
+        }
     }//GEN-LAST:event_cboHeDieuHanhItemStateChanged
 
     private void cboHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboHangItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillDongCombo();
+            this.fillHangCombo();
         }
     }//GEN-LAST:event_cboHangItemStateChanged
 
     private void cboCpuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCpuItemStateChanged
-        // TODO add your handling code here:
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.fillCPUCombo();
+        }
     }//GEN-LAST:event_cboCpuItemStateChanged
 
     private void cboDongspItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboDongspItemStateChanged
@@ -864,15 +870,21 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_cboDongspItemStateChanged
 
     private void cboXuatXuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboXuatXuItemStateChanged
-        // TODO add your handling code here:
+      if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.fillTenSanPhamCombo();
+        }
     }//GEN-LAST:event_cboXuatXuItemStateChanged
 
     private void cboCameraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCameraItemStateChanged
-        // TODO add your handling code here:
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.fillCameraCombo();
+        }
     }//GEN-LAST:event_cboCameraItemStateChanged
 
     private void cboPinItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboPinItemStateChanged
-        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            this.fillPinCombo();
+        }
     }//GEN-LAST:event_cboPinItemStateChanged
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
