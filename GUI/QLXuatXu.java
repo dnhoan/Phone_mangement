@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
@@ -131,28 +132,31 @@ public class QLXuatXu extends javax.swing.JFrame {
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jrdioDangKD)
                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JradioNgungKD))
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22)
                             .addGroup(jPanel20Layout.createSequentialGroup()
                                 .addComponent(btnthem)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnsua)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnlammoi))
-                            .addComponent(jLabel22))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnlammoi)))
+                        .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel20Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnlammoi, btnsua, btnthem});
+
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTenHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -161,10 +165,12 @@ public class QLXuatXu extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnthem)
-                    .addComponent(btnsua)
+                    .addComponent(btnsua, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnlammoi))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
+
+        jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnlammoi, btnsua, btnthem, txtTenHang});
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,7 +190,7 @@ public class QLXuatXu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Danh sách", jPanel1);
@@ -239,7 +245,7 @@ public class QLXuatXu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnkhoiphuc)
-                        .addContainerGap(268, Short.MAX_VALUE))
+                        .addContainerGap(246, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(26, 26, 26))))
@@ -266,11 +272,11 @@ public class QLXuatXu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(231, 231, 231)
                 .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(5, 5, 5)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -369,42 +375,50 @@ public class QLXuatXu extends javax.swing.JFrame {
     private javax.swing.JTextField txtTenHang;
     // End of variables declaration//GEN-END:variables
 
-         int row = -1;
+    int row = -1;
     int rowRecycle = -1;
     List<BusXuatXuModel> list = new ArrayList<>();
     List<BusXuatXuModel> listRecycle = new ArrayList<>();
     DefaultTableModel model, modelRecycle;
     XuatXuService xuatxu = new XuatXuService();
+
     private void init() {
         this.setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("");
         this.fillTable();
         this.fillTable2();
     }
-     public void khoiphuc(){
+
+    public void khoiphuc() {
         BusXuatXuModel modell = this.getForm();
         int id = (int) tblxuatxu2.getValueAt(this.row, 0);
         modell.setMaXuatXu(id);
         try {
-             xuatxu.khoiphuc(modell);
+            xuatxu.khoiphuc(modell);
             this.fillTable();
             fillTable2();
             JOptionPane.showMessageDialog(this, "khôi phục thành công");
         } catch (Exception e) {
         }
     }
-       public void update() {
+
+    public void update() {
         BusXuatXuModel modell = this.getForm();
         int id = (int) tblxuatxu.getValueAt(this.row, 0);
         modell.setMaXuatXu(id);
         try {
             xuatxu.update(modell);
             this.fillTable();
+            fillTable2();
+            this.clearForm();
+            this.updateStatus();
             JOptionPane.showMessageDialog(this, "cập nhật thành công");
         } catch (Exception e) {
         }
     }
-       public void insert() {
+
+    public void insert() {
         BusXuatXuModel busXuatXumodel = getForm();
         try {
             xuatxu.insert(busXuatXumodel);
@@ -415,78 +429,85 @@ public class QLXuatXu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Thêm thành công");
         } catch (Exception e) {
         }
-        
+
     }
-        public BusXuatXuModel getForm() {
-         BusXuatXuModel modell = new BusXuatXuModel();
+
+    public BusXuatXuModel getForm() {
+        BusXuatXuModel modell = new BusXuatXuModel();
         modell.setNoiXuatXu(txtTenHang.getText());
         boolean trangthai;
-        if(JradioNgungKD.isSelected()){
+        if (JradioNgungKD.isSelected()) {
             trangthai = false;
-        }else trangthai=true;
-        modell.setTrangThai(trangthai);    
+        } else {
+            trangthai = true;
+        }
+        modell.setTrangThai(trangthai);
         return modell;
     }
-         public void edit() {
+
+    public void edit() {
         int id = (int) tblxuatxu.getValueAt(this.row, 0);
         BusXuatXuModel bushangmodel = this.xuatxu.selectByID(id);
         this.setForm(bushangmodel);
         this.updateStatus();
     }
-         public void setForm(BusXuatXuModel bushangmodel) {
+
+    public void setForm(BusXuatXuModel bushangmodel) {
         txtTenHang.setText(bushangmodel.getNoiXuatXu());
-         boolean trangthai = bushangmodel.isTrangThai();
-        if(trangthai = true){
+        boolean trangthai = bushangmodel.isTrangThai();
+        if (trangthai = true) {
             jrdioDangKD.setSelected(true);
         }
         //jrdioDangKD.setSelected(bushangmodel.isTrangThai());
-        
+
     }
-      public void clearForm() {
+
+    public void clearForm() {
         BusXuatXuModel bus = new BusXuatXuModel();
         setForm(bus);
-        row=-1;
-       this.updateStatus();
-       
+        row = -1;
+        this.updateStatus();
+
     }
 
     private void fillTable() {
-          row = -1;
+        row = -1;
         model = (DefaultTableModel) tblxuatxu.getModel();
         model.setRowCount(0);
         try {
             this.list = xuatxu.selectAll();
-            for(BusXuatXuModel sp : list){
-                model.addRow(new Object[]{sp.getMaXuatXu(),sp.getNoiXuatXu(),sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"});               
+            for (BusXuatXuModel sp : list) {
+                model.addRow(new Object[]{sp.getMaXuatXu(), sp.getNoiXuatXu(), sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"});
             }
-           this.updateStatus();
+            this.updateStatus();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-     public void updateStatus() {
-         boolean edit = (this.row >= 0);
+
+    public void updateStatus() {
+        boolean edit = (this.row >= 0);
         btnthem.setEnabled(!edit);
         btnsua.setEnabled(edit);
         btnlammoi.setEnabled(edit);
-        
+
     }
-     
 
     private void fillTable2() {
-         row = -1;
+        row = -1;
         modelRecycle = (DefaultTableModel) tblxuatxu2.getModel();
         modelRecycle.setRowCount(0);
-        
+
         try {
             listRecycle = xuatxu.selectStatus();
-            for(BusXuatXuModel sp : listRecycle){
+            for (BusXuatXuModel sp : listRecycle) {
                 modelRecycle.addRow(new Object[]{
                     sp.getMaXuatXu(), sp.getNoiXuatXu(), sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"
                 });
-            }updateStatus();
+            }
+            updateStatus();
         } catch (Exception e) {
         }
     }
-    
+
 }
