@@ -18,13 +18,6 @@ public class BusSanPham {
     public BusSanPham() {
     }
 
-    public BusSanPham(int masp, String tensp, BusDongSpModel busDongSpModel, boolean trangThai) {
-        this.masp = masp;
-        this.tensp = tensp;
-        this.busDongSpModel = busDongSpModel;
-        this.trangThai = trangThai;
-    }
-
     public BusSanPham(int masp, String tensp, BusDongSpModel busDongSpModel) {
         this.masp = masp;
         this.tensp = tensp;

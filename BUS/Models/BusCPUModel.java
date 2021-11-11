@@ -5,6 +5,8 @@
  */
 package BUS.Models;
 
+import DAL.Models.*;
+
 /**
  *
  * @author ADMIN
@@ -26,6 +28,7 @@ public class BusCPUModel {
     }
 
     public BusCPUModel() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getMaCPU() {

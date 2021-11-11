@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class CpuService implements ICpuService,IPhoneMangementService<BusCPUModel, Integer> {
+public class CpuService implements ICpuService,IPhoneMangementService<BusCPUModel, String> {
 
     @Override
     public void insert(BusCPUModel entity) {
@@ -47,7 +47,7 @@ public class CpuService implements ICpuService,IPhoneMangementService<BusCPUMode
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         
     }
 
@@ -98,8 +98,8 @@ public class CpuService implements ICpuService,IPhoneMangementService<BusCPUMode
    
 
     @Override
-    public BusCPUModel selectByID(Integer id) {
-          if (this.selectBySql(SELECT_BY_ID,id) == null) {
+    public BusCPUModel selectByID(String id) {
+          if (this.selectBySql(SELECT_BY_ID,id).isEmpty()) {
             return null;
         }
         return this.selectBySql(SELECT_BY_ID,id).get(0);

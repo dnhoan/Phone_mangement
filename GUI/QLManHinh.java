@@ -16,11 +16,9 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ADMIN
  */
-public class QLManHinh extends javax.swing.JFrame implements IEditService<BusManHinhModel> {
-
+public class QLManHinh extends javax.swing.JFrame implements IEditService<BusManHinhModel>{
     ManHinhService mhser = new ManHinhService();
     int row = -1;
-
     /**
      * Creates new form QLManHinh
      */
@@ -147,14 +145,14 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -196,14 +194,14 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -217,38 +215,40 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(cboDPG, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
                     .addComponent(txtLoaiMH, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(rdoDKD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdoNKD, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cboDPG, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel4))
                             .addComponent(jLabel3)
-                            .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(rdoDKD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(rdoNKD, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(68, 68, 68))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtKichThuoc, txtLoaiMH});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(16, Short.MAX_VALUE)
+                        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtLoaiMH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +258,7 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addGap(9, 9, 9)
                         .addComponent(cboDPG, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,37 +268,38 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rdoDKD)
                             .addComponent(rdoNKD))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDKDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDKDMouseClicked
-        if (evt.getClickCount() == 1) {
+        if(evt.getClickCount()==1){
             this.row = tblDKD.getSelectedRow();
             this.edit();
         }
     }//GEN-LAST:event_tblDKDMouseClicked
 
     private void tblNKDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNKDMouseClicked
-        if (evt.getClickCount() == 1) {
+         if(evt.getClickCount()==1){
             this.row = tblNKD.getSelectedRow();
             this.edit();
         }
     }//GEN-LAST:event_tblNKDMouseClicked
 
     private void tabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabsMouseClicked
-        if (tabs.getSelectedIndex() == 0) {
+           if(tabs.getSelectedIndex()==0){
             clearForm();
             updateStatus();
-
-        } else {
+       
+       }else{
             clearForm();
             updateStatus2();
-        }
+       }
     }//GEN-LAST:event_tabsMouseClicked
 
     private void btnLamMoiForm4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiForm4ActionPerformed
@@ -380,11 +381,10 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     @Override
     public void init() {
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.fillTableDKD();
         this.fillTableNKD();
         updateStatus();
-        row = -1;
+        row =-1;
     }
 
     @Override
@@ -392,7 +392,7 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         BusManHinhModel busMhModel = new BusManHinhModel();
         busMhModel.setLoaiManHinh(txtLoaiMH.getText());
         busMhModel.setKichThuoc(Float.parseFloat(txtKichThuoc.getText()));
-        busMhModel.setDoPhanGiaiManHinh(cboDPG.getSelectedItem() + "");
+        busMhModel.setDoPhanGiaiManHinh(cboDPG.getSelectedItem()+"");
         busMhModel.setTrangThai(rdoDKD.isSelected());
         return busMhModel;
     }
@@ -400,31 +400,30 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     @Override
     public void setForm(BusManHinhModel model) {
         txtLoaiMH.setText(model.getLoaiManHinh());
-        txtKichThuoc.setText(model.getKichThuoc() + "");
+        txtKichThuoc.setText(model.getKichThuoc()+"");
         cboDPG.setSelectedItem(model.getDoPhanGiaiManHinh());
         rdoDKD.setSelected(model.isTrangThai());
         rdoNKD.setSelected(!model.isTrangThai());
-
+        
     }
 
     @Override
-    public void updateStatus() {
+     public void updateStatus() {
         boolean edit = (this.row >= 0);
         btnThem.setEnabled(!edit);
         btnSua.setEnabled(edit);
-        btnLamMoiForm4.setEnabled(edit);
+        btnLamMoiForm4.setEnabled(true);
     }
-
     public void updateStatus2() {
         boolean edit = (this.row >= 0);
-        btnThem.setEnabled(!edit);
+        btnThem.setEnabled(false);
         btnSua.setEnabled(edit);
-        btnLamMoiForm4.setEnabled(edit);
+        btnLamMoiForm4.setEnabled(false);
     }
 
     @Override
     public void insert() {
-        BusManHinhModel busmhModel = this.getForm();
+         BusManHinhModel busmhModel = this.getForm();
         try {
             mhser.insert(busmhModel);
             this.fillTableDKD();
@@ -438,7 +437,7 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     }
 
     @Override
-    public void update() {
+     public void update() {
 
         BusManHinhModel busmhModel = this.getForm();
         String idmh = (String) tblDKD.getValueAt(this.row, 0);
@@ -456,8 +455,8 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     }
 
     public void update2() {
-        BusManHinhModel busmhModel = this.getForm();
-        String idmh = (String) tblNKD.getValueAt(this.row, 0);
+         BusManHinhModel busmhModel = this.getForm();
+           String idmh = (String) tblNKD.getValueAt(this.row, 0);
         busmhModel.setMaManHinh(idmh);
         try {
             mhser.update(busmhModel);
@@ -470,6 +469,7 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         }
     }
 
+
     @Override
     public void delete() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -477,23 +477,25 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
 
     @Override
     public void edit() {
-        if (tabs.getSelectedIndex() == 0) {
+         if (tabs.getSelectedIndex() == 0) {
+            
             String idmh = (String) tblDKD.getValueAt(this.row, 0);
-            BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
+
+             BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
             setForm(pinmodel);
-            updateStatus();
+         updateStatus();
         } else {
             String idmh = (String) tblNKD.getValueAt(this.row, 0);
-            BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
+            BusManHinhModel  pinmodel = this.mhser.selectByID(idmh);
             setForm(pinmodel);
-            updateStatus2();
-
+         updateStatus2();
+        
         }
     }
 
     @Override
     public void clearForm() {
-        BusManHinhModel mhmodel = new BusManHinhModel();
+         BusManHinhModel mhmodel = new BusManHinhModel();
         this.row = -1;
         this.setForm(mhmodel);
         this.updateStatus();
@@ -535,26 +537,25 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         modeldkd.setRowCount(0);
         try {
             List<BusManHinhModel> listmh = mhser.selectAllKD();
-            for (BusManHinhModel mh : listmh) {
-                Object[] row = {mh.getMaManHinh(), mh.getLoaiManHinh(), mh.getKichThuoc(), mh.getDoPhanGiaiManHinh(), mh.isTrangThai() ? "Đang kinh doanh" : "Ngừng kinh doanh"};
+            for(BusManHinhModel mh:listmh){
+                Object []row ={mh.getMaManHinh(),mh.getLoaiManHinh(),mh.getKichThuoc(),mh.getDoPhanGiaiManHinh(),mh.isTrangThai()?"Đang kinh doanh":"Ngừng kinh doanh"};
                 modeldkd.addRow(row);
             }
-
+               
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    private void fillTableNKD() {
+    private void fillTableNKD(){
         DefaultTableModel modeldkd = (DefaultTableModel) tblNKD.getModel();
         modeldkd.setRowCount(0);
         try {
             List<BusManHinhModel> listmh = mhser.selectAllNKD();
-            for (BusManHinhModel mh : listmh) {
-                Object[] row = {mh.getMaManHinh(), mh.getLoaiManHinh(), mh.getKichThuoc(), mh.getDoPhanGiaiManHinh(), mh.isTrangThai() ? "Đang kinh doanh" : "Ngừng kinh doanh"};
+            for(BusManHinhModel mh:listmh){
+                Object []row ={mh.getMaManHinh(),mh.getLoaiManHinh(),mh.getKichThuoc(),mh.getDoPhanGiaiManHinh(),mh.isTrangThai()?"Đang kinh doanh":"Ngừng kinh doanh"};
                 modeldkd.addRow(row);
             }
-
+               
         } catch (Exception e) {
             e.printStackTrace();
         }

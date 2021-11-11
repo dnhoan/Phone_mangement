@@ -6,11 +6,14 @@
 package BUS.Services;
 
 import BUS.IServices.IDongService;
+import static BUS.IServices.ISanPhamService.SELECT_ALL;
+import BUS.Models.BusDongSpModel;
 import BUS.Models.BusDongSpModel;
 import BUS.Models.BusHangModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,29 +25,12 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
 
     @Override
     public void insert(BusDongSpModel entity) {
-        System.out.println(entity.getBusHangModel().getMaHang() + " " + entity.getTenDong() + " " + entity.isTrangThai());
-        try {
-            this.selectBySql(INSERT,
-                    entity.getTenDong(),
-                    entity.getBusHangModel().getMaHang(),
-                    entity.isTrangThai()
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void update(BusDongSpModel entity) {
-        try {
-            this.selectBySql(UPDATE,
-                    entity.getTenDong(),
-                    entity.getBusHangModel().getMaHang(),
-                    entity.isTrangThai(),
-                    entity.getMaDong()
-            );
-        } catch (Exception e) {
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -54,57 +40,47 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
 
     @Override
     public BusDongSpModel selectByID(Integer id) {
-        if (this.selectBySql(SELECT_BY_ID, id) == null) {
+        if (this.selectBySql(SELECT_ALL).isEmpty()) {
             return null;
         }
-        return this.selectBySql(SELECT_BY_ID, id).get(0);
+        return this.selectBySql(SELECT_ALL).get(0);
     }
 
     @Override
     public List<BusDongSpModel> selectAll() {
-        if (this.selectBySql(SELECT_BY_STATUS) == null) {
+        if (this.selectBySql(SELECT_ALL) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_BY_STATUS);
+        return this.selectBySql(SELECT_ALL);
     }
-
-    public List<BusDongSpModel> selectRecycle() {
-        if (this.selectBySql(SELECT_BY_RECYCLE) == null) {
+    public List<BusDongSpModel> selectByHangsp(int id) {
+        System.out.println(id);
+        if (this.selectBySql(SELECT_BY_MAHANG,id) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_BY_RECYCLE);
+        return this.selectBySql(SELECT_BY_MAHANG, id);
     }
-
-    public List<BusDongSpModel> selectByHangsp(int idHang) {
-        if (this.selectBySql(SELECT_BY_MAHANG, idHang) == null) {
-            return null;
-        }
-        return this.selectBySql(SELECT_BY_MAHANG, idHang);
-    }
-
     @Override
     public List<BusDongSpModel> selectBySql(String sql, Object... args) {
         List<BusDongSpModel> listDongsp = new ArrayList<>();
         try {
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while (rs.next()) {
-                BusHangModel busHangModel = new BusHangModel(
+                BusHangModel dalHangModel = new BusHangModel(
                         rs.getInt("mahang"),
                         rs.getString("tenHang")
                 );
                 BusDongSpModel busDongSpModel = new BusDongSpModel(
                         rs.getInt("madong"),
                         rs.getString("tendong"),
-                        busHangModel,
-                        rs.getBoolean("trangthai")
-                );
+                        dalHangModel);
                 listDongsp.add(busDongSpModel);
             }
             rs.getStatement().close();
             return listDongsp;
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
-        return null;
     }
 
 }

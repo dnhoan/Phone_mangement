@@ -77,7 +77,7 @@ public class BusRamModel {
 
     @Override
     public String toString() {
-        return loaiRam + " - " + dungLuongRam+" gb";
+        return loaiRam + " - " + dungLuongRam;
     }
     
 }

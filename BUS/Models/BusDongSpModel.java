@@ -5,6 +5,8 @@
  */
 package BUS.Models;
 
+import DAL.Models.*;
+
 /**
  *
  * @author ADMIN
@@ -14,16 +16,6 @@ public class BusDongSpModel {
     private String tenDong;
     private BusHangModel busHangModel;
     private boolean trangThai;
-
-    public BusDongSpModel() {
-    }
-
-    public BusDongSpModel(int maDong, String tenDong, BusHangModel busHangModel, boolean trangThai) {
-        this.maDong = maDong;
-        this.tenDong = tenDong;
-        this.busHangModel = busHangModel;
-        this.trangThai = trangThai;
-    }
 
     public BusDongSpModel(int maDong, String tenDong, BusHangModel busHangModel) {
         this.maDong = maDong;

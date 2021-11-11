@@ -45,8 +45,8 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
         rdoNSD = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel53 = new javax.swing.JPanel();
-        btnSua = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         btnLamMoiForm4 = new javax.swing.JButton();
         tabs = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -70,14 +70,6 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
-        btnSua.setText("Sửa");
-        btnSua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaActionPerformed(evt);
-            }
-        });
-        jPanel53.add(btnSua);
-
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +77,14 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
             }
         });
         jPanel53.add(btnThem);
+
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+        jPanel53.add(btnSua);
 
         btnLamMoiForm4.setText("Làm mới");
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
@@ -296,7 +296,6 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     @Override
     public void init() {
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         fillTableDSD();
         fillTableNSD();
         updateStatus();
@@ -455,6 +454,7 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 Object[] row = {hdh.getMaHeDieuHanh(), hdh.getTenHeDieuHanh(), hdh.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
                 modeldsd.addRow(row);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -469,6 +469,7 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 Object[] row = {hdh.getMaHeDieuHanh(), hdh.getTenHeDieuHanh(), hdh.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
                 modelnsd.addRow(row);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
