@@ -30,6 +30,7 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     /**
      * Creates new form QLLoaiSanPham
      */
+    int currentId;
     public QLLoaiSanPham() {
         initComponents();
         this.init();
@@ -286,7 +287,8 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
 
     private void tblHoatDongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoatDongMouseClicked
         this.row = tblHoatDong.getSelectedRow();
-        this.edit();
+        this.currentId = (int) tblHoatDong.getValueAt(row, 0);
+       this.edit();
     }//GEN-LAST:event_tblHoatDongMouseClicked
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -387,6 +389,7 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
 
     int row = -1;
     int rowRecycle = -1;
+    
     List<BusSanPham> listSanPham = new ArrayList<>();
     List<BusSanPham> listRecycle = new ArrayList<>();
     DefaultTableModel modelChinh, modelXoa;
@@ -548,7 +551,7 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     @Override
     public void update() {
         DalLoaiSanPham dalLoaiSanPham = this.getInfoForm();
-        dalLoaiSanPham.setMasp((int) tblHoatDong.getValueAt(row, 0));
+        dalLoaiSanPham.setMasp(this.currentId);
         try {
             loaiSPService.update(dalLoaiSanPham);
             this.fillTable();
@@ -559,9 +562,9 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
 
     @Override
     public void delete() {
-        int id = (int) tblHoatDong.getValueAt(row, 0);
+//        int id = (int) tblHoatDong.getValueAt(row, 0);
         try {
-            loaiSPService.delete(id);
+            loaiSPService.delete(currentId);
             this.clearForm();
             this.fillTableRecycle();
             this.fillTable();
@@ -574,9 +577,9 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     @Override
     public void edit() {
         BusSanPham busSanPham = new BusSanPham();
-        int id = (int) tblHoatDong.getValueAt(this.row, 0);
+//        int id = (int) tblHoatDong.getValueAt(this.row, 0);
         try {
-            busSanPham = loaiSPService.selectID(id);
+            busSanPham = loaiSPService.selectID(this.currentId);
             this.setForm(busSanPham);
             this.updateStatus();
         } catch (Exception e) {

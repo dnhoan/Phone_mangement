@@ -22,6 +22,7 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
 
     @Override
     public void insert(BusDongSpModel entity) {
+        System.out.println(entity.getBusHangModel().getMaHang() + " " + entity.getTenDong() + " " + entity.isTrangThai());
         try {
             this.selectBySql(INSERT,
                     entity.getTenDong(),
@@ -29,6 +30,7 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
                     entity.isTrangThai()
             );
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -73,12 +75,11 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
         return this.selectBySql(SELECT_BY_RECYCLE);
     }
 
-    public List<BusDongSpModel> selectByHangsp(int id) {
-        System.out.println(id);
-        if (this.selectBySql(SELECT_BY_MAHANG, id) == null) {
+    public List<BusDongSpModel> selectByHangsp(int idHang) {
+        if (this.selectBySql(SELECT_BY_MAHANG, idHang) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_BY_MAHANG, id);
+        return this.selectBySql(SELECT_BY_MAHANG, idHang);
     }
 
     @Override
@@ -87,14 +88,14 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
         try {
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while (rs.next()) {
-                BusHangModel dalHangModel = new BusHangModel(
+                BusHangModel busHangModel = new BusHangModel(
                         rs.getInt("mahang"),
                         rs.getString("tenHang")
                 );
                 BusDongSpModel busDongSpModel = new BusDongSpModel(
                         rs.getInt("madong"),
                         rs.getString("tendong"),
-                        dalHangModel,
+                        busHangModel,
                         rs.getBoolean("trangthai")
                 );
                 listDongsp.add(busDongSpModel);

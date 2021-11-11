@@ -97,11 +97,11 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
         }
         return this.select(SELECT_RECYCLE);
     }
-    public List<BusSanPham> selectByDongsp(Integer id) {
-        if (this.select(SELECT_RECYCLE, id) == null) {
+    public List<BusSanPham> selectByDongsp(Integer idDong) {
+        if (this.select(SELECT_BY_ID_DONG, idDong) == null) {
             return null;
         }
-        return this.select(SELECT_RECYCLE, id);
+        return this.select(SELECT_BY_ID_DONG, idDong);
     } 
     public List<BusSanPham> selectBySearch(String keyWord) {
         return this.select(SELECT_BY_KEYWORD, "%" + keyWord + "%");
@@ -120,7 +120,8 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
         BusSanPham sanPham = new BusSanPham(
                 rs.getInt("masp"),
                 rs.getString("tensp"),
-                busDongSpModel);
+                busDongSpModel,
+                rs.getBoolean("trangthai"));
         return sanPham;
     }
 

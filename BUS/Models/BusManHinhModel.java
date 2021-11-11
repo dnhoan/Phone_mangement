@@ -77,7 +77,7 @@ public class BusManHinhModel {
 
     @Override
     public String toString() {
-        return maManHinh + " - " + loaiManHinh;
+        return  loaiManHinh + " - " + doPhanGiaiManHinh + " inch";
     }
 
 }

@@ -69,7 +69,7 @@ public class BusRomModel {
 
     @Override
     public String toString() {
-        return "" + getLoaiRon()+" - " + getDungLuongRom();
+        return "" + getLoaiRon()+" - " + getDungLuongRom() +" gb";
     }
     
 }

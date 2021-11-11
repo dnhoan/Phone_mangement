@@ -29,6 +29,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
     int row = -1;
     DongSPService dongSPService = new DongSPService();
     HangService hangService = new HangService();
+
     public QLDongSP() {
         initComponents();
         this.init();
@@ -98,9 +99,9 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
 
         jLabel3.setText("Trạng thái");
 
-        jLabel2.setText("Độ phân giảii");
+        jLabel2.setText("Hãng sản phẩm");
 
-        jLabel1.setText("Loại Camera");
+        jLabel1.setText("Tên dòng sản phẩm");
 
         TAB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -116,7 +117,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
                 {null, null, null, null}
             },
             new String [] {
-                "Mã dòng", "Tên dòng sản phẩm", "Độ phân giải", "Trạng thái"
+                "Mã dòng", "Tên dòng sản phẩm", "Hãng sản phẩm", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -160,15 +161,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
             new String [] {
                 "Mã dòng sản phẩm", "Tên dòng sản phẩm", "Hãng sản phẩm", "Trạng thái"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         tblnsd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblnsdMouseClicked(evt);
@@ -358,6 +351,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
 
     DefaultComboBoxModel<BusHangModel> hangModel;
     List<BusHangModel> listHang = new ArrayList<>();
+
     @Override
     public void init() {
         this.setLocationRelativeTo(null);
@@ -370,17 +364,15 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
     }
 
     void fillTableDsd() {
-
         DefaultTableModel modelsd = (DefaultTableModel) tbldsd.getModel();
         modelsd.setRowCount(0);
         try {
             List<BusDongSpModel> listdsd = dongSPService.selectAll();
             for (BusDongSpModel x : listdsd) {
-                Object[] row = {x.getMaDong(), x.getTenDong(), x.getBusHangModel().getTenHang(),
+                Object[] row = {x.getMaDong(), x.getTenDong(), x.getBusHangModel(),
                     x.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
                 modelsd.addRow(row);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -445,6 +437,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
         try {
             dongSPService.insert(busDongSpModel);
             this.fillTableDsd();
+            this.fillTableNsd();
             this.clearForm();
             this.updateStatus();
             MessageService.alert(this, "ok");
@@ -511,8 +504,8 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
         hangModel.removeAllElements();
         try {
             listHang = hangService.selectAll();
-            if(listHang != null) {
-                for(BusHangModel busHangModel: listHang) {
+            if (listHang != null) {
+                for (BusHangModel busHangModel : listHang) {
                     hangModel.addElement(busHangModel);
                 }
             }
@@ -554,7 +547,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
     public BusDongSpModel getForm() {
         BusDongSpModel busDongSpModel = new BusDongSpModel();
         busDongSpModel.setTenDong(txtTenDongsp.getText());
-        busDongSpModel.setBusHangModel((BusHangModel) cboHangsp.getModel().getSelectedItem());
+        busDongSpModel.setBusHangModel((BusHangModel) cboHangsp.getSelectedItem());
         busDongSpModel.setTrangThai(rdo1.isSelected());
         return busDongSpModel;
     }

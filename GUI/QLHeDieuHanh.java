@@ -455,7 +455,6 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 Object[] row = {hdh.getMaHeDieuHanh(), hdh.getTenHeDieuHanh(), hdh.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
                 modeldsd.addRow(row);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -470,7 +469,6 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 Object[] row = {hdh.getMaHeDieuHanh(), hdh.getTenHeDieuHanh(), hdh.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
                 modelnsd.addRow(row);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
