@@ -69,7 +69,7 @@ public class BusPinModel {
 
     @Override
     public String toString() {
-        return maLoaiPin + " - " + loaiPin;
+        return loaiPin + " - " + dungLuongPin + " mAh";
     }
 
 }

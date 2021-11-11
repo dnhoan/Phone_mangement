@@ -79,7 +79,7 @@ public class NhanVienService implements IPhoneMangementService<NhanVienModel, St
 
     @Override
     public NhanVienModel selectByID(String id) {
-        String sql = "SELECT * FROM Nhanvien WHERE Manv=?";
+        String sql = "SELECT * FROM Nhanvien WHERE MaNV=?";
         List<NhanVienModel> list = selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
     }
