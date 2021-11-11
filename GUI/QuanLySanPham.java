@@ -974,11 +974,11 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_txtSearchBoxKeyPressed
 
     private void txtGiamDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiamDanActionPerformed
-        // TODO add your handling code here:
+        this.sortDesc();
     }//GEN-LAST:event_txtGiamDanActionPerformed
 
     private void btnTangDanbtnTangDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTangDanbtnTangDanActionPerformed
-        // TODO add your handling code here:
+       this.sortAsend();
     }//GEN-LAST:event_btnTangDanbtnTangDanActionPerformed
 
 
@@ -1545,7 +1545,43 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             e.printStackTrace();
         }
     }
+    Comparator<BusCTSanPhamModel> comparator = Comparator.comparing(BusCTSanPhamModel::getGiaBan);
+    void sortDesc() {
+        System.out.println("bat dau sort");
+        Collections.sort(listSp, comparator);
+        System.out.println("sort ok");
+        this.listSp.forEach(sp -> {
+                System.out.println(sp.getGiaBan() + "");
+            });
+        this.fill();
+    }
 
+    void fill() {
+        modelSp = (DefaultTableModel) tblSanPham.getModel();
+        modelSp.setRowCount(0);
+        this.clearForm();
+        if (this.listSp.size() > 0) {
+            this.listSp.forEach(sp -> {
+                this.modelSp.addRow(new Object[]{
+                    sp.getMaCTSP(),
+                    sp.getSanPhamModel().getTensp(),
+                    sp.getGiaBan() + " VNĐ",
+                    sp.getRamModel().getDungLuongRam() + " gb",
+                    sp.getPinModel().getDungLuongPin() + " mnAh",
+                    sp.getcPUModel().getTenCPU(),
+                    sp.getRomModel().getDungLuongRom() + " gb",
+                    sp.getManHinhModel().getKichThuoc() + " inch",
+                    sp.getTonKho()
+                });
+            });
+        }
+    }
+
+    void sortAsend() {
+        Collections.sort(listSp, comparator);
+        Collections.reverse(listSp);
+        this.fill();
+    }
     @Override
     public void first() {
         this.row = 0;
