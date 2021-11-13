@@ -16,7 +16,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import BUS.IServices.IXuatXuService;
+import BUS.Models.BusRamModel;
 import BUS.Models.BusXuatXuModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -77,7 +80,21 @@ public class XuatXuService implements IXuatXuService, IPhoneMangementService<Bus
         }
         return this.selectBySql(SELECT_BY_STATUS,0);
     }
-
+    public void fillCombo(DefaultComboBoxModel<BusXuatXuModel> model, JComboBox cbo, List<BusXuatXuModel> list) {
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = this.selectAll();
+            if (list != null) {
+                for (BusXuatXuModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public List<BusXuatXuModel> selectBySql(String sql, Object... args) {
         List<BusXuatXuModel> listCam = new ArrayList<>();

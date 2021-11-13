@@ -44,14 +44,10 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JTable;
-import javax.swing.RowSorter;
-import javax.swing.SortOrder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -81,12 +77,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private void initComponents() {
 
         jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblRecycle = new javax.swing.JTable();
-        txtSearchRecycle = new javax.swing.JTextField();
-        jLabel81 = new javax.swing.JLabel();
-        btnRestore = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
@@ -162,77 +152,12 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel69 = new javax.swing.JLabel();
         txtGiamDan = new javax.swing.JButton();
         btnTangDan = new javax.swing.JButton();
-
-        tblRecycle.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Mã sp", "Tên sp", "Hãng sp", "Dòng sp", "Xuất xứ", "CPU", "Ram", "Rom", "Màn hình", "Pin", "Camera", "Hệ điều hành", "Giá"
-            }
-        ));
-        tblRecycle.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblRecycleMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblRecycle);
-
-        txtSearchRecycle.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtSearchRecyclesearch(evt);
-            }
-        });
-
-        jLabel81.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel81.setText("Tìm kiếm");
-
-        btnRestore.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Left.png"))); // NOI18N
-        btnRestore.setText("Khôi phục lại");
-        btnRestore.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRestoreActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(txtSearchRecycle, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 669, Short.MAX_VALUE)
-                .addComponent(btnRestore, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel81)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearchRecycle, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRestore))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnRestore, txtSearchRecycle});
-
-        jTabbedPane4.addTab("Đã xóa", jPanel1);
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRecycle = new javax.swing.JTable();
+        txtSearchRecycle = new javax.swing.JTextField();
+        jLabel81 = new javax.swing.JLabel();
+        btnRestore = new javax.swing.JButton();
 
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -642,20 +567,18 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                         .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(383, 383, 383))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -670,7 +593,10 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)))
+                        .addGap(29, 29, 29))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -785,7 +711,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                                             .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboSanPham, txtGiaBan, txtTonKho});
@@ -793,6 +719,77 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnTangDan, txtGiamDan, txtSearchBox});
 
         jTabbedPane4.addTab("Sản phẩm", jPanel3);
+
+        tblRecycle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã sp", "Tên sp", "Hãng sp", "Dòng sp", "Xuất xứ", "CPU", "Ram", "Rom", "Màn hình", "Pin", "Camera", "Hệ điều hành", "Giá"
+            }
+        ));
+        tblRecycle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRecycleMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblRecycle);
+
+        txtSearchRecycle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchRecyclesearch(evt);
+            }
+        });
+
+        jLabel81.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel81.setText("Tìm kiếm");
+
+        btnRestore.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnRestore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Left.png"))); // NOI18N
+        btnRestore.setText("Khôi phục lại");
+        btnRestore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestoreActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel81, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(txtSearchRecycle, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 669, Short.MAX_VALUE)
+                .addComponent(btnRestore, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel81)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearchRecycle, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRestore))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103))
+        );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnRestore, txtSearchRecycle});
+
+        jTabbedPane4.addTab("Đã xóa", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -978,7 +975,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_txtGiamDanActionPerformed
 
     private void btnTangDanbtnTangDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTangDanbtnTangDanActionPerformed
-       this.sortAsend();
+        this.sortAsend();
     }//GEN-LAST:event_btnTangDanbtnTangDanActionPerformed
 
 
@@ -1115,15 +1112,15 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         this.fillRecycle();
         this.updateStatus();
         this.fillTable();
-        this.fillRomCombo();
-        this.fillCameraCombo();
-        this.fillCPUCombo();
+        romService.fillCombo(romModel, cboRom, listRom);
+        cameraService.fillCombo(cameraModel, cboCamera, listCamera);
+        cpuService.fillCombo(cpuModel, cboCpu, listCpu);
+        heDieuHanhService.fillCombo(heDieuHanhModel, cboHeDieuHanh, listHeDieuHanh);
+        manHinhService.fillCombo(manHinhModel, cboManHinh, listManHinh);
+        pinService.fillCombo(pinModel, cboPin, listPin);
+        ramService.fillCombo(ramModel, cboRam, listRam);
+        xuatXuService.fillCombo(xuatXuModel, cboXuatXu, listXuatXu);
         this.fillHangCombo();
-        this.fillHeDieuHanhCombo();
-        this.fillManHinhCombo();
-        this.fillPinCombo();
-        this.fillRamCombo();
-        this.fillXuatXuCombo();
         this.fillTenSanPhamCombo();
         this.clearForm();
     }
@@ -1302,7 +1299,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                     sp.getCameraModel(),
                     sp.getHeDieuHanhModel(),
                     sp.getTonKho(),
-                    sp.getGiaBan() + " VNĐ"
+                    Double.valueOf(sp.getGiaBan()).longValue() + " VNĐ"
                 });
             });
             this.rowRecycle = -1;
@@ -1313,8 +1310,8 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }
     int rowRecycle = -1;
     int currentIDRecycle;
+
     void backUp() {
-//        int id = (int) tblRecycle.getValueAt(rowRecycle, 0);
         try {
             sanPhamService.backup(currentIDRecycle);
             this.clearForm();
@@ -1348,7 +1345,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                     sp.getRomModel().getDungLuongRom() + " gb",
                     sp.getManHinhModel().getKichThuoc() + " inch",
                     sp.getTonKho(),
-                    sp.getGiaBan() + " VNĐ"
+                    Double.valueOf(sp.getGiaBan()).longValue() + " VNĐ"
                 });
             });
         } catch (Exception e) {
@@ -1368,191 +1365,96 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     }
 
-    void fillCameraCombo() {
-        this.cameraModel = (DefaultComboBoxModel) cboCamera.getModel();
-        this.cameraModel.removeAllElements();
-        try {
-            this.listCamera = cameraService.selectAll();
-            if (this.listCamera != null) {
-                for (BusCameraModel cam : this.listCamera) {
-                    this.cameraModel.addElement(cam);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillCPUCombo() {
-        this.cpuModel = (DefaultComboBoxModel) cboCpu.getModel();
-        this.cpuModel.removeAllElements();
-        try {
-            this.listCpu = cpuService.selectAll();
-            if (this.listCpu != null) {
-                for (BusCPUModel cpu : this.listCpu) {
-                    this.cpuModel.addElement(cpu);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillDongCombo() {
-        this.dongspModel = (DefaultComboBoxModel) cboDongsp.getModel();
-        this.dongspModel.removeAllElements();
-        BusHangModel busHangModel = (BusHangModel) cboHang.getSelectedItem();
-        System.out.println(busHangModel.getMaHang());
-        try {
-            if (busHangModel != null) {
-                this.listDong = dongSPService.selectByHangsp(busHangModel.getMaHang());
-                if (this.listDong != null) {
-                    for (BusDongSpModel dong : this.listDong) {
-                        this.dongspModel.addElement(dong);
-                    }
-                }
-                this.fillTenSanPhamCombo();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillTenSanPhamCombo() {
-        this.sanPhamModel = (DefaultComboBoxModel) cboSanPham.getModel();
-        this.sanPhamModel.removeAllElements();
-        BusDongSpModel busDongSpModel = (BusDongSpModel) cboDongsp.getSelectedItem();
-        try {
-            if (busDongSpModel != null) {
-                System.out.println(busDongSpModel.getMaDong());
-                this.listLoaisp = loaiSPService.selectByDongsp(busDongSpModel.getMaDong());
-            }
-
-            if (this.listLoaisp != null) {
-                for (BusSanPham sp : this.listLoaisp) {
-                    this.sanPhamModel.addElement(sp);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillHangCombo() {
-        this.hangspModel = (DefaultComboBoxModel) cboHang.getModel();
-        this.hangspModel.removeAllElements();
-        try {
-            this.listHang = hangService.selectAll();
-            if (this.listHang != null) {
-                for (BusHangModel hang : this.listHang) {
-                    this.hangspModel.addElement(hang);
-                }
-                this.fillDongCombo();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillHeDieuHanhCombo() {
-        this.heDieuHanhModel = (DefaultComboBoxModel) cboHeDieuHanh.getModel();
-        this.heDieuHanhModel.removeAllElements();
-        try {
-            this.listHeDieuHanh = heDieuHanhService.selectAll();
-            if (this.listHeDieuHanh != null) {
-                for (BusHeDieuHanhModel he : this.listHeDieuHanh) {
-                    this.heDieuHanhModel.addElement(he);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        fillDongCombo();
-    }
-
-    void fillManHinhCombo() {
-        this.manHinhModel = (DefaultComboBoxModel) cboManHinh.getModel();
-        this.manHinhModel.removeAllElements();
-        try {
-            this.listManHinh = manHinhService.selectAll();
-            if (this.listManHinh != null) {
-                for (BusManHinhModel screen : this.listManHinh) {
-                    this.manHinhModel.addElement(screen);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    void fillPinCombo() {
-        this.pinModel = (DefaultComboBoxModel) cboPin.getModel();
-        this.pinModel.removeAllElements();
-        try {
-            this.listPin = pinService.selectAll();
-            if (this.listPin != null) {
-                for (BusPinModel pin : this.listPin) {
-                    this.pinModel.addElement(pin);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillRamCombo() {
-        this.ramModel = (DefaultComboBoxModel) cboRam.getModel();
-        this.ramModel.removeAllElements();
-        try {
-            this.listRam = ramService.selectAll();
-            if (this.listRam != null) {
-                for (BusRamModel ram : this.listRam) {
-                    this.ramModel.addElement(ram);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillRomCombo() {
-        this.romModel = (DefaultComboBoxModel) cboRom.getModel();
-        this.romModel.removeAllElements();
-        try {
-            this.listRom = romService.selectAll();
-            if (this.listRom != null) {
-                for (BusRomModel rom : this.listRom) {
-                    this.romModel.addElement(rom);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    void fillXuatXuCombo() {
-        this.xuatXuModel = (DefaultComboBoxModel) cboXuatXu.getModel();
-        this.xuatXuModel.removeAllElements();
-        try {
-            this.listXuatXu = xuatXuService.selectAll();
-            if (this.listXuatXu != null) {
-                for (BusXuatXuModel xuatXu : this.listXuatXu) {
-                    this.xuatXuModel.addElement(xuatXu);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    void fillHeDieuHanhCombo() {
+//        this.heDieuHanhModel = (DefaultComboBoxModel) cboHeDieuHanh.getModel();
+//        this.heDieuHanhModel.removeAllElements();
+//        try {
+//            this.listHeDieuHanh = heDieuHanhService.selectAll();
+//            if (this.listHeDieuHanh != null) {
+//                for (BusHeDieuHanhModel he : this.listHeDieuHanh) {
+//                    this.heDieuHanhModel.addElement(he);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        fillDongCombo();
+//    }
+//    void fillManHinhCombo() {
+//        this.manHinhModel = (DefaultComboBoxModel) cboManHinh.getModel();
+//        this.manHinhModel.removeAllElements();
+//        try {
+//            this.listManHinh = manHinhService.selectAll();
+//            if (this.listManHinh != null) {
+//                for (BusManHinhModel screen : this.listManHinh) {
+//                    this.manHinhModel.addElement(screen);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//    void fillPinCombo() {
+//        this.pinModel = (DefaultComboBoxModel) cboPin.getModel();
+//        this.pinModel.removeAllElements();
+//        try {
+//            this.listPin = pinService.selectAll();
+//            if (this.listPin != null) {
+//                for (BusPinModel pin : this.listPin) {
+//                    this.pinModel.addElement(pin);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    void fillRamCombo() {
+//        this.ramModel = (DefaultComboBoxModel) cboRam.getModel();
+//        this.ramModel.removeAllElements();
+//        try {
+//            this.listRam = ramService.selectAll();
+//            if (this.listRam != null) {
+//                for (BusRamModel ram : this.listRam) {
+//                    this.ramModel.addElement(ram);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    void fillRomCombo() {
+//        this.romModel = (DefaultComboBoxModel) cboRom.getModel();
+//        this.romModel.removeAllElements();
+//        try {
+//            this.listRom = romService.selectAll();
+//            if (this.listRom != null) {
+//                for (BusRomModel rom : this.listRom) {
+//                    this.romModel.addElement(rom);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    void fillXuatXuCombo() {
+//        this.xuatXuModel = (DefaultComboBoxModel) cboXuatXu.getModel();
+//        this.xuatXuModel.removeAllElements();
+//        try {
+//            this.listXuatXu = xuatXuService.selectAll();
+//            if (this.listXuatXu != null) {
+//                for (BusXuatXuModel xuatXu : this.listXuatXu) {
+//                    this.xuatXuModel.addElement(xuatXu);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     Comparator<BusCTSanPhamModel> comparator = Comparator.comparing(BusCTSanPhamModel::getGiaBan);
+
     void sortDesc() {
-        System.out.println("bat dau sort");
         Collections.sort(listSp, comparator);
-        System.out.println("sort ok");
-        this.listSp.forEach(sp -> {
-                System.out.println(sp.getGiaBan() + "");
-            });
         this.fill();
     }
 
@@ -1577,11 +1479,66 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         }
     }
 
+    
+
+    void fillTenSanPhamCombo() {
+        this.sanPhamModel = (DefaultComboBoxModel) cboSanPham.getModel();
+        this.sanPhamModel.removeAllElements();
+        BusDongSpModel busDongSpModel = (BusDongSpModel) cboDongsp.getSelectedItem();
+        try {
+            if (busDongSpModel != null) {
+                this.listLoaisp = loaiSPService.selectByDongsp(busDongSpModel.getMaDong());
+            }
+
+            if (this.listLoaisp != null) {
+                for (BusSanPham sp : this.listLoaisp) {
+                    this.sanPhamModel.addElement(sp);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    void fillDongCombo() {
+        this.dongspModel = (DefaultComboBoxModel) cboDongsp.getModel();
+        this.dongspModel.removeAllElements();
+        BusHangModel busHangModel = (BusHangModel) cboHang.getSelectedItem();
+        try {
+            if (busHangModel != null) {
+                this.listDong = dongSPService.selectByHangsp(busHangModel.getMaHang());
+                if (this.listDong != null) {
+                    for (BusDongSpModel dong : this.listDong) {
+                        this.dongspModel.addElement(dong);
+                    }
+                }
+                this.fillTenSanPhamCombo();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    void fillHangCombo() {
+        this.hangspModel = (DefaultComboBoxModel) cboHang.getModel();
+        this.hangspModel.removeAllElements();
+        try {
+            this.listHang = hangService.selectAll();
+            if (this.listHang != null) {
+                for (BusHangModel hang : this.listHang) {
+                    this.hangspModel.addElement(hang);
+                }
+                this.fillDongCombo();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     void sortAsend() {
         Collections.sort(listSp, comparator);
         Collections.reverse(listSp);
         this.fill();
     }
+
     @Override
     public void first() {
         this.row = 0;

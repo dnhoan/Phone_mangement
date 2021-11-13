@@ -9,12 +9,15 @@ import static BUS.IServices.IPinService.*;
 
 
 import BUS.Models.BusPinModel;
+import BUS.Models.BusPinModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -70,7 +73,20 @@ public class PinService implements IPhoneMangementService<BusPinModel, String> {
         return this.selectBySql(SELECT_BY_STATUS,0);
     }
  
-
+    public void fillCombo(DefaultComboBoxModel<BusPinModel> model, JComboBox cbo, List<BusPinModel> list) {
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = this.selectAll();
+            if (list != null) {
+                for (BusPinModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public List<BusPinModel> selectBySql(String sql, Object... args) {
         List<BusPinModel> listPin = new ArrayList<>();

@@ -9,14 +9,15 @@ import static BUS.IServices.ISanPhamService.SELECT_ALL;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import BUS.IServices.IHangService;
+import BUS.Models.BusDongSpModel;
+import BUS.Models.BusHangModel;
 import BUS.Models.BusHangModel;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-
-
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -26,19 +27,21 @@ public class HangService implements IHangService, IPhoneMangementService<BusHang
 //     String INSERT = "INSERT INTO HangSanPham(TenHang, TrangThai) VALUES (?,?)";
 //    String SELECT_ALL = "SELECT * FROM HangSanPham";
 //    String SELECT_BY_ID = "SELECT * FROM HangSanPham WHERE MaHang = ?";
+
     String KHOIPHUC = "UPDATE HangSanPham SET TrangThai = 1 WHERE MaHang = ?";
 //    String SELECT_BY_STATUS = "SELECT * FROM HangSanPham WHERE TrangThai = 1";
-    
-    public  void khoiphuc(BusHangModel entity){
+
+    public void khoiphuc(BusHangModel entity) {
         try {
             this.selectBySql(KHOIPHUC, entity.getMaHang());
         } catch (Exception e) {
         }
     }
+
     @Override
     public void insert(BusHangModel entity) {
         try {
-            this.selectBySql( INSERT, entity.getTenHang(),entity.isTrangThai() );
+            this.selectBySql(INSERT, entity.getTenHang(), entity.isTrangThai());
         } catch (Exception e) {
         }
     }
@@ -46,15 +49,14 @@ public class HangService implements IHangService, IPhoneMangementService<BusHang
     @Override
     public void update(BusHangModel entity) {
         try {
-            this.selectBySql(UPDATE, entity.getTenHang(),entity.isTrangThai(),entity.getMaHang());
+            this.selectBySql(UPDATE, entity.getTenHang(), entity.isTrangThai(), entity.getMaHang());
         } catch (Exception e) {
         }
     }
 
     @Override
     public void delete(Integer id) {
-       
-        
+
     }
 
     @Override
@@ -67,16 +69,17 @@ public class HangService implements IHangService, IPhoneMangementService<BusHang
 
     @Override
     public List<BusHangModel> selectAll() {
-        if (this.selectBySql(SELECT_BY_STATUS,1) == null) {
+        if (this.selectBySql(SELECT_BY_STATUS, 1) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_BY_STATUS,1);
+        return this.selectBySql(SELECT_BY_STATUS, 1);
     }
-    public List<BusHangModel> selectStatus(){
-         if (this.selectBySql(SELECT_BY_STATUS,0).isEmpty()) {
+
+    public List<BusHangModel> selectStatus() {
+        if (this.selectBySql(SELECT_BY_STATUS, 0).isEmpty()) {
             return null;
         }
-        return this.selectBySql(SELECT_BY_STATUS,0);
+        return this.selectBySql(SELECT_BY_STATUS, 0);
     }
 
     @Override

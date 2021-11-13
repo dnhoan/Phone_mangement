@@ -9,12 +9,15 @@ import BUS.IServices.ICpuService;
 import BUS.Models.BusCPUModel;
 import BUS.Models.BusCPUModel;
 import BUS.Models.BusPinModel;
+import BUS.Models.BusCPUModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -74,7 +77,20 @@ public class CpuService implements ICpuService,IPhoneMangementService<BusCPUMode
         return this.selectBySql(SELECT_BY_STATUS,0);
     }
 
-
+    public void fillCombo(DefaultComboBoxModel<BusCPUModel> model, JComboBox cbo, List<BusCPUModel> list) {
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = this.selectAll();
+            if (list != null) {
+                for (BusCPUModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public List<BusCPUModel> selectBySql(String sql, Object... args) {
         List<BusCPUModel> listCPU = new ArrayList<>();

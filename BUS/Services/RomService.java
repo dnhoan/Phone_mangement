@@ -9,12 +9,15 @@ import BUS.IServices.IRomService;
 import static BUS.IServices.ISanPhamService.SELECT_ALL;
 import BUS.Models.BusRomModel;
 import BUS.Models.BusRomModel;
+import BUS.Models.BusRomModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -93,7 +96,20 @@ public class RomService implements IRomService, IPhoneMangementService<BusRomMod
         }
         return this.selectBySql(SELECT_BY_STATUS, 0);
     }
-
+    public void fillCombo(DefaultComboBoxModel<BusRomModel> model, JComboBox cbo, List<BusRomModel> list) {
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = this.selectAll();
+            if (list != null) {
+                for (BusRomModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public List<BusRomModel> selectBySql(String sql, Object... args) {
         List<BusRomModel> listRoms = new ArrayList<>();
