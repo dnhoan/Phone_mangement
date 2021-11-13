@@ -9,7 +9,6 @@ import BUS.IServices.ILoaiSanPhamService;
 import BUS.Models.BusDongSpModel;
 import BUS.Models.BusHangModel;
 import BUS.Models.BusSanPham;
-import BUS.Models.BusSanPham;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Models.DalLoaiSanPham;
 import DAL.Services.JDBCHelper;
@@ -17,8 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 /**
  *
@@ -100,14 +97,12 @@ public class LoaiSPService implements ILoaiSanPhamService, IPhoneMangementServic
         }
         return this.select(SELECT_RECYCLE);
     }
-
     public List<BusSanPham> selectByDongsp(Integer idDong) {
         if (this.select(SELECT_BY_ID_DONG, idDong) == null) {
             return null;
         }
         return this.select(SELECT_BY_ID_DONG, idDong);
-    }
-
+    } 
     public List<BusSanPham> selectBySearch(String keyWord) {
         return this.select(SELECT_BY_KEYWORD, "%" + keyWord + "%");
     }

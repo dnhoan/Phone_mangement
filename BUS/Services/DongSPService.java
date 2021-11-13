@@ -8,14 +8,11 @@ package BUS.Services;
 import BUS.IServices.IDongService;
 import BUS.Models.BusDongSpModel;
 import BUS.Models.BusHangModel;
-import BUS.Models.BusDongSpModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 /**
  *

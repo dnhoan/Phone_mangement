@@ -8,15 +8,12 @@ package BUS.Services;
 import static BUS.IServices.IHeDieuHanhService.*;
 import BUS.Models.BusHeDieuHanhModel;
 import BUS.Models.BusHeDieuHanhModel;
-import BUS.Models.BusHeDieuHanhModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 /**
  *
@@ -79,20 +76,7 @@ public class HeDieuHanhService implements IPhoneMangementService<BusHeDieuHanhMo
         }
         return this.selectBySql(SELECT_BY_STATUS, 0);
     }
-    public void fillCombo(DefaultComboBoxModel<BusHeDieuHanhModel> model, JComboBox cbo, List<BusHeDieuHanhModel> list) {
-        model = (DefaultComboBoxModel) cbo.getModel();
-        model.removeAllElements();
-        try {
-            list = this.selectAll();
-            if (list != null) {
-                for (BusHeDieuHanhModel bus : list) {
-                    model.addElement(bus);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     @Override
     public List<BusHeDieuHanhModel> selectBySql(String sql, Object... args) {
         List<BusHeDieuHanhModel> listCam = new ArrayList<>();

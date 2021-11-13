@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.Models.BusCPUModel;
+import BUS.Models.BusPinModel;
 import BUS.Services.CpuService;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
@@ -98,13 +99,13 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
         tbldsd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Mã CPU", "Tên CPU", "Trạng thái", "Title 4"
+                "Mã CPU", "Tên CPU", "Trạng thái"
             }
         ));
         tbldsd.addMouseListener(new java.awt.event.MouseAdapter() {

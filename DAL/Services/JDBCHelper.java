@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class JDBCHelper {
 
-    private static final String URL = "jdbc:sqlserver://localhost;database=QLBanDienThoai";
+    private static final String URL = "jdbc:sqlserver://localhost;database=QuanLyBanDienThoai";
     private static final String DRIVE = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String USERNAME = "user";
-    private static final String PASSWORD = "1234";
+    private static final String USERNAME = "sa";
+    private static final String PASSWORD = "123";
 
     static {
         try {

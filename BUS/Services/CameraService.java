@@ -9,15 +9,12 @@ import BUS.IServices.ICameraService;
 import static BUS.IServices.ISanPhamService.SELECT_ALL;
 import BUS.Models.BusCameraModel;
 import BUS.Models.BusCameraModel;
-import BUS.Models.BusCameraModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 
 /**
  *
@@ -76,20 +73,7 @@ public class CameraService implements ICameraService, IPhoneMangementService<Bus
         }
         return this.selectBySql(SELECT_BY_USING);
     }
-    public void fillCombo(DefaultComboBoxModel<BusCameraModel> model, JComboBox cbo, List<BusCameraModel> list) {
-        model = (DefaultComboBoxModel) cbo.getModel();
-        model.removeAllElements();
-        try {
-            list = this.selectAll();
-            if (list != null) {
-                for (BusCameraModel bus : list) {
-                    model.addElement(bus);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     @Override
     public List<BusCameraModel> selectBySql(String sql, Object... args) {
         List<BusCameraModel> listCam = new ArrayList<>();
