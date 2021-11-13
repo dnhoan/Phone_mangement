@@ -826,25 +826,25 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboRomItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboRomItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillRomCombo();
+//            this.fillRomCombo();
         }
     }//GEN-LAST:event_cboRomItemStateChanged
 
     private void cboRamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboRamItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillRamCombo();
+//            this.fillRamCombo();
         }
     }//GEN-LAST:event_cboRamItemStateChanged
 
     private void cboManHinhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboManHinhItemStateChanged
       if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillManHinhCombo();
+//            this.fillManHinhCombo();
         }
     }//GEN-LAST:event_cboManHinhItemStateChanged
 
     private void cboHeDieuHanhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboHeDieuHanhItemStateChanged
         if(evt.getStateChange() == ItemEvent.SELECTED){
-            this.fillHeDieuHanhCombo();
+//            this.fillHeDieuHanhCombo();
         }
     }//GEN-LAST:event_cboHeDieuHanhItemStateChanged
 
@@ -856,7 +856,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboCpuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCpuItemStateChanged
          if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillCPUCombo();
+//            this.fillCPUCombo();
         }
     }//GEN-LAST:event_cboCpuItemStateChanged
 
@@ -874,13 +874,13 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboCameraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCameraItemStateChanged
          if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillCameraCombo();
+//            this.fillCameraCombo();
         }
     }//GEN-LAST:event_cboCameraItemStateChanged
 
     private void cboPinItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboPinItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillPinCombo();
+//            this.fillPinCombo();
         }
     }//GEN-LAST:event_cboPinItemStateChanged
 
