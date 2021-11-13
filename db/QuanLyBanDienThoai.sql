@@ -230,12 +230,17 @@ CREATE TABLE KhachHang(
 	HoTen nvarchar(50) NOT NULL,
 	SDT varchar(15)  NULL,
 	DiaChi nvarchar(50)  NULL,
+	GioiTinh bit NULL,
 	NgaySinh date  null,
 	NgayTao date default getDate() ,
+	GhiChu nvarchar(150),
 	TrangThai bit default 1,
 	PRIMARY KEY (MaKH)
 	)
 GO
+
+
+
 CREATE TABLE KhuyenMai(
 	MaKM int IDENTITY(1,1) NOT NULL,
 	TenKM nvarchar(50) NOT NULL,
@@ -265,7 +270,6 @@ CREATE TABLE NhanVien(
 	TrangThai bit default 1,
 	PRIMARY KEY (MaNV)
 )
-
 GO
 
 CREATE TABLE HoaDon(
@@ -332,7 +336,6 @@ INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Bada',0)
 select * from HeDieuHanh
 
 
-/*
 DROP DATABASE QLBanDienThoai
 DROP TABLE CTSANPHAM
 DROP TABLE SanPham
@@ -365,36 +368,63 @@ INSERT [dbo].[HangSanPham] ([MaHang], [TenHang]) VALUES (5, N'Iphone')
 
 SET IDENTITY_INSERT [dbo].[HangSanPham] OFF
 GO
+	MaKM int IDENTITY(1,1) NOT NULL,
+	TenKM nvarchar(50) NOT NULL,
+	DieuKienKM nvarchar(20) NOT NULL,
+	PhanTramKM float not null,
+	NgayBD Date default getdate(),
+	NgayKT date NOT NULL,
+	TrangThai bit default 1,
+	PRIMARY KEY (MaKM)
 
-SET IDENTITY_INSERT [dbo].[HoaDon] ON 
-INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai], [GiamGia], [MaNV], [MaKH], [MaKM], [TrangThai]) VALUES (1, CAST(N'2020-11-10' AS Date), 1, 0, N'Nam01', N'KH01',N'KM01',1)
-INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai], [GiamGia], [MaNV], [MaKH], [MaKM] ,[TrangThai]) VALUES (2, CAST(N'2020-11-10' AS Date), 1, 0, N'Trong01', N'KH02',N'KM02',1)
-INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai], [GiamGia], [MaNV], [MaKH],[MaKM] ,[TrangThai]) VALUES (3, CAST(N'2020-11-10' AS Date), 1, 0, N'Cuong01', N'KH03',N'KM03',1)
-INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai], [GiamGia], [MaNV], [MaKH], [MaKM],[TrangThai] )VALUES (4, CAST(N'2020-11-10' AS Date), 1, 0, N'Khang01', N'KH04',N'KM04',1)
-INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai], [GiamGia], [MaNV], [MaKH], [MaKM],[TrangThai]) VALUES (5, CAST(N'2020-11-10' AS Date), 1, 0, N'Hoan01', N'KH05',N'KM05',1)
+INSERT [dbo].[KhuyenMai] ([TenKM], [DieuKienKM], [PhanTramKM], [NgayBD], [NgayKT], [TrangThai])  values('dsdsds','dsdsds',30,'2019/03/12','2020/12/24',1)
+
+SET IDENTITY_INSERT [dbo].[HoaDon] on
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai], [MaNV], [MaKH], [MaKM], [TrangThai]) VALUES (1, CAST(N'2020-11-10' AS Date), 1,  N'Nam01', 1,1,1)
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai],  [MaNV], [MaKH], [MaKM] ,[TrangThai]) VALUES (2, CAST(N'2020-11-10' AS Date), 1, N'Trong01', 1,1,1)
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai],  [MaNV], [MaKH],[MaKM] ,[TrangThai]) VALUES (3, CAST(N'2020-11-10' AS Date), 1,  N'Cuong01',1,1,1)
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai],  [MaNV], [MaKH], [MaKM],[TrangThai] )VALUES (4, CAST(N'2020-11-10' AS Date), 1, N'Khang01',2,1,1)
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai],  [MaNV], [MaKH], [MaKM],[TrangThai]) VALUES (5, CAST(N'2020-11-10' AS Date), 1, N'Hoan01', 2,1,1)
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai],  [MaNV], [MaKH], [MaKM],[TrangThai]) VALUES (6, CAST(N'2020-11-10' AS Date), 1, N'Hoan01', 3,1,1)
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai],  [MaNV], [MaKH], [MaKM],[TrangThai]) VALUES (7, CAST(N'2020-11-10' AS Date), 1, N'Hoan01', 4,1,1)
+INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai],  [MaNV], [MaKH], [MaKM],[TrangThai]) VALUES (8, CAST(N'2020-11-10' AS Date), 1, N'Hoan01', 5,1,1)
+SET IDENTITY_INSERT [dbo].[HoaDon] off
+
+select * from HoaDon
 GO
-SET IDENTITY_INSERT [dbo].[HoaDon] OFF
+SET IDENTITY_INSERT [dbo].[KhachHang] On
 
 
-INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[MaDiaChi], [NgayTao],[TrangThai]) VALUES (N'KH01',N'Ngô Văn A',N'011226651'  ,N'DC01',CAST(N'2020-11-10' AS Date), 1)
-INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[MaDiaChi], [NgayTao],[TrangThai]) VALUES (N'KH02',N'Ngô Văn B',N'01122665',  N'DC02',CAST(N'2020-11-11' AS Date), 1)
-INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[MaDiaChi], [NgayTao],[TrangThai]) VALUES (N'KH03',N'Ngô Văn C',N'011226653',  N'DC03',CAST(N'2020-11-12' AS Date), 1)
-INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[MaDiaChi], [NgayTao],[TrangThai]) VALUES (N'KH04',N'Ngô Văn D',N'011226654',  N'DC04',CAST(N'2020-11-13' AS Date), 1)
-INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[MaDiaChi], [NgayTao],[TrangThai]) VALUES (N'KH05',N'Ngô Văn F',N'011226655',  N'DC05',CAST(N'2020-11-14' AS Date), 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (1,N'Ngô Văn A',N'011226651',N'DC01',1,N'2002-10-02',CAST(N'2020-11-10' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]  ) VALUES (2,N'Ngô Văn B',N'01122665',  N'DC02',1,N'2002-12-08',CAST(N'2020-11-11' AS Date),'aduchat', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (3,N'Ngô Văn C',N'011226653',  N'DC03',0,N'2002-01-07',CAST(N'2020-11-12' AS Date),'dsds', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (4,N'Ngô Văn D',N'011226654',  N'DC04',0,N'2002-10-06',CAST(N'2020-11-13' AS Date),'m', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (5,N'Ngô Văn F',N'011226655',  N'DC05',1,N'2002-05-05',CAST(N'2020-11-14' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (7,N'Ngô Văn E',N'011226655',  N'DC06',1,N'1997-05-05',CAST(N'2020-11-14' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (8,N'Ngô Văn E',N'011226655',  N'DC06',1,N'1987-05-05',CAST(N'2020-11-14' AS Date),'', 0)
+SET IDENTITY_INSERT [dbo].[KhachHang] off
 GO
-*/
+select * from KhachHang
+	
+	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang
+	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH
+	Where year(Getdate())-  year(NgaySinh) > 23  and year(Getdate())-  year(Ngaysinh)<  30
+	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai
 
+	
 
-
+	
+	
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Nam01', N'123',N'Lê đức nam',N'0966349996', 1,'2002/07/04', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','leducnam209@gmail.com',1)
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Trong01', N'123',N'Phan đức trọng',N'0328250138', 1,'2002/02/13', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','trong123@gmail.com',1)
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Cuong01', N'123',N'Nguyễn duy cuong',N'0398250138', 1,'2002/02/15', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','cuong123@gmail.com',1)
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Hoan01', N'123',N'Đào ngọc hoan',N'0398250138', 1,'2002/02/16', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','hoan123@gmail.com',1)
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Khang01', N'123',N'Trần vĩ khang',N'0398250138', 1,'2002/02/17', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','khang123@gmail.com',1)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Khang02', N'123',N'Trần vĩ khang',N'0398250138', 1,'2002/02/17', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','khang123@gmail.com',0)
 
 select * from NhanVien
 
-/*
+
 
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[GhiChu],[Hinh],[NgayBD] ,[TrangThai]) VALUES ( N'Nam01', N'123',N'Lê đức nam',N'0398250138', 0,N'12/02/2002', N'DC01', 0, 'TOT','HINH01',CAST(N'2020-12-11' AS Date),1)
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[GhiChu],[Hinh],[NgayBD] ,[TrangThai]) VALUES ( N'Trong01', N'123',N'Phan đức trọng',N'0328250138', 0,N'13/02/2002', N'DC02', 0, 'TOT','HINH02',CAST(N'2020-8-12' AS Date),1)
@@ -403,12 +433,14 @@ INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[GhiChu],[Hinh],[NgayBD] ,[TrangThai]) VALUES ( N'Khang01', N'123',N'Trần vĩ khang',N'0398250138', 0,N'17/02/2002', N'DC05', 0, 'TOT','HINH05',CAST(N'2020-12-15' AS Date),1)
 GO
 
-/*
+
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC01',N'HÀ NỘI',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC02',N'HÀ NỘI',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC03',N'HỒ CHÍ MINH',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC04',N'HÀ NỘI',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC05',N'ĐÀ NẴNG',1)
+
+
 
 INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (N'CPU01',N'CPU Intel P Core i7',1) 
 INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (N'CPU02',N'CPU Intel Core i9',1) 
@@ -422,7 +454,7 @@ INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (N'CPU05',N'CPU Intel 
 
 
 
-INSERT [dbo].[SanPham] ([MaSP], [TenSP], [GiaNhap], [GiaBan], [SoLuong], [MaHang], [MoTa], [NgayNhap], [TrangThai]) VALUES (N'SP014', N'Samsung Galaxy A30s', 0, 6000000, 0, 4, N'Màn hình:Super AMOLED, 6.4", HD+
+INSERT [dbo].[SanPham] ([MaSP], [], [G], [GiaBan], [SoLuong], [MaHang], [MoTa], [NgayNhap], [TrangThai]) VALUES (N'SP014', N'Samsung Galaxy A30s', 0, 6000000, 0, 4, N'Màn hình:Super AMOLED, 6.4", HD+
 Hệ điều hành:Android 9 (Pie)', NULL, 1)
 
 GO

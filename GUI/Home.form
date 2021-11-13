@@ -77,7 +77,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\DUCNAM\Desktop\fdf\src\image\z2921058777779_e85c01ef9cc3ffd53f5e4af4023c07ea (1).jpg"/>
+              <Image iconType="3" name="/image/z2921058777779_e85c01ef9cc3ffd53f5e4af4023c07ea (1).jpg"/>
             </Property>
             <Property name="text" type="java.lang.String" value="H&#x1ec6; TH&#x1ed0;NG QU&#x1ea2;N L&#xdd; C&#x1eec;A H&#xc0;NG B&#xc1;N &#x110;I&#x1ec6;N THO&#x1ea0;I"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>

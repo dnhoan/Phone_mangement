@@ -32,6 +32,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         init();
+        
 
     }
 
@@ -292,7 +293,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel14.setText("Giao dịch");
+        jLabel14.setText("Giảm giá");
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/business-icon-asset-management-system-32.png"))); // NOI18N
 

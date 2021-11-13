@@ -871,8 +871,7 @@ public class QLNhanVienForm extends javax.swing.JFrame {
                         this.clear();
                         MessageService.alert(this, "Thêm mới thành công!");
 //                            System.out.println(jDateChooser1.getDate());
-                        String hi = DateService.toString(txtNgaySinh.getDate(), "yyyy-MM-dd");
-                        System.out.println(hi);
+
                     } catch (Exception e) {
                         MessageService.alert(this, "Thêm mới thất bại!");
                     }
