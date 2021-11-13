@@ -62,7 +62,10 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
 
     @Override
     public KhachHangModel selectByID(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         if (this.selectBySql(SELECT_BY_ID,id).isEmpty()) {
+            return null;
+        }
+        return this.selectBySql(SELECT_BY_ID,id).get(0);
     }
 
     
