@@ -129,7 +129,7 @@ public class KhachHangModel {
 
     @Override
     public String toString() {
-        return maKH+tenKH;
+        return tenKH + " - " + SDT;
     }
     
     

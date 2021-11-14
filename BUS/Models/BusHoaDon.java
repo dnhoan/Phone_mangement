@@ -14,8 +14,8 @@ import java.util.Date;
 public class BusHoaDon {
     private int mahd;
     private Date ngayBan;
-    private NhanVienModel busNhanVienModel;
-    private BusKhachHang busKhachHang;
+    private NhanVienModel nhanVienModel;
+    private KhachHangModel khachHangModel;
     private boolean trangThai;
 
     public int getMahd() {
@@ -34,20 +34,22 @@ public class BusHoaDon {
         this.ngayBan = ngayBan;
     }
 
-    public NhanVienModel getBusNhanVienModel() {
-        return busNhanVienModel;
+    public NhanVienModel getNhanVienModel() {
+        return nhanVienModel;
     }
 
-    public void setBusNhanVienModel(NhanVienModel busNhanVienModel) {
-        this.busNhanVienModel = busNhanVienModel;
+    public void setNhanVienModel(NhanVienModel nhanVienModel) {
+        this.nhanVienModel = nhanVienModel;
     }
 
-    public BusKhachHang getBusKhachHang() {
-        return busKhachHang;
+
+
+    public KhachHangModel getKhachHangModel() {
+        return khachHangModel;
     }
 
-    public void setBusKhachHang(BusKhachHang busKhachHang) {
-        this.busKhachHang = busKhachHang;
+    public void setKhachHangModel(KhachHangModel khachHangModel) {
+        this.khachHangModel = khachHangModel;
     }
 
     public boolean isTrangThai() {

@@ -15,7 +15,16 @@ public class BusCTHoaDon {
     private BusCTSanPhamModel busCTSanPhamModel;
     private int soLuong;
     private float gia;
+    private float thanhTien;
     private boolean trangThai;
+
+    public float getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(float thanhTien) {
+        this.thanhTien = thanhTien;
+    }
 
     public int getMacthd() {
         return macthd;
