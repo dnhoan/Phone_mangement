@@ -40,8 +40,23 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
     }
 
     @Override
-    public void update(KhachHangModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(KhachHangModel kh) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE,
+                 
+                kh.getTenKH(),
+                kh.isGioiTinh(),
+                kh.getSDT(),
+                kh.getDiaChi(),
+                kh.getNgaySinh(),
+                kh.getNgayTao(),
+                kh.getGhiChu(),
+                kh.getMaKH()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }         
+                
     }
 
     @Override

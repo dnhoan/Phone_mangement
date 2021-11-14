@@ -5,8 +5,10 @@
  */
 package GUI;
 
+import BUS.Models.BusPinModel;
 import BUS.Models.KhachHangModel;
 import BUS.Services.KhachHangService;
+import DAL.Models.NhanVienModel;
 import GUI.Services.ButtonColumn;
 import GUI.Services.DateService;
 import GUI.Services.IEditService;
@@ -37,7 +39,7 @@ import javax.swing.table.DefaultTableModel;
 public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEditService<KhachHangModel> {
 
     DefaultTableModel modelkh = new DefaultTableModel();
-    Icon icon = new ImageIcon(getClass().getResource("/icon/bin.png"));
+    Icon icon = new ImageIcon(getClass().getResource("/icon/curve-arrow.png"));
     KhachHangService khser = new KhachHangService();
     int row = -1;
 
@@ -77,6 +79,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jPanel9 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblKhachHang = new javax.swing.JTable();
+        jPanel12 = new javax.swing.JPanel();
+        btnFirst = new javax.swing.JButton();
+        btnPrev = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnLast = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         txtHoTenKH2 = new javax.swing.JTextField();
@@ -99,11 +106,6 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jScrollPane5 = new javax.swing.JScrollPane();
         txtGhiChu2 = new javax.swing.JTextArea();
         jLabel26 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        btnFirst = new javax.swing.JButton();
-        btnPrev = new javax.swing.JButton();
-        btnNext = new javax.swing.JButton();
-        btnLast = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKhachHang2 = new javax.swing.JTable();
@@ -225,6 +227,12 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         });
         jPanel1.add(chktimkiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 256, -1, -1));
 
+        tabs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabsMouseClicked(evt);
+            }
+        });
+
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
@@ -260,167 +268,6 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         }
 
         jPanel9.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 1355, 567));
-
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thêm,sửa xóa khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 15))); // NOI18N
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel20.setText("Họ và tên");
-
-        txtHoTenKH2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel21.setText("Giới tính");
-
-        bgrpGender.add(rdoNam2);
-        rdoNam2.setSelected(true);
-        rdoNam2.setText("Nam");
-        rdoNam2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoNam2rdoNamActionPerformed(evt);
-            }
-        });
-
-        bgrpGender.add(rdoNu2);
-        rdoNu2.setText("Nữ");
-
-        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel22.setText("Số điện thoại");
-
-        txtSDT2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel23.setText("Địa chỉ");
-
-        txtDiaCHi2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel24.setText("Ngày sinh");
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel25.setText("Ngày tạo");
-
-        jPanel11.setLayout(new java.awt.GridLayout(4, 1, 0, 5));
-
-        btnThem2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btnThem2.setText("Thêm");
-        btnThem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem2btnThemActionPerformed(evt);
-            }
-        });
-        jPanel11.add(btnThem2);
-
-        btnSua2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btnSua2.setText("Sửa");
-        btnSua2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSua2btnSuaActionPerformed(evt);
-            }
-        });
-        jPanel11.add(btnSua2);
-
-        btnXoa2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btnXoa2.setText("Xóa");
-        btnXoa2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa2btnXoaActionPerformed(evt);
-            }
-        });
-        jPanel11.add(btnXoa2);
-
-        btnMoi2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btnMoi2.setText("Mới");
-        btnMoi2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoi2btnMoiActionPerformed(evt);
-            }
-        });
-        jPanel11.add(btnMoi2);
-
-        txtGhiChu2.setColumns(20);
-        txtGhiChu2.setRows(5);
-        jScrollPane5.setViewportView(txtGhiChu2);
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel26.setText("Ghi chú");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel20)
-                    .addComponent(txtHoTenKH2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(rdoNam2)
-                        .addGap(26, 26, 26)
-                        .addComponent(rdoNu2))
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel22)
-                    .addComponent(txtSDT2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel25)
-                    .addComponent(txtDiaCHi2)
-                    .addComponent(txtNgayTao2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNgaySinh2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(96, 96, 96)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26))
-                .addGap(110, 110, 110)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel10Layout.createSequentialGroup()
-                            .addComponent(jLabel20)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtHoTenKH2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(22, 22, 22)
-                            .addComponent(jLabel21)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(rdoNam2)
-                                .addComponent(rdoNu2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel22)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtSDT2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel10Layout.createSequentialGroup()
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel23)
-                                .addComponent(jLabel26))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtDiaCHi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(19, 19, 19)
-                            .addComponent(jLabel24)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtNgaySinh2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel10Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel25))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                                    .addGap(43, 43, 43)
-                                    .addComponent(txtNgayTao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-
-        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 596, 1355, -1));
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Điều hướng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 15))); // NOI18N
 
@@ -483,6 +330,105 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         );
 
         jPanel9.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 852, -1, -1));
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thêm,sửa xóa khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 15))); // NOI18N
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel20.setText("Họ và tên");
+        jPanel10.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 32, -1, -1));
+
+        txtHoTenKH2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jPanel10.add(txtHoTenKH2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 59, 198, -1));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel21.setText("Giới tính");
+        jPanel10.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 103, -1, -1));
+
+        bgrpGender.add(rdoNam2);
+        rdoNam2.setSelected(true);
+        rdoNam2.setText("Nam");
+        jPanel10.add(rdoNam2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 126, -1, -1));
+
+        bgrpGender.add(rdoNu2);
+        rdoNu2.setText("Nữ");
+        jPanel10.add(rdoNu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 126, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel22.setText("Số điện thoại");
+        jPanel10.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 161, -1, -1));
+
+        txtSDT2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jPanel10.add(txtSDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 188, 198, -1));
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel23.setText("Địa chỉ");
+        jPanel10.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 32, -1, -1));
+
+        txtDiaCHi2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jPanel10.add(txtDiaCHi2, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 59, 268, -1));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel24.setText("Ngày sinh");
+        jPanel10.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 100, -1, -1));
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel25.setText("Ngày tạo");
+        jPanel10.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 158, -1, -1));
+
+        jPanel11.setLayout(new java.awt.GridLayout(4, 1, 0, 5));
+
+        btnThem2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btnThem2.setText("Thêm");
+        btnThem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThem2ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(btnThem2);
+
+        btnSua2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btnSua2.setText("Sửa");
+        btnSua2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSua2ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(btnSua2);
+
+        btnXoa2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btnXoa2.setText("Xóa");
+        btnXoa2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoa2ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(btnXoa2);
+
+        btnMoi2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        btnMoi2.setText("Mới");
+        btnMoi2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoi2ActionPerformed(evt);
+            }
+        });
+        jPanel11.add(btnMoi2);
+
+        jPanel10.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 21, 134, 211));
+        jPanel10.add(txtNgayTao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 190, 268, -1));
+        jPanel10.add(txtNgaySinh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 127, 268, -1));
+
+        txtGhiChu2.setColumns(20);
+        txtGhiChu2.setRows(5);
+        jScrollPane5.setViewportView(txtGhiChu2);
+
+        jPanel10.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(812, 54, 258, 156));
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel26.setText("Ghi chú");
+        jPanel10.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(812, 32, -1, -1));
+
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 596, 1355, -1));
 
         tabs.addTab("Khách hàng", jPanel9);
 
@@ -580,9 +526,13 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         if (chktimkiem.isSelected()) {
             if (tabs.getSelectedIndex() == 0) {
                 timkiemTuoi();
+                clearForm();
+                row = -1;
+                updateStatus();
             }
             if (tabs.getSelectedIndex() == 1) {
                 timkiemTuoi2();
+                row = -1;
             }
 
         }
@@ -607,9 +557,13 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         if (chktimkiem.isSelected()) {
             if (tabs.getSelectedIndex() == 0) {
                 timkiemTen();
+                clearForm();
+                row = -1;
+                updateStatus();
             }
             if (tabs.getSelectedIndex() == 1) {
                 timkiemTen2();
+                row = -1;
             }
         }
 
@@ -617,39 +571,23 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
         // TODO add your handling code here:
+        last();
     }//GEN-LAST:event_btnLastActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
+        next();
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
         // TODO add your handling code here:
+        previous();
     }//GEN-LAST:event_btnPrevActionPerformed
 
     private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: this.index = 0;
+        first();
     }//GEN-LAST:event_btnFirstActionPerformed
-
-    private void btnMoi2btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi2btnMoiActionPerformed
-      clearForm();
-    }//GEN-LAST:event_btnMoi2btnMoiActionPerformed
-
-    private void btnXoa2btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa2btnXoaActionPerformed
-        delete();
-    }//GEN-LAST:event_btnXoa2btnXoaActionPerformed
-
-    private void btnSua2btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua2btnSuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSua2btnSuaActionPerformed
-
-    private void btnThem2btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2btnThemActionPerformed
-     insert();
-    }//GEN-LAST:event_btnThem2btnThemActionPerformed
-
-    private void rdoNam2rdoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNam2rdoNamActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdoNam2rdoNamActionPerformed
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
         if (evt.getClickCount() == 1) {
@@ -658,26 +596,56 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         }
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
+    private void tabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabsMouseClicked
+        // TODO add your handling code here:
+        if (tabs.getSelectedIndex() == 0) {
+//            clearForm();
+            updateStatus();
+
+        } else {
+//            clearForm();
+            chktimkiem.setSelected(false);
+
+        }
+    }//GEN-LAST:event_tabsMouseClicked
+
+    private void btnSua2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua2ActionPerformed
+        if(chekrong()==true){
+            if(checkvai()==true){
+                update();
+            }
+        }
+    }//GEN-LAST:event_btnSua2ActionPerformed
+
+    private void btnXoa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa2ActionPerformed
+       delete();
+    }//GEN-LAST:event_btnXoa2ActionPerformed
+
+    private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
+         if(chekrong()==true){
+            if(checkvai()==true){
+                insert();
+            }
+        }
+    }//GEN-LAST:event_btnThem2ActionPerformed
+
+    private void btnMoi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi2ActionPerformed
+        clearForm();
+    }//GEN-LAST:event_btnMoi2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgrpGender;
     private javax.swing.JButton btnFirst;
     private javax.swing.JButton btnLast;
-    private javax.swing.JButton btnMoi;
     private javax.swing.JButton btnMoi2;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrev;
-    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSua2;
-    private javax.swing.JButton btnThem;
     private javax.swing.JButton btnThem2;
-    private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoa2;
     private javax.swing.JCheckBox chktimkiem;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -688,26 +656,17 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JRadioButton rdoNam;
     private javax.swing.JRadioButton rdoNam2;
-    private javax.swing.JRadioButton rdoNu;
     private javax.swing.JRadioButton rdoNu2;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblKhachHang;
@@ -715,17 +674,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     public static javax.swing.JComboBox<String> tk2cboTuoi;
     private javax.swing.JTextField tkTen;
     public static javax.swing.JComboBox<String> tkcboTuoi;
-    private javax.swing.JTextField txtDiaCHi;
     private javax.swing.JTextField txtDiaCHi2;
-    private javax.swing.JTextArea txtGhiChu;
     private javax.swing.JTextArea txtGhiChu2;
-    private javax.swing.JTextField txtHoTenKH;
     private javax.swing.JTextField txtHoTenKH2;
-    private com.toedter.calendar.JDateChooser txtNgaySinh;
     private com.toedter.calendar.JDateChooser txtNgaySinh2;
-    private com.toedter.calendar.JDateChooser txtNgayTao;
     private com.toedter.calendar.JDateChooser txtNgayTao2;
-    private javax.swing.JTextField txtSDT;
     private javax.swing.JTextField txtSDT2;
     // End of variables declaration//GEN-END:variables
 
@@ -737,6 +690,9 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         updateStatus();
         this.row = -1;
         buttonintable();
+        
+        
+        txtNgayTao2.setDate(DateService.now());
 
     }
 
@@ -777,6 +733,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnThem2.setEnabled(!edit);
         btnSua2.setEnabled(edit);
         btnXoa2.setEnabled(edit);
+        btnMoi2.setEnabled(edit);
 
         btnFirst.setEnabled(edit && !first);
         btnPrev.setEnabled(edit && !first);
@@ -801,18 +758,36 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        KhachHangModel khModel = this.getForm();
+        int id = (int) tblKhachHang.getValueAt(this.row, 0);
+        khModel.setMaKH(id);
+        try {
+            khser.update(khModel);
+
+            this.fillTable();
+            this.fillTable2();
+            MessageService.alert(this, "Update thành công");
+        } catch (Exception e) {
+            MessageService.alert(this, "Update thất bại");
+
+        }
     }
 
     @Override
     public void delete() {
-        if (MessageService.confirm(this, "Bạn có muốn xóa khách hàng này không?")) {
-            for (int row : tblKhachHang.getSelectedRows()) {
-                int makh = (Integer) tblKhachHang.getValueAt(row, 0);
-                khser.delete(makh);
+        try {
+            if (MessageService.confirm(this, "Bạn có muốn xóa khách hàng này không?")) {
+                for (int row : tblKhachHang.getSelectedRows()) {
+                    int makh = (Integer) tblKhachHang.getValueAt(row, 0);
+                    khser.delete(makh);
+                }
+                MessageService.alert(this, "xóa thành công");
+                fillTable();
+                fillTable2();
             }
-            fillTable();
-            fillTable2();
+        } catch (Exception e) {
+            MessageService.alert(this, "Xóa thất bại");
+
         }
 
     }
@@ -829,7 +804,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
     @Override
     public void clearForm() {
-         KhachHangModel khmodel = new KhachHangModel();
+        KhachHangModel khmodel = new KhachHangModel();
         this.row = -1;
         this.setForm(khmodel);
         this.updateStatus();
@@ -1016,40 +991,54 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
     @Override
     public void first() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        this.row = 0;
+        tblKhachHang.setRowSelectionInterval(row, row);
+        this.edit();
+
     }
 
     @Override
     public void last() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.row = tblKhachHang.getRowCount() - 1;
+        tblKhachHang.setRowSelectionInterval(row, row);
+        this.edit();
     }
 
     @Override
     public void next() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.row < tblKhachHang.getRowCount() - 1) {
+            this.row++;
+            tblKhachHang.setRowSelectionInterval(row, row);
+            this.edit();
+        }
     }
 
     @Override
     public void previous() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean validateForm(boolean isEdit) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.row > 0) {
+            this.row--;
+            tblKhachHang.setRowSelectionInterval(row, row);
+            this.edit();
+        }
     }
 
     private void buttonintable() {
         Action delete = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int row : tblKhachHang2.getSelectedRows()) {
-                    int makh = (Integer) tblKhachHang2.getValueAt(row, 0);
-                    khser.delete2(makh);
+                if (MessageService.confirm(rootPane, "Bạn muốn khôi phục khách hàng này không ?")) {
+                    for (int row : tblKhachHang2.getSelectedRows()) {
+                        int makh = (Integer) tblKhachHang2.getValueAt(row, 0);
+                        khser.delete2(makh);
+                    }
+                    MessageService.alert(rootPane, "Khôi phục thành công");
+                    fillTable2();
+                    fillTable();
                 }
-                fillTable2();
-                fillTable();
+
             }
+
         };
 
         ButtonColumn buttonColumn = new ButtonColumn(tblKhachHang2, delete, 9);
@@ -1065,7 +1054,63 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         int h = d.height;
         int w = d.width;
         this.setSize(w, h);
-        
+
+    }
+
+    private boolean chekrong() {
+
+        if (txtHoTenKH2.getText().equals("")) {
+            MessageService.alert(rootPane, "Không thể bỏ trống Họ tên");
+            txtHoTenKH2.requestFocus();
+            return false;
+        } else if (txtSDT2.getText().equals("")) {
+            MessageService.alert(rootPane, "Không thể bỏ trống  số điện thoại");
+            txtSDT2.requestFocus();
+            return false;
+        } else if (txtDiaCHi2.getText().equals("")) {
+            MessageService.alert(rootPane, "không thể bỏ trống địa chỉ");
+            txtDiaCHi2.requestFocus();
+            return false;
+//        } else if () {
+//            MessageService.alert(rootPane, "Không thể bỏ trống ngày sinh");
+//            txtNgaySinh2.requestFocus();
+//            return false;
+//        } else if(ngaytao.length()==0){
+//            MessageService.alert(rootPane, "không thể bỏ trống ngày tạo");
+//            txtNgayTao2.requestFocus();
+//            return false;
+        } //        else if(txtGhiChu2.getText().equals("")){
+        //            MessageService.alert(rootPane, "không thể bỏ trống ghi chú");
+        //            txtGhiChu2.requestFocus();
+        //            return false;
+        //        }
+        else if (this.txtNgaySinh2.getDate() == null) {
+            MessageService.alert(rootPane, "Không để trống ngáy sinh!");
+            txtNgaySinh2.requestFocus();
+            return false;
+        } else if (this.txtNgayTao2.getDate() == null) {
+            MessageService.alert(rootPane, "Không để trống ngáy tạo!");
+            txtNgaySinh2.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkvai() {
+
+        if (!(txtSDT2.getText()).matches("[0-9]{10}")) {
+            MessageService.alert(rootPane, "Số điện thoại phải nhập đúng 10 số");
+            txtSDT2.requestFocus();
+            return false;
+
+        }
+        return true;
+    }
+
+    @Override
+    public boolean validateForm(boolean isEdit) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

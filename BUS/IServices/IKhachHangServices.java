@@ -19,5 +19,5 @@ public interface IKhachHangServices {
      String SELECT_BY_ID = "select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" + "WHERE KhachHang.MaKH = ?"+
 "	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai\n;";
-    
+    String UPDATE ="UPDATE KhachHang set Hoten = ? ,GioiTinh = ? , SDT= ? , DiaChi = ?,NgaySinh = ?,NgayTao = ? ,GhiChu = ? where MaKH =?";
 }
