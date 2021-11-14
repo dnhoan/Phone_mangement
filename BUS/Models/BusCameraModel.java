@@ -6,7 +6,7 @@ public class BusCameraModel {
     private String tenCamera;
     private String doPhanGiai;
     private boolean trangThai;
-
+ 
     public BusCameraModel(int maCamera, String tenCamera, String doPhanGiai, boolean trangThai) {
         this.maCamera = maCamera;
         this.tenCamera = tenCamera;
