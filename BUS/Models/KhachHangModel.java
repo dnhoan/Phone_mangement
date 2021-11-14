@@ -126,6 +126,11 @@ public class KhachHangModel {
     public void setSoLanMua(int soLanMua) {
         this.soLanMua = soLanMua;
     }
+
+    @Override
+    public String toString() {
+        return maKH+tenKH;
+    }
     
     
     

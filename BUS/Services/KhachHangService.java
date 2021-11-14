@@ -153,7 +153,24 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
         return selectBySql(sql, keyword,keyword2);
     }
 
-
+public List<KhachHangModel> selectToFillCombo(String keyWord) {
+        List<KhachHangModel> list = new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHelper.executeQuery("select * from KhachHang where TrangThai = 1 and HoTen like ?", "%" + keyWord + "%");
+            while (rs.next()) {
+                KhachHangModel entity = new KhachHangModel();
+                entity.setMaKH(rs.getInt("MaKH"));
+                entity.setTenKH(rs.getString("HoTen"));
+                entity.setSDT(rs.getString("SDT"));
+                entity.setDiaChi(rs.getString("DiaChi"));
+                list.add(entity);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public List<KhachHangModel> selectAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

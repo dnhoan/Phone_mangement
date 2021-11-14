@@ -433,13 +433,13 @@ INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh
 INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[GhiChu],[Hinh],[NgayBD] ,[TrangThai]) VALUES ( N'Khang01', N'123',N'Trần vĩ khang',N'0398250138', 0,N'17/02/2002', N'DC05', 0, 'TOT','HINH05',CAST(N'2020-12-15' AS Date),1)
 GO
 
-
+/*
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC01',N'HÀ NỘI',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC02',N'HÀ NỘI',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC03',N'HỒ CHÍ MINH',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC04',N'HÀ NỘI',1)
 INSERT [dbo].[DiaChi] ([MaDiaChi],[DiaChiKH] ,[TrangThai]) VALUES (N'DC05',N'ĐÀ NẴNG',1)
-
+*/
 
 
 INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (N'CPU01',N'CPU Intel P Core i7',1) 
