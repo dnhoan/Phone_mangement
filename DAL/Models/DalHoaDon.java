@@ -14,13 +14,30 @@ import java.util.Date;
 public class DalHoaDon {
     private String maHD;
     private Date ngayBan;
-    private String loai;
     private String manv;
     private int makh;
+    private int makm;
+    private String ghiChu;
     private boolean trangThai;
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
 
     public String getMaHD() {
         return maHD;
+    }
+
+    public int getMakm() {
+        return makm;
+    }
+
+    public void setMakm(int makm) {
+        this.makm = makm;
     }
 
     public void setMaHD(String maHD) {
@@ -35,13 +52,6 @@ public class DalHoaDon {
         this.ngayBan = ngayBan;
     }
 
-    public String getLoai() {
-        return loai;
-    }
-
-    public void setLoai(String loai) {
-        this.loai = loai;
-    }
 
     public String getManv() {
         return manv;

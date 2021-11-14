@@ -6,8 +6,13 @@
 package BUS.Services;
 
 import BUS.IServices.IHoaDonService;
+import BUS.Models.BusCTHoaDon;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Models.DalHoaDon;
+import DAL.Services.JDBCHelper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,32 +23,82 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
 
     @Override
     public void insert(DalHoaDon entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(entity.getManv() + " " +
+                    entity.getMakh() + " " +
+                    entity.getMakm());
+        try {
+            JDBCHelper.executeUpdate(INSERT, 
+                    entity.getManv(),
+                    entity.getMakh(), 
+                    null,
+//                    entity.getMakm(),
+                    entity.getGhiChu()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(DalHoaDon entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            JDBCHelper.executeUpdate(UPDATE, 
+                    entity.getManv(),
+                    entity.getMakh(),
+                    entity.getMakm(),
+                    entity.getMaHD()
+                    );
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public void delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            JDBCHelper.executeUpdate(DELETE, id);
+        } catch (Exception e) {
+        }
     }
-
+    public Integer selectLasID() {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(SELECT_LASTID);
+            while(rs.next()) {
+                return rs.getInt("LastID");
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    public List<BusCTHoaDon> selectSql(String sql, Object... args) {
+        List<BusCTHoaDon> listCTHD = new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(sql, args);
+            while(rs.next()) {
+                BusCTHoaDon busCTHoaDon = new BusCTHoaDon();
+                busCTHoaDon.setMacthd(rs.getInt("macthd"));
+                busCTHoaDon.setMacthd(0);
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    
+    
+    
     @Override
     public DalHoaDon selectByID(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public List<DalHoaDon> selectAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
 
     @Override
     public List<DalHoaDon> selectBySql(String sql, Object... args) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return null;
     }
     
 }

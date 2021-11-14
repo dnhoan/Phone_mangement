@@ -12,9 +12,18 @@ package DAL.Models;
 public class DalChiTietHoaDon {
     private int macthd;
     private int mahd;
+    private int mactsp;
     private int soLuong;
     private float gia;
     private boolean trangThai;
+
+    public int getMactsp() {
+        return mactsp;
+    }
+
+    public void setMactsp(int mactsp) {
+        this.mactsp = mactsp;
+    }
 
     public int getMacthd() {
         return macthd;

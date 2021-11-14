@@ -9,6 +9,8 @@ import BUS.IServices.ICTHoaDonService;
 import BUS.Models.BusCTHoaDon;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Models.DalChiTietHoaDon;
+import DAL.Services.JDBCHelper;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -19,17 +21,40 @@ public class CTHoaDonService implements ICTHoaDonService , IPhoneMangementServic
 
     @Override
     public void insert(DalChiTietHoaDon entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            JDBCHelper.executeUpdate(INSERT, 
+                    entity.getMahd(),
+                    entity.getMactsp(),
+                    entity.getSoLuong(),
+                    entity.getGia()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(DalChiTietHoaDon entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            JDBCHelper.executeUpdate(UPDATE, 
+                    entity.getMahd(),
+                    entity.getMactsp(),
+                    entity.getSoLuong(),
+                    entity.getGia(),
+                    entity.getMacthd()
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            JDBCHelper.executeUpdate(DELETE, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

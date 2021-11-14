@@ -10,5 +10,7 @@ package BUS.IServices;
  * @author ADMIN
  */
 public interface ICTHoaDonService {
-    
+    String INSERT = "INSERT INTO ChiTietHoaDon(MAHD, MaCTSP, SoLuong, GiaBan) values (?,?,?,?)";
+    String UPDATE = "update ChiTietHoaDon set MaHD = ?, MaCTSP = ?, SoLuong = ?, GiaBan= ? where MaCTHD = ?";
+    String DELETE = "update ChiTietHoaDon set TrangThai = 0 where MaCTHD = ?";
 }
