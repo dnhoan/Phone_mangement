@@ -850,7 +850,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboHangItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillHangCombo();
+//            this.fillHangCombo();
         }
     }//GEN-LAST:event_cboHangItemStateChanged
 
@@ -868,7 +868,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboXuatXuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboXuatXuItemStateChanged
       if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillTenSanPhamCombo();
+//            this.fillTenSanPhamCombo();
         }
     }//GEN-LAST:event_cboXuatXuItemStateChanged
 
@@ -1376,93 +1376,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         }
 
     }
-
-//    void fillHeDieuHanhCombo() {
-//        this.heDieuHanhModel = (DefaultComboBoxModel) cboHeDieuHanh.getModel();
-//        this.heDieuHanhModel.removeAllElements();
-//        try {
-//            this.listHeDieuHanh = heDieuHanhService.selectAll();
-//            if (this.listHeDieuHanh != null) {
-//                for (BusHeDieuHanhModel he : this.listHeDieuHanh) {
-//                    this.heDieuHanhModel.addElement(he);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        fillDongCombo();
-//    }
-//    void fillManHinhCombo() {
-//        this.manHinhModel = (DefaultComboBoxModel) cboManHinh.getModel();
-//        this.manHinhModel.removeAllElements();
-//        try {
-//            this.listManHinh = manHinhService.selectAll();
-//            if (this.listManHinh != null) {
-//                for (BusManHinhModel screen : this.listManHinh) {
-//                    this.manHinhModel.addElement(screen);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-//    void fillPinCombo() {
-//        this.pinModel = (DefaultComboBoxModel) cboPin.getModel();
-//        this.pinModel.removeAllElements();
-//        try {
-//            this.listPin = pinService.selectAll();
-//            if (this.listPin != null) {
-//                for (BusPinModel pin : this.listPin) {
-//                    this.pinModel.addElement(pin);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    void fillRamCombo() {
-//        this.ramModel = (DefaultComboBoxModel) cboRam.getModel();
-//        this.ramModel.removeAllElements();
-//        try {
-//            this.listRam = ramService.selectAll();
-//            if (this.listRam != null) {
-//                for (BusRamModel ram : this.listRam) {
-//                    this.ramModel.addElement(ram);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    void fillRomCombo() {
-//        this.romModel = (DefaultComboBoxModel) cboRom.getModel();
-//        this.romModel.removeAllElements();
-//        try {
-//            this.listRom = romService.selectAll();
-//            if (this.listRom != null) {
-//                for (BusRomModel rom : this.listRom) {
-//                    this.romModel.addElement(rom);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    void fillXuatXuCombo() {
-//        this.xuatXuModel = (DefaultComboBoxModel) cboXuatXu.getModel();
-//        this.xuatXuModel.removeAllElements();
-//        try {
-//            this.listXuatXu = xuatXuService.selectAll();
-//            if (this.listXuatXu != null) {
-//                for (BusXuatXuModel xuatXu : this.listXuatXu) {
-//                    this.xuatXuModel.addElement(xuatXu);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
     Comparator<BusCTSanPhamModel> comparator = Comparator.comparing(BusCTSanPhamModel::getGiaBan);
 
     void sortDesc() {
