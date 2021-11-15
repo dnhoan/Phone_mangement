@@ -79,16 +79,18 @@ public class HeDieuHanhService implements IPhoneMangementService<BusHeDieuHanhMo
         }
         return this.selectBySql(SELECT_BY_STATUS, 0);
     }
-    public void fillCombo(DefaultComboBoxModel<BusHeDieuHanhModel> model, JComboBox cbo, List<BusHeDieuHanhModel> list) {
+    public static void fillCombo(DefaultComboBoxModel<BusHeDieuHanhModel> model, JComboBox cbo, List<BusHeDieuHanhModel> list) {
+        HeDieuHanhService heDieuHanhService = new HeDieuHanhService();
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
         try {
-            list = this.selectAll();
+            list = heDieuHanhService.selectAllDSD();
             if (list != null) {
                 for (BusHeDieuHanhModel bus : list) {
                     model.addElement(bus);
                 }
             }
+            cbo.getModel().setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

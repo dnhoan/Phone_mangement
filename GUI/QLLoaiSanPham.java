@@ -66,6 +66,11 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
         tblXOa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         tblHoatDong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -327,6 +332,11 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
             this.fillDongCombo();
         }
     }//GEN-LAST:event_cboHangspItemStateChanged
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.out.println("closed");
+        QuanLySanPham.fillTenSanPhamCombo();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

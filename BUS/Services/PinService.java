@@ -73,16 +73,18 @@ public class PinService implements IPhoneMangementService<BusPinModel, String> {
         return this.selectBySql(SELECT_BY_STATUS,0);
     }
  
-    public void fillCombo(DefaultComboBoxModel<BusPinModel> model, JComboBox cbo, List<BusPinModel> list) {
+    public static void fillCombo(DefaultComboBoxModel<BusPinModel> model, JComboBox cbo, List<BusPinModel> list) {
+        PinService pinService = new PinService();
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
         try {
-            list = this.selectAll();
+            list = pinService.selectAllKD();
             if (list != null) {
                 for (BusPinModel bus : list) {
                     model.addElement(bus);
                 }
             }
+            cbo.getModel().setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

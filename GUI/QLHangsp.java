@@ -55,6 +55,11 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
@@ -305,6 +310,10 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
          this.row = tblhang2.getSelectedRow();
         
     }//GEN-LAST:event_tblhang2MouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        QuanLySanPham.fillHangCombo();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

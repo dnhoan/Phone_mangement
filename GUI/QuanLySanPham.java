@@ -45,6 +45,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -75,7 +76,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane4 = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
@@ -158,6 +159,12 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel81 = new javax.swing.JLabel();
         btnRestore = new javax.swing.JButton();
 
+        tabs.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabsStateChanged(evt);
+            }
+        });
+
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -195,7 +202,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel61.setText("Hãng SP");
         jPanel44.add(jLabel61);
 
-        cboHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboHang.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboHangItemStateChanged(evt);
@@ -216,7 +222,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel62.setText("Dòng SP");
         jPanel45.add(jLabel62);
 
-        cboDongsp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboDongsp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboDongspItemStateChanged(evt);
@@ -237,7 +242,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel63.setText("Camera");
         jPanel46.add(jLabel63);
 
-        cboCamera.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboCamera.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboCameraItemStateChanged(evt);
@@ -258,7 +262,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel64.setText("Hệ điều hành");
         jPanel47.add(jLabel64);
 
-        cboHeDieuHanh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboHeDieuHanh.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboHeDieuHanhItemStateChanged(evt);
@@ -279,7 +282,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel65.setText("CPU");
         jPanel48.add(jLabel65);
 
-        cboCpu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboCpu.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboCpuItemStateChanged(evt);
@@ -300,7 +302,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel66.setText("Bộ nhớ trong");
         jPanel49.add(jLabel66);
 
-        cboRom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboRom.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboRomItemStateChanged(evt);
@@ -321,7 +322,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel67.setText("Dung lượng RAM");
         jPanel50.add(jLabel67);
 
-        cboRam.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboRam.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboRamItemStateChanged(evt);
@@ -342,7 +342,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel68.setText("Màn hình");
         jPanel51.add(jLabel68);
 
-        cboManHinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboManHinh.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboManHinhItemStateChanged(evt);
@@ -476,7 +475,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel79.setText("Xuất xứ");
         jPanel54.add(jLabel79);
 
-        cboXuatXu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboXuatXu.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboXuatXuItemStateChanged(evt);
@@ -497,7 +495,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel80.setText("Pin");
         jPanel55.add(jLabel80);
 
-        cboPin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboPin.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboPinItemStateChanged(evt);
@@ -519,7 +516,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         txtSoluongNhap.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtSoluongNhap.setForeground(new java.awt.Color(255, 0, 51));
 
-        cboSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboSanPham.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboSanPhamItemStateChanged(evt);
@@ -722,17 +718,17 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnTangDan, txtGiamDan, txtSearchBox});
 
-        jTabbedPane4.addTab("Sản phẩm", jPanel3);
+        tabs.addTab("Sản phẩm", jPanel3);
 
         tblRecycle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sp", "Tên sp", "Hãng sp", "Dòng sp", "Xuất xứ", "CPU", "Ram", "Rom", "Màn hình", "Pin", "Camera", "Hệ điều hành", "Giá"
+                "Mã sp", "Tên sp", "Hãng sp", "Dòng sp", "Xuất xứ", "CPU", "Ram", "Rom", "Màn hình", "Pin", "Camera", "Giá"
             }
         ));
         tblRecycle.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -793,7 +789,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnRestore, txtSearchRecycle});
 
-        jTabbedPane4.addTab("Đã xóa", jPanel1);
+        tabs.addTab("Đã xóa", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -801,14 +797,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 1267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane4)
+                .addComponent(tabs)
                 .addGap(0, 0, 0))
         );
 
@@ -854,7 +850,12 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboHangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboHangItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-//            this.fillHangCombo();
+            if (cboHang.getSelectedIndex() >= 0) {
+                QuanLySanPham.fillDongCombo();
+            } else {
+                QuanLySanPham.fillDongCombo();
+                cboDongsp.getModel().setSelectedItem(new BusDongSpModel());
+            }
         }
     }//GEN-LAST:event_cboHangItemStateChanged
 
@@ -866,13 +867,18 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void cboDongspItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboDongspItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            this.fillTenSanPhamCombo();
+            if (cboDongsp.getSelectedIndex() >= 0) {
+                QuanLySanPham.fillTenSanPhamCombo();
+            } else {
+                QuanLySanPham.fillTenSanPhamCombo();
+                cboSanPham.getModel().setSelectedItem(new BusSanPham());
+            }
         }
     }//GEN-LAST:event_cboDongspItemStateChanged
 
     private void cboXuatXuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboXuatXuItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-//            this.fillTenSanPhamCombo();
+
         }
     }//GEN-LAST:event_cboXuatXuItemStateChanged
 
@@ -966,12 +972,18 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_cboSanPhamItemStateChanged
 
     private void txtSearchRecyclesearch(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRecyclesearch
-        this.fillRecycle();
+        if(tabs.getSelectedIndex() == 0) {
+            this.getDataTable();
+        } else {
+            this.getDataRecycle();
+        }
     }//GEN-LAST:event_txtSearchRecyclesearch
 
     private void btnRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestoreActionPerformed
         if (this.rowRecycle >= 0) {
             this.backUp();
+            btnRestore.setEnabled(false);
+            this.rowRecycle = -1;
         } else {
             MessageService.alert(this, "Chọn dòng trên bảng");
         }
@@ -979,7 +991,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void tblRecycleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRecycleMouseClicked
         this.rowRecycle = tblRecycle.getSelectedRow();
-        this.currentIDRecycle = (int) tblRecycle.getValueAt(row, 0);
+        this.currentIDRecycle = (int) tblRecycle.getValueAt(rowRecycle, 0);
         btnRestore.setEnabled(true);
     }//GEN-LAST:event_tblRecycleMouseClicked
 
@@ -993,6 +1005,16 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private void btnTangDanbtnTangDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTangDanbtnTangDanActionPerformed
         this.sortAsend();
     }//GEN-LAST:event_btnTangDanbtnTangDanActionPerformed
+
+    private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
+        if(tabs.getSelectedIndex() == 0) {
+            this.getDataTable();
+        } else {
+            this.getDataRecycle();
+            this.clearForm();
+            this.updateStatus();
+        }
+    }//GEN-LAST:event_tabsStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1016,17 +1038,17 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXuatxu;
     private javax.swing.JButton btnpin;
-    private javax.swing.JComboBox<String> cboCamera;
-    private javax.swing.JComboBox<String> cboCpu;
-    private javax.swing.JComboBox<String> cboDongsp;
-    private javax.swing.JComboBox<String> cboHang;
-    private javax.swing.JComboBox<String> cboHeDieuHanh;
-    private javax.swing.JComboBox<String> cboManHinh;
-    private javax.swing.JComboBox<String> cboPin;
-    private javax.swing.JComboBox<String> cboRam;
-    private javax.swing.JComboBox<String> cboRom;
-    private javax.swing.JComboBox<String> cboSanPham;
-    private javax.swing.JComboBox<String> cboXuatXu;
+    public static javax.swing.JComboBox<String> cboCamera;
+    public static javax.swing.JComboBox<String> cboCpu;
+    public static javax.swing.JComboBox<String> cboDongsp;
+    public static javax.swing.JComboBox<String> cboHang;
+    public static javax.swing.JComboBox<String> cboHeDieuHanh;
+    public static javax.swing.JComboBox<String> cboManHinh;
+    public static javax.swing.JComboBox<String> cboPin;
+    public static javax.swing.JComboBox<String> cboRam;
+    public static javax.swing.JComboBox<String> cboRom;
+    public static javax.swing.JComboBox<String> cboSanPham;
+    public static javax.swing.JComboBox<String> cboXuatXu;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
@@ -1065,8 +1087,8 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JLabel lblImage;
+    private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblRecycle;
     private javax.swing.JTable tblSanPham;
     private javax.swing.JButton tbnRom3;
@@ -1082,17 +1104,17 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     DefaultTableModel modelSp;
     DefaultTableModel modelRecycle;
-    DefaultComboBoxModel<BusCameraModel> cameraModel;
-    DefaultComboBoxModel<BusCPUModel> cpuModel;
-    DefaultComboBoxModel<BusDongSpModel> dongspModel;
-    DefaultComboBoxModel<BusHangModel> hangspModel;
-    DefaultComboBoxModel<BusHeDieuHanhModel> heDieuHanhModel;
-    DefaultComboBoxModel<BusManHinhModel> manHinhModel;
-    DefaultComboBoxModel<BusPinModel> pinModel;
-    DefaultComboBoxModel<BusRamModel> ramModel;
-    DefaultComboBoxModel<BusRomModel> romModel;
-    DefaultComboBoxModel<BusXuatXuModel> xuatXuModel;
-    DefaultComboBoxModel<BusSanPham> sanPhamModel;
+    static DefaultComboBoxModel<BusCameraModel> cameraModel;
+    static DefaultComboBoxModel<BusCPUModel> cpuModel;
+    static DefaultComboBoxModel<BusDongSpModel> dongspModel;
+    static DefaultComboBoxModel<BusHangModel> hangspModel;
+    static DefaultComboBoxModel<BusHeDieuHanhModel> heDieuHanhModel;
+    static DefaultComboBoxModel<BusManHinhModel> manHinhModel;
+    static DefaultComboBoxModel<BusPinModel> pinModel;
+    static DefaultComboBoxModel<BusRamModel> ramModel;
+    static DefaultComboBoxModel<BusRomModel> romModel;
+    static DefaultComboBoxModel<BusXuatXuModel> xuatXuModel;
+    static DefaultComboBoxModel<BusSanPham> sanPhamModel;
 
     SanPhamService sanPhamService = new SanPhamService();
     LoaiSPService loaiSPService = new LoaiSPService();
@@ -1109,36 +1131,31 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     int row = -1;
 
     List<BusCTSanPhamModel> listSp = new ArrayList<>();
-    List<BusCTSanPhamModel> listRecycle = new ArrayList<>();
-    List<BusCameraModel> listCamera = new ArrayList<>();
-    List<BusCPUModel> listCpu = new ArrayList<>();
-    List<BusDongSpModel> listDong = new ArrayList<>();
-    List<BusHangModel> listHang = new ArrayList<>();
-    List<BusHeDieuHanhModel> listHeDieuHanh = new ArrayList<>();
-    List<BusManHinhModel> listManHinh = new ArrayList<>();
-    List<BusPinModel> listPin = new ArrayList<>();
-    List<BusRamModel> listRam = new ArrayList<>();
-    List<BusRomModel> listRom = new ArrayList<>();
-    List<BusXuatXuModel> listXuatXu = new ArrayList<>();
-    List<BusSanPham> listLoaisp = new ArrayList<>();
+    static List<BusDongSpModel> listDong = new ArrayList<>();
+    static List<BusHangModel> listHang = new ArrayList<>();
+    static List<BusCameraModel> listCamera = new ArrayList<>();
+    static List<BusCPUModel> listCpu = new ArrayList<>();
+    static List<BusHeDieuHanhModel> listHeDieuHanh = new ArrayList<>();
+    static List<BusManHinhModel> listManHinh = new ArrayList<>();
+    static List<BusPinModel> listPin = new ArrayList<>();
+    static List<BusRamModel> listRam = new ArrayList<>();
+    static List<BusRomModel> listRom = new ArrayList<>();
+    static List<BusXuatXuModel> listXuatXu = new ArrayList<>();
+    static List<BusSanPham> listLoaisp = new ArrayList<>();
 
     @Override
     public void init() {
         this.setTitle("Quan ly sp");
-        this.fillRecycle();
-        this.updateStatus();
-        this.getDataTable();
-        romService.fillCombo(romModel, cboRom, listRom);
-        cameraService.fillCombo(cameraModel, cboCamera, listCamera);
-        cpuService.fillCombo(cpuModel, cboCpu, listCpu);
-        heDieuHanhService.fillCombo(heDieuHanhModel, cboHeDieuHanh, listHeDieuHanh);
-        manHinhService.fillCombo(manHinhModel, cboManHinh, listManHinh);
-        pinService.fillCombo(pinModel, cboPin, listPin);
-        ramService.fillCombo(ramModel, cboRam, listRam);
-        xuatXuService.fillCombo(xuatXuModel, cboXuatXu, listXuatXu);
-        this.fillHangCombo();
-        this.fillTenSanPhamCombo();
-        this.clearForm();
+        RomService.fillCombo(romModel, cboRom, listRom);
+        CameraService.fillCombo(cameraModel, cboCamera, listCamera);
+        CpuService.fillCombo(cpuModel, cboCpu, listCpu);
+        HeDieuHanhService.fillCombo(heDieuHanhModel, cboHeDieuHanh, listHeDieuHanh);
+        ManHinhService.fillCombo(manHinhModel, cboManHinh, listManHinh);
+        PinService.fillCombo(pinModel, cboPin, listPin);
+        RamService.fillCombo(ramModel, cboRam, listRam);
+        XuatXuService.fillCombo(xuatXuModel, cboXuatXu, listXuatXu);
+        QuanLySanPham.fillHangCombo();
+        QuanLySanPham.fillTenSanPhamCombo();
     }
 
     @Override
@@ -1265,10 +1282,8 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             sanPhamService.delete(id);
             this.clearForm();
             this.getDataTable();
-            this.fillRecycle();
             MessageService.alert(this, "yeahhhh");
         } catch (Exception e) {
-            e.printStackTrace();
             MessageService.alert(this, "error");
         }
     }
@@ -1276,13 +1291,11 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     @Override
     public void edit() {
         int id = (int) tblSanPham.getValueAt(row, 0);
-        BusCTSanPhamModel sp = new BusCTSanPhamModel();
         try {
-            sp = sanPhamService.selectID(id);
+            BusCTSanPhamModel sp = sanPhamService.selectID(id);
             this.setForm(sp);
             this.updateStatus();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -1294,36 +1307,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         this.updateStatus();
     }
 
-    void fillRecycle() {
-        this.modelRecycle = (DefaultTableModel) tblRecycle.getModel();
-        modelRecycle.setRowCount(0);
-        String keyWord = txtSearchRecycle.getText();
-        try {
-            this.listRecycle = sanPhamService.selectRecycle(keyWord);
-            this.listRecycle.forEach(sp -> {
-                this.modelRecycle.addRow(new Object[]{
-                    sp.getMaCTSP(),
-                    sp.getSanPhamModel().getTensp(),
-                    sp.getSanPhamModel().getBusDongSpModel().getBusHangModel(),
-                    sp.getSanPhamModel().getBusDongSpModel(),
-                    sp.getXuatXuModel(),
-                    sp.getcPUModel().getTenCPU(),
-                    sp.getRamModel().getDungLuongRam() + " gb",
-                    sp.getRomModel().getDungLuongRom() + " gb",
-                    sp.getManHinhModel().getKichThuoc() + " inch",
-                    sp.getPinModel().getDungLuongPin() + " mAh",
-                    sp.getCameraModel(),
-                    sp.getHeDieuHanhModel(),
-                    sp.getTonKho(),
-                    Double.valueOf(sp.getGiaBan()).longValue() + " VNĐ"
-                });
-            });
-            this.rowRecycle = -1;
-            btnRestore.setEnabled(false);
-        } catch (Exception e) {
-            MessageService.alert(this, "loi");
-        }
-    }
     int rowRecycle = -1;
     int currentIDRecycle;
 
@@ -1331,11 +1314,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         try {
             sanPhamService.backup(currentIDRecycle);
             this.clearForm();
-            this.fillRecycle();
-            this.getDataTable();
+            this.getDataRecycle();
             MessageService.alert(this, "yeahhhh");
         } catch (Exception e) {
-            e.printStackTrace();
             MessageService.alert(this, "error");
         }
     }
@@ -1343,18 +1324,27 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     void getDataTable() {
         String keyWord = txtSearchBox.getText();
         try {
-            this.listSp = sanPhamService.selectBySearch(keyWord);
-            fillTableSP(this.listSp);
+            this.listSp = sanPhamService.selectBySearch(keyWord,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
+            fillTableSP(listSp, modelSp, tblSanPham);
+        } catch (Exception e) {
+            MessageService.alert(this, "loi");
+        }
+    }
+    void getDataRecycle() {
+        String keyWord = txtSearchRecycle.getText();
+        try {
+            this.listSp = sanPhamService.selectRecycle(keyWord,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
+            fillTableSP(listSp, modelRecycle, tblRecycle);
         } catch (Exception e) {
             MessageService.alert(this, "loi");
         }
     }
 
-    void fillTableSP(List<BusCTSanPhamModel> list) {
-        this.modelSp = (DefaultTableModel) tblSanPham.getModel();
-        modelSp.setRowCount(0);
-        list.forEach(sp -> {
-            this.modelSp.addRow(new Object[]{
+    void fillTableSP(List<BusCTSanPhamModel> list, DefaultTableModel model, JTable tbl) {
+        model = (DefaultTableModel) tbl.getModel();
+        model.setRowCount(0);
+        for(BusCTSanPhamModel sp : list) {
+            model.addRow(new Object[]{
                 sp.getMaCTSP(),
                 sp.getSanPhamModel().getTensp(),
                 sp.getSanPhamModel().getBusDongSpModel().getBusHangModel(),
@@ -1368,7 +1358,10 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                 sp.getTonKho(),
                 Double.valueOf(sp.getGiaBan()).longValue() + " VNĐ"
             });
-        });
+        };
+        this.row = -1;
+        this.rowRecycle = -1;
+        btnRestore.setEnabled(false);
     }
 
     void selectImage() {
@@ -1386,7 +1379,8 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     void sortDesc() {
         Collections.sort(listSp, comparator);
-        this.fillTableSP(listSp);
+        Collections.reverse(listSp);
+        fillTableSP(listSp, modelSp, tblSanPham);
     }
 
     void fill() {
@@ -1410,64 +1404,69 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         }
     }
 
-    void fillTenSanPhamCombo() {
-        this.sanPhamModel = (DefaultComboBoxModel) cboSanPham.getModel();
-        this.sanPhamModel.removeAllElements();
+    static void fillTenSanPhamCombo() {
+        System.out.println("load");
+        LoaiSPService loaiSPService = new LoaiSPService();
+        QuanLySanPham.sanPhamModel = (DefaultComboBoxModel) cboSanPham.getModel();
+        QuanLySanPham.sanPhamModel.removeAllElements();
         BusDongSpModel busDongSpModel = (BusDongSpModel) cboDongsp.getSelectedItem();
         try {
             if (busDongSpModel != null) {
-                this.listLoaisp = loaiSPService.selectByDongsp(busDongSpModel.getMaDong());
+                QuanLySanPham.listLoaisp = loaiSPService.selectByDongsp(busDongSpModel.getMaDong());
             }
 
-            if (this.listLoaisp != null) {
-                for (BusSanPham sp : this.listLoaisp) {
-                    this.sanPhamModel.addElement(sp);
-                }
+            if (QuanLySanPham.listLoaisp != null) {
+                QuanLySanPham.listLoaisp.forEach(sp -> {
+                    QuanLySanPham.sanPhamModel.addElement(sp);
+                });
             }
+            cboSanPham.getModel().setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    void fillDongCombo() {
-        this.dongspModel = (DefaultComboBoxModel) cboDongsp.getModel();
-        this.dongspModel.removeAllElements();
+    static void fillDongCombo() {
+        DongSPService dongSPService = new DongSPService();
+        QuanLySanPham.dongspModel = (DefaultComboBoxModel) cboDongsp.getModel();
+        QuanLySanPham.dongspModel.removeAllElements();
         BusHangModel busHangModel = (BusHangModel) cboHang.getSelectedItem();
         try {
             if (busHangModel != null) {
-                this.listDong = dongSPService.selectByHangsp(busHangModel.getMaHang());
-                if (this.listDong != null) {
-                    for (BusDongSpModel dong : this.listDong) {
-                        this.dongspModel.addElement(dong);
-                    }
+                QuanLySanPham.listDong = dongSPService.selectByHangsp(busHangModel.getMaHang());
+                if (QuanLySanPham.listDong != null) {
+                    QuanLySanPham.listDong.forEach(dong -> {
+                        QuanLySanPham.dongspModel.addElement(dong);
+                    });
                 }
-                this.fillTenSanPhamCombo();
+                cboDongsp.getModel().setSelectedItem(null);
+                QuanLySanPham.fillTenSanPhamCombo();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    void fillHangCombo() {
-        this.hangspModel = (DefaultComboBoxModel) cboHang.getModel();
-        this.hangspModel.removeAllElements();
+    static void fillHangCombo() {
+        HangService hangService = new HangService();
+        QuanLySanPham.hangspModel = (DefaultComboBoxModel) cboHang.getModel();
+        QuanLySanPham.hangspModel.removeAllElements();
         try {
-            this.listHang = hangService.selectAll();
-            if (this.listHang != null) {
-                for (BusHangModel hang : this.listHang) {
-                    this.hangspModel.addElement(hang);
-                }
-                this.fillDongCombo();
+            QuanLySanPham.listHang = hangService.selectAll();
+            if (QuanLySanPham.listHang != null) {
+                QuanLySanPham.listHang.forEach(hang -> {
+                    QuanLySanPham.hangspModel.addElement(hang);
+                });
+                cboHang.getModel().setSelectedItem(null);
+                QuanLySanPham.fillDongCombo();
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     void sortAsend() {
         Collections.sort(listSp, comparator);
-        Collections.reverse(listSp);
-        this.fillTableSP(listSp);
+        fillTableSP(listSp, modelSp, tblSanPham);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
     CpuService csr = new CpuService();
     int row = -1;
-
+//    QuanLySanPham qlsp = new QuanLySanPham();
     public QLCPU() {
         initComponents();
         init();
@@ -52,6 +52,11 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         tblnsd = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Tên CPU");
 
@@ -98,13 +103,13 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
         tbldsd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Mã CPU", "Tên CPU", "Trạng thái", "Title 4"
+                "Mã CPU", "Tên CPU", "Trạng thái"
             }
         ));
         tbldsd.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,6 +260,10 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
             updateStatus2();
         }
     }//GEN-LAST:event_TABMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        CpuService.fillCombo(QuanLySanPham.cpuModel, QuanLySanPham.cboCpu, QuanLySanPham.listCpu);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

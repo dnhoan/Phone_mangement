@@ -81,16 +81,18 @@ public class ManHinhService implements IPhoneMangementService<BusManHinhModel, S
         }
         return this.selectBySql(SELECT_BY_STATUS, 0);
     }
-    public void fillCombo(DefaultComboBoxModel<BusManHinhModel> model, JComboBox cbo, List<BusManHinhModel> list) {
+    public static void fillCombo(DefaultComboBoxModel<BusManHinhModel> model, JComboBox cbo, List<BusManHinhModel> list) {
+        ManHinhService manHinhService = new ManHinhService();
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
         try {
-            list = this.selectAll();
+            list = manHinhService.selectAllKD();
             if (list != null) {
                 for (BusManHinhModel bus : list) {
                     model.addElement(bus);
                 }
             }
+            cbo.getModel().setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

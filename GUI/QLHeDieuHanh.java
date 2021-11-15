@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.Models.BusHeDieuHanhModel;
+import BUS.Services.CpuService;
 import BUS.Services.HeDieuHanhService;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
@@ -56,6 +57,11 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Hệ điều hành");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Tên hệ điều hành");
 
@@ -239,6 +245,10 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         insert();
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        HeDieuHanhService.fillCombo(QuanLySanPham.heDieuHanhModel, QuanLySanPham.cboHeDieuHanh, QuanLySanPham.listHeDieuHanh);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

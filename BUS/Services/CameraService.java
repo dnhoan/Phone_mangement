@@ -76,16 +76,18 @@ public class CameraService implements ICameraService, IPhoneMangementService<Bus
         }
         return this.selectBySql(SELECT_BY_USING);
     }
-    public void fillCombo(DefaultComboBoxModel<BusCameraModel> model, JComboBox cbo, List<BusCameraModel> list) {
+    public static void fillCombo(DefaultComboBoxModel<BusCameraModel> model, JComboBox cbo, List<BusCameraModel> list) {
+        CameraService cameraService = new CameraService();
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
         try {
-            list = this.selectAll();
+            list = cameraService.selectAll();
             if (list != null) {
                 for (BusCameraModel bus : list) {
                     model.addElement(bus);
                 }
             }
+            cbo.getModel().setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

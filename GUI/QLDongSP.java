@@ -63,6 +63,11 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
         cboHangsp = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel54.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
@@ -291,6 +296,10 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
             updateStatus2();
         }
     }//GEN-LAST:event_TABMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        QuanLySanPham.fillDongCombo();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

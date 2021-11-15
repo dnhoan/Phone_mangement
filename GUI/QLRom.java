@@ -55,6 +55,11 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
         btnbackup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         tblRom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -251,6 +256,10 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
     private void btnbackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackupActionPerformed
         this.backup();
     }//GEN-LAST:event_btnbackupActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        RomService.fillCombo(QuanLySanPham.romModel, QuanLySanPham.cboRom, QuanLySanPham.listRom);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

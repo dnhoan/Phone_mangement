@@ -80,16 +80,18 @@ public class XuatXuService implements IXuatXuService, IPhoneMangementService<Bus
         }
         return this.selectBySql(SELECT_BY_STATUS,0);
     }
-    public void fillCombo(DefaultComboBoxModel<BusXuatXuModel> model, JComboBox cbo, List<BusXuatXuModel> list) {
+    public static void fillCombo(DefaultComboBoxModel<BusXuatXuModel> model, JComboBox cbo, List<BusXuatXuModel> list) {
+        XuatXuService xuatXuService = new XuatXuService();
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
         try {
-            list = this.selectAll();
+            list = xuatXuService.selectAll();
             if (list != null) {
                 for (BusXuatXuModel bus : list) {
                     model.addElement(bus);
                 }
             }
+            cbo.getModel().setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

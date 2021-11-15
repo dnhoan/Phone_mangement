@@ -25,6 +25,7 @@ public class QLPin extends javax.swing.JFrame implements IEditService<BusPinMode
     /**
      * Creates new form QLPin
      */
+    QuanLySanPham qlsp = new QuanLySanPham();
     public QLPin() {
         initComponents();
         init();
@@ -60,6 +61,11 @@ public class QLPin extends javax.swing.JFrame implements IEditService<BusPinMode
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pin");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Loại Pin");
 
@@ -386,6 +392,10 @@ public class QLPin extends javax.swing.JFrame implements IEditService<BusPinMode
 
     }//GEN-LAST:event_tabsPropertyChange
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        PinService.fillCombo(QuanLySanPham.pinModel, QuanLySanPham.cboPin, QuanLySanPham.listPin);
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -453,7 +463,7 @@ public class QLPin extends javax.swing.JFrame implements IEditService<BusPinMode
         updateStatus();
         this.row = -1;
     }
-
+    
     void fillTableDKD() {
 
         DefaultTableModel modelkd = (DefaultTableModel) tblKD.getModel();
@@ -465,7 +475,7 @@ public class QLPin extends javax.swing.JFrame implements IEditService<BusPinMode
                     x.isTrangThai() ? "Đang kinh doanh" : "Ngừng kinh doanh"};
                 modelkd.addRow(row);
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

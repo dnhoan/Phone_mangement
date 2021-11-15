@@ -26,7 +26,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
     @Override
     public void insert(DalCTSanPhamModel sp) {
         try {
-            JDBCHelper.executeQuery(INSERT,
+            JDBCHelper.executeUpdate(INSERT,
                     sp.getGiaNhap(),
                     sp.getGiaBan(),
                     sp.getSoLuongNhap(),
@@ -51,7 +51,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
     @Override
     public void update(DalCTSanPhamModel sp) {
         try {
-            JDBCHelper.executeQuery(UPDATE,
+            JDBCHelper.executeUpdate(UPDATE,
                     sp.getGiaNhap(),
                     sp.getGiaBan(),
                     sp.getSoLuongNhap(),
@@ -141,12 +141,36 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
 //        List<BusCTSanPhamModel> list = sanPhamService.selectBySearch("");
 //    }
 
-    public List<BusCTSanPhamModel> selectRecycle(String keyWord) {
-        return this.select(SELECT_RECYCLE_BY_KEYWORD, "%" + keyWord + "%");
+    public List<BusCTSanPhamModel> selectRecycle(String ten, String dong, String cam,
+            String rom, String ram, String manhinh, String pin, String cpu,  String noixuatxu, String heDieuHanh) {
+        return this.select(SELECT_BY_KEYWORD, 0,
+                "%" + ten + "%",
+                "%" + dong + "%",
+                "%" + cam + "%",
+                "%" + rom + "%",
+                "%" + ram + "%",
+                "%" + manhinh + "%",
+                "%" + pin + "%",
+                "%" + cpu + "%",
+                "%" + noixuatxu + "%",
+                "%" + heDieuHanh + "%"
+        );
     }
 
-    public List<BusCTSanPhamModel> selectBySearch(String keyWord) {
-        return this.select(SELECT_BY_KEYWORD, "%" + keyWord + "%");
+    public List<BusCTSanPhamModel> selectBySearch(String ten, String dong, String cam,
+            String rom, String ram, String manhinh, String pin, String cpu, String noixuatxu, String heDieuHanh) {
+        return this.select(SELECT_BY_KEYWORD,1, 
+                "%" + ten + "%",
+                "%" + dong + "%",
+                "%" + cam + "%",
+                "%" + rom + "%",
+                "%" + ram + "%",
+                "%" + manhinh + "%",
+                "%" + pin + "%",
+                "%" + cpu + "%",
+                "%" + noixuatxu + "%",
+                "%" + heDieuHanh + "%"
+        );
     }
 
     private BusCTSanPhamModel getResultSet(ResultSet rs) throws SQLException {

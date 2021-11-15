@@ -96,16 +96,18 @@ public class RomService implements IRomService, IPhoneMangementService<BusRomMod
         }
         return this.selectBySql(SELECT_BY_STATUS, 0);
     }
-    public void fillCombo(DefaultComboBoxModel<BusRomModel> model, JComboBox cbo, List<BusRomModel> list) {
+    public static void fillCombo(DefaultComboBoxModel<BusRomModel> model, JComboBox cbo, List<BusRomModel> list) {
+        RomService romService = new RomService();
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
         try {
-            list = this.selectAll();
+            list = romService.selectAll();
             if (list != null) {
                 for (BusRomModel bus : list) {
                     model.addElement(bus);
                 }
             }
+            cbo.getModel().setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

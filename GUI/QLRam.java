@@ -63,6 +63,11 @@ public class QLRam extends javax.swing.JFrame {
         tblram2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
@@ -328,6 +333,10 @@ public class QLRam extends javax.swing.JFrame {
         this.rowRecycle = tblram2.getSelectedRow();
         
     }//GEN-LAST:event_tblram2MouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        RamService.fillCombo(QuanLySanPham.ramModel, QuanLySanPham.cboRam, QuanLySanPham.listRam);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

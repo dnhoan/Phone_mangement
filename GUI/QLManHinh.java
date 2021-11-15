@@ -61,6 +61,11 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Màn hình");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("Loại màn hình");
 
@@ -316,6 +321,10 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         insert();
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       ManHinhService.fillCombo(QuanLySanPham.manHinhModel, QuanLySanPham.cboManHinh, QuanLySanPham.listManHinh);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

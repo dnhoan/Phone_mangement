@@ -7,6 +7,7 @@ package GUI;
 
 import BUS.Models.BusCameraModel;
 import BUS.Services.CameraService;
+import BUS.Services.HeDieuHanhService;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.util.List;
@@ -90,6 +91,14 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         jPanel52.add(btnLamMoiForm3);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
@@ -307,6 +316,14 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         // TODO add your handling code here:
         clearForm();
     }//GEN-LAST:event_btnLamMoiForm4ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        CameraService.fillCombo(QuanLySanPham.cameraModel, QuanLySanPham.cboCamera, QuanLySanPham.listCamera);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
