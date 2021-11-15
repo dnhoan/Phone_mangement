@@ -6,16 +6,12 @@
 package GUI;
 
 import Animacion.Animacion;
-import GUI.Home;
-import GUI.QuanLySanPham;
-import GUI.QuanLyKhachHang;
 import GUI.Services.AuthService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -136,8 +132,6 @@ public class Main extends javax.swing.JFrame {
 
         sidepanel.setBackground(new java.awt.Color(255, 255, 102));
         org.jdesktop.swingx.border.DropShadowBorder dropShadowBorder1 = new org.jdesktop.swingx.border.DropShadowBorder();
-        dropShadowBorder1.setShowLeftShadow(true);
-        dropShadowBorder1.setShowTopShadow(true);
         sidepanel.setBorder(dropShadowBorder1);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -253,7 +247,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel9.setText("Cấu hình");
+        jLabel9.setText("Bán Hàng");
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/configuration.png"))); // NOI18N
 
@@ -266,7 +260,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jpnCauHinhLayout.setVerticalGroup(
             jpnCauHinhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,7 +573,13 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnHangHoaMouseExited
 
     private void jpnCauHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnCauHinhMouseClicked
-
+        if (AuthService.isLogin()) {
+            QuanlyGiaoDichJFrame gd = new QuanlyGiaoDichJFrame();
+            jDesktopPane1.removeAll();
+            jDesktopPane1.add(gd).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
     }//GEN-LAST:event_jpnCauHinhMouseClicked
 
     private void jpnCauHinhMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnCauHinhMouseEntered
@@ -603,7 +603,13 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnGiaoDichMouseExited
 
     private void jpnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnNhanVienMouseClicked
-        // TODO add your handling code here:
+        if (AuthService.isLogin()) {
+            QLnhanVien gd = new QLnhanVien();
+            jDesktopPane1.removeAll();
+            jDesktopPane1.add(gd).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
     }//GEN-LAST:event_jpnNhanVienMouseClicked
 
     private void jpnNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnNhanVienMouseEntered
@@ -743,7 +749,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPopupMenu PopMenu;
     private javax.swing.JPanel bg;
     private javax.swing.JButton btnMenu;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public static javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;

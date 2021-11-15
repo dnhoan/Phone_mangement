@@ -124,39 +124,39 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
         }
     }
      public List<KhachHangModel> selectByName(String keyword){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "	Where HoTen like ? and KhachHang.TrangThai = 1" + 
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, "%"+keyword+"%");
     }
       public List<KhachHangModel> selectByAge(String keyword,String keyword2){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "       where year(Getdate())-  year(NgaySinh) > ?  and year(Getdate())-  year(NgaySinh)<  ? and KhachHang.TrangThai = 1"+
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, keyword,keyword2);
     }
        public List<KhachHangModel> selectByName2(String keyword){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "	Where HoTen like ? and KhachHang.TrangThai = 0" + 
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, "%"+keyword+"%");
     }
    
       public List<KhachHangModel> selectByAge2(String keyword,String keyword2){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "       where year(Getdate())-  year(NgaySinh) > ?  and year(Getdate())-  year(NgaySinh)<  ? and KhachHang.TrangThai = 0"+
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,NgayTao,GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, keyword,keyword2);
     }
 
-public List<KhachHangModel> selectToFillCombo(String keyWord) {
+public List<KhachHangModel> selectToFillCombo(String keyWord, String sdt) {
         List<KhachHangModel> list = new ArrayList<>();
         try {
-            ResultSet rs = JDBCHelper.executeQuery("select * from KhachHang where TrangThai = 1 and HoTen like ?", "%" + keyWord + "%");
+            ResultSet rs = JDBCHelper.executeQuery("select * from KhachHang where SDT like ? or HoTen like ?", "%" + sdt + "%", "%" + keyWord + "%");
             while (rs.next()) {
                 KhachHangModel entity = new KhachHangModel();
                 entity.setMaKH(rs.getInt("MaKH"));

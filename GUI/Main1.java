@@ -409,9 +409,9 @@ public class Main1 extends javax.swing.JFrame {
 
     private void jpnHangTrongKho1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHangTrongKho1MouseClicked
         // TODO add your handling code here:
-        QuanLyChiTietJFrame sp = new QuanLyChiTietJFrame();
-        jDesktopPane1.removeAll();
-        jDesktopPane1.add(sp).setVisible(true);
+//        QuanLyChiTietJFrame sp = new QuanLyChiTietJFrame();
+//        jDesktopPane1.removeAll();
+//        jDesktopPane1.add(sp).setVisible(true);
     }//GEN-LAST:event_jpnHangTrongKho1MouseClicked
 
     private void jpnHangTrongKho1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHangTrongKho1MouseEntered

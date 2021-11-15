@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class JDBCHelper {
 
-    private static final String URL = "jdbc:sqlserver://localhost;database=QuanLyBanDienThoai";
+    private static final String URL = "jdbc:sqlserver://localhost;database=QLBanDienThoai";
     private static final String DRIVE = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static final String USERNAME = "sa";
-    private static final String PASSWORD = "123";
+    private static final String USERNAME = "user";
+    private static final String PASSWORD = "1234";
 
     static {
         try {
@@ -73,6 +73,19 @@ public class JDBCHelper {
             } finally{
                 stmt.getConnection().close();
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static Connection ketnoi() {
+        try {
+            String user = "user";
+            String pass = "1234";
+
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QLBanDienThoai";
+            Connection cn = DriverManager.getConnection(url, user, pass);
+            return cn;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

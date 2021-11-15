@@ -76,6 +76,12 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
         }
         return this.selectSql(SELECT_ALL1);
     }
+    public List<BusCTHoaDon> selectAll0() {
+        if (this.selectSql(SELECT_ALL0) == null) {
+            return null;
+        }
+        return this.selectSql(SELECT_ALL0);
+    }
 
     public List<BusCTHoaDon> selectSql(String sql, Object... args) {
         List<BusCTHoaDon> listHDCT = new ArrayList<>();

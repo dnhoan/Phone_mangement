@@ -44,7 +44,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -184,6 +183,12 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             }
         });
         jScrollPane7.setViewportView(tblSanPham);
+        if (tblSanPham.getColumnModel().getColumnCount() > 0) {
+            tblSanPham.getColumnModel().getColumn(0).setMinWidth(50);
+            tblSanPham.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblSanPham.getColumnModel().getColumn(10).setMinWidth(60);
+            tblSanPham.getColumnModel().getColumn(10).setMaxWidth(60);
+        }
 
         jPanel44.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
 
@@ -566,20 +571,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                         .addGap(18, 18, 18)
                         .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(383, 383, 383))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -595,7 +586,20 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                             .addComponent(txtSearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel45, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jPanel55, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -812,7 +816,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchBoxsearch(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBoxsearch
-        this.fillTable();
+        this.getDataTable();
     }//GEN-LAST:event_txtSearchBoxsearch
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
@@ -837,13 +841,13 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_cboRamItemStateChanged
 
     private void cboManHinhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboManHinhItemStateChanged
-      if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
 //            this.fillManHinhCombo();
         }
     }//GEN-LAST:event_cboManHinhItemStateChanged
 
     private void cboHeDieuHanhItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboHeDieuHanhItemStateChanged
-        if(evt.getStateChange() == ItemEvent.SELECTED){
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
 //            this.fillHeDieuHanhCombo();
         }
     }//GEN-LAST:event_cboHeDieuHanhItemStateChanged
@@ -855,7 +859,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_cboHangItemStateChanged
 
     private void cboCpuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCpuItemStateChanged
-         if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
 //            this.fillCPUCombo();
         }
     }//GEN-LAST:event_cboCpuItemStateChanged
@@ -867,13 +871,13 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_cboDongspItemStateChanged
 
     private void cboXuatXuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboXuatXuItemStateChanged
-      if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
 //            this.fillTenSanPhamCombo();
         }
     }//GEN-LAST:event_cboXuatXuItemStateChanged
 
     private void cboCameraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboCameraItemStateChanged
-         if (evt.getStateChange() == ItemEvent.SELECTED) {
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
 //            this.fillCameraCombo();
         }
     }//GEN-LAST:event_cboCameraItemStateChanged
@@ -1123,7 +1127,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         this.setTitle("Quan ly sp");
         this.fillRecycle();
         this.updateStatus();
-        this.fillTable();
+        this.getDataTable();
         romService.fillCombo(romModel, cboRom, listRom);
         cameraService.fillCombo(cameraModel, cboCamera, listCamera);
         cpuService.fillCombo(cpuModel, cboCpu, listCpu);
@@ -1234,7 +1238,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         try {
             sanPhamService.insert(sp);
             this.clearForm();
-            this.fillTable();
+            this.getDataTable();
             MessageService.alert(this, "yeahhhh");
         } catch (Exception e) {
             MessageService.alert(this, "error");
@@ -1247,7 +1251,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         sp.setMactsp((int) tblSanPham.getValueAt(row, 0));
         try {
             sanPhamService.update(sp);
-            this.fillTable();
+            this.getDataTable();
             MessageService.alert(this, "yeahhhh");
         } catch (Exception e) {
             MessageService.alert(this, "error");
@@ -1260,7 +1264,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         try {
             sanPhamService.delete(id);
             this.clearForm();
-            this.fillTable();
+            this.getDataTable();
             this.fillRecycle();
             MessageService.alert(this, "yeahhhh");
         } catch (Exception e) {
@@ -1328,7 +1332,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             sanPhamService.backup(currentIDRecycle);
             this.clearForm();
             this.fillRecycle();
-            this.fillTable();
+            this.getDataTable();
             MessageService.alert(this, "yeahhhh");
         } catch (Exception e) {
             e.printStackTrace();
@@ -1336,33 +1340,35 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         }
     }
 
-    @Override
-    public void fillTable() {
-        this.modelSp = (DefaultTableModel) tblSanPham.getModel();
-        modelSp.setRowCount(0);
+    void getDataTable() {
         String keyWord = txtSearchBox.getText();
         try {
             this.listSp = sanPhamService.selectBySearch(keyWord);
-            System.out.println("ko phai csdl");
-            this.listSp.forEach(sp -> {
-                this.modelSp.addRow(new Object[]{
-                    sp.getMaCTSP(),
-                    sp.getSanPhamModel().getTensp(),
-                    sp.getSanPhamModel().getBusDongSpModel().getBusHangModel(),
-                    sp.getSanPhamModel().getBusDongSpModel(),
-                    sp.getXuatXuModel(),
-                    sp.getRamModel().getDungLuongRam() + " gb",
-                    sp.getPinModel().getDungLuongPin() + " mAh",
-                    sp.getcPUModel().getTenCPU(),
-                    sp.getRomModel().getDungLuongRom() + " gb",
-                    sp.getManHinhModel().getKichThuoc() + " inch",
-                    sp.getTonKho(),
-                    Double.valueOf(sp.getGiaBan()).longValue() + " VNĐ"
-                });
-            });
+            fillTableSP(this.listSp);
         } catch (Exception e) {
             MessageService.alert(this, "loi");
         }
+    }
+
+    void fillTableSP(List<BusCTSanPhamModel> list) {
+        this.modelSp = (DefaultTableModel) tblSanPham.getModel();
+        modelSp.setRowCount(0);
+        list.forEach(sp -> {
+            this.modelSp.addRow(new Object[]{
+                sp.getMaCTSP(),
+                sp.getSanPhamModel().getTensp(),
+                sp.getSanPhamModel().getBusDongSpModel().getBusHangModel(),
+                sp.getSanPhamModel().getBusDongSpModel(),
+                sp.getXuatXuModel(),
+                sp.getRamModel().getDungLuongRam() + " gb",
+                sp.getPinModel().getDungLuongPin() + " mAh",
+                sp.getcPUModel().getTenCPU(),
+                sp.getRomModel().getDungLuongRom() + " gb",
+                sp.getManHinhModel().getKichThuoc() + " inch",
+                sp.getTonKho(),
+                Double.valueOf(sp.getGiaBan()).longValue() + " VNĐ"
+            });
+        });
     }
 
     void selectImage() {
@@ -1380,7 +1386,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     void sortDesc() {
         Collections.sort(listSp, comparator);
-        this.fill();
+        this.fillTableSP(listSp);
     }
 
     void fill() {
@@ -1404,8 +1410,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         }
     }
 
-    
-
     void fillTenSanPhamCombo() {
         this.sanPhamModel = (DefaultComboBoxModel) cboSanPham.getModel();
         this.sanPhamModel.removeAllElements();
@@ -1424,6 +1428,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             e.printStackTrace();
         }
     }
+
     void fillDongCombo() {
         this.dongspModel = (DefaultComboBoxModel) cboDongsp.getModel();
         this.dongspModel.removeAllElements();
@@ -1442,6 +1447,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             e.printStackTrace();
         }
     }
+
     void fillHangCombo() {
         this.hangspModel = (DefaultComboBoxModel) cboHang.getModel();
         this.hangspModel.removeAllElements();
@@ -1461,7 +1467,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     void sortAsend() {
         Collections.sort(listSp, comparator);
         Collections.reverse(listSp);
-        this.fill();
+        this.fillTableSP(listSp);
     }
 
     @Override
@@ -1506,4 +1512,8 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         return null;
     }
 
+    @Override
+    public void fillTable() {
+
+    }
 }
