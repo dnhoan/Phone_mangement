@@ -229,6 +229,7 @@ CREATE TABLE KhachHang(
 	MaKH int IDENTITY(1,1) NOT NULL,
 	HoTen nvarchar(50) NOT NULL,
 	SDT varchar(15)  NULL,
+	Email nvarchar(50),
 	DiaChi nvarchar(50)  NULL,
 	GioiTinh bit NULL,
 	NgaySinh date  null,
@@ -239,7 +240,7 @@ CREATE TABLE KhachHang(
 	)
 GO
 
-
+drop table KhachHang
 
 CREATE TABLE KhuyenMai(
 	MaKM int IDENTITY(1,1) NOT NULL,
@@ -395,13 +396,13 @@ GO
 SET IDENTITY_INSERT [dbo].[KhachHang] On
 
 
-INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (1,N'Ngô Văn A',N'011226651',N'DC01',1,N'2002-10-02',CAST(N'2020-11-10' AS Date),'', 1)
-INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]  ) VALUES (2,N'Ngô Văn B',N'01122665',  N'DC02',1,N'2002-12-08',CAST(N'2020-11-11' AS Date),'aduchat', 1)
-INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (3,N'Ngô Văn C',N'011226653',  N'DC03',0,N'2002-01-07',CAST(N'2020-11-12' AS Date),'dsds', 1)
-INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (4,N'Ngô Văn D',N'011226654',  N'DC04',0,N'2002-10-06',CAST(N'2020-11-13' AS Date),'m', 1)
-INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (5,N'Ngô Văn F',N'011226655',  N'DC05',1,N'2002-05-05',CAST(N'2020-11-14' AS Date),'', 1)
-INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (7,N'Ngô Văn E',N'011226655',  N'DC06',1,N'1997-05-05',CAST(N'2020-11-14' AS Date),'', 1)
-INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (8,N'Ngô Văn E',N'011226655',  N'DC06',1,N'1987-05-05',CAST(N'2020-11-14' AS Date),'', 0)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (1,N'Ngô Văn A',N'011226651','ngovana@gmail.com',N'DC01',1,N'2002-10-02',CAST(N'2020-11-10' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]  ) VALUES (2,N'Ngô Văn B',N'01122665','ngovanb@gmail.com',  N'DC02',1,N'2002-12-08',CAST(N'2020-11-11' AS Date),'aduchat', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (3,N'Ngô Văn C',N'011226653', 'ngovanc@gmail.com', N'DC03',0,N'2002-01-07',CAST(N'2020-11-12' AS Date),'dsds', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (4,N'Ngô Văn D',N'011226654', 'ngovand@gmail.com', N'DC04',0,N'2002-10-06',CAST(N'2020-11-13' AS Date),'m', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (5,N'Ngô Văn F',N'011226655','ngovanf@gmail.com',  N'DC05',1,N'2002-05-05',CAST(N'2020-11-14' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (7,N'Ngô Văn E',N'011226655','ngovane@gmail.com',  N'DC06',1,N'1997-05-05',CAST(N'2020-11-14' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ([MaKH], [HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (8,N'Ngô Văn g',N'011226655','ngovang@gmail.com',  N'DC06',1,N'1987-05-05',CAST(N'2020-11-14' AS Date),'', 0)
 SET IDENTITY_INSERT [dbo].[KhachHang] off
 GO
 select * from KhachHang

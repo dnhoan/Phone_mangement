@@ -27,7 +27,7 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
             JDBCHelper.executeUpdate(INSERT,
                     kh.getTenKH(),
                     kh.getSDT(),
-                    
+                    kh.getEmail(),
                     kh.getDiaChi(),
                     kh.isGioiTinh(),
                     kh.getNgaySinh(),
@@ -47,6 +47,7 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
                 kh.getTenKH(),
                 kh.isGioiTinh(),
                 kh.getSDT(),
+                kh.getEmail(),
                 kh.getDiaChi(),
                 kh.getNgaySinh(),
                 kh.getNgayTao(),
@@ -107,6 +108,7 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
                 entity.setMaKH(rs.getInt("MaKH"));
                 entity.setTenKH(rs.getString("HoTen"));
                 entity.setSDT(rs.getString("SDT"));
+                entity.setEmail(rs.getString("Email"));
                 entity.setDiaChi(rs.getString("DiaChi"));
                 entity.setGioiTinh(rs.getBoolean("GioiTinh"));
                 entity.setNgaySinh(rs.getDate("NgaySinh"));
@@ -124,32 +126,32 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
         }
     }
      public List<KhachHangModel> selectByName(String keyword){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "	Where HoTen like ? and KhachHang.TrangThai = 1" + 
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, "%"+keyword+"%");
     }
       public List<KhachHangModel> selectByAge(String keyword,String keyword2){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "       where year(Getdate())-  year(NgaySinh) > ?  and year(Getdate())-  year(NgaySinh)<  ? and KhachHang.TrangThai = 1"+
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, keyword,keyword2);
     }
        public List<KhachHangModel> selectByName2(String keyword){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "	Where HoTen like ? and KhachHang.TrangThai = 0" + 
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, "%"+keyword+"%");
     }
    
       public List<KhachHangModel> selectByAge2(String keyword,String keyword2){
-        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
+        String sql = "	select KhachHang.MaKH,KhachHang.HoTen,SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai, Count(MaHD) as SoLanMua from KhachHang\n" +
 "	LEFT JOIN HoaDon On KhachHang.MaKH=HoaDon.MaKH\n" +
 "       where year(Getdate())-  year(NgaySinh) > ?  and year(Getdate())-  year(NgaySinh)<  ? and KhachHang.TrangThai = 0"+
-"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
+"	group by KhachHang.MaKH,KhachHang.HoTen,KhachHang.SDT,Email,DiaChi,GioiTinh,NgaySinh,KhachHang.NgayTao,KhachHang.GhiChu,KhachHang.TrangThai";
         return selectBySql(sql, keyword,keyword2);
     }
 
