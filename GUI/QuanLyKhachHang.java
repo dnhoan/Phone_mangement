@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
@@ -85,7 +87,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         rdoNam2 = new javax.swing.JRadioButton();
         rdoNu2 = new javax.swing.JRadioButton();
         jLabel22 = new javax.swing.JLabel();
-        txtSDT2 = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         txtDiaCHi2 = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -95,6 +97,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jScrollPane5 = new javax.swing.JScrollPane();
         txtGhiChu2 = new javax.swing.JTextArea();
         jLabel26 = new javax.swing.JLabel();
+        txtSDT = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         btnThem2 = new javax.swing.JButton();
         btnSua2 = new javax.swing.JButton();
@@ -237,11 +241,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
             },
             new String [] {
-                "Mã KH", "Tên KH", "SDT", "Địa chỉ", "Giới tính", "Ngày sinh", "Ngày tạo", "Ghi chú", "Số lần mua"
+                "Mã KH", "Tên KH", "SDT", "Email", "Địa chỉ", "Giới tính", "Ngày sinh", "Ngày tạo", "Ghi chú", "Số lần mua"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -258,10 +262,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         if (tblKhachHang.getColumnModel().getColumnCount() > 0) {
             tblKhachHang.getColumnModel().getColumn(0).setMinWidth(50);
             tblKhachHang.getColumnModel().getColumn(0).setMaxWidth(50);
-            tblKhachHang.getColumnModel().getColumn(4).setMinWidth(70);
-            tblKhachHang.getColumnModel().getColumn(4).setMaxWidth(70);
-            tblKhachHang.getColumnModel().getColumn(8).setMinWidth(70);
-            tblKhachHang.getColumnModel().getColumn(8).setMaxWidth(70);
+            tblKhachHang.getColumnModel().getColumn(5).setMinWidth(70);
+            tblKhachHang.getColumnModel().getColumn(5).setMaxWidth(70);
+            tblKhachHang.getColumnModel().getColumn(9).setMinWidth(70);
+            tblKhachHang.getColumnModel().getColumn(9).setMaxWidth(70);
         }
 
         jPanel9.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 960, 390));
@@ -290,11 +294,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jPanel10.add(rdoNu2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel22.setText("Số điện thoại");
-        jPanel10.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        jLabel22.setText("Email");
+        jPanel10.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
-        txtSDT2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jPanel10.add(txtSDT2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 198, 30));
+        txtEmail.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jPanel10.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 198, 30));
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel23.setText("Địa chỉ");
@@ -311,7 +315,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jLabel25.setText("Ngày tạo");
         jPanel10.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, -1, -1));
         jPanel10.add(txtNgayTao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 268, 30));
-        jPanel10.add(txtNgaySinh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 268, 30));
+        jPanel10.add(txtNgaySinh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 268, 30));
 
         txtGhiChu2.setColumns(20);
         txtGhiChu2.setRows(5);
@@ -323,7 +327,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jLabel26.setText("Ghi chú");
         jPanel10.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, -1, -1));
 
-        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 960, 210));
+        txtSDT.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jPanel10.add(txtSDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 198, 30));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel27.setText("Số điện thoại");
+        jPanel10.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 960, 260));
 
         jPanel11.setLayout(new java.awt.GridLayout(1, 4, 5, 0));
 
@@ -363,7 +374,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         });
         jPanel11.add(btnMoi2);
 
-        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 640, 360, 41));
+        jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 690, 360, 41));
 
         btnFirst.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnFirst.setText("|<");
@@ -372,7 +383,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 btnFirstActionPerformed(evt);
             }
         });
-        jPanel9.add(btnFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 630, -1, 40));
+        jPanel9.add(btnFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 690, -1, 40));
 
         btnPrev.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnPrev.setText("<<");
@@ -381,7 +392,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 btnPrevActionPerformed(evt);
             }
         });
-        jPanel9.add(btnPrev, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 630, -1, 40));
+        jPanel9.add(btnPrev, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 690, -1, 40));
 
         btnNext.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnNext.setText(">>");
@@ -390,7 +401,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 btnNextActionPerformed(evt);
             }
         });
-        jPanel9.add(btnNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 630, -1, 40));
+        jPanel9.add(btnNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 690, -1, 40));
 
         btnLast.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         btnLast.setText(">|");
@@ -399,26 +410,34 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 btnLastActionPerformed(evt);
             }
         });
-        jPanel9.add(btnLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 630, -1, 40));
+        jPanel9.add(btnLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 690, -1, 40));
 
         tabs.addTab("Khách hàng", jPanel9);
 
         tblKhachHang2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã KH", "Tên KH", "SDT", "Địa chỉ", "Giới tính", "Ngày sình", "Ngày tạo", "Ghi chú", "Số lần mua", "Khôi phục"
+                "Mã KH", "Tên KH", "SDT", "Email", "Địa chỉ", "Giới tính", "Ngày sình", "Ngày tạo", "Ghi chú", "Số lần mua", "Khôi phục"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblKhachHang2.setRowHeight(25);
         jScrollPane1.setViewportView(tblKhachHang2);
         if (tblKhachHang2.getColumnModel().getColumnCount() > 0) {
-            tblKhachHang2.getColumnModel().getColumn(9).setMinWidth(70);
-            tblKhachHang2.getColumnModel().getColumn(9).setMaxWidth(70);
+            tblKhachHang2.getColumnModel().getColumn(10).setMinWidth(70);
+            tblKhachHang2.getColumnModel().getColumn(10).setMaxWidth(70);
         }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -578,7 +597,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     private void btnSua2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua2ActionPerformed
         if(chekrong()==true){
             if(checkvai()==true){
-                update();
+                if(checkmail()==true){
+                   update(); 
+                }
+                
             }
         }
     }//GEN-LAST:event_btnSua2ActionPerformed
@@ -590,7 +612,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
          if(chekrong()==true){
             if(checkvai()==true){
-                insert();
+                if(checkmail()==true){
+                     insert();
+                }
+               
             }
         }
     }//GEN-LAST:event_btnThem2ActionPerformed
@@ -620,6 +645,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -639,11 +665,12 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     private javax.swing.JTextField tkTen;
     public static javax.swing.JComboBox<String> tkcboTuoi;
     private javax.swing.JTextField txtDiaCHi2;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextArea txtGhiChu2;
     private javax.swing.JTextField txtHoTenKH2;
     private com.toedter.calendar.JDateChooser txtNgaySinh2;
     private com.toedter.calendar.JDateChooser txtNgayTao2;
-    private javax.swing.JTextField txtSDT2;
+    private javax.swing.JTextField txtSDT;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -666,7 +693,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         KhachHangModel kh = new KhachHangModel();
         kh.setTenKH(txtHoTenKH2.getText());
         kh.setGioiTinh(rdoNam2.isSelected());
-        kh.setSDT(txtSDT2.getText());
+        kh.setSDT(txtSDT.getText());
+        kh.setEmail(txtEmail.getText());
         kh.setDiaChi(txtDiaCHi2.getText());
         kh.setNgaySinh(txtNgaySinh2.getDate());
         kh.setNgayTao(txtNgayTao2.getDate());
@@ -681,7 +709,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         txtHoTenKH2.setText(entity.getTenKH());
         rdoNam2.setSelected(entity.isGioiTinh());
         rdoNu2.setSelected(!entity.isGioiTinh());
-        txtSDT2.setText(entity.getSDT());
+        txtSDT.setText(entity.getSDT());
+        txtEmail.setText(entity.getEmail());
         txtDiaCHi2.setText(entity.getDiaChi());
         txtNgaySinh2.setDate(entity.getNgaySinh());
         txtNgayTao2.setDate(entity.getNgayTao());
@@ -772,6 +801,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         this.row = -1;
         this.setForm(khmodel);
         this.updateStatus();
+        rdoNam2.setSelected(true);
     }
 
     @Override
@@ -787,6 +817,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                     kh.getMaKH(),
                     kh.getTenKH(),
                     kh.getSDT(),
+                    kh.getEmail(),
                     kh.getDiaChi(),
                     kh.isGioiTinh() ? "Nam" : "Nữ",
                     kh.getNgaySinh(),
@@ -815,6 +846,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                         kh.getMaKH(),
                         kh.getTenKH(),
                         kh.getSDT(),
+                         kh.getEmail(),
                         kh.getDiaChi(),
                         kh.isGioiTinh() ? "Nam" : "Nữ",
                         kh.getNgaySinh(),
@@ -848,6 +880,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                     kh.getMaKH(),
                     kh.getTenKH(),
                     kh.getSDT(),
+                     kh.getEmail(),
                     kh.getDiaChi(),
                     kh.isGioiTinh() ? "Nam" : "Nữ",
                     kh.getNgaySinh(),
@@ -878,6 +911,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                     kh.getMaKH(),
                     kh.getTenKH(),
                     kh.getSDT(),
+                     kh.getEmail(),
                     kh.getDiaChi(),
                     kh.isGioiTinh() ? "Nam" : "Nữ",
                     kh.getNgaySinh(),
@@ -908,6 +942,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                     kh.getMaKH(),
                     kh.getTenKH(),
                     kh.getSDT(),
+                     kh.getEmail(),
                     kh.getDiaChi(),
                     kh.isGioiTinh() ? "Nam" : "Nữ",
                     kh.getNgaySinh(),
@@ -938,6 +973,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                     kh.getMaKH(),
                     kh.getTenKH(),
                     kh.getSDT(),
+                     kh.getEmail(),
                     kh.getDiaChi(),
                     kh.isGioiTinh() ? "Nam" : "Nữ",
                     kh.getNgaySinh(),
@@ -1006,7 +1042,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
         };
 
-        ButtonColumn buttonColumn = new ButtonColumn(tblKhachHang2, delete, 9);
+        ButtonColumn buttonColumn = new ButtonColumn(tblKhachHang2, delete, 10);
         buttonColumn.setMnemonic(KeyEvent.VK_D);
     }
 
@@ -1028,9 +1064,9 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
             MessageService.alert(rootPane, "Không thể bỏ trống Họ tên");
             txtHoTenKH2.requestFocus();
             return false;
-        } else if (txtSDT2.getText().equals("")) {
+        } else if (txtSDT.getText().equals("")) {
             MessageService.alert(rootPane, "Không thể bỏ trống  số điện thoại");
-            txtSDT2.requestFocus();
+            txtSDT.requestFocus();
             return false;
         } else if (txtDiaCHi2.getText().equals("")) {
             MessageService.alert(rootPane, "không thể bỏ trống địa chỉ");
@@ -1064,13 +1100,24 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
     private boolean checkvai() {
 
-        if (!(txtSDT2.getText()).matches("[0-9]{10}")) {
+        if (!(txtSDT.getText()).matches("[0-9]{10}")) {
             MessageService.alert(rootPane, "Số điện thoại phải nhập đúng 10 số");
-            txtSDT2.requestFocus();
+            txtSDT.requestFocus();
             return false;
 
         }
         return true;
+    }
+    public static final String EMAIL_REG = "^\\w+@[a-z]+.[a-z]{2,4}+$";
+    private boolean checkmail(){
+        Pattern pt = Pattern.compile(EMAIL_REG);
+        Matcher matcher = pt.matcher(txtEmail.getText());
+         if (!matcher.matches()) {
+                MessageService.alert(this, "Không đúng định dạng email ");
+                txtEmail.requestFocus();
+                return false;
+            }
+         return true;
     }
 
     @Override

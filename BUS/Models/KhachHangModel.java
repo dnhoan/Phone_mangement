@@ -18,7 +18,7 @@ public class KhachHangModel {
     String SDT;
     String diaChi;
     boolean gioiTinh;
-    
+    String email;
     Date ngaySinh;
     Date ngayTao;
     String ghiChu;
@@ -27,18 +27,29 @@ public class KhachHangModel {
     public KhachHangModel() {
     }
 
-    public KhachHangModel(int maKH, String tenKH, String SDT, String diaChi, boolean gioiTinh, Date ngaySinh,Date ngayTao, String ghiChu, boolean trangThai, int soLanMua) {
+    public KhachHangModel(int maKH, String tenKH, String SDT, String diaChi, boolean gioiTinh, String email, Date ngaySinh, Date ngayTao, String ghiChu, boolean trangThai, int soLanMua) {
         this.maKH = maKH;
         this.tenKH = tenKH;
         this.SDT = SDT;
         this.diaChi = diaChi;
         this.gioiTinh = gioiTinh;
+        this.email = email;
         this.ngaySinh = ngaySinh;
         this.ngayTao = ngayTao;
         this.ghiChu = ghiChu;
         this.trangThai = trangThai;
         this.soLanMua = soLanMua;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
 
     
 

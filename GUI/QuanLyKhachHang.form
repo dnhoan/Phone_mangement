@@ -229,10 +229,11 @@
                 <Component class="javax.swing.JTable" name="tblKhachHang">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="9" rowCount="0">
+                      <Table columnCount="10" rowCount="0">
                         <Column editable="false" title="M&#xe3; KH" type="java.lang.Object"/>
                         <Column editable="false" title="T&#xea;n KH" type="java.lang.Object"/>
                         <Column editable="false" title="SDT" type="java.lang.Object"/>
+                        <Column editable="false" title="Email" type="java.lang.Object"/>
                         <Column editable="false" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.Object"/>
                         <Column editable="false" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.Object"/>
                         <Column editable="false" title="Ng&#xe0;y sinh" type="java.lang.Object"/>
@@ -244,6 +245,11 @@
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
                         <Column maxWidth="50" minWidth="50" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -313,7 +319,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="10" y="410" width="960" height="210"/>
+                  <AbsoluteConstraints x="10" y="410" width="960" height="260"/>
                 </Constraint>
               </Constraints>
 
@@ -391,15 +397,15 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="13" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+                    <Property name="text" type="java.lang.String" value="Email"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="20" y="140" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="20" y="200" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtSDT2">
+                <Component class="javax.swing.JTextField" name="txtEmail">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="13" style="0"/>
@@ -407,7 +413,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="20" y="160" width="198" height="30"/>
+                      <AbsoluteConstraints x="20" y="220" width="198" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -472,7 +478,7 @@
                 <Component class="com.toedter.calendar.JDateChooser" name="txtNgaySinh2">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="240" y="110" width="268" height="30"/>
+                      <AbsoluteConstraints x="240" y="100" width="268" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -509,12 +515,37 @@
                     </Constraint>
                   </Constraints>
                 </Component>
+                <Component class="javax.swing.JTextField" name="txtSDT">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="13" style="0"/>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="20" y="160" width="198" height="30"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel27">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="13" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="20" y="140" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel11">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="600" y="640" width="360" height="41"/>
+                  <AbsoluteConstraints x="600" y="690" width="360" height="41"/>
                 </Constraint>
               </Constraints>
 
@@ -582,7 +613,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="630" width="-1" height="40"/>
+                  <AbsoluteConstraints x="20" y="690" width="-1" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -598,7 +629,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="80" y="630" width="-1" height="40"/>
+                  <AbsoluteConstraints x="80" y="690" width="-1" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -614,7 +645,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="150" y="630" width="-1" height="40"/>
+                  <AbsoluteConstraints x="150" y="690" width="-1" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -630,7 +661,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="210" y="630" width="-1" height="40"/>
+                  <AbsoluteConstraints x="210" y="690" width="-1" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -676,21 +707,27 @@
                 <Component class="javax.swing.JTable" name="tblKhachHang2">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="10" rowCount="4">
-                        <Column editable="true" title="M&#xe3; KH" type="java.lang.Object"/>
-                        <Column editable="true" title="T&#xea;n KH" type="java.lang.Object"/>
-                        <Column editable="true" title="SDT" type="java.lang.Object"/>
-                        <Column editable="true" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.Object"/>
-                        <Column editable="true" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.Object"/>
-                        <Column editable="true" title="Ng&#xe0;y s&#xec;nh" type="java.lang.Object"/>
-                        <Column editable="true" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
-                        <Column editable="true" title="Ghi ch&#xfa;" type="java.lang.Object"/>
-                        <Column editable="true" title="S&#x1ed1; l&#x1ea7;n mua" type="java.lang.Object"/>
+                      <Table columnCount="11" rowCount="4">
+                        <Column editable="false" title="M&#xe3; KH" type="java.lang.Object"/>
+                        <Column editable="false" title="T&#xea;n KH" type="java.lang.Object"/>
+                        <Column editable="false" title="SDT" type="java.lang.Object"/>
+                        <Column editable="true" title="Email" type="java.lang.Object"/>
+                        <Column editable="false" title="&#x110;&#x1ecb;a ch&#x1ec9;" type="java.lang.Object"/>
+                        <Column editable="false" title="Gi&#x1edb;i t&#xed;nh" type="java.lang.Object"/>
+                        <Column editable="false" title="Ng&#xe0;y s&#xec;nh" type="java.lang.Object"/>
+                        <Column editable="false" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
+                        <Column editable="false" title="Ghi ch&#xfa;" type="java.lang.Object"/>
+                        <Column editable="false" title="S&#x1ed1; l&#x1ea7;n mua" type="java.lang.Object"/>
                         <Column editable="true" title="Kh&#xf4;i ph&#x1ee5;c" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
