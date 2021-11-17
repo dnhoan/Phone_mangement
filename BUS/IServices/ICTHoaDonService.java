@@ -11,8 +11,8 @@ package BUS.IServices;
  */
 public interface ICTHoaDonService {
 
-    String INSERT = "INSERT INTO ChiTietHoaDon(MAHD, MaCTSP, SoLuong, GiaBan) values (?,?,?,?)";
-    String UPDATE = "update ChiTietHoaDon set MaHD = ?, MaCTSP = ?, SoLuong = ?, GiaBan= ? where MaCTHD = ?";
+    String INSERT = "INSERT INTO ChiTietHoaDon(MAHD, MaCTSP, Imei, GiaBan) values (?,?,?,?)";
+    String UPDATE = "update ChiTietHoaDon set MaHD = ?, MaCTSP = ?, Imei = ?, GiaBan= ? where MaCTHD = ?";
     String DELETE = "update ChiTietHoaDon set TrangThai = 0 where MaCTHD = ?";
     String SELECT_ALL1 = "select MaCTHD, HoaDon.MaHD, SanPham.MaSP, HoaDon.MaKH, HoaDon.MaNV, KhachHang.HoTen, \n"
             + "	KhachHang.SDT, SanPham.TenSP, CTSANPHAM.MACTSP, ChiTietHoaDon.GiaBan, \n"

@@ -13,9 +13,17 @@ public class DalChiTietHoaDon {
     private int macthd;
     private int mahd;
     private int mactsp;
-    private int soLuong;
+    private String imei;
     private float gia;
     private boolean trangThai;
+
+    public String getImei() {
+        return imei;
+    }
+
+    public void setImei(String imei) {
+        this.imei = imei;
+    }
 
     public int getMactsp() {
         return mactsp;
@@ -39,14 +47,6 @@ public class DalChiTietHoaDon {
 
     public void setMahd(int mahd) {
         this.mahd = mahd;
-    }
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
     }
 
     public float getGia() {

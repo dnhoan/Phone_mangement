@@ -33,11 +33,10 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
             JDBCHelper.executeUpdate(INSERT,
                     entity.getMahd(),
                     entity.getMactsp(),
-                    entity.getSoLuong(),
+                    entity.getImei(),
                     entity.getGia()
             );
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -47,12 +46,11 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
             JDBCHelper.executeUpdate(UPDATE,
                     entity.getMahd(),
                     entity.getMactsp(),
-                    entity.getSoLuong(),
+                    entity.getImei(),
                     entity.getGia(),
                     entity.getMacthd()
             );
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -61,7 +59,6 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
         try {
             JDBCHelper.executeUpdate(DELETE, id);
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -88,7 +85,6 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
         try {
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while (rs.next()) {
-                System.out.println("result");
                 BusCTHoaDon busCTHoaDon = this.getResultSet(rs);
                 listHDCT.add(busCTHoaDon);
             }
@@ -131,7 +127,6 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
             busCTHoaDon.setThanhTien(rs.getFloat("tongtien"));
             busCTHoaDon.setGia(rs.getFloat("giaban"));
             busCTHoaDon.setBusHoaDon(busHoaDon);
-            System.out.println(rs.getFloat("tongtien"));
             return busCTHoaDon;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -5,8 +5,6 @@
  */
 package DAL.Models;
 
-import BUS.Models.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 /**

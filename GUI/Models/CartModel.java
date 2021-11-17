@@ -5,6 +5,8 @@
  */
 package GUI.Models;
 
+import java.util.List;
+
 /**
  *
  * @author ADMIN
@@ -14,8 +16,18 @@ public class CartModel {
     private String tensp;
     private String hinh;
     private float gia;
-    private int soLuong;
     private float tongTien;
+    private List<String> listImeis;
+
+    public List<String> getListImeis() {
+        return listImeis;
+    }
+
+    public void setListImeis(List<String> listImeis) {
+        this.listImeis = listImeis;
+    }
+
+    
 
     public CartModel() {
     }
@@ -52,13 +64,6 @@ public class CartModel {
         this.gia = gia;
     }
 
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
 
     public float getTongTien() {
         return tongTien;

@@ -240,7 +240,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
     String imageName;
 
     public void ResizeImage(String imageName) {
-        ImageIcon icon = new ImageIcon("image\\" + imageName);
+        ImageIcon icon = new ImageIcon("src\\image\\" + imageName);
         Image image = icon.getImage();
         ImageIcon icon1 = new ImageIcon(image.getScaledInstance(imgAnh.getWidth(), imgAnh.getHeight(), image.SCALE_SMOOTH));
         imgAnh.setIcon(icon1);

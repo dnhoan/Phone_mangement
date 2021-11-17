@@ -47,7 +47,12 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
             e.printStackTrace();
         }
     }
-
+    public void updateStock(Integer id, int stock) {
+        try {
+           JDBCHelper.executeUpdate(UPDATE_STOCK,stock, id);
+        } catch (SQLException e) {
+        }
+    }
     @Override
     public void update(DalCTSanPhamModel sp) {
         try {
@@ -141,9 +146,9 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
 //        List<BusCTSanPhamModel> list = sanPhamService.selectBySearch("");
 //    }
 
-    public List<BusCTSanPhamModel> selectRecycle(String ten, String dong, String cam,
+    public List<BusCTSanPhamModel> selectRecycle(int tonKho, String ten, String dong, String cam,
             String rom, String ram, String manhinh, String pin, String cpu,  String noixuatxu, String heDieuHanh) {
-        return this.select(SELECT_BY_KEYWORD, 0,
+        return this.select(SELECT_BY_KEYWORD, 0, tonKho,
                 "%" + ten + "%",
                 "%" + dong + "%",
                 "%" + cam + "%",
@@ -157,9 +162,9 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         );
     }
 
-    public List<BusCTSanPhamModel> selectBySearch(String ten, String dong, String cam,
+    public List<BusCTSanPhamModel> selectBySearch(int tonKho, String ten, String dong, String cam,
             String rom, String ram, String manhinh, String pin, String cpu, String noixuatxu, String heDieuHanh) {
-        return this.select(SELECT_BY_KEYWORD,1, 
+        return this.select(SELECT_BY_KEYWORD,1, tonKho,
                 "%" + ten + "%",
                 "%" + dong + "%",
                 "%" + cam + "%",

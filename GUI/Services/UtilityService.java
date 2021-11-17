@@ -2,6 +2,8 @@
 package GUI.Services;
 
 import java.io.File;
+import java.text.NumberFormat;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -18,5 +20,9 @@ public class UtilityService {
             lblImage.setToolTipText(file.getName());
         }
     }
-    
+    public static String toVnd(float dong) {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+        return currencyVN.format(dong);
+    }
 }

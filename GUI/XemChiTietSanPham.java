@@ -9,6 +9,7 @@ import BUS.Models.BusCTSanPhamModel;
 import BUS.Models.BusSanPham;
 import BUS.Services.SanPhamService;
 import GUI.Services.ImageService;
+import GUI.Services.UtilityService;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -81,6 +82,10 @@ public class XemChiTietSanPham extends javax.swing.JFrame {
         tblThuocTinh.setRowHeight(30);
         tblThuocTinh.setShowGrid(true);
         jScrollPane1.setViewportView(tblThuocTinh);
+        if (tblThuocTinh.getColumnModel().getColumnCount() > 0) {
+            tblThuocTinh.getColumnModel().getColumn(0).setMinWidth(140);
+            tblThuocTinh.getColumnModel().getColumn(0).setMaxWidth(140);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -200,7 +205,8 @@ public class XemChiTietSanPham extends javax.swing.JFrame {
             lblImage.setToolTipText(null);
             lblImage.setIcon(null);
         }
-        lblGia.setText(Double.valueOf(sp.getGiaBan()).longValue()+" VNĐ");
+        
+        lblGia.setText(UtilityService.toVnd(sp.getGiaBan()));
         lblTenSanPham.setText(sp.getSanPhamModel().getTensp());
         model = (DefaultTableModel) tblThuocTinh.getModel();
         model.setRowCount(0);

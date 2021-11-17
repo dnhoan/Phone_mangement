@@ -6,10 +6,13 @@
 package BUS.Services;
 
 import BUS.IServices.IHoaDonService;
-import BUS.Models.BusCTHoaDon;
+import BUS.Models.BusHoaDon;
+import BUS.Models.KhachHangModel;
+import BUS.Models.NhanVienModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Models.DalHoaDon;
 import DAL.Services.JDBCHelper;
+import GUI.Services.DateService;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,16 +26,14 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
 
     @Override
     public void insert(DalHoaDon entity) {
-        System.out.println(entity.getManv() + " " +
-                    entity.getMakh() + " " +
-                    entity.getMakm());
         try {
             JDBCHelper.executeUpdate(INSERT, 
                     entity.getManv(),
                     entity.getMakh(), 
                     null,
 //                    entity.getMakm(),
-                    entity.getGhiChu()
+                    entity.getGhiChu(),
+                    DateService.toString(entity.getNgayBan(), "yyyy-MM-yy")
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,22 +70,51 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         }
         return null;
     }
-    
-    public List<BusCTHoaDon> selectSql(String sql, Object... args) {
-        List<BusCTHoaDon> listCTHD = new ArrayList<>();
+    public List<BusHoaDon> selectAll1() {
+        if(this.selectSql(SELECT_ALL1,1) == null) {
+            return null;
+        }
+        return this.selectSql(SELECT_ALL1,1);
+    }
+    public List<BusHoaDon> selectAll0() {
+        if(this.selectSql(SELECT_ALL1,0) == null) {
+            return null;
+        }
+        return this.selectSql(SELECT_ALL1,0);
+    }
+    public List<BusHoaDon> selectSql(String sql, Object... args) {
+        List<BusHoaDon> listHoaDon = new ArrayList<>();
         try {
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while(rs.next()) {
-                BusCTHoaDon busCTHoaDon = new BusCTHoaDon();
-                busCTHoaDon.setMacthd(rs.getInt("macthd"));
-                busCTHoaDon.setMacthd(0);
+               BusHoaDon busHoaDon = this.getResultSet(rs);
+               listHoaDon.add(busHoaDon);
             }
-        } catch (Exception e) {
+            return listHoaDon;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }
     
-    
+    BusHoaDon getResultSet(ResultSet rs) throws SQLException {
+        BusHoaDon busHoaDon = new BusHoaDon();
+        KhachHangModel khachHangModel = new KhachHangModel();
+        khachHangModel.setMaKH(rs.getInt("makh"));
+        khachHangModel.setTenKH(rs.getString("tenkhach"));
+        khachHangModel.setSDT(rs.getString("sdt"));
+        NhanVienModel nhanVienModel = new NhanVienModel();
+        nhanVienModel.setMaNV(rs.getString("manv"));
+        nhanVienModel.setHoTen(rs.getString("tenNhanVien"));
+        busHoaDon.setKhachHangModel(khachHangModel);
+        busHoaDon.setNhanVienModel(nhanVienModel);
+        busHoaDon.setMahd(rs.getInt("mahd"));
+        busHoaDon.setNgayBan(rs.getDate("ngayBan"));
+        busHoaDon.setNgayTao(rs.getDate("ngaytao"));
+        busHoaDon.setSoLuong(rs.getInt("soluong"));
+        busHoaDon.setTongTien(rs.getFloat("tong"));
+        return busHoaDon;
+    }
     
     @Override
     public DalHoaDon selectByID(Integer id) {

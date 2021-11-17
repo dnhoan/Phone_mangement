@@ -16,7 +16,34 @@ public class BusHoaDon {
     private Date ngayBan;
     private NhanVienModel nhanVienModel;
     private KhachHangModel khachHangModel;
+    private int soLuong;
+    private Date ngayTao;
+    private float tongTien;
     private boolean trangThai;
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public float getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(float tongTien) {
+        this.tongTien = tongTien;
+    }
 
     public int getMahd() {
         return mahd;

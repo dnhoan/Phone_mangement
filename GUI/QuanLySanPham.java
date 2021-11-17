@@ -33,6 +33,7 @@ import DAL.Models.DalCTSanPhamModel;
 import GUI.Services.IEditService;
 import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import GUI.Services.UtilityService;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
@@ -45,6 +46,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -1324,7 +1326,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     void getDataTable() {
         String keyWord = txtSearchBox.getText();
         try {
-            this.listSp = sanPhamService.selectBySearch(keyWord,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
+            this.listSp = sanPhamService.selectBySearch(0,keyWord,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
             fillTableSP(listSp, modelSp, tblSanPham);
         } catch (Exception e) {
             MessageService.alert(this, "loi");
@@ -1333,7 +1335,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     void getDataRecycle() {
         String keyWord = txtSearchRecycle.getText();
         try {
-            this.listSp = sanPhamService.selectRecycle(keyWord,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
+            this.listSp = sanPhamService.selectRecycle(0,keyWord,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
             fillTableSP(listSp, modelRecycle, tblRecycle);
         } catch (Exception e) {
             MessageService.alert(this, "loi");
@@ -1356,7 +1358,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                 sp.getRomModel().getDungLuongRom() + " gb",
                 sp.getManHinhModel().getKichThuoc() + " inch",
                 sp.getTonKho(),
-                Double.valueOf(sp.getGiaBan()).longValue() + " VNĐ"
+                UtilityService.toVnd(sp.getGiaBan())
             });
         };
         this.row = -1;
@@ -1365,14 +1367,30 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }
 
     void selectImage() {
-        JFileChooser fileChooser = new JFileChooser();
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            ImageService.save(file);
-            ImageIcon icon = ImageService.readImage(file.getName(), lblImage);
-            lblImage.setIcon(icon);
-            lblImage.setToolTipText(file.getName());
+        try {
+            JFileChooser fileChooser = new JFileChooser("image\\");
+            int kq = fileChooser.showOpenDialog(fileChooser);
+            if (kq == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                ImageService.save(file);
+                ImageIcon icon = ImageService.readImage(file.getName(), lblImage);
+                lblImage.setIcon(icon);
+                lblImage.setToolTipText(file.getName());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
+            }
+
+        } catch (Exception a) {
+
         }
+//        JFileChooser fileChooser = new JFileChooser();
+//        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+//            File file = fileChooser.getSelectedFile();
+//            ImageService.save(file);
+//            ImageIcon icon = ImageService.readImage(file.getName(), lblImage);
+//            lblImage.setIcon(icon);
+//            lblImage.setToolTipText(file.getName());
+//        }
 
     }
     Comparator<BusCTSanPhamModel> comparator = Comparator.comparing(BusCTSanPhamModel::getGiaBan);
@@ -1392,7 +1410,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                 this.modelSp.addRow(new Object[]{
                     sp.getMaCTSP(),
                     sp.getSanPhamModel().getTensp(),
-                    sp.getGiaBan() + " VNĐ",
+                    UtilityService.toVnd(sp.getGiaBan()),
                     sp.getRamModel().getDungLuongRam() + " gb",
                     sp.getPinModel().getDungLuongPin() + " mnAh",
                     sp.getcPUModel().getTenCPU(),
@@ -1405,7 +1423,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }
 
     static void fillTenSanPhamCombo() {
-        System.out.println("load");
         LoaiSPService loaiSPService = new LoaiSPService();
         QuanLySanPham.sanPhamModel = (DefaultComboBoxModel) cboSanPham.getModel();
         QuanLySanPham.sanPhamModel.removeAllElements();

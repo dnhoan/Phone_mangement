@@ -49,5 +49,6 @@ public interface ICTSanPhamService {
             + "XuatXu ON XuatXu.MaXuatXu = CTSANPHAM.MaXuatXu JOIN\n"
             + "Pin ON PIN.MaPin = CTSANPHAM.MaPin JOIN\n"
             + "ManHinhSP ON ManHinhSP.MaManHinh = CTSANPHAM.MaManHinh JOIN \n"
-            + "CPU ON CPU.MaCPU = CTSANPHAM.MaCPU where CTSANPHAM.TrangThai = ? AND (TenSP like ? or TenDong like ? or LoaiCamera like ? or TenRom like ? or LoaiRam like ? or LoaiManHinh like ? or LoaiPin like ? or TenCPU like ? or noixuatxu like ? or TenHeDieuHanh like ?)";
+            + "CPU ON CPU.MaCPU = CTSANPHAM.MaCPU where CTSANPHAM.TrangThai = ? AND CTSANPHAM.TonKho >= ? and (TenSP like ? or TenDong like ? or LoaiCamera like ? or TenRom like ? or LoaiRam like ? or LoaiManHinh like ? or LoaiPin like ? or TenCPU like ? or noixuatxu like ? or TenHeDieuHanh like ?)";
+    String UPDATE_STOCK = "update CTSANPHAM set TonKho = ? where MACTSP = ?";
 }
