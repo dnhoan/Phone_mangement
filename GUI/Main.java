@@ -68,6 +68,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         PopMenu = new javax.swing.JPopupMenu();
+        ChangePass = new javax.swing.JMenuItem();
         LogOut = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         bg = new javax.swing.JPanel();
@@ -96,6 +97,15 @@ public class Main extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+
+        ChangePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Secure.png"))); // NOI18N
+        ChangePass.setText("Change Password");
+        ChangePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangePassActionPerformed(evt);
+            }
+        });
+        PopMenu.add(ChangePass);
 
         LogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logout.png"))); // NOI18N
         LogOut.setText("Log out");
@@ -132,6 +142,8 @@ public class Main extends javax.swing.JFrame {
 
         sidepanel.setBackground(new java.awt.Color(255, 255, 102));
         org.jdesktop.swingx.border.DropShadowBorder dropShadowBorder1 = new org.jdesktop.swingx.border.DropShadowBorder();
+        dropShadowBorder1.setShowLeftShadow(true);
+        dropShadowBorder1.setShowTopShadow(true);
         sidepanel.setBorder(dropShadowBorder1);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
@@ -693,6 +705,14 @@ public class Main extends javax.swing.JFrame {
         new Login(this, true).setVisible(true);
     }//GEN-LAST:event_LogOutActionPerformed
 
+    private void ChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePassActionPerformed
+         if (AuthService.isLogin()) {
+            new ChangePass(this, true).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập trước khi đổi mật khẩu");
+        }
+    }//GEN-LAST:event_ChangePassActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -744,6 +764,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ChangePass;
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenuItem LogOut;
     private javax.swing.JPopupMenu PopMenu;
