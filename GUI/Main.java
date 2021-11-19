@@ -490,7 +490,7 @@ public class Main extends javax.swing.JFrame {
                 btnMenuActionPerformed(evt);
             }
         });
-        bg.add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
+        bg.add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 30, 30));
 
         jDesktopPane1.setAutoscrolls(true);
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(1670, 1080));
@@ -499,14 +499,14 @@ public class Main extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1670, Short.MAX_VALUE)
+            .addGap(0, 1730, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1080, Short.MAX_VALUE)
         );
 
-        bg.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 1670, 1080));
+        bg.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 1730, 1080));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

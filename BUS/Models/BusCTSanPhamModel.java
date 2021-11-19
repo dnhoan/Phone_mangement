@@ -22,8 +22,29 @@ public class BusCTSanPhamModel {
     private BusRomModel romModel;
     private BusXuatXuModel xuatXuModel;
     private BusSanPham sanPhamModel;
+    private BusMauSacModel busMauSacModel;
+    private BusPhanLoaiSpModel busPhanLoaiSpModel;
+            
 
-    public BusCTSanPhamModel(int maCTSP, Date ngayNhap, float giaBan, float giaNhap, String hinh, String mota, int tonKho, int soLuongNhap, boolean trangThai, BusCameraModel cameraModel, BusManHinhModel manHinhModel, BusCPUModel cPUModel, BusHeDieuHanhModel heDieuHanhModel, BusPinModel pinModel, BusRamModel ramModel, BusRomModel romModel, BusXuatXuModel xuatXuModel, BusSanPham sanPhamModel) {
+
+
+    public BusMauSacModel getBusMauSacModel() {
+        return busMauSacModel;
+    }
+
+    public void setBusMauSacModel(BusMauSacModel busMauSacModel) {
+        this.busMauSacModel = busMauSacModel;
+    }
+
+    public BusPhanLoaiSpModel getBusPhanLoaiSpModel() {
+        return busPhanLoaiSpModel;
+    }
+
+    public void setBusPhanLoaiSpModel(BusPhanLoaiSpModel busPhanLoaiSpModel) {
+        this.busPhanLoaiSpModel = busPhanLoaiSpModel;
+    }
+
+    public BusCTSanPhamModel(int maCTSP, Date ngayNhap, float giaBan, float giaNhap, String hinh, String mota, int tonKho, int soLuongNhap, boolean trangThai, BusCameraModel cameraModel, BusManHinhModel manHinhModel, BusCPUModel cPUModel, BusHeDieuHanhModel heDieuHanhModel, BusPinModel pinModel, BusRamModel ramModel, BusRomModel romModel, BusXuatXuModel xuatXuModel, BusSanPham sanPhamModel, BusMauSacModel busMauSacModel, BusPhanLoaiSpModel busPhanLoaiSpModel) {
         this.maCTSP = maCTSP;
         this.ngayNhap = ngayNhap;
         this.giaBan = giaBan;
@@ -42,6 +63,8 @@ public class BusCTSanPhamModel {
         this.romModel = romModel;
         this.xuatXuModel = xuatXuModel;
         this.sanPhamModel = sanPhamModel;
+        this.busMauSacModel = busMauSacModel;
+        this.busPhanLoaiSpModel = busPhanLoaiSpModel;
     }
 
     public BusCTSanPhamModel() {

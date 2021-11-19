@@ -7,7 +7,6 @@ public class DalCTSanPhamModel {
     private int mactsp;
     private float giaNhap;
     private float giaBan;
-    private int soLuongNhap;
     private Date ngayNhap;
     private int tonKho;
     private String hinh;
@@ -21,6 +20,8 @@ public class DalCTSanPhamModel {
     private int maManHinh;
     private int maCpu;
     private int maSp;
+    private int maMau;
+    private int maPhanLoai;
     private boolean trangThai;
 
     public int getMactsp() {
@@ -47,12 +48,20 @@ public class DalCTSanPhamModel {
         this.giaBan = giaBan;
     }
 
-    public int getSoLuongNhap() {
-        return soLuongNhap;
+    public int getMaMau() {
+        return maMau;
     }
 
-    public void setSoLuongNhap(int soLuongNhap) {
-        this.soLuongNhap = soLuongNhap;
+    public void setMaMau(int maMau) {
+        this.maMau = maMau;
+    }
+
+    public int getMaPhanLoai() {
+        return maPhanLoai;
+    }
+
+    public void setMaPhanLoai(int maPhanLoai) {
+        this.maPhanLoai = maPhanLoai;
     }
 
     public Date getNgayNhap() {
