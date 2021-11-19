@@ -6,6 +6,7 @@
 package BUS.IServices;
 
 import BUS.Models.soluongbanmodel;
+import BUS.Models.doanhthuModel;
 import java.util.List;
 /**
  *
@@ -13,4 +14,6 @@ import java.util.List;
  */
 public interface ThongKeServices {
    public List<soluongbanmodel> GetSLBan();
+   
+   public List<doanhthuModel> GetDoanhThu();
 }

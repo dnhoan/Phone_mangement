@@ -7,7 +7,7 @@ package BUS.IServices;
 
 import BUS.Models.soluongbanmodel;
 import java.util.List;
-
+import BUS.Models.doanhthuModel;
 /**
  *
  * @author LENOVO
@@ -19,4 +19,5 @@ public interface ThongKeDao {
 //            + "from HoaDon, ChiTietHoaDon where HoaDon.MaHD = ChiTietHoaDon.MaCTHD\n"
 //            + "GROUP BY MONTH(HoaDon.NgayBan)";
     public List<soluongbanmodel> GetSLBan();
+    public List<doanhthuModel> GetDoanhThu();
 }

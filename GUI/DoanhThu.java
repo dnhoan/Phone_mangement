@@ -6,20 +6,21 @@
 package GUI;
 
 import BUS.IServices.QuanLyThongKeCTL;
-import GUI.TKSoLuong;
+
 /**
  *
  * @author LENOVO
  */
-public class ThongKe extends javax.swing.JFrame {
+public class DoanhThu extends javax.swing.JFrame {
 
     /**
-     * Creates new form ThongKe
+     * Creates new form DoanhThu
      */
-    public ThongKe() {
+    public DoanhThu() {
         initComponents();
-//        QuanLyThongKeCTL quanLyThongKeCTL = new QuanLyThongKeCTL();
-//        quanLyThongKeCTL.setdata1(jPanel2);
+        initComponents();
+         QuanLyThongKeCTL quanLyThongKeCTL = new QuanLyThongKeCTL();
+        quanLyThongKeCTL.setdata2(doanhthu);
     }
 
     /**
@@ -31,40 +32,36 @@ public class ThongKe extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        soluong = new javax.swing.JButton();
+        doanhthu = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        soluong.setText("Thống kê số lượng hàng bán được theo tháng");
-        soluong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                soluongActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout doanhthuLayout = new javax.swing.GroupLayout(doanhthu);
+        doanhthu.setLayout(doanhthuLayout);
+        doanhthuLayout.setHorizontalGroup(
+            doanhthuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 796, Short.MAX_VALUE)
+        );
+        doanhthuLayout.setVerticalGroup(
+            doanhthuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 375, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 353, Short.MAX_VALUE))
+            .addComponent(doanhthu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 231, Short.MAX_VALUE))
+                .addComponent(doanhthu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void soluongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soluongActionPerformed
-        // TODO add your handling code here:
-        new TKSoLuong().setVisible(true);
-        
-    }//GEN-LAST:event_soluongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -83,25 +80,25 @@ public class ThongKe extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoanhThu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoanhThu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoanhThu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ThongKe.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoanhThu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ThongKe().setVisible(true);
+                new DoanhThu().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton soluong;
+    private javax.swing.JPanel doanhthu;
     // End of variables declaration//GEN-END:variables
 }
