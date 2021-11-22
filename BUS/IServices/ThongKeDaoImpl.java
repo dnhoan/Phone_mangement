@@ -5,6 +5,7 @@
  */
 package BUS.IServices;
 
+import BUS.Models.doanhthuModel;
 import BUS.Models.soluongbanmodel;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ThongKeDaoImpl implements ThongKeDao {
     @Override
     public List<soluongbanmodel> GetSLBan() {
         Connection cons = help.ketnoi();
-        String sql = "select MONTH(HoaDon.NgayBan) as thang, COUNT(ChiTietHoaDon.MaCTSP) as soluong\n"
+        String sql = "select MONTH(HoaDon.NgayBan) as thang, count(ChiTietHoaDon.MaImei) as soluong \n"
                 + "from HoaDon, ChiTietHoaDon where HoaDon.MaHD = ChiTietHoaDon.MaHD\n"
                 + "GROUP BY MONTH(HoaDon.NgayBan)";
         List<soluongbanmodel> list = new ArrayList<>();
@@ -44,5 +45,29 @@ public class ThongKeDaoImpl implements ThongKeDao {
         }
         return null;
     }
-}
 
+    @Override
+    public List<doanhthuModel> GetDoanhThu() {
+        Connection cons = help.ketnoi();
+        String sql = "select MONTH(HoaDon.NgayBan) as thang, count(ChiTietHoaDon.MaImei) as soluong \n"
+                + "from HoaDon, ChiTietHoaDon where HoaDon.MaHD = ChiTietHoaDon.MaHD\n"
+                + "GROUP BY MONTH(HoaDon.NgayBan)";
+        List<doanhthuModel> list = new ArrayList<>();
+        try {
+            PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                doanhthuModel sl = new doanhthuModel();
+                sl.setThang(rs.getString(1));
+                sl.setDoanhthu(rs.getInt(2));
+                list.add(sl);
+            }
+            ps.close();
+            cons.close();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}

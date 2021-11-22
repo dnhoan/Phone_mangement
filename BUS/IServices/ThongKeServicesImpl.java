@@ -5,6 +5,7 @@
  */
 package BUS.IServices;
 
+import BUS.Models.doanhthuModel;
 import BUS.Models.soluongbanmodel;
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class ThongKeServicesImpl implements ThongKeServices{
     @Override
     public List<soluongbanmodel> GetSLBan() {
         return thongKeDao.GetSLBan();
+    }
+
+    @Override
+    public List<doanhthuModel> GetDoanhThu() {
+        return thongKeDao.GetDoanhThu();
     }
     
     
