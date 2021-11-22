@@ -11,6 +11,7 @@ public class DalCTSanPhamModel {
     private int tonKho;
     private String hinh;
     private String mota;
+    private int soLuongNhap;
     private int maCamera;
     private int maRom;
     private int maRam;
@@ -23,6 +24,14 @@ public class DalCTSanPhamModel {
     private int maMau;
     private int maPhanLoai;
     private boolean trangThai;
+
+    public int getSoLuongNhap() {
+        return soLuongNhap;
+    }
+
+    public void setSoLuongNhap(int soLuongNhap) {
+        this.soLuongNhap = soLuongNhap;
+    }
 
     public int getMactsp() {
         return mactsp;

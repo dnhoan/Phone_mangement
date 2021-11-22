@@ -155,10 +155,10 @@ public class KhachHangService implements IPhoneMangementService<KhachHangModel, 
         return selectBySql(sql, keyword,keyword2);
     }
 
-public List<KhachHangModel> selectToFillCombo(String keyWord, String sdt) {
+public List<KhachHangModel> selectToFillCombo() {
         List<KhachHangModel> list = new ArrayList<>();
         try {
-            ResultSet rs = JDBCHelper.executeQuery("select * from KhachHang where SDT like ? or HoTen like ?", "%" + sdt + "%", "%" + keyWord + "%");
+            ResultSet rs = JDBCHelper.executeQuery("select * from KhachHang where trangThai = 1");
             while (rs.next()) {
                 KhachHangModel entity = new KhachHangModel();
                 entity.setMaKH(rs.getInt("MaKH"));

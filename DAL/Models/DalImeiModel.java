@@ -9,11 +9,11 @@ package DAL.Models;
  *
  * @author ADMIN
  */
-public class DalChiTietHoaDon {
-    private int macthd;
-    private int mahd;
+public class DalImeiModel {
     private int maImei;
-    private float gia;
+    private int maCtsp;
+    private int maSpSale;
+    private String tenImei;
     private boolean trangThai;
 
     public int getMaImei() {
@@ -24,29 +24,28 @@ public class DalChiTietHoaDon {
         this.maImei = maImei;
     }
 
-
-    public int getMacthd() {
-        return macthd;
+    public int getMaCtsp() {
+        return maCtsp;
     }
 
-    public void setMacthd(int macthd) {
-        this.macthd = macthd;
+    public void setMaCtsp(int maCtsp) {
+        this.maCtsp = maCtsp;
     }
 
-    public int getMahd() {
-        return mahd;
+    public int getMaSpSale() {
+        return maSpSale;
     }
 
-    public void setMahd(int mahd) {
-        this.mahd = mahd;
+    public void setMaSpSale(int maSpSale) {
+        this.maSpSale = maSpSale;
     }
 
-    public float getGia() {
-        return gia;
+    public String getTenImei() {
+        return tenImei;
     }
 
-    public void setGia(float gia) {
-        this.gia = gia;
+    public void setTenImei(String tenImei) {
+        this.tenImei = tenImei;
     }
 
     public boolean isTrangThai() {
@@ -56,5 +55,11 @@ public class DalChiTietHoaDon {
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
+
+    @Override
+    public String toString() {
+        return tenImei;
+    }
+    
     
 }

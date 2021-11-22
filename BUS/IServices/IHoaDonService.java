@@ -11,7 +11,7 @@ package BUS.IServices;
  */
 public interface IHoaDonService {
 
-    String INSERT = "INSERT INTO HoaDon(MaNV, MaKH, MaKM, ghichu, ngayBan) values (?,?,?,?,?)";
+    String INSERT = "INSERT INTO HoaDon(MaNV, MaKH, ghichu, ngayBan) values (?,?,?,?)";
     String UPDATE = "update HoaDon set MaNV = ?, MaKH = ?, MaKM = ?, ghichu = ? where MaHD = ?";
     String DELETE = "update HoaDon set TrangThai = 0 where MaHD = ?";
     String SELECT_LASTID = "SELECT Max(MaHD) as LastID FROM HoaDon";

@@ -8,6 +8,8 @@ import BUS.Models.BusDongSpModel;
 import BUS.Models.BusHangModel;
 import BUS.Models.BusHeDieuHanhModel;
 import BUS.Models.BusManHinhModel;
+import BUS.Models.BusMauSacModel;
+import BUS.Models.BusPhanLoaiSpModel;
 import BUS.Models.BusPinModel;
 import BUS.Models.BusRamModel;
 import BUS.Models.BusRomModel;
@@ -15,6 +17,8 @@ import BUS.Models.BusSanPham;
 import BUS.Models.BusXuatXuModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Models.DalCTSanPhamModel;
+import DAL.Models.DalMauSacModel;
+import DAL.Models.DalPhanLoaiSpModel;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,9 +26,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SanPhamService implements ICTSanPhamService, IPhoneMangementService<DalCTSanPhamModel, Integer> {
-
+    
     @Override
     public void insert(DalCTSanPhamModel sp) {
+        System.out.println(sp.getMaMau() + " " + sp.getMaPhanLoai());
         try {
             JDBCHelper.executeUpdate(INSERT,
                     sp.getGiaNhap(),
@@ -41,9 +46,11 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                     sp.getMaLoaiPin(),
                     sp.getMaManHinh(),
                     sp.getMaCpu(),
-                    sp.getMaSp()
+                    sp.getMaSp(),
+                    sp.getMaMau(),
+                    sp.getMaPhanLoai()
             );
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -72,18 +79,27 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                     sp.getMaManHinh(),
                     sp.getMaCpu(),
                     sp.getMaSp(),
+                    sp.getMaMau(),
+                    sp.getMaPhanLoai(),
                     sp.getMactsp()
             );
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
     }
-
+    public int selectLastIdSp() {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(LAST_ID);
+            while(rs.next()) {
+                return rs.getInt("LastID");
+            }
+        } catch (SQLException e) {
+        }
+        return 0;
+    }
     public void backup(Integer id) {
         try {
             JDBCHelper.executeUpdate(BACKUP, id);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
     }
 
@@ -92,8 +108,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         System.out.println(id);
         try {
             JDBCHelper.executeUpdate(DELETE, id);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
         }
     }
 
@@ -136,6 +151,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
             resultSet.getStatement().close();
             return listProducts;
         } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return null;
     }
@@ -147,7 +163,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
 //    }
 
     public List<BusCTSanPhamModel> selectRecycle(int tonKho, String ten, String dong, String cam,
-            String rom, String ram, String manhinh, String pin, String cpu,  String noixuatxu, String heDieuHanh) {
+            String rom, String ram, String manhinh, String pin, String cpu,  String noixuatxu, String heDieuHanh, String mau, String loai) {
         return this.select(SELECT_BY_KEYWORD, 0, tonKho,
                 "%" + ten + "%",
                 "%" + dong + "%",
@@ -158,12 +174,14 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                 "%" + pin + "%",
                 "%" + cpu + "%",
                 "%" + noixuatxu + "%",
-                "%" + heDieuHanh + "%"
+                "%" + heDieuHanh + "%",
+                "%" + mau + "%",
+                "%" + loai + "%"
         );
     }
 
     public List<BusCTSanPhamModel> selectBySearch(int tonKho, String ten, String dong, String cam,
-            String rom, String ram, String manhinh, String pin, String cpu, String noixuatxu, String heDieuHanh) {
+            String rom, String ram, String manhinh, String pin, String cpu, String noixuatxu, String heDieuHanh,String mau, String loai) {
         return this.select(SELECT_BY_KEYWORD,1, tonKho,
                 "%" + ten + "%",
                 "%" + dong + "%",
@@ -174,7 +192,9 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                 "%" + pin + "%",
                 "%" + cpu + "%",
                 "%" + noixuatxu + "%",
-                "%" + heDieuHanh + "%"
+                "%" + heDieuHanh + "%",
+                "%" + mau + "%",
+                "%" + loai + "%"
         );
     }
 
@@ -183,7 +203,6 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         sp.setMaCTSP(rs.getInt("MACTSP"));
         sp.setGiaBan(rs.getFloat("giaban"));
         sp.setGiaNhap(rs.getFloat("gianhap"));
-        sp.setSoLuongNhap(rs.getInt("soluongnhap"));
         sp.setNgayNhap(rs.getDate("ngaynhap"));
         sp.setTonKho(rs.getInt("tonKho"));
         sp.setHinh(rs.getString("hinh"));
@@ -210,7 +229,6 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         BusXuatXuModel xuatXuModel = new BusXuatXuModel(
                 rs.getInt("maxuatxu"),
                 rs.getString("noixuatxu")
-        //                rs.getBoolean("TrangThai")
         );
         BusPinModel pinModel = new BusPinModel(
                 rs.getString("MaPin"),
@@ -226,8 +244,21 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         BusCPUModel cPUModel = new BusCPUModel(
                 rs.getInt("macpu"),
                 rs.getString("tencpu")
-        //                rs.getBoolean("TrangThai")
         );
+        BusMauSacModel busMauSacModel = new BusMauSacModel();
+        DalMauSacModel dalMauSacModel = new DalMauSacModel();
+        dalMauSacModel.setMaMau(rs.getInt("MaMau"));
+        dalMauSacModel.setTenMau(rs.getString("TenMau"));
+        busMauSacModel.setDalMauSacModel(dalMauSacModel);
+        
+        BusPhanLoaiSpModel busPhanLoaiSpModel = new BusPhanLoaiSpModel();
+        DalPhanLoaiSpModel dalPhanLoaiSpModel = new DalPhanLoaiSpModel();
+        dalPhanLoaiSpModel.setMaPhanLoai(rs.getInt("MaPhanLoai"));
+        dalPhanLoaiSpModel.setTenLoai(rs.getString("Loai"));
+        busPhanLoaiSpModel.setDalPhanLoaiSpModel(dalPhanLoaiSpModel);
+        
+        sp.setBusMauSacModel(busMauSacModel);
+        sp.setBusPhanLoaiSpModel(busPhanLoaiSpModel);
         sp.setCameraModel(cameraModel);
         sp.setRomModel(romModel);
         sp.setRamModel(ramModel);
@@ -236,6 +267,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         sp.setPinModel(pinModel);
         sp.setManHinhModel(manHinhModel);
         sp.setcPUModel(cPUModel);
+        sp.setSoLuongNhap(rs.getInt("SoLuongNhap"));
         BusHangModel dalHangModel = new BusHangModel(rs.getInt("mahang"), rs.getString("tenHang"));
         BusDongSpModel busDongSpModel = new BusDongSpModel(rs.getInt("madong"), rs.getString("tendong"), dalHangModel);
         BusSanPham sanPham = new BusSanPham(rs.getInt("masp"), rs.getString("tensp"), busDongSpModel);

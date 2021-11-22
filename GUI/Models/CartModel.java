@@ -5,6 +5,7 @@
  */
 package GUI.Models;
 
+import DAL.Models.DalImeiModel;
 import java.util.List;
 
 /**
@@ -17,13 +18,13 @@ public class CartModel {
     private String hinh;
     private float gia;
     private float tongTien;
-    private List<String> listImeis;
+    private List<DalImeiModel> listImeis;
 
-    public List<String> getListImeis() {
+    public List<DalImeiModel> getListImeis() {
         return listImeis;
     }
 
-    public void setListImeis(List<String> listImeis) {
+    public void setListImeis(List<DalImeiModel> listImeis) {
         this.listImeis = listImeis;
     }
 

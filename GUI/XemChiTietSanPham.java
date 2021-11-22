@@ -210,8 +210,11 @@ public class XemChiTietSanPham extends javax.swing.JFrame {
         lblTenSanPham.setText(sp.getSanPhamModel().getTensp());
         model = (DefaultTableModel) tblThuocTinh.getModel();
         model.setRowCount(0);
-        String thuocTinh[] = {"Hãng sản phẩm", "Dòng sản phẩm", "CPU", "Ram", "Bộ nhớ trong", "Màn hình", "Camera", "Xuất xứ", "Pin", "Hệ điều hành"};
-        String thongTin[] = {sp.getSanPhamModel().getBusDongSpModel().getBusHangModel().getTenHang(),
+        String thuocTinh[] = {"Màu sắc", "Phân loại","Hãng sản phẩm", "Dòng sản phẩm", "CPU", "Ram", "Bộ nhớ trong", "Màn hình", "Camera", "Xuất xứ", "Pin", "Hệ điều hành"};
+        String thongTin[] = {
+            sp.getBusMauSacModel().getDalMauSacModel().getTenMau(),
+            sp.getBusPhanLoaiSpModel().getDalPhanLoaiSpModel().getTenLoai(),
+            sp.getSanPhamModel().getBusDongSpModel().getBusHangModel().getTenHang(),
             sp.getSanPhamModel().getBusDongSpModel().getTenDong(),
             sp.getcPUModel().getTenCPU(),
             sp.getRamModel().getLoaiRam() + ", " + sp.getRamModel().getDungLuongRam() + " Gb",

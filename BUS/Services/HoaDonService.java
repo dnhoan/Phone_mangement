@@ -29,9 +29,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         try {
             JDBCHelper.executeUpdate(INSERT, 
                     entity.getManv(),
-                    entity.getMakh(), 
-                    null,
-//                    entity.getMakm(),
+                    entity.getMakh(),
                     entity.getGhiChu(),
                     DateService.toString(entity.getNgayBan(), "yyyy-MM-yy")
             );

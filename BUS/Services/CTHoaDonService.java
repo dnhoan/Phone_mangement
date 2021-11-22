@@ -32,8 +32,7 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
         try {
             JDBCHelper.executeUpdate(INSERT,
                     entity.getMahd(),
-                    entity.getMactsp(),
-                    entity.getImei(),
+                    entity.getMaImei(),
                     entity.getGia()
             );
         } catch (SQLException e) {
@@ -45,8 +44,7 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
         try {
             JDBCHelper.executeUpdate(UPDATE,
                     entity.getMahd(),
-                    entity.getMactsp(),
-                    entity.getImei(),
+                    entity.getMaImei(),
                     entity.getGia(),
                     entity.getMacthd()
             );

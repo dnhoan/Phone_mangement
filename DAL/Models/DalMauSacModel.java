@@ -45,6 +45,11 @@ public class DalMauSacModel {
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
+
+    @Override
+    public String toString() {
+        return tenMau ;
+    }
     
     
 }
