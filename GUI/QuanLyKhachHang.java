@@ -33,29 +33,22 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author DUCNAM
  */
-public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEditService<KhachHangModel> {
-
-    DefaultTableModel modelkh = new DefaultTableModel();
+public class QuanLyKhachHang extends javax.swing.JPanel implements IEditService<KhachHangModel> {
+  DefaultTableModel modelkh = new DefaultTableModel();
     Icon icon = new ImageIcon(getClass().getResource("/icon/curve-arrow.png"));
     KhachHangService khser = new KhachHangService();
     int row = -1;
-
     /**
-     * Creates new form QuanLyKhachHang
+     * Creates new form QLKH
      */
     public QuanLyKhachHang() {
         initComponents();
-        init();
-
+         init();
     }
-//    public void showPopUp(MouseEvent e) {
-//        PopMenu.show(this, e.getX(), e.getY());
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,7 +110,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 formComponentShown(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -127,7 +120,6 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 jPanel1MouseReleased(evt);
             }
         });
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 15))); // NOI18N
 
@@ -216,17 +208,32 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
-
         chktimkiem.setText("Tick");
         chktimkiem.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 chktimkiemItemStateChanged(evt);
             }
         });
-        jPanel1.add(chktimkiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(993, 31, -1, 700));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(chktimkiem))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(chktimkiem))
+        );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(993, 31, -1, 700));
 
         tabs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -259,14 +266,6 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
             }
         });
         jScrollPane4.setViewportView(tblKhachHang);
-        if (tblKhachHang.getColumnModel().getColumnCount() > 0) {
-            tblKhachHang.getColumnModel().getColumn(0).setMinWidth(50);
-            tblKhachHang.getColumnModel().getColumn(0).setMaxWidth(50);
-            tblKhachHang.getColumnModel().getColumn(5).setMinWidth(70);
-            tblKhachHang.getColumnModel().getColumn(5).setMaxWidth(70);
-            tblKhachHang.getColumnModel().getColumn(9).setMinWidth(70);
-            tblKhachHang.getColumnModel().getColumn(9).setMaxWidth(70);
-        }
 
         jPanel9.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 960, 390));
 
@@ -435,10 +434,6 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         });
         tblKhachHang2.setRowHeight(25);
         jScrollPane1.setViewportView(tblKhachHang2);
-        if (tblKhachHang2.getColumnModel().getColumnCount() > 0) {
-            tblKhachHang2.getColumnModel().getColumn(10).setMinWidth(70);
-            tblKhachHang2.getColumnModel().getColumn(10).setMaxWidth(70);
-        }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -459,31 +454,56 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
         tabs.addTab("Đã xóa", jPanel6);
 
-        getContentPane().add(tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 840));
-
-        pack();
+        add(tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 840));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        for (int i = 1; i < 71; i++) {
-            tkcboTuoi.addItem(String.valueOf(i));
+    private void tkTenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tkTenKeyReleased
+        if (chktimkiem.isSelected()) {
+            if (tabs.getSelectedIndex() == 0) {
+                timkiemTen();
+                clearForm();
+                row = -1;
+                updateStatus();
+            }
+            if (tabs.getSelectedIndex() == 1) {
+                timkiemTen2();
+                row = -1;
+            }
         }
-        for (int i = 1; i < 71; i++) {
+    }//GEN-LAST:event_tkTenKeyReleased
+
+    private void tkcboTuoiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tkcboTuoiItemStateChanged
+
+        DefaultComboBoxModel tuoimodel = new DefaultComboBoxModel();
+        tk2cboTuoi.setModel(tuoimodel);
+        for (int i = tkcboTuoi.getSelectedIndex() + 1; i < 70; i++) {
             tk2cboTuoi.addItem(String.valueOf(i));
         }
-    }//GEN-LAST:event_formComponentShown
+    }//GEN-LAST:event_tkcboTuoiItemStateChanged
 
-    private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-        //       if (evt.isPopupTrigger()) {
-        //            showPopUp(evt);
-        //        }
-    }//GEN-LAST:event_jPanel1MouseReleased
+    private void tkcboTuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tkcboTuoiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tkcboTuoiActionPerformed
 
-    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-        //       if (evt.isPopupTrigger()) {
-        //            showPopUp(evt);
-        //        }
-    }//GEN-LAST:event_jPanel1MousePressed
+    private void tk2cboTuoiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tk2cboTuoiItemStateChanged
+        if (chktimkiem.isSelected()) {
+            if (tabs.getSelectedIndex() == 0) {
+                timkiemTuoi();
+                clearForm();
+                row = -1;
+                updateStatus();
+            }
+            if (tabs.getSelectedIndex() == 1) {
+                timkiemTuoi2();
+                row = -1;
+            }
+
+        }
+    }//GEN-LAST:event_tk2cboTuoiItemStateChanged
+
+    private void tk2cboTuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tk2cboTuoiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tk2cboTuoiActionPerformed
 
     private void chktimkiemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chktimkiemItemStateChanged
         if (chktimkiem.isSelected() == false) {
@@ -500,79 +520,19 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
             tkcboTuoi.setEnabled(true);
             tk2cboTuoi.setEnabled(true);
         }
-
     }//GEN-LAST:event_chktimkiemItemStateChanged
 
-    private void tk2cboTuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tk2cboTuoiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tk2cboTuoiActionPerformed
+    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
+        //       if (evt.isPopupTrigger()) {
+            //            showPopUp(evt);
+            //        }
+    }//GEN-LAST:event_jPanel1MousePressed
 
-    private void tk2cboTuoiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tk2cboTuoiItemStateChanged
-        if (chktimkiem.isSelected()) {
-            if (tabs.getSelectedIndex() == 0) {
-                timkiemTuoi();
-                clearForm();
-                row = -1;
-                updateStatus();
-            }
-            if (tabs.getSelectedIndex() == 1) {
-                timkiemTuoi2();
-                row = -1;
-            }
-
-        }
-
-    }//GEN-LAST:event_tk2cboTuoiItemStateChanged
-
-    private void tkcboTuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tkcboTuoiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tkcboTuoiActionPerformed
-
-    private void tkcboTuoiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tkcboTuoiItemStateChanged
-
-        DefaultComboBoxModel tuoimodel = new DefaultComboBoxModel();
-        tk2cboTuoi.setModel(tuoimodel);
-        for (int i = tkcboTuoi.getSelectedIndex() + 1; i < 70; i++) {
-            tk2cboTuoi.addItem(String.valueOf(i));
-        }
-
-    }//GEN-LAST:event_tkcboTuoiItemStateChanged
-
-    private void tkTenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tkTenKeyReleased
-        if (chktimkiem.isSelected()) {
-            if (tabs.getSelectedIndex() == 0) {
-                timkiemTen();
-                clearForm();
-                row = -1;
-                updateStatus();
-            }
-            if (tabs.getSelectedIndex() == 1) {
-                timkiemTen2();
-                row = -1;
-            }
-        }
-
-    }//GEN-LAST:event_tkTenKeyReleased
-
-    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
-        // TODO add your handling code here:
-        last();
-    }//GEN-LAST:event_btnLastActionPerformed
-
-    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        // TODO add your handling code here:
-        next();
-    }//GEN-LAST:event_btnNextActionPerformed
-
-    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
-        // TODO add your handling code here:
-        previous();
-    }//GEN-LAST:event_btnPrevActionPerformed
-
-    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
-        // TODO add your handling code here: this.index = 0;
-        first();
-    }//GEN-LAST:event_btnFirstActionPerformed
+    private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
+        //       if (evt.isPopupTrigger()) {
+            //            showPopUp(evt);
+            //        }
+    }//GEN-LAST:event_jPanel1MouseReleased
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
         if (evt.getClickCount() == 1) {
@@ -581,48 +541,72 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         }
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
-    private void tabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabsMouseClicked
-        // TODO add your handling code here:
-        if (tabs.getSelectedIndex() == 0) {
-//            clearForm();
-            updateStatus();
+    private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
+        if(chekrong()==true){
+            if(checkvai()==true){
+                if(checkmail()==true){
+                    insert();
+                }
 
-        } else {
-//            clearForm();
-            chktimkiem.setSelected(false);
-
+            }
         }
-    }//GEN-LAST:event_tabsMouseClicked
+    }//GEN-LAST:event_btnThem2ActionPerformed
 
     private void btnSua2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua2ActionPerformed
         if(chekrong()==true){
             if(checkvai()==true){
                 if(checkmail()==true){
-                   update(); 
+                    update();
                 }
-                
+
             }
         }
     }//GEN-LAST:event_btnSua2ActionPerformed
 
     private void btnXoa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa2ActionPerformed
-       delete();
+        delete();
     }//GEN-LAST:event_btnXoa2ActionPerformed
-
-    private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
-         if(chekrong()==true){
-            if(checkvai()==true){
-                if(checkmail()==true){
-                     insert();
-                }
-               
-            }
-        }
-    }//GEN-LAST:event_btnThem2ActionPerformed
 
     private void btnMoi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoi2ActionPerformed
         clearForm();
     }//GEN-LAST:event_btnMoi2ActionPerformed
+
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
+        // TODO add your handling code here: this.index = 0;
+        first();
+    }//GEN-LAST:event_btnFirstActionPerformed
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        // TODO add your handling code here:
+        previous();
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        // TODO add your handling code here:
+        next();
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
+        // TODO add your handling code here:
+        last();
+    }//GEN-LAST:event_btnLastActionPerformed
+
+    private void tabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabsMouseClicked
+        // TODO add your handling code here:
+        if (tabs.getSelectedIndex() == 0) {
+            //            clearForm();
+            updateStatus();
+
+        } else {
+            //            clearForm();
+            chktimkiem.setSelected(false);
+
+        }
+    }//GEN-LAST:event_tabsMouseClicked
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+                
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -673,18 +657,16 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     private javax.swing.JTextField txtSDT;
     // End of variables declaration//GEN-END:variables
 
-    @Override
     public void init() {
-        this.setSize();
+//        this.setSize();
+          
         fillTable();
         fillTable2();
         updateStatus();
         this.row = -1;
         buttonintable();
-        
-        
         txtNgayTao2.setDate(DateService.now());
-
+        fillcomboBoxTuoi();
     }
 
     @Override
@@ -1028,12 +1010,12 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         Action delete = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (MessageService.confirm(rootPane, "Bạn muốn khôi phục khách hàng này không ?")) {
+                if (MessageService.confirm(null, "Bạn muốn khôi phục khách hàng này không ?")) {
                     for (int row : tblKhachHang2.getSelectedRows()) {
                         int makh = (Integer) tblKhachHang2.getValueAt(row, 0);
                         khser.delete2(makh);
                     }
-                    MessageService.alert(rootPane, "Khôi phục thành công");
+                    MessageService.alert(null, "Khôi phục thành công");
                     fillTable2();
                     fillTable();
                 }
@@ -1046,30 +1028,30 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         buttonColumn.setMnemonic(KeyEvent.VK_D);
     }
 
-    private void setSize() {
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
-        ui.setNorthPane(null);
-        Toolkit t = Toolkit.getDefaultToolkit();
-        Dimension d = t.getScreenSize();
-        int h = d.height;
-        int w = d.width;
-        this.setSize(w, h);
-
-    }
+//    private void setSize() {
+//        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+//        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+//        ui.setNorthPane(null);
+//        Toolkit t = Toolkit.getDefaultToolkit();
+//        Dimension d = t.getScreenSize();
+//        int h = d.height;
+//        int w = d.width;
+//        this.setSize(w, h);
+//
+//    }
 
     private boolean chekrong() {
 
         if (txtHoTenKH2.getText().equals("")) {
-            MessageService.alert(rootPane, "Không thể bỏ trống Họ tên");
+            MessageService.alert(this, "Không thể bỏ trống Họ tên");
             txtHoTenKH2.requestFocus();
             return false;
         } else if (txtSDT.getText().equals("")) {
-            MessageService.alert(rootPane, "Không thể bỏ trống  số điện thoại");
+            MessageService.alert(this, "Không thể bỏ trống  số điện thoại");
             txtSDT.requestFocus();
             return false;
         } else if (txtDiaCHi2.getText().equals("")) {
-            MessageService.alert(rootPane, "không thể bỏ trống địa chỉ");
+            MessageService.alert(this, "không thể bỏ trống địa chỉ");
             txtDiaCHi2.requestFocus();
             return false;
 //        } else if () {
@@ -1086,11 +1068,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         //            return false;
         //        }
         else if (this.txtNgaySinh2.getDate() == null) {
-            MessageService.alert(rootPane, "Không để trống ngáy sinh!");
+            MessageService.alert(this, "Không để trống ngáy sinh!");
             txtNgaySinh2.requestFocus();
             return false;
         } else if (this.txtNgayTao2.getDate() == null) {
-            MessageService.alert(rootPane, "Không để trống ngáy tạo!");
+            MessageService.alert(this, "Không để trống ngáy tạo!");
             txtNgaySinh2.requestFocus();
             return false;
         }
@@ -1101,7 +1083,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     private boolean checkvai() {
 
         if (!(txtSDT.getText()).matches("[0-9]{10}")) {
-            MessageService.alert(rootPane, "Số điện thoại phải nhập đúng 10 số");
+            MessageService.alert(this, "Số điện thoại phải nhập đúng 10 số");
             txtSDT.requestFocus();
             return false;
 
@@ -1120,9 +1102,17 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
          return true;
     }
 
+    void fillcomboBoxTuoi(){
+        for (int i = 1; i < 71; i++) {
+            tkcboTuoi.addItem(String.valueOf(i));
+        }
+        for (int i = 1; i < 71; i++) {
+            tk2cboTuoi.addItem(String.valueOf(i));
+        }   
+    }
+    
     @Override
     public boolean validateForm(boolean isEdit) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }

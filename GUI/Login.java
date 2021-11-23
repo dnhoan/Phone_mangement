@@ -32,7 +32,7 @@ public class Login extends javax.swing.JDialog {
     }
 
     public void setColor(JLabel lb) {
-        lb.setForeground(new Color(255, 255, 102));
+        lb.setForeground(new Color(25,29,74));
     }
 
     public void resetColor(JLabel lb1) {
@@ -94,11 +94,11 @@ public class Login extends javax.swing.JDialog {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 102));
+        jPanel1.setBackground(new java.awt.Color(25, 29, 74));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/z2921058777779_e85c01ef9cc3ffd53f5e4af4023c07ea.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 110, 420, 220));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 450));
@@ -119,7 +119,7 @@ public class Login extends javax.swing.JDialog {
         txtPass.setText("11");
         txtPass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
 
-        btnLogin.setBackground(new java.awt.Color(255, 255, 102));
+        btnLogin.setBackground(new java.awt.Color(25, 29, 74));
         btnLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 102)));
         btnLogin.setText("Login");
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
@@ -147,8 +147,9 @@ public class Login extends javax.swing.JDialog {
 
         jLabel2.setText("Ver 1.0");
 
+        lblExit.setBackground(new java.awt.Color(25, 29, 74));
         lblExit.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
-        lblExit.setForeground(new java.awt.Color(255, 255, 102));
+        lblExit.setForeground(new java.awt.Color(25, 29, 74));
         lblExit.setText("x");
         lblExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,9 +158,9 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 102));
+        jLabel1.setBackground(new java.awt.Color(25, 29, 74));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 102));
+        jLabel1.setForeground(new java.awt.Color(25, 29, 74));
         jLabel1.setText("LOGIN");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
