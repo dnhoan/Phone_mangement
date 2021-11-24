@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="undecorated" type="boolean" value="true"/>
@@ -250,7 +250,7 @@
                           <Component id="pnlhidesetting" alignment="0" pref="95" max="32767" attributes="0"/>
                           <Component id="pnlhidemenu" alignment="0" max="32767" attributes="0"/>
                           <Component id="pnlsettings" alignment="0" pref="95" max="32767" attributes="0"/>
-                          <Component id="pnlmenu" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="pnlmenu" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -267,7 +267,7 @@
                           <Component id="pnlhidemenu" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="pnlmenu" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="pnlmenu" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="pnlsettings" min="-2" pref="50" max="-2" attributes="0"/>
@@ -304,7 +304,9 @@
                 </Property>
               </Properties>
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+                <Property name="useNullLayout" type="boolean" value="false"/>
+              </Layout>
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="hidemenu">
                   <Properties>
@@ -322,8 +324,8 @@
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="hidemenuMouseExited"/>
                   </Events>
                   <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                      <BorderConstraints direction="Center"/>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="0" y="0" width="50" height="50"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -1139,12 +1141,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="dashboardview">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="99" red="0" type="rgb"/>
-        </Property>
-      </Properties>
+    <Container class="javax.swing.JDesktopPane" name="dashboardview">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="Center"/>

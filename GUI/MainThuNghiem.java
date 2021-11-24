@@ -5,7 +5,6 @@
  */
 package GUI;
 
-
 import GUI.MainThuNghiem;
 import GUI.Services.AuthService;
 import GUI.Services.MessageService;
@@ -47,8 +46,20 @@ public class MainThuNghiem extends javax.swing.JFrame {
      */
     public MainThuNghiem() {
         initComponents();
-
+        changeLAFI("Windows");
         init();
+    }
+
+    public static void changeLAFI(String nameLAFI) {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if (nameLAFI.equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        }
     }
 
     public void changeColor(JPanel hover, Color rand) {
@@ -75,13 +86,14 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
     public void openHome() {
 
-        Home1 home = new Home1();
+        Home home = new Home();
         dashboardview.removeAll();
         dashboardview.add(home).setVisible(true);
 
     }
 
     public void openKhachHang() {
+
         if (AuthService.isLogin()) {
             QuanLyKhachHang kh = new QuanLyKhachHang();
             dashboardview.removeAll();
@@ -90,6 +102,36 @@ public class MainThuNghiem extends javax.swing.JFrame {
             MessageService.alert(this, "Vui lòng đăng nhập!");
         }
 
+    }
+
+    public void openHangHoa() {
+        if (AuthService.isLogin()) {
+            QuanLySanPham sp = new QuanLySanPham();
+            dashboardview.removeAll();
+            dashboardview.add(sp).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
+    }
+
+    public void openBanHang() {
+        if (AuthService.isLogin()) {
+            QuanlyGiaoDichJFrame gd = new QuanlyGiaoDichJFrame();
+            dashboardview.removeAll();
+            dashboardview.add(gd).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
+    }
+
+    public void openNhanVien() {
+        if (AuthService.isLogin()) {
+            QLnhanVien gd = new QLnhanVien();
+            dashboardview.removeAll();
+            dashboardview.add(gd).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
     }
 
     public void changeImage() {
@@ -155,7 +197,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        dashboardview = new javax.swing.JPanel();
+        dashboardview = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -286,7 +328,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
         );
 
         pnlmenu.setBackground(new java.awt.Color(5, 10, 46));
-        pnlmenu.setLayout(new java.awt.BorderLayout());
+        pnlmenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         hidemenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hidemenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/menu1.png"))); // NOI18N
@@ -302,7 +344,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
                 hidemenuMouseExited(evt);
             }
         });
-        pnlmenu.add(hidemenu, java.awt.BorderLayout.CENTER);
+        pnlmenu.add(hidemenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
         pnlsettings.setBackground(new java.awt.Color(5, 10, 46));
         pnlsettings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -346,7 +388,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
                     .addComponent(pnlhidesetting, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                     .addComponent(pnlhidemenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlsettings, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                    .addComponent(pnlmenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlmenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlMenuIconLayout.setVerticalGroup(
@@ -359,7 +401,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
                     .addComponent(pnlhidemenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlMenuIconLayout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addComponent(pnlmenu, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pnlmenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addComponent(pnlsettings, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(740, Short.MAX_VALUE))
         );
@@ -841,10 +883,10 @@ public class MainThuNghiem extends javax.swing.JFrame {
             }
         });
         lblName.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblNameInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         lblName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -869,7 +911,6 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
         getContentPane().add(pnlMenu, java.awt.BorderLayout.LINE_START);
 
-        dashboardview.setBackground(new java.awt.Color(0, 153, 204));
         dashboardview.setLayout(new java.awt.BorderLayout());
         getContentPane().add(dashboardview, java.awt.BorderLayout.CENTER);
 
@@ -937,11 +978,11 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
         if (a == true) {
             showHide(pnlMenu, a);
-            SwingUtilities.updateComponentTreeUI(this);
+            SwingUtilities.updateComponentTreeUI(pnlMenu);
             a = false;
         } else {
             showHide(pnlMenu, a);
-            SwingUtilities.updateComponentTreeUI(this);
+            SwingUtilities.updateComponentTreeUI(pnlMenu);
             a = true;
         }
 
@@ -965,12 +1006,12 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
         if (a == true) {
             showHide(pnlMenu, a);
-            SwingUtilities.updateComponentTreeUI(this);
+            SwingUtilities.updateComponentTreeUI(pnlMenu);
             a = false;
 
         } else {
             showHide(pnlMenu, a);
-            SwingUtilities.updateComponentTreeUI(this);
+            SwingUtilities.updateComponentTreeUI(pnlMenu);
             a = true;
 
         }
@@ -1017,7 +1058,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
     private void jpnHangHoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHangHoaMouseClicked
 
-
+        openHangHoa();
     }//GEN-LAST:event_jpnHangHoaMouseClicked
 
     private void jpnHangHoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHangHoaMouseEntered
@@ -1031,13 +1072,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnHangHoaMouseExited
 
     private void jpnBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnBanHangMouseClicked
-//        if (AuthService.isLogin()) {
-//            QuanlyGiaoDichJFrame gd = new QuanlyGiaoDichJFrame();
-//            jDesktopPane1.removeAll();
-//            jDesktopPane1.add(gd).setVisible(true);
-//        } else {
-//            MessageService.alert(this, "Vui lòng đăng nhập!");
-//        }
+        openBanHang();
     }//GEN-LAST:event_jpnBanHangMouseClicked
 
     private void jpnBanHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnBanHangMouseEntered
@@ -1061,13 +1096,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnGiaoDichMouseExited
 
     private void jpnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnNhanVienMouseClicked
-//        if (AuthService.isLogin()) {
-//            QLnhanVien gd = new QLnhanVien();
-//            jDesktopPane1.removeAll();
-//            jDesktopPane1.add(gd).setVisible(true);
-//        } else {
-//            MessageService.alert(this, "Vui lòng đăng nhập!");
-//        }
+        openNhanVien();
     }//GEN-LAST:event_jpnNhanVienMouseClicked
 
     private void jpnNhanVienMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnNhanVienMouseEntered
@@ -1079,7 +1108,11 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnNhanVienMouseExited
 
     private void jpnKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnKhachHangMouseClicked
+
         openKhachHang();
+//         showHide(pnlMenu, a);
+//  
+//            a = false;
     }//GEN-LAST:event_jpnKhachHangMouseClicked
 
     private void jpnKhachHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnKhachHangMouseEntered
@@ -1115,7 +1148,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnChangePassMouseWheelMoved
 
     private void jpnChangePassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnChangePassMouseClicked
-           if (AuthService.isLogin()) {
+        if (AuthService.isLogin()) {
             new ChangePass(this, true).setVisible(true);
         } else {
             MessageService.alert(this, "Vui lòng đăng nhập trước khi đổi mật khẩu");
@@ -1127,7 +1160,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnChangePassMouseEntered
 
     private void jpnChangePassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnChangePassMouseExited
-       changeColor(jpnChangePass, new Color(25, 29, 74));
+        changeColor(jpnChangePass, new Color(25, 29, 74));
     }//GEN-LAST:event_jpnChangePassMouseExited
 
     private void jpnLogoutMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnLogoutMouseDragged
@@ -1143,50 +1176,49 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnLogoutMouseWheelMoved
 
     private void jpnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnLogoutMouseClicked
-         AuthService.clear();
+        AuthService.clear();
         new Login(this, true).setVisible(true);
     }//GEN-LAST:event_jpnLogoutMouseClicked
 
     private void jpnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnLogoutMouseEntered
-         changeColor(jpnLogout, new Color(25, 29, 150));
+        changeColor(jpnLogout, new Color(25, 29, 150));
     }//GEN-LAST:event_jpnLogoutMouseEntered
 
     private void jpnLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnLogoutMouseExited
-      changeColor(jpnLogout, new Color(25, 29, 74));
+        changeColor(jpnLogout, new Color(25, 29, 74));
     }//GEN-LAST:event_jpnLogoutMouseExited
 
     private void lblNamePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lblNamePropertyChange
-           if(AuthService.isLogin()){
-           lblName.setText(AuthService.user.getMaNV());
-       }
-           else{
-               lblName.setText("???");
-           }
+        if (AuthService.isLogin()) {
+            lblName.setText(AuthService.user.getMaNV());
+        } else {
+            lblName.setText("???");
+        }
     }//GEN-LAST:event_lblNamePropertyChange
 
     private void lblNameVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_lblNameVetoableChange
-     
+
     }//GEN-LAST:event_lblNameVetoableChange
 
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
-        
+
     }//GEN-LAST:event_formWindowStateChanged
 
     private void lblNameInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_lblNameInputMethodTextChanged
-     
+
     }//GEN-LAST:event_lblNameInputMethodTextChanged
 
     private void lblNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lblNameFocusGained
-          
+
     }//GEN-LAST:event_lblNameFocusGained
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-      
-        
+
+
     }//GEN-LAST:event_formComponentShown
 
     private void lblNameComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_lblNameComponentShown
-         
+
     }//GEN-LAST:event_lblNameComponentShown
 
     /**
@@ -1226,7 +1258,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel close;
-    private javax.swing.JPanel dashboardview;
+    private javax.swing.JDesktopPane dashboardview;
     private javax.swing.JLabel hidemenu;
     private javax.swing.JLabel hidesetting;
     private javax.swing.JLabel jLabel1;
@@ -1284,11 +1316,11 @@ public class MainThuNghiem extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         openHome();
-        
 
     }
 
     private void moveFrame(int x, int y) {
         this.setLocation(x - xMouse, y - yMouse);
     }
+
 }
