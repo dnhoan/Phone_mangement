@@ -49,8 +49,6 @@ public class SelectImei extends javax.swing.JFrame {
 
         cboImei = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        cboGiamGia = new javax.swing.JComboBox<>();
         btnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,10 +56,6 @@ public class SelectImei extends javax.swing.JFrame {
         cboImei.setEditable(true);
 
         jLabel1.setText("Chọn Imei");
-
-        jLabel2.setText("Chọn loại giảm giá");
-
-        cboGiamGia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnOk.setText("OK");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
@@ -76,29 +70,24 @@ public class SelectImei extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnOk)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(cboImei, 0, 271, Short.MAX_VALUE)
-                        .addComponent(cboGiamGia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cboImei, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboImei, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cboGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboImei, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,29 +135,29 @@ public class SelectImei extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOk;
-    public static javax.swing.JComboBox<String> cboGiamGia;
     public static javax.swing.JComboBox<String> cboImei;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 
     static DefaultComboBoxModel<DalImeiModel> imeiModel;
 
     void init() {
         AutoCompleteDecorator.decorate(cboImei);
-        AutoCompleteDecorator.decorate(cboGiamGia);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         System.out.println("mactsp " + SelectImei.busCTSanPhamModel.getMaCTSP());
-        BusImeiService.getImeiByMactsp(SelectImei.busCTSanPhamModel.getMaCTSP(), "");
+        BusImeiService.getImeisNotSell(SelectImei.busCTSanPhamModel.getMaCTSP());
         BusImeiService.fillcboImeiBymactsp(imeiModel, cboImei);
     }
 
     public static void ok() {
-        DalImeiModel imei = (DalImeiModel) cboImei.getSelectedItem();
-        if ("".equals(imei) || imei == null) {
+        if ("".equals(cboImei.getSelectedItem()) || cboImei.getSelectedItem() == null) {
             MessageService.alert(null, "Bạn chưa nhập imei máy");
         } else {
+            DalImeiModel imei = (DalImeiModel) cboImei.getSelectedItem();
+            
+            BusImeiService.updateStatusSell(imei.getMaImei(), 0);
+            
             List<DalImeiModel> listImeis = new ArrayList<>();
             CartModel cart = new CartModel();
             cart.setMactsp(busCTSanPhamModel.getMaCTSP());

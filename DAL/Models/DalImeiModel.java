@@ -14,7 +14,16 @@ public class DalImeiModel {
     private int maCtsp;
     private int maSpSale;
     private String tenImei;
+    private boolean trangThaiBan;
     private boolean trangThai;
+
+    public boolean isTrangThaiBan() {
+        return trangThaiBan;
+    }
+
+    public void setTrangThaiBan(boolean trangThaiBan) {
+        this.trangThaiBan = trangThaiBan;
+    }
 
     public int getMaImei() {
         return maImei;

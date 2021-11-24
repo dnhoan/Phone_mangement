@@ -146,7 +146,6 @@ public class QLImei extends javax.swing.JFrame {
                 formWindowClosed(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblImei.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -174,33 +173,63 @@ public class QLImei extends javax.swing.JFrame {
             tblImei.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 101, 441, 199));
-
         txtTenImei.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtTenImeiKeyPressed(evt);
             }
         });
-        getContentPane().add(txtTenImei, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 334, 441, 32));
 
         lblThem.setText("Thêm imei");
-        getContentPane().add(lblThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 306, -1, -1));
 
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSearchKeyTyped(evt);
             }
         });
-        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 51, 241, 32));
 
         jLabel2.setText("Tìm kiếm");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 20, -1, -1));
 
         lblSoluong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSoluong.setForeground(new java.awt.Color(153, 0, 0));
         lblSoluong.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSoluong.setText("Tổng: 0");
-        getContentPane().add(lblSoluong, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 48, 148, 32));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(lblSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblThem)
+                    .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(lblThem)
+                .addGap(12, 12, 12)
+                .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

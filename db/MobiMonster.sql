@@ -69,16 +69,22 @@ CREATE TABLE KhachHang
 GO
 CREATE TABLE HoaDon(
 	MaHD INT IDENTITY(1,1) NOT NULL,
-	NgayBan DATE DEFAULT GETDATE() NULL,
+	NgayThanhToan DATE DEFAULT GETDATE() NULL,
+	NgayTao DATE DEFAULT GETDATE() NULL,
+	TongTien float null,
+	TienKhachTra float null,
 	MaNV VARCHAR(20) NULL,
 	MaKH INT NULL,
+	GhiChu nvarchar(225) null,
+	DiaChiNhanHang nvarchar(225) null,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY(MaHD),
 	FOREIGN KEY(MaNV) REFERENCES NhanVien(MaNV),
 	FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH),
 )
 GO
-
+select * from HoaDon
+alter table HoaDon add DiaChiNhanHang nvarchar(225) null
 CREATE TABLE HangSanPham(
 	MaHang INT IDENTITY(1,1) NOT NULL,
 	TenHang NVARCHAR(20) NULL,
@@ -147,6 +153,7 @@ CREATE TABLE  Imei
 	MaCTSP INT NULL,
 	MaSPSale INT NULL,
 	TenImei NVARCHAR(50) NULL,
+	TrangThaiBan bit default 1 null,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaImei),
 	FOREIGN KEY(MaCTSP) REFERENCES CTSANPHAM(MaCTSP),
@@ -161,7 +168,7 @@ CREATE TABLE ChiTietHoaDon(
 	MaCTHD INT IDENTITY(1,1) NOT NULL,
 	MaHD INT NULL,
 	MaImei INT NULL,
-	GiaBan FLOAT  NULL,
+	GiaBanSauSale FLOAT  NULL,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY(MaCTHD),
 	FOREIGN KEY(MaHD) REFERENCES HoaDon(MaHD),
@@ -175,6 +182,7 @@ CREATE TABLE CTSANPHAM (
 	GiaNhap FLOAT NULL,
 	GiaBan FLOAT NULL,
 	NgayNhap DATE DEFAULT GETDATE() NULL,
+	SoLuongNhap int null,
 	TonKho INT NULL,
 	Hinh NVARCHAR(50) NULL,
 	MoTa	NVARCHAR(200) NULL,

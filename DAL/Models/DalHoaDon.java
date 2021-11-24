@@ -12,13 +12,24 @@ import java.util.Date;
  * @author ADMIN
  */
 public class DalHoaDon {
-    private String maHD;
-    private Date ngayBan;
+    private int maHD;
+    private Date ngayThanhToan;
+    private Date ngayTao;
+    private float tongTien;
+    private float tienKhachTra;
+    private String diaChiNhanHang;
     private String manv;
     private int makh;
-    private int makm;
     private String ghiChu;
     private boolean trangThai;
+
+    public String getDiaChiNhanHang() {
+        return diaChiNhanHang;
+    }
+
+    public void setDiaChiNhanHang(String diaChiNhanHang) {
+        this.diaChiNhanHang = diaChiNhanHang;
+    }
 
     public String getGhiChu() {
         return ghiChu;
@@ -28,28 +39,44 @@ public class DalHoaDon {
         this.ghiChu = ghiChu;
     }
 
-    public String getMaHD() {
+    public int getMaHD() {
         return maHD;
     }
 
-    public int getMakm() {
-        return makm;
-    }
-
-    public void setMakm(int makm) {
-        this.makm = makm;
-    }
-
-    public void setMaHD(String maHD) {
+    public void setMaHD(int maHD) {
         this.maHD = maHD;
     }
 
-    public Date getNgayBan() {
-        return ngayBan;
+    public Date getNgayThanhToan() {
+        return ngayThanhToan;
     }
 
-    public void setNgayBan(Date ngayBan) {
-        this.ngayBan = ngayBan;
+    public void setNgayThanhToan(Date ngayThanhToan) {
+        this.ngayThanhToan = ngayThanhToan;
+    }
+
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public float getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(float tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public float getTienKhachTra() {
+        return tienKhachTra;
+    }
+
+    public void setTienKhachTra(float tienKhachTra) {
+        this.tienKhachTra = tienKhachTra;
     }
 
 

@@ -13,8 +13,16 @@ public class DalChiTietHoaDon {
     private int macthd;
     private int mahd;
     private int maImei;
-    private float gia;
+    private float GiaBanSauSale;
     private boolean trangThai;
+
+    public float getGiaBanSauSale() {
+        return GiaBanSauSale;
+    }
+
+    public void setGiaBanSauSale(float GiaBanSauSale) {
+        this.GiaBanSauSale = GiaBanSauSale;
+    }
 
     public int getMaImei() {
         return maImei;
@@ -39,14 +47,6 @@ public class DalChiTietHoaDon {
 
     public void setMahd(int mahd) {
         this.mahd = mahd;
-    }
-
-    public float getGia() {
-        return gia;
-    }
-
-    public void setGia(float gia) {
-        this.gia = gia;
     }
 
     public boolean isTrangThai() {

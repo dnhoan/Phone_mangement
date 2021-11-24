@@ -33,7 +33,7 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
             JDBCHelper.executeUpdate(INSERT,
                     entity.getMahd(),
                     entity.getMaImei(),
-                    entity.getGia()
+                    entity.getGiaBanSauSale()
             );
         } catch (SQLException e) {
         }
@@ -45,7 +45,7 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
             JDBCHelper.executeUpdate(UPDATE,
                     entity.getMahd(),
                     entity.getMaImei(),
-                    entity.getGia(),
+                    entity.getGiaBanSauSale(),
                     entity.getMacthd()
             );
         } catch (SQLException e) {
@@ -123,7 +123,7 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
             busCTHoaDon.setMacthd(rs.getInt("macthd"));
             busCTHoaDon.setSoLuong(rs.getInt("soluong"));
             busCTHoaDon.setThanhTien(rs.getFloat("tongtien"));
-            busCTHoaDon.setGia(rs.getFloat("giaban"));
+            busCTHoaDon.setGia(rs.getFloat("GiaBanSauSale"));
             busCTHoaDon.setBusHoaDon(busHoaDon);
             return busCTHoaDon;
         } catch (SQLException e) {

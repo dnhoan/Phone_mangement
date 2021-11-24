@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.Models.BusCTSanPhamModel;
+import BUS.Services.BusImeiService;
 import GUI.Models.CartModel;
 import static GUI.QLImei.tblImei;
 import GUI.Services.ButtonColumn;
@@ -180,6 +181,7 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
                 for(int row: tblImei.getSelectedRows()) {
                     int tonKho = busCTSanPhamModel.getTonKho() + 1;
                     busCTSanPhamModel.setTonKho(tonKho);
+                    BusImeiService.updateStatusSell((Integer) tblImei.getValueAt(row, 0), 1);
                     cart.getListImeis().remove(row);
                     fillTable();
                 }

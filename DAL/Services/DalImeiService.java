@@ -43,6 +43,15 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
         } catch (SQLException e) {
         }
     }
+    public void updateStatusSell(Integer maImei, Integer statusSell) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE_STATUS_SELL,
+                    statusSell,
+                    maImei
+            );
+        } catch (SQLException e) {
+        }
+    }
 
     @Override
     public void delete(Integer id) {
@@ -57,8 +66,11 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<DalImeiModel> selectByMaCtSp(Integer id, String search) {
-        return this.selectBySql(SELECT_BY_IDSP, id, "%" + search + "%") == null ? null : this.selectBySql(SELECT_BY_IDSP, id, "%" + search + "%");
+    public List<DalImeiModel> selectByMaCtSp(Integer mactsp, String search) {
+        return this.selectBySql(SELECT_BY_IDSP, mactsp, "%" + search + "%") == null ? null : this.selectBySql(SELECT_BY_IDSP, mactsp, "%" + search + "%");
+    }
+    public List<DalImeiModel> selectImeisNotSell(Integer mactsp) {
+        return this.selectBySql(SELECT_IMEIS_NOT_SELL, mactsp) == null ? null : this.selectBySql(SELECT_IMEIS_NOT_SELL, mactsp);
     }
 
     @Override
@@ -77,6 +89,7 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
                 dalImeiModel.setMaCtsp(rs.getInt("mactsp"));
                 dalImeiModel.setTenImei(rs.getString("tenImei"));
                 dalImeiModel.setMaSpSale(rs.getInt("maspsale"));
+                dalImeiModel.setTrangThaiBan(rs.getBoolean("TrangThaiBan"));
                 listImei.add(dalImeiModel);
             }
             return listImei;

@@ -31,7 +31,10 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
                     entity.getManv(),
                     entity.getMakh(),
                     entity.getGhiChu(),
-                    DateService.toString(entity.getNgayBan(), "yyyy-MM-yy")
+                    entity.getTongTien(),
+                    entity.getTienKhachTra(),
+                    entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-yy"),
+                    entity.getDiaChiNhanHang()
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,7 +47,6 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
             JDBCHelper.executeUpdate(UPDATE, 
                     entity.getManv(),
                     entity.getMakh(),
-                    entity.getMakm(),
                     entity.getMaHD()
                     );
         } catch (Exception e) {
@@ -107,11 +109,41 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         busHoaDon.setKhachHangModel(khachHangModel);
         busHoaDon.setNhanVienModel(nhanVienModel);
         busHoaDon.setMahd(rs.getInt("mahd"));
-        busHoaDon.setNgayBan(rs.getDate("ngayBan"));
+        busHoaDon.setNgayThanhToan(rs.getDate("NgayThanhToan"));
         busHoaDon.setNgayTao(rs.getDate("ngaytao"));
         busHoaDon.setSoLuong(rs.getInt("soluong"));
         busHoaDon.setTongTien(rs.getFloat("tong"));
+        busHoaDon.setTienKhachTra(rs.getFloat("TienKhachTra"));
+        busHoaDon.setDiaChiNhanHang(rs.getString("DiaChiNhanHang"));
+        busHoaDon.setGhiChu(rs.getString("GhiChu"));
         return busHoaDon;
+    }
+    
+    public List<Integer> selectHoaDonInDate() {
+        List<Integer> listHd = new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(SELECT_HOA_DON_IN_DATE);
+            while(rs.next()) {
+               listHd.add(rs.getInt("mahd"));
+            }
+            return listHd;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<Integer> selectHoaDonTreo() {
+        List<Integer> listHd = new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(SELECT_HOA_DON_TREO);
+            while(rs.next()) {
+               listHd.add(rs.getInt("mahd"));
+            }
+            return listHd;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
     @Override

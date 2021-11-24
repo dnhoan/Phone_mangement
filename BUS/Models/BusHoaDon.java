@@ -13,13 +13,40 @@ import java.util.Date;
  */
 public class BusHoaDon {
     private int mahd;
-    private Date ngayBan;
+    private Date ngayThanhToan;
     private NhanVienModel nhanVienModel;
     private KhachHangModel khachHangModel;
     private int soLuong;
     private Date ngayTao;
     private float tongTien;
+    private float tienKhachTra;
+    private String diaChiNhanHang;
+    private String ghiChu;
     private boolean trangThai;
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+
+    public float getTienKhachTra() {
+        return tienKhachTra;
+    }
+
+    public void setTienKhachTra(float tienKhachTra) {
+        this.tienKhachTra = tienKhachTra;
+    }
+
+    public String getDiaChiNhanHang() {
+        return diaChiNhanHang;
+    }
+
+    public void setDiaChiNhanHang(String diaChiNhanHang) {
+        this.diaChiNhanHang = diaChiNhanHang;
+    }
 
     public int getSoLuong() {
         return soLuong;
@@ -53,13 +80,15 @@ public class BusHoaDon {
         this.mahd = mahd;
     }
 
-    public Date getNgayBan() {
-        return ngayBan;
+    public Date getNgayThanhToan() {
+        return ngayThanhToan;
     }
 
-    public void setNgayBan(Date ngayBan) {
-        this.ngayBan = ngayBan;
+    public void setNgayThanhToan(Date ngayThanhToan) {
+        this.ngayThanhToan = ngayThanhToan;
     }
+
+
 
     public NhanVienModel getNhanVienModel() {
         return nhanVienModel;
