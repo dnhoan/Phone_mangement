@@ -584,9 +584,9 @@ public class Main extends javax.swing.JFrame {
 
     private void jpnCauHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnCauHinhMouseClicked
         if (AuthService.isLogin()) {
-            QuanlyGiaoDichJFrame gd = new QuanlyGiaoDichJFrame();
+            QuanLyBanHang bh = new QuanLyBanHang();
             jDesktopPane1.removeAll();
-            jDesktopPane1.add(gd).setVisible(true);
+            jDesktopPane1.add(bh).setVisible(true);
         } else {
             MessageService.alert(this, "Vui lòng đăng nhập!");
         }

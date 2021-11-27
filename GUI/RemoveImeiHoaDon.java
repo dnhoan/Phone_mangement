@@ -72,8 +72,8 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
         tblImei.setRowHeight(30);
         jScrollPane1.setViewportView(tblImei);
         if (tblImei.getColumnModel().getColumnCount() > 0) {
-            tblImei.getColumnModel().getColumn(0).setMinWidth(50);
-            tblImei.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblImei.getColumnModel().getColumn(0).setMinWidth(0);
+            tblImei.getColumnModel().getColumn(0).setMaxWidth(0);
             tblImei.getColumnModel().getColumn(2).setMinWidth(50);
             tblImei.getColumnModel().getColumn(2).setMaxWidth(50);
         }
@@ -82,31 +82,21 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 199, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        QuanlyGiaoDichJFrame.listCart.set(index, cart);
-        QuanlyGiaoDichJFrame.listSp.set(indexsp, busCTSanPhamModel);
-        QuanlyGiaoDichJFrame.fillTable(QuanlyGiaoDichJFrame.listSp);
-        QuanlyGiaoDichJFrame.fillToCart(QuanlyGiaoDichJFrame.cartModel, QuanlyGiaoDichJFrame.tblCart);
+        QuanLyBanHang.listCart.set(index, cart);
+        QuanLyBanHang.listSp.set(indexsp, busCTSanPhamModel);
+        QuanLyBanHang.fillTable(QuanLyBanHang.listSp);
+        QuanLyBanHang.fillToCart(QuanLyBanHang.cartModel, QuanLyBanHang.tblCart);
     }//GEN-LAST:event_formWindowClosed
 
     /**
@@ -154,8 +144,8 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.cart = cart;
-        busCTSanPhamModel = QuanlyGiaoDichJFrame.listSp.stream().filter(sp -> sp.getMaCTSP()== cart.getMactsp()).toList().get(0);
-        indexsp = QuanlyGiaoDichJFrame.listSp.indexOf(busCTSanPhamModel);
+        busCTSanPhamModel = QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP()== cart.getMactsp()).toList().get(0);
+        indexsp = QuanLyBanHang.listSp.indexOf(busCTSanPhamModel);
         this.index = index;
         btnRemoveCart();
         fillTable();
@@ -181,7 +171,7 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
                 for(int row: tblImei.getSelectedRows()) {
                     int tonKho = busCTSanPhamModel.getTonKho() + 1;
                     busCTSanPhamModel.setTonKho(tonKho);
-                    BusImeiService.updateStatusSell((Integer) tblImei.getValueAt(row, 0), 1);
+//                    BusImeiService.updateStatusSell((Integer) tblImei.getValueAt(row, 0), 1);
                     cart.getListImeis().remove(row);
                     fillTable();
                 }

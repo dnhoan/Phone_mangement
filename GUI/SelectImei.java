@@ -9,12 +9,12 @@ import BUS.Models.BusCTSanPhamModel;
 import BUS.Services.BusImeiService;
 import DAL.Models.DalImeiModel;
 import GUI.Models.CartModel;
-import static GUI.QuanlyGiaoDichJFrame.cartModel;
-import static GUI.QuanlyGiaoDichJFrame.fillTable;
-import static GUI.QuanlyGiaoDichJFrame.listCart;
-import static GUI.QuanlyGiaoDichJFrame.listSp;
-import static GUI.QuanlyGiaoDichJFrame.tblCart;
-import static GUI.QuanlyGiaoDichJFrame.tblSanPham;
+import static GUI.QuanLyBanHang.cartModel;
+import static GUI.QuanLyBanHang.fillTable;
+import static GUI.QuanLyBanHang.listCart;
+import static GUI.QuanLyBanHang.listSp;
+import static GUI.QuanLyBanHang.tblCart;
+import static GUI.QuanLyBanHang.tblSanPham;
 import GUI.Services.MessageService;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,6 @@ public class SelectImei extends javax.swing.JFrame {
 //    }
     public SelectImei(BusCTSanPhamModel busCTSanPhamModel) {
         initComponents();
-        System.out.println(busCTSanPhamModel.getMaCTSP());
         SelectImei.busCTSanPhamModel = busCTSanPhamModel;
         this.init();
     }
@@ -145,9 +144,8 @@ public class SelectImei extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(cboImei);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        System.out.println("mactsp " + SelectImei.busCTSanPhamModel.getMaCTSP());
         BusImeiService.getImeisNotSell(SelectImei.busCTSanPhamModel.getMaCTSP());
-        BusImeiService.fillcboImeiBymactsp(imeiModel, cboImei);
+        BusImeiService.fillcboImeiBymactsp(imeiModel, cboImei, SelectImei.busCTSanPhamModel.getMaCTSP());
     }
 
     public static void ok() {
@@ -156,7 +154,7 @@ public class SelectImei extends javax.swing.JFrame {
         } else {
             DalImeiModel imei = (DalImeiModel) cboImei.getSelectedItem();
             
-            BusImeiService.updateStatusSell(imei.getMaImei(), 0);
+//            BusImeiService.updateStatusSell(imei.getMaImei(), 0);
             
             List<DalImeiModel> listImeis = new ArrayList<>();
             CartModel cart = new CartModel();
@@ -178,7 +176,7 @@ public class SelectImei extends javax.swing.JFrame {
                         busCTSanPhamModel.setTonKho(conLai);
                         listSp.set(indexsp, busCTSanPhamModel);
 
-                        QuanlyGiaoDichJFrame.listCart.set(i, cart);
+                        QuanLyBanHang.listCart.set(i, cart);
                         break;
                     } else if (i == listCart.size() - 1) {
                         listImeis.add(imei);
@@ -207,7 +205,7 @@ public class SelectImei extends javax.swing.JFrame {
                 listCart.add(cart);
             }
         }
-        QuanlyGiaoDichJFrame.fillToCart(cartModel, tblCart);
+        QuanLyBanHang.fillToCart(cartModel, tblCart);
         tblSanPham.removeRowSelectionInterval(0, listSp.size() - 1);
         fillTable(listSp);
     }

@@ -22,19 +22,21 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>, IHoaDonService{
-
+public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>, IHoaDonService {
+    CTHoaDonService cTHoaDonService = new CTHoaDonService();
     @Override
     public void insert(DalHoaDon entity) {
         try {
-            JDBCHelper.executeUpdate(INSERT, 
+            JDBCHelper.executeUpdate(INSERT,
                     entity.getManv(),
                     entity.getMakh(),
                     entity.getGhiChu(),
                     entity.getTongTien(),
                     entity.getTienKhachTra(),
                     entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-yy"),
-                    entity.getDiaChiNhanHang()
+                    entity.getDiaChiNhanHang(),
+                    entity.getPhiVanChuyen(),
+                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy")
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,51 +46,79 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     @Override
     public void update(DalHoaDon entity) {
         try {
-            JDBCHelper.executeUpdate(UPDATE, 
+            JDBCHelper.executeUpdate(UPDATE,
                     entity.getManv(),
                     entity.getMakh(),
                     entity.getMaHD()
-                    );
+            );
         } catch (Exception e) {
         }
     }
 
     @Override
     public void delete(Integer id) {
+//        try {
+//            JDBCHelper.executeUpdate(DELETE, id);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+    }
+    
+    public void updateStatus(Integer status, Integer id) {
         try {
-            JDBCHelper.executeUpdate(DELETE, id);
-        } catch (Exception e) {
+            JDBCHelper.executeUpdate(UPDATE_STATUS, status, id);
+            cTHoaDonService.updateStatus(status, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
     public Integer selectLasID() {
         try {
             ResultSet rs = JDBCHelper.executeQuery(SELECT_LASTID);
-            while(rs.next()) {
+            while (rs.next()) {
                 return rs.getInt("LastID");
             }
         } catch (Exception e) {
         }
         return null;
     }
-    public List<BusHoaDon> selectAll1() {
-        if(this.selectSql(SELECT_ALL1,1) == null) {
+
+    public List<BusHoaDon> selectAll1(String term, int filter) {
+        String sql;
+        switch(filter) {
+            case 0:
+                sql = SELECT_ALL1;
+                break;
+            case 1: 
+                sql = SELECT_THANH_TOAN;
+                break;
+            case 2: 
+                sql = SELECT_NOT_THANH_TOAN;
+                break;
+            default: sql = SELECT_ALL1;
+        }
+        List<BusHoaDon> list = this.selectSql(sql,filter == 3 ? 0 : 1, "%" + term + "%","%" + term + "%","%" + term + "%", "%" + term + "%");
+        if (list == null) {
             return null;
         }
-        return this.selectSql(SELECT_ALL1,1);
+        return list;
     }
+
     public List<BusHoaDon> selectAll0() {
-        if(this.selectSql(SELECT_ALL1,0) == null) {
+        if (this.selectSql(SELECT_ALL1, 0) == null) {
             return null;
         }
-        return this.selectSql(SELECT_ALL1,0);
+        return this.selectSql(SELECT_ALL1, 0);
     }
+
     public List<BusHoaDon> selectSql(String sql, Object... args) {
         List<BusHoaDon> listHoaDon = new ArrayList<>();
         try {
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
-            while(rs.next()) {
-               BusHoaDon busHoaDon = this.getResultSet(rs);
-               listHoaDon.add(busHoaDon);
+            while (rs.next()) {
+                BusHoaDon busHoaDon = this.getResultSet(rs);
+                listHoaDon.add(busHoaDon);
             }
             return listHoaDon;
         } catch (SQLException e) {
@@ -96,7 +126,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         }
         return null;
     }
-    
+
     BusHoaDon getResultSet(ResultSet rs) throws SQLException {
         BusHoaDon busHoaDon = new BusHoaDon();
         KhachHangModel khachHangModel = new KhachHangModel();
@@ -112,40 +142,54 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         busHoaDon.setNgayThanhToan(rs.getDate("NgayThanhToan"));
         busHoaDon.setNgayTao(rs.getDate("ngaytao"));
         busHoaDon.setSoLuong(rs.getInt("soluong"));
-        busHoaDon.setTongTien(rs.getFloat("tong"));
+        busHoaDon.setTongTien(rs.getFloat("TongTien"));
         busHoaDon.setTienKhachTra(rs.getFloat("TienKhachTra"));
         busHoaDon.setDiaChiNhanHang(rs.getString("DiaChiNhanHang"));
         busHoaDon.setGhiChu(rs.getString("GhiChu"));
+        busHoaDon.setPhiVanChuyen(rs.getFloat("PhiVanChuyen"));
         return busHoaDon;
     }
-    
-    public List<Integer> selectHoaDonInDate() {
-        List<Integer> listHd = new ArrayList<>();
+
+    BusHoaDon getResultSetButonHD(ResultSet rs) throws SQLException {
+        BusHoaDon busHoaDon = new BusHoaDon();
+        KhachHangModel khachHangModel = new KhachHangModel();
+        khachHangModel.setMaKH(rs.getInt("makh"));
+        NhanVienModel nhanVienModel = new NhanVienModel();
+        nhanVienModel.setMaNV(rs.getString("manv"));
+        busHoaDon.setKhachHangModel(khachHangModel);
+        busHoaDon.setNhanVienModel(nhanVienModel);
+        busHoaDon.setMahd(rs.getInt("mahd"));
+        busHoaDon.setTongTien(rs.getFloat("TongTien"));
+        busHoaDon.setTienKhachTra(rs.getFloat("TienKhachTra"));
+        busHoaDon.setDiaChiNhanHang(rs.getString("DiaChiNhanHang"));
+        busHoaDon.setGhiChu(rs.getString("GhiChu"));
+        busHoaDon.setPhiVanChuyen(rs.getFloat("PhiVanChuyen"));
+        busHoaDon.setNgayTao(rs.getDate("NgayTao"));
+        return busHoaDon;
+    }
+
+    public List<BusHoaDon> selectButtonHd() {
+        List<BusHoaDon> listHoaDon = new ArrayList<>();
         try {
-            ResultSet rs = JDBCHelper.executeQuery(SELECT_HOA_DON_IN_DATE);
-            while(rs.next()) {
-               listHd.add(rs.getInt("mahd"));
+            ResultSet rs = JDBCHelper.executeQuery(SELECT_HOA_DON_IN_DATE_AND_TREO);
+            while (rs.next()) {
+                BusHoaDon busHoaDon = this.getResultSetButonHD(rs);
+                listHoaDon.add(busHoaDon);
             }
-            return listHd;
+            return listHoaDon;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-    public List<Integer> selectHoaDonTreo() {
-        List<Integer> listHd = new ArrayList<>();
-        try {
-            ResultSet rs = JDBCHelper.executeQuery(SELECT_HOA_DON_TREO);
-            while(rs.next()) {
-               listHd.add(rs.getInt("mahd"));
-            }
-            return listHd;
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+    public BusHoaDon selectByMahd(Integer mahd, int isRemoved) {
+        if (this.selectSql(SELECT_BY_MAHD, isRemoved, mahd) == null) {
+            return null;
         }
-        return null;
+        return this.selectSql(SELECT_BY_MAHD, isRemoved, mahd).get(0);
     }
-    
+
     @Override
     public DalHoaDon selectByID(Integer id) {
         return null;
@@ -160,5 +204,5 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     public List<DalHoaDon> selectBySql(String sql, Object... args) {
         return null;
     }
-    
+
 }

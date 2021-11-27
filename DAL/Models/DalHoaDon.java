@@ -20,8 +20,26 @@ public class DalHoaDon {
     private String diaChiNhanHang;
     private String manv;
     private int makh;
+    private float phiVanChuyen;
+    private Date ngayGiaoHang;
     private String ghiChu;
     private boolean trangThai;
+
+    public float getPhiVanChuyen() {
+        return phiVanChuyen;
+    }
+
+    public void setPhiVanChuyen(float phiVanChuyen) {
+        this.phiVanChuyen = phiVanChuyen;
+    }
+
+    public Date getNgayGiaoHang() {
+        return ngayGiaoHang;
+    }
+
+    public void setNgayGiaoHang(Date ngayGiaoHang) {
+        this.ngayGiaoHang = ngayGiaoHang;
+    }
 
     public String getDiaChiNhanHang() {
         return diaChiNhanHang;

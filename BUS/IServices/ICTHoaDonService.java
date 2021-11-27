@@ -13,7 +13,7 @@ public interface ICTHoaDonService {
 
     String INSERT = "INSERT INTO ChiTietHoaDon(MAHD, MaImei, GiaBanSauSale) values (?,?,?)";
     String UPDATE = "update ChiTietHoaDon set MaHD = ?, MaImei = ?, GiaBanSauSale= ? where MaCTHD = ?";
-    String DELETE = "update ChiTietHoaDon set TrangThai = 0 where MaCTHD = ?";
+    String UPDATE_STATUS = "update ChiTietHoaDon set TrangThai = ? where MaHD = ?";
     String SELECT_ALL1 = "select MaCTHD, HoaDon.MaHD, SanPham.MaSP, HoaDon.MaKH, HoaDon.MaNV, KhachHang.HoTen, \n"
             + "	KhachHang.SDT, SanPham.TenSP, CTSANPHAM.MACTSP, ChiTietHoaDon.GiaBanSauSale, \n"
             + "	HoaDon.ngaytao,\n"

@@ -26,7 +26,7 @@ import java.util.List;
  * @author ADMIN
  */
 public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService<DalChiTietHoaDon, Integer> {
-
+    
     @Override
     public void insert(DalChiTietHoaDon entity) {
         try {
@@ -53,10 +53,14 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer idHoaDon) {
+    }
+    public void updateStatus(Integer status, Integer idHoaDon) {
         try {
-            JDBCHelper.executeUpdate(DELETE, id);
+            JDBCHelper.executeUpdate(UPDATE_STATUS, status, idHoaDon);
+            BusImeiService.updateStatusSellByMahd(status == 0 ? 1 : 0  , idHoaDon);
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -108,7 +112,7 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
             nhanVienModel.setMaNV(rs.getString("manv"));
 
             busHoaDon.setMahd(rs.getInt("mahd"));
-            busHoaDon.setNgayBan(rs.getDate("ngaytao"));
+//            busHoaDon.setNgayBan(rs.getDate("ngaytao"));
             busHoaDon.setKhachHangModel(khachHangModel);
             busHoaDon.setNhanVienModel(nhanVienModel);
 

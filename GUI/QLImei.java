@@ -166,8 +166,8 @@ public class QLImei extends javax.swing.JFrame {
         tblImei.setRowHeight(30);
         jScrollPane1.setViewportView(tblImei);
         if (tblImei.getColumnModel().getColumnCount() > 0) {
-            tblImei.getColumnModel().getColumn(0).setMinWidth(50);
-            tblImei.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblImei.getColumnModel().getColumn(0).setMinWidth(0);
+            tblImei.getColumnModel().getColumn(0).setMaxWidth(0);
             tblImei.getColumnModel().getColumn(1).setResizable(false);
             tblImei.getColumnModel().getColumn(2).setMinWidth(60);
             tblImei.getColumnModel().getColumn(2).setMaxWidth(60);

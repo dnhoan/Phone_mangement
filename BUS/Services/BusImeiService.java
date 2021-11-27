@@ -8,10 +8,12 @@ package BUS.Services;
 import BUS.Models.BusImeiModel;
 import DAL.Models.DalImeiModel;
 import DAL.Services.DalImeiService;
+import GUI.Models.CartModel;
 import GUI.QLImei;
 import GUI.QuanLySanPham;
 import static GUI.QuanLySanPham.cboListImei;
 import static GUI.QuanLySanPham.cboSanPham;
+import GUI.QuanLyBanHang;
 import GUI.Services.ButtonColumn;
 import GUI.Services.MessageService;
 import java.awt.event.ActionEvent;
@@ -46,6 +48,15 @@ public class BusImeiService {
             });
         } catch (Exception e) {
         }
+    }
+
+    public static List<DalImeiModel> getImeisByMactspAndMahd(int mactsp, int mahd) {
+        try {
+            listDalImei = dalImeiService.selectImeisByMactspAndMahd(mactsp, mahd);
+            return listDalImei;
+        } catch (Exception e) {
+        }
+        return null;
     }
 
     public static void getImeisNotSell(Integer mactsp) {
@@ -124,7 +135,6 @@ public class BusImeiService {
     }
 
     public static boolean updateStatusSell(Integer maImei, Integer statusSell) {
-        System.out.println("imei xoa " +maImei);
         try {
             dalImeiService.updateStatusSell(maImei, statusSell);
             return true;
@@ -133,8 +143,42 @@ public class BusImeiService {
         }
         return false;
     }
-
-    public static void fillcboImeiBymactsp(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo) {
+    public static boolean updateStatusSellByMahd(Integer statusSell, Integer mahd) {
+        try {
+            dalImeiService.updateStatusSellByMaHD(statusSell, mahd);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    
+    
+    public static void fillcboImeiBymactsp(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo, int mactsp) {
+        if (QuanLyBanHang.listCart.size() > 0) {
+            List<CartModel> listTestExist = QuanLyBanHang.listCart.stream().filter(ca -> ca.getMactsp() == mactsp).toList();
+            if(listTestExist.size() > 0) {
+                CartModel currentCart = listTestExist.get(0);
+                if (currentCart != null) {
+                    if (currentCart.getListImeis().size() > 0) {
+                        currentCart.getListImeis().forEach(imeiCart -> {
+                            int index = 0;
+                            boolean isDelete = false; 
+                            for(int i = 0; i < listDalImei.size(); i++) {
+                                if(listDalImei.get(i).getTenImei().equals(imeiCart.getTenImei())) {
+                                    index = i;
+                                    isDelete = true;
+                                }
+                            }
+                            if(isDelete) {
+                                listDalImei.remove(index);
+                            }
+                        });
+                    }
+                }
+            }
+        }
         fillComboImei(model, cbo, listDalImei);
     }
 

@@ -1139,6 +1139,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         }else {
             cboPhanLoai.getModel().setSelectedItem(null);
         }
+        cboListImei.getModel().setSelectedItem(new DalImeiModel());
     }
 
     @Override
@@ -1288,7 +1289,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     void getDataTable() {
         String keyWord = txtSearchBox.getText();
         try {
-            this.listSp = sanPhamService.selectBySearch(0,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
+            this.listSp = sanPhamService.selectBySearch(0,keyWord);
             fillTableSP(listSp, modelSp, tblSanPham);
         } catch (Exception e) {
             MessageService.alert(this, "loi");
@@ -1297,7 +1298,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     void getDataRecycle() {
         String keyWord = txtSearchRecycle.getText();
         try {
-            this.listSp = sanPhamService.selectRecycle(0,keyWord, keyWord, keyWord,keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord, keyWord);
+            this.listSp = sanPhamService.selectRecycle(0,keyWord);
             fillTableSP(listSp, modelRecycle, tblRecycle);
         } catch (Exception e) {
             MessageService.alert(this, "loi");

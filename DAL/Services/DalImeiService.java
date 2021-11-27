@@ -43,7 +43,23 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
         } catch (SQLException e) {
         }
     }
+
+    public void updateStatusSellByMaHD(Integer statusSell, Integer mahd) {
+//        1: Chưa bán
+//        0: Đã bán
+        try {
+            JDBCHelper.executeUpdate(UPDATE_STATUS_SELL_BY_MAHD,
+                    statusSell,
+                    mahd
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateStatusSell(Integer maImei, Integer statusSell) {
+//        1: Chưa bán
+//        0: Đã bán
         try {
             JDBCHelper.executeUpdate(UPDATE_STATUS_SELL,
                     statusSell,
@@ -60,7 +76,7 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
         } catch (SQLException e) {
         }
     }
-    
+
     @Override
     public DalImeiModel selectByID(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -69,8 +85,13 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
     public List<DalImeiModel> selectByMaCtSp(Integer mactsp, String search) {
         return this.selectBySql(SELECT_BY_IDSP, mactsp, "%" + search + "%") == null ? null : this.selectBySql(SELECT_BY_IDSP, mactsp, "%" + search + "%");
     }
+
     public List<DalImeiModel> selectImeisNotSell(Integer mactsp) {
         return this.selectBySql(SELECT_IMEIS_NOT_SELL, mactsp) == null ? null : this.selectBySql(SELECT_IMEIS_NOT_SELL, mactsp);
+    }
+
+    public List<DalImeiModel> selectImeisByMactspAndMahd(Integer mactsp, Integer mahd) {
+        return this.selectBySql(SELECT_IMEI_BY_MACTSP_AND_MAHD, mactsp, mahd) == null ? null : this.selectBySql(SELECT_IMEI_BY_MACTSP_AND_MAHD, mactsp, mahd);
     }
 
     @Override

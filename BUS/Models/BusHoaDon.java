@@ -21,8 +21,17 @@ public class BusHoaDon {
     private float tongTien;
     private float tienKhachTra;
     private String diaChiNhanHang;
+    private float phiVanChuyen;
     private String ghiChu;
     private boolean trangThai;
+
+    public float getPhiVanChuyen() {
+        return phiVanChuyen;
+    }
+
+    public void setPhiVanChuyen(float phiVanChuyen) {
+        this.phiVanChuyen = phiVanChuyen;
+    }
 
     public String getGhiChu() {
         return ghiChu;

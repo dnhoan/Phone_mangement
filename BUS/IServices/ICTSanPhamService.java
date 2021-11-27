@@ -62,4 +62,11 @@ public interface ICTSanPhamService {
     String UPDATE_STOCK = "update CTSANPHAM set TonKho = ? where MACTSP = ?";
 
     String LAST_ID = "SELECT Max(MACTSP) as LastID FROM CTSANPHAM";
+    String SELECT_SP_BY_HOADON = "select TenSP, GiaBan, Hinh, CTSANPHAM.MACTSP, sum(GiabanSauSale) as tongTien, ctsanpham.mactsp as sl\n"
+            + "from ChiTietHoaDon join \n"
+            + "imei on Imei.maimei = chitiethoadon.maimei join ctsanpham\n"
+            + "on ctsanpham.mactsp = imei.mactsp join SanPham\n"
+            + "on SanPham.MaSP = CTSANPHAM.MaSP\n"
+            + "where mahd = ? and ChiTietHoaDon.trangthai = 1\n"
+            + "Group by TenSP, GiaBan, Hinh, CTSANPHAM.MACTSP";
 }

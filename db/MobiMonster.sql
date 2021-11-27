@@ -76,6 +76,7 @@ CREATE TABLE HoaDon(
 	MaNV VARCHAR(20) NULL,
 	MaKH INT NULL,
 	GhiChu nvarchar(225) null,
+	PhiVanChuyen float null,
 	DiaChiNhanHang nvarchar(225) null,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY(MaHD),
@@ -84,7 +85,6 @@ CREATE TABLE HoaDon(
 )
 GO
 select * from HoaDon
-alter table HoaDon add DiaChiNhanHang nvarchar(225) null
 CREATE TABLE HangSanPham(
 	MaHang INT IDENTITY(1,1) NOT NULL,
 	TenHang NVARCHAR(20) NULL,

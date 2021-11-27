@@ -20,6 +20,7 @@ import DAL.Models.DalCTSanPhamModel;
 import DAL.Models.DalMauSacModel;
 import DAL.Models.DalPhanLoaiSpModel;
 import DAL.Services.JDBCHelper;
+import GUI.Models.CartModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -162,42 +163,59 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
 //        List<BusCTSanPhamModel> list = sanPhamService.selectBySearch("");
 //    }
 
-    public List<BusCTSanPhamModel> selectRecycle(int tonKho, String ten, String dong, String cam,
-            String rom, String ram, String manhinh, String pin, String cpu,  String noixuatxu, String heDieuHanh, String mau, String loai) {
+    public List<BusCTSanPhamModel> selectRecycle(int tonKho, String term) {
         return this.select(SELECT_BY_KEYWORD, 0, tonKho,
-                "%" + ten + "%",
-                "%" + dong + "%",
-                "%" + cam + "%",
-                "%" + rom + "%",
-                "%" + ram + "%",
-                "%" + manhinh + "%",
-                "%" + pin + "%",
-                "%" + cpu + "%",
-                "%" + noixuatxu + "%",
-                "%" + heDieuHanh + "%",
-                "%" + mau + "%",
-                "%" + loai + "%"
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%"
         );
     }
 
-    public List<BusCTSanPhamModel> selectBySearch(int tonKho, String ten, String dong, String cam,
-            String rom, String ram, String manhinh, String pin, String cpu, String noixuatxu, String heDieuHanh,String mau, String loai) {
+    public List<BusCTSanPhamModel> selectBySearch(int tonKho, String term) {
         return this.select(SELECT_BY_KEYWORD,1, tonKho,
-                "%" + ten + "%",
-                "%" + dong + "%",
-                "%" + cam + "%",
-                "%" + rom + "%",
-                "%" + ram + "%",
-                "%" + manhinh + "%",
-                "%" + pin + "%",
-                "%" + cpu + "%",
-                "%" + noixuatxu + "%",
-                "%" + heDieuHanh + "%",
-                "%" + mau + "%",
-                "%" + loai + "%"
+                 "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%"
         );
     }
-
+    public List<CartModel> selectSpByMahd(int mahd) {
+            List<CartModel> listCart = new ArrayList<>();
+            try {
+                ResultSet resultSet = JDBCHelper.executeQuery(SELECT_SP_BY_HOADON, mahd);
+                while (resultSet.next()) {
+                    CartModel cart = new CartModel();
+                    cart.setTensp(resultSet.getString("TenSP"));
+                    cart.setHinh(resultSet.getString("hinh"));
+                    cart.setGia(resultSet.getFloat("giaban"));
+                    cart.setMactsp(resultSet.getInt("mactsp"));
+                    cart.setTongTien(resultSet.getFloat("tongtien"));
+                    listCart.add(cart);
+                }
+                resultSet.getStatement().close();
+                return listCart;
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
     private BusCTSanPhamModel getResultSet(ResultSet rs) throws SQLException {
         BusCTSanPhamModel sp = new BusCTSanPhamModel();
         sp.setMaCTSP(rs.getInt("MACTSP"));
