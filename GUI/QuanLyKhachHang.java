@@ -228,6 +228,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 15))); // NOI18N
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel20.setBackground(new java.awt.Color(255, 255, 255));
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(5, 10, 46));
         jLabel20.setText("Họ và tên");
@@ -268,6 +269,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         txtEmail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
         jPanel10.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 250, 30));
 
+        jLabel23.setBackground(new java.awt.Color(255, 255, 255));
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(5, 10, 46));
         jLabel23.setText("Địa chỉ");
@@ -658,7 +660,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                         .addComponent(chktimkiem))))
         );
 
-        setBounds(0, 0, 1870, 943);
+        setBounds(0, 0, 1354, 943);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tkTenKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tkTenKeyReleased
@@ -925,7 +927,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnThem2.setEnabled(!edit);
         btnSua2.setEnabled(edit);
         btnXoa2.setEnabled(edit);
-        btnMoi2.setEnabled(edit);
+        
 
         btnFirst.setEnabled(edit && !first);
         btnPrev.setEnabled(edit && !first);

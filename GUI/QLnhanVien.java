@@ -566,7 +566,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1870, 754));
+        setPreferredSize(new java.awt.Dimension(1870, 1002));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabs.setBackground(new java.awt.Color(255, 255, 255));
@@ -1247,7 +1247,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 114));
 
-        setBounds(0, 0, 1627, 847);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDSNVONAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tblDSNVONAncestorAdded
