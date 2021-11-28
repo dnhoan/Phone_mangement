@@ -124,14 +124,21 @@ public class MainThuNghiem extends javax.swing.JFrame {
         }
     }
 
-    public void openNhanVien() {
-        if (AuthService.isLogin()) {
+    public boolean openNhanVien() {
+
+        if (!AuthService.isLogin()) {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+            return false;
+        } else if (!AuthService.isManager()) {
+            MessageService.alert(this, "Bạn không có quyền sử dụng chức năng này!");
+            return false;
+        } else if (AuthService.isLogin()) {
             QLnhanVien gd = new QLnhanVien();
             dashboardview.removeAll();
             dashboardview.add(gd).setVisible(true);
-        } else {
-            MessageService.alert(this, "Vui lòng đăng nhập!");
         }
+
+        return true;
     }
 
     public void changeImage() {
