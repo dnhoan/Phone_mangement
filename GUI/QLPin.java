@@ -5,12 +5,17 @@
  */
 package GUI;
 
+import BUS.Models.BusCTSanPhamModel;
 import BUS.Models.BusPinModel;
+import BUS.Models.BusSanPham;
+import BUS.Models.ValidConstrainModel;
 
 import BUS.Services.PinService;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
+import GUI.Services.ValidateService;
 import java.util.List;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +23,8 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class QLPin extends javax.swing.JFrame implements IEditService<BusPinModel> {
-
+BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
+    BusPinModel pin = new BusPinModel();
     PinService psr = new PinService();
     int row = -1;
 
@@ -336,12 +342,23 @@ public class QLPin extends javax.swing.JFrame implements IEditService<BusPinMode
     }//GEN-LAST:event_tblNKDMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+        
+   if(checkNull()&&checkNumber()){
+           insert();
+
+   }
+        
+             
+    
+       
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            update();
+            if(updateByStatus()&&checkNull()&&checkNumber()){
+                 update();
+            }
+
         } else {
             update2();
         }
@@ -637,4 +654,32 @@ public class QLPin extends javax.swing.JFrame implements IEditService<BusPinMode
     public void fillTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    public boolean updateByStatus(){
+        if(ctsp.isTrangThai()==true&&pin.isTrangThai()==true){
+            MessageService.alert(this, "Pin đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
+            return false;
+        }
+        return true;    
+    }
+    public boolean checkNull(){
+        if(txtLoaiPin.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống loại pin!");
+            return false;
+        }
+        if(txtDungLuongPin.getText().isEmpty()){
+             MessageService.alert(this, "Không bỏ trống dung lượng pin!");
+            return false;
+        }
+        return true;
+    }
+    public boolean checkNumber(){
+        try {
+            float so = Float.parseFloat(txtDungLuongPin.getText());
+        } catch (Exception e) {
+             MessageService.alert(this, "Dung lượng pin phải là số!");
+            return false;
+        }
+        return true;
+    }
+    
 }

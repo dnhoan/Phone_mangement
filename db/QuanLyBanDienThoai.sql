@@ -173,14 +173,16 @@ UPDATE SanPham SET TenSP =?, MaDong = ?, TrangThai = ? WHERE MaSP = ?
 */
 CREATE TABLE CTSANPHAM (
 	MACTSP int IDENTITY(1,1) NOT NULL,
-	IDCTSP int,
-	GiaNhap float nULL,
-	GiaBan float  NULL,
-	SoLuongNhap int  NULL,
 	NgayNhap date default getDate(),
-	TonKho int NOT NULL,
+		GiaBan float  NULL,
+	GiaNhap float nULL,
 	Hinh nvarchar(50) not null,
-	MoTa nvarchar(200) NULL,
+		MoTa nvarchar(200) NULL,
+
+	
+	TonKho int NOT NULL,
+		SoLuongNhap int  NULL,
+			TrangThai bit default 1,
 	MaCamera int NOT NULL,
 	MaROM int NOT NULL,
 	MaRam int NOT NULL,
@@ -190,7 +192,8 @@ CREATE TABLE CTSANPHAM (
 	MaManHinh int NOT NULL,
 	MaCPU int NOT NULL,
 	MaSP int not null,
-	TrangThai bit default 1,
+	MaMau int not null,
+	MaPhanLoai int not null,
 	PRIMARY KEY (MACTSP),
 	FOREIGN KEY(MaCamera) REFERENCES CameraSP(MaCamera),
 	FOREIGN KEY(MaROM) REFERENCES RomSP(MaROM),
@@ -201,7 +204,26 @@ CREATE TABLE CTSANPHAM (
 	FOREIGN KEY(MaManHinh) REFERENCES ManHinhSP(MaManHinh),
 	FOREIGN KEY(MaCPU) REFERENCES CPU(MaCPU),
 	FOREIGN KEY(MaSP) REFERENCES SanPham(MaSP),
+	FOREIGN KEY(MaMau) REFERENCES MauSac(MaMau),
+	FOREIGN KEY(MaPhanLoai) REFERENCES PhanLoai(MaPhanLoai)
 )
+
+CREATE TABLE MauSac
+(
+	MaMau INT IDENTITY(1,1) NOT NULL,
+	TenMau NVARCHAR(50) NULL,
+	TrangThai BIT DEFAULT 1 NULL,
+	PRIMARY KEY (MaMau)
+)
+GO
+CREATE TABLE PhanLoai
+(
+	MaPhanLoai INT IDENTITY(1,1) NOT NULL,
+	Loai NVARCHAR(50) NULL,
+	TrangThai BIT DEFAULT 1 NULL,
+	PRIMARY KEY (MaPhanLoai)
+)
+
 /*
 select * from CTSANPHAM
 SELECT MACTSP, GiaNhap, GiaBan, SoLuongNhap, NgayNhap, TonKho, Hinh, 

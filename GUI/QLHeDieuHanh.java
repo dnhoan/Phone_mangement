@@ -5,7 +5,9 @@
  */
 package GUI;
 
+import BUS.Models.BusCTSanPhamModel;
 import BUS.Models.BusHeDieuHanhModel;
+import BUS.Models.BusSanPham;
 import BUS.Services.CpuService;
 import BUS.Services.HeDieuHanhService;
 import GUI.Services.IEditService;
@@ -18,7 +20,8 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<BusHeDieuHanhModel> {
-
+   BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
+    BusHeDieuHanhModel hdh = new BusHeDieuHanhModel();
     HeDieuHanhService hdhser = new HeDieuHanhService();
     int row = -1;
 
@@ -46,8 +49,8 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
         rdoNSD = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel53 = new javax.swing.JPanel();
-        btnSua = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         btnLamMoiForm4 = new javax.swing.JButton();
         tabs = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -76,14 +79,6 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
-        btnSua.setText("Sửa");
-        btnSua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaActionPerformed(evt);
-            }
-        });
-        jPanel53.add(btnSua);
-
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +86,14 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
             }
         });
         jPanel53.add(btnThem);
+
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+        jPanel53.add(btnSua);
 
         btnLamMoiForm4.setText("Làm mới");
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
@@ -236,14 +239,20 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            update();
+            if(updateByStatus()&&checkNull()){
+                     update();
+            }
+       
         } else {
             update2();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+        if (checkNull()) {
+             insert();
+        }
+       
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -482,5 +491,20 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+       public boolean updateByStatus(){
+        if(ctsp.isTrangThai()==true&&hdh.isTrangThai()==true){
+            MessageService.alert(this, "Hệ điều hành đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
+            return false;
+        }
+        return true;    
+    }
+    public boolean checkNull(){
+        if(txtTenHDH.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống tên hệ điều hành!");
+            return false;
+        }
+       
+        return true;
     }
 }

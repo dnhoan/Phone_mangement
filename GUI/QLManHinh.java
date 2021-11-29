@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import BUS.Models.BusCTSanPhamModel;
 import BUS.Models.BusManHinhModel;
 import BUS.Services.ManHinhService;
 import GUI.Services.IEditService;
@@ -17,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class QLManHinh extends javax.swing.JFrame implements IEditService<BusManHinhModel> {
-
+BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
+BusManHinhModel mh = new BusManHinhModel();
     ManHinhService mhser = new ManHinhService();
     int row = -1;
 
@@ -567,5 +569,32 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+     public boolean updateByStatus(){
+        if(ctsp.isTrangThai()==true&&mh.isTrangThai()==true){
+            MessageService.alert(this, "Màn hình đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
+            return false;
+        }
+        return true;    
+    }
+    public boolean checkNull(){
+        if(txtKichThuoc.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống kích thước!");
+            return false;
+        }
+        if(txtLoaiMH.getText().isEmpty()){
+             MessageService.alert(this, "Không bỏ trống loại màn hình!");
+            return false;
+        }
+        return true;
+    }
+     public boolean checkNumber(){
+        try {
+            float so = Float.parseFloat(txtKichThuoc.getText());
+        } catch (Exception e) {
+             MessageService.alert(this, "Kích thước phải là số!");
+            return false;
+        }
+        return true;
     }
 }
