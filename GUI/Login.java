@@ -29,6 +29,7 @@ public class Login extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         init();
+
     }
 
     public void setColor(JLabel lb) {
@@ -264,8 +265,12 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_ResetActionPerformed
 
     private void lblForgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblForgotMouseClicked
+   
+        setVisible(false);
+       
+    
         new QuenPass().setVisible(true);
-        this.setVisible(false);
+       
     }//GEN-LAST:event_lblForgotMouseClicked
 
     /**
@@ -344,6 +349,7 @@ public class Login extends javax.swing.JDialog {
                 AuthService.user = nvmodel;
                 MessageService.alert(this, "Đăng nhập thành công");
                 this.dispose();
+                new MainThuNghiem().setVisible(true);
             }
         } catch (Exception e) {
             e.printStackTrace();
