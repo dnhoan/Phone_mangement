@@ -229,8 +229,14 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_lblForgotMouseEntered
 
     private void lblExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitMouseClicked
+    int chooser = JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn thoát không ???", "Thông Báo", JOptionPane.YES_NO_OPTION);
+        if (chooser == JOptionPane.YES_OPTION) {
+            System.exit(0);
 
-        this.dispose();
+        } else {
+            return;
+        }
+        
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed

@@ -10,6 +10,8 @@ import BUS.Services.CameraService;
 import BUS.Services.HeDieuHanhService;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +29,20 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
 
     public QLCameraSp() {
         initComponents();
+         desginTable();
+          getContentPane().setBackground(Color.WHITE);
         this.init();
+    }
+    public void desginTable() {
+        tbldsd.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tbldsd.getTableHeader().setOpaque(false);
+        tbldsd.getTableHeader().setBackground(new Color(25, 29, 74));
+        tbldsd.getTableHeader().setForeground(Color.WHITE);
+        tblnsd.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tbldsd.getTableHeader().setDraggedColumn(null);
+       tblnsd.getTableHeader().setOpaque(false);
+         tblnsd.getTableHeader().setBackground(new Color(25, 29, 74));
+         tblnsd.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -59,8 +74,8 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         txtLoaiCam = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel54 = new javax.swing.JPanel();
-        btnSua4 = new javax.swing.JButton();
         btnThem4 = new javax.swing.JButton();
+        btnSua4 = new javax.swing.JButton();
         btnLamMoiForm4 = new javax.swing.JButton();
         txtDoPhanGia = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -102,6 +117,8 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
+        TAB.setForeground(new java.awt.Color(102, 0, 102));
+        TAB.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         TAB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TABMouseClicked(evt);
@@ -119,6 +136,10 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
                 "Mã Camera", "Loại Camera", "Độ phân giải", "Trạng thái"
             }
         ));
+        tbldsd.setGridColor(new java.awt.Color(25, 29, 74));
+        tbldsd.setRowHeight(25);
+        tbldsd.setRowMargin(0);
+        tbldsd.setRowSelectionAllowed(false);
         tbldsd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbldsdMouseClicked(evt);
@@ -134,10 +155,7 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
         );
 
         TAB.addTab("Đang sử dụng", jPanel2);
@@ -168,36 +186,43 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
         );
 
         TAB.addTab("Ngừng sử dụng", jPanel3);
 
+        rdo0.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdo0);
+        rdo0.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdo0.setForeground(new java.awt.Color(25, 29, 74));
         rdo0.setText("Ngừng sử dụng");
 
+        rdo1.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdo1);
+        rdo1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdo1.setForeground(new java.awt.Color(25, 29, 74));
         rdo1.setSelected(true);
         rdo1.setText("Đang sử dụng");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(5, 10, 46));
         jLabel3.setText("Trạng thái");
 
+        txtLoaiCam.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtLoaiCam.setForeground(new java.awt.Color(25, 29, 74));
+        txtLoaiCam.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(5, 10, 46));
         jLabel1.setText("Loại Camera");
 
-        jPanel54.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+        jPanel54.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        btnSua4.setText("Sửa");
-        btnSua4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSua4ActionPerformed(evt);
-            }
-        });
-        jPanel54.add(btnSua4);
-
-        btnThem4.setText("Thêm");
+        btnThem4.setBackground(new java.awt.Color(25, 29, 74));
+        btnThem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
+        btnThem4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnThem4.setBorderPainted(false);
+        btnThem4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem4ActionPerformed(evt);
@@ -205,7 +230,23 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         });
         jPanel54.add(btnThem4);
 
-        btnLamMoiForm4.setText("Làm mới");
+        btnSua4.setBackground(new java.awt.Color(25, 29, 74));
+        btnSua4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
+        btnSua4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnSua4.setBorderPainted(false);
+        btnSua4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSua4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSua4ActionPerformed(evt);
+            }
+        });
+        jPanel54.add(btnSua4);
+
+        btnLamMoiForm4.setBackground(new java.awt.Color(25, 29, 74));
+        btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
+        btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -213,59 +254,73 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         });
         jPanel54.add(btnLamMoiForm4);
 
-        jLabel2.setText("Độ phân giảii");
+        txtDoPhanGia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtDoPhanGia.setForeground(new java.awt.Color(25, 29, 74));
+        txtDoPhanGia.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(5, 10, 46));
+        jLabel2.setText("Độ phân giải");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(TAB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(rdo1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(rdo1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdo0, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel2)
-                    .addComponent(txtDoPhanGia, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtLoaiCam, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+                        .addComponent(rdo0))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(txtLoaiCam, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDoPhanGia, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtLoaiCam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDoPhanGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdo1)
+                    .addComponent(rdo0))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLoaiCam, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDoPhanGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdo1)
-                            .addComponent(rdo0))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(TAB, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TAB)
+                .addContainerGap())
         );
 
         pack();
@@ -336,7 +391,7 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

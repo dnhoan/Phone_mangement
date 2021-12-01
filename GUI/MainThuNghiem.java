@@ -1184,6 +1184,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
     private void jpnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnLogoutMouseClicked
         AuthService.clear();
+        setVisible(false);
         new Login(this, true).setVisible(true);
     }//GEN-LAST:event_jpnLogoutMouseClicked
 

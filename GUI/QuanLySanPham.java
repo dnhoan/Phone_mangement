@@ -228,6 +228,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
         tabs.setBackground(new java.awt.Color(255, 255, 255));
         tabs.setForeground(new java.awt.Color(102, 0, 102));
+        tabs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabs.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tabs.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -236,7 +237,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel3.setPreferredSize(new java.awt.Dimension(1754, 1002));
 
         tblSanPham.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -896,10 +897,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                                                 .addGap(58, 58, 58)
                                                 .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                                .addComponent(cboSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(btnLoaiSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel3Layout.createSequentialGroup()
                                                 .addComponent(jLabel82, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(135, 135, 135)
                                                 .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -926,7 +923,11 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                                         .addGap(11, 11, 11)
                                         .addComponent(btnOpenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(10, 10, 10)
-                                        .addComponent(txtTonKho))))
+                                        .addComponent(txtTonKho))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(cboSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(15, 15, 15)
+                                        .addComponent(btnLoaiSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

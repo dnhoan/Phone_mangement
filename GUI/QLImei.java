@@ -13,6 +13,8 @@ import static GUI.QuanlyGiaoDichJFrame.cartModel;
 import static GUI.QuanlyGiaoDichJFrame.tblSanPham;
 import GUI.Services.ButtonColumn;
 import GUI.Services.MessageService;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -38,11 +40,22 @@ public class QLImei extends javax.swing.JFrame {
 
     public QLImei() {
         initComponents();
+        desginTable();
+        getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.isNewProduct = true;
         buttonRemove();
         fillTable(listImei);
+    }
+    public void desginTable() {
+        tblImei.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tblImei.getTableHeader().setOpaque(false);
+        tblImei.getTableHeader().setBackground(new Color(25, 29, 74));
+       tblImei.getTableHeader().setForeground(Color.WHITE);
+        
+       tblImei.getTableHeader().setDraggedColumn(null);
+
     }
 
     public QLImei(int mactsp) {
@@ -141,6 +154,7 @@ public class QLImei extends javax.swing.JFrame {
         lblSoluong = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -173,20 +187,30 @@ public class QLImei extends javax.swing.JFrame {
             tblImei.getColumnModel().getColumn(2).setMaxWidth(60);
         }
 
+        txtTenImei.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtTenImei.setForeground(new java.awt.Color(25, 29, 74));
+        txtTenImei.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
         txtTenImei.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtTenImeiKeyPressed(evt);
             }
         });
 
+        lblThem.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        lblThem.setForeground(new java.awt.Color(5, 10, 46));
         lblThem.setText("Thêm imei");
 
+        txtSearch.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtSearch.setForeground(new java.awt.Color(25, 29, 74));
+        txtSearch.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSearchKeyTyped(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(5, 10, 46));
         jLabel2.setText("Tìm kiếm");
 
         lblSoluong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -209,7 +233,7 @@ public class QLImei extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblThem)
                     .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +252,7 @@ public class QLImei extends javax.swing.JFrame {
                 .addComponent(lblThem)
                 .addGap(12, 12, 12)
                 .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

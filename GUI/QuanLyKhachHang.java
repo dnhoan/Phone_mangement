@@ -328,6 +328,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
         jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 1030, 270));
 
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
         jPanel11.setLayout(new java.awt.GridLayout(1, 4, 5, 0));
 
         btnThem2.setBackground(new java.awt.Color(25, 29, 74));
