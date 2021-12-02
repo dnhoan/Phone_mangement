@@ -196,6 +196,22 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                 "%" + term + "%"
         );
     }
+    public List<BusCTSanPhamModel> selectBySearchAndPhanLoai(int tonKho, String term, int maPhanLoai) {
+        return this.select(SELECT_BY_KEYWORD_AND_PHAN_LOAI,1, tonKho, maPhanLoai,
+                 "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%"
+        );
+    }
     public List<CartModel> selectSpByMahd(int mahd) {
             List<CartModel> listCart = new ArrayList<>();
             try {

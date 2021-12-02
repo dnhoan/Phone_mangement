@@ -7,6 +7,7 @@ package GUI;
 
 import BUS.Models.BusCTSanPhamModel;
 import BUS.Services.BusImeiService;
+import BUS.Services.SanPhamService;
 import GUI.Models.CartModel;
 import static GUI.QLImei.tblImei;
 import GUI.Services.ButtonColumn;
@@ -28,7 +29,8 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
     int index;
     int indexsp;
     BusCTSanPhamModel busCTSanPhamModel;
-    Icon iconXoa = new ImageIcon(getClass().getResource("/icon/Delete.png"));
+    Icon iconDelete = new ImageIcon(getClass().getResource("/icon/bin.png"));
+    SanPhamService sanPhamService = new SanPhamService();
     /**
      * Creates new form RemoveImeiHoaDon
      */
@@ -144,8 +146,12 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.cart = cart;
-        busCTSanPhamModel = QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP()== cart.getMactsp()).toList().get(0);
-        indexsp = QuanLyBanHang.listSp.indexOf(busCTSanPhamModel);
+        if(QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP()== cart.getMactsp()).toList().size() > 0) {
+            busCTSanPhamModel = QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP()== cart.getMactsp()).toList().get(0);
+            indexsp = QuanLyBanHang.listSp.indexOf(busCTSanPhamModel);
+        } else {
+            busCTSanPhamModel = sanPhamService.selectID(this.cart.getMactsp());
+        }
         this.index = index;
         btnRemoveCart();
         fillTable();
@@ -160,7 +166,7 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
             model.addRow(new Object[] {
                 imei.getMaImei(),
                 imei.getTenImei(),
-                iconXoa
+                iconDelete
             });
         });
     }

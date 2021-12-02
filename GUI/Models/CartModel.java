@@ -18,7 +18,16 @@ public class CartModel {
     private String hinh;
     private float gia;
     private float tongTien;
+    private boolean trangThai;
     private List<DalImeiModel> listImeis;
+
+    public boolean isTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
 
     public List<DalImeiModel> getListImeis() {
         return listImeis;

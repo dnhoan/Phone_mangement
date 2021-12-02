@@ -23,7 +23,16 @@ public class DalHoaDon {
     private float phiVanChuyen;
     private Date ngayGiaoHang;
     private String ghiChu;
+    private int TrangThaiGiaoHang;
     private boolean trangThai;
+
+    public int getTrangThaiGiaoHang() {
+        return TrangThaiGiaoHang;
+    }
+
+    public void setTrangThaiGiaoHang(int TrangThaiGiaoHang) {
+        this.TrangThaiGiaoHang = TrangThaiGiaoHang;
+    }
 
     public float getPhiVanChuyen() {
         return phiVanChuyen;
@@ -120,6 +129,11 @@ public class DalHoaDon {
 
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
+    }
+
+    @Override
+    public String toString() {
+        return "DalHoaDon{" + "maHD=" + maHD + ", ngayThanhToan=" + ngayThanhToan + ", ngayTao=" + ngayTao + ", tongTien=" + tongTien + ", tienKhachTra=" + tienKhachTra + ", diaChiNhanHang=" + diaChiNhanHang + ", manv=" + manv + ", makh=" + makh + ", phiVanChuyen=" + phiVanChuyen + ", ngayGiaoHang=" + ngayGiaoHang + ", ghiChu=" + ghiChu + ", TrangThaiGiaoHang=" + TrangThaiGiaoHang + ", trangThai=" + trangThai + '}';
     }
     
     

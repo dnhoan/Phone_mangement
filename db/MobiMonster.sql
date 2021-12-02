@@ -71,13 +71,15 @@ CREATE TABLE HoaDon(
 	MaHD INT IDENTITY(1,1) NOT NULL,
 	NgayThanhToan DATE DEFAULT GETDATE() NULL,
 	NgayTao DATE DEFAULT GETDATE() NULL,
-	TongTien float null,
-	TienKhachTra float null,
+	TongTien float null, --Tong tien ko co phi ship
+	TienKhachTra float null, -- Bao gom phi van chuyen
 	MaNV VARCHAR(20) NULL,
 	MaKH INT NULL,
 	GhiChu nvarchar(225) null,
 	PhiVanChuyen float null,
 	DiaChiNhanHang nvarchar(225) null,
+	NgayShip date null,
+	TrangThaiGiaoHang int null, /* 2: Dang giao, 0: Chua giao, 1: GiaoThanhCong*/
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY(MaHD),
 	FOREIGN KEY(MaNV) REFERENCES NhanVien(MaNV),
@@ -153,7 +155,8 @@ CREATE TABLE  Imei
 	MaCTSP INT NULL,
 	MaSPSale INT NULL,
 	TenImei NVARCHAR(50) NULL,
-	TrangThaiBan bit default 1 null,
+	GhiChu nvarchar(225) null,
+	TrangThaiBan bit default 1 null, -- 0: Da ban 1: chua ban
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaImei),
 	FOREIGN KEY(MaCTSP) REFERENCES CTSANPHAM(MaCTSP),

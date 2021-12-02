@@ -36,7 +36,8 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
                     entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-yy"),
                     entity.getDiaChiNhanHang(),
                     entity.getPhiVanChuyen(),
-                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy")
+                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy"),
+                    entity.getTrangThaiGiaoHang()
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,14 +48,30 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     public void update(DalHoaDon entity) {
         try {
             JDBCHelper.executeUpdate(UPDATE,
+                    entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-yy"),
+                    entity.getTongTien(),
+                    entity.getTienKhachTra(),
                     entity.getManv(),
                     entity.getMakh(),
+                    entity.getGhiChu(),
+                    entity.getDiaChiNhanHang(),
+                    entity.getPhiVanChuyen(),
+                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy"),
+                    entity.getTrangThaiGiaoHang(),
                     entity.getMaHD()
             );
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
-
+    public void updateTongTien(float tongTien, int mahd) {
+        try {
+            JDBCHelper.executeQuery(UPDATE_TONGTIEN, mahd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     @Override
     public void delete(Integer id) {
 //        try {
@@ -168,10 +185,10 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         return busHoaDon;
     }
 
-    public List<BusHoaDon> selectButtonHd() {
+    public List<BusHoaDon> selectHoaDonTreo() {
         List<BusHoaDon> listHoaDon = new ArrayList<>();
         try {
-            ResultSet rs = JDBCHelper.executeQuery(SELECT_HOA_DON_IN_DATE_AND_TREO);
+            ResultSet rs = JDBCHelper.executeQuery(SELECT_HOA_DON_TREO);
             while (rs.next()) {
                 BusHoaDon busHoaDon = this.getResultSetButonHD(rs);
                 listHoaDon.add(busHoaDon);

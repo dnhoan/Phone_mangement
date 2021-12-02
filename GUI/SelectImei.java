@@ -162,6 +162,7 @@ public class SelectImei extends javax.swing.JFrame {
             cart.setTensp(busCTSanPhamModel.getSanPhamModel().getTensp());
             cart.setHinh(busCTSanPhamModel.getHinh());
             cart.setGia(busCTSanPhamModel.getGiaBan());
+//            cart.setTrangThai(true);
             if (listCart.size() > 0) {
                 for (int i = 0; i < listCart.size(); i++) {
                     CartModel c = listCart.get(i);
