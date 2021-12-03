@@ -7,10 +7,13 @@ GO
 CREATE TABLE DiemDanh
 (
 	MaDiemDanh INT IDENTITY(1,1) NOT NULL,
+	MaNV VARCHAR(20) NOT NULL,
 	DiemDanh BIT NULL,
-	TrangThai BIT DEFAULT 1 NULL,
+	DiMuon Bit default 1 null,
 	NgayDiemDanh DATE NULL,
+	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaDiemDanh)
+	FOREIGN KEY(MaNV) REFERENCES NhanVien(MaNV)
 )
 
 GO
@@ -18,7 +21,8 @@ GO
 CREATE TABLE Luong
 (
 	MaLuong INT IDENTITY(1,1) NOT NULL,
-	SoTien FLOAT NULL,
+	LuongTheoHopDong FLOAT NULL,
+	LuongHienCo Float null,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaLuong)
 )
@@ -296,3 +300,4 @@ CREATE TABLE PhanLoai
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaPhanLoai)
 )
+

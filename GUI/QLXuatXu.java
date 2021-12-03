@@ -11,6 +11,8 @@ import BUS.Models.BusXuatXuModel;
 import BUS.Services.XuatXuService;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,7 +29,21 @@ public class QLXuatXu extends javax.swing.JFrame {
      */
     public QLXuatXu() {
         initComponents();
+         getContentPane().setBackground(Color.WHITE);
+         desginTable();
         init();
+    }
+    public void desginTable() {
+        tblxuatxu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+         tblxuatxu.getTableHeader().setOpaque(false);
+         tblxuatxu.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblxuatxu.getTableHeader().setForeground(Color.WHITE);
+        
+        tblxuatxu.getTableHeader().setDraggedColumn(null);
+          tblxuatxu2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+       tblxuatxu2.getTableHeader().setOpaque(false);
+          tblxuatxu2.getTableHeader().setBackground(new Color(25, 29, 74));
+          tblxuatxu2.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -50,12 +66,12 @@ public class QLXuatXu extends javax.swing.JFrame {
         JradioNgungKD = new javax.swing.JRadioButton();
         btnsua = new javax.swing.JButton();
         btnlammoi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblxuatxu = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblxuatxu2 = new javax.swing.JTable();
         btnkhoiphuc = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblxuatxu = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -181,12 +197,42 @@ public class QLXuatXu extends javax.swing.JFrame {
 
         jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnlammoi, btnsua, btnthem});
 
+        tblxuatxu.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Mã xuất xứ", "Nơi xuất xứ", "Trạng thái"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblxuatxu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblxuatxuMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblxuatxu);
+        if (tblxuatxu.getColumnModel().getColumnCount() > 0) {
+            tblxuatxu.getColumnModel().getColumn(1).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 467, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -195,6 +241,7 @@ public class QLXuatXu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Danh sách", jPanel1);
@@ -207,7 +254,7 @@ public class QLXuatXu extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Mã hãng", "Tên hãng", "Trạng thái"
+                "Mã xuất xứ", "Nơi xuất xứ", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -249,52 +296,21 @@ public class QLXuatXu extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                .addGap(26, 26, 26))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(122, Short.MAX_VALUE)
                 .addComponent(btnkhoiphuc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(116, 116, 116))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Ngừng kinh doanh", jPanel2);
-
-        tblxuatxu.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Mã xuất xứ", "Nới xuất xứ", "Trạng thái"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblxuatxu.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblxuatxuMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblxuatxu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addContainerGap(538, Short.MAX_VALUE)
                 .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(242, 242, 242))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,10 +325,6 @@ public class QLXuatXu extends javax.swing.JFrame {
                 .addGap(231, 231, 231)
                 .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(58, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(5, 5, 5)
