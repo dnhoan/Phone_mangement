@@ -174,7 +174,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         rdoDangGiao = new javax.swing.JRadioButton();
         rdoGiaoThanhCong = new javax.swing.JRadioButton();
         rdoChuaGiao = new javax.swing.JRadioButton();
-        btnLuuHoaDon1 = new javax.swing.JButton();
+        btnInHoaDon = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -561,13 +561,13 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         lblKhachCanTra.setText("Khách cần trả: 0 VNĐ");
         getContentPane().add(lblKhachCanTra, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 610, 390, -1));
 
-        btnLuuHoaDon.setText("In");
+        btnLuuHoaDon.setText("Lưu");
         btnLuuHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLuuHoaDonActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLuuHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 680, 50, 40));
+        getContentPane().add(btnLuuHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 680, 60, 40));
 
         jLabel7.setText("Trạng thái GH");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 490, -1, -1));
@@ -590,13 +590,13 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         rdoChuaGiao.setText("Chưa giao");
         getContentPane().add(rdoChuaGiao, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 490, -1, -1));
 
-        btnLuuHoaDon1.setText("Lưu");
-        btnLuuHoaDon1.addActionListener(new java.awt.event.ActionListener() {
+        btnInHoaDon.setText("In");
+        btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuuHoaDon1ActionPerformed(evt);
+                btnInHoaDonActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLuuHoaDon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 680, 70, 40));
+        getContentPane().add(btnInHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 680, 60, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -613,9 +613,9 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
     private void editKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editKhachHangActionPerformed
         removeAllImei();
-        QuanLyKhachHang kh = new QuanLyKhachHang();
-        MainThuNghiem.dashboardview.removeAll();
-        MainThuNghiem.dashboardview.add(kh).setVisible(true);
+//        QuanLyKhachHang kh = new QuanLyKhachHang();
+//        MainThuNghiem.dashboardview.removeAll();
+//        MainThuNghiem.dashboardview.add(kh).setVisible(true);
     }//GEN-LAST:event_editKhachHangActionPerformed
 
     private void tblCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCartMouseClicked
@@ -757,9 +757,9 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtNgayGiaoHangKeyReleased
 
-    private void btnLuuHoaDon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuHoaDon1ActionPerformed
+    private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLuuHoaDon1ActionPerformed
+    }//GEN-LAST:event_btnInHoaDonActionPerformed
     static void getPhiShip() {
         if (!txtTienShip.getText().isEmpty()) {
             try {
@@ -1290,8 +1290,8 @@ fillButtonHoaDonTreo();
     private javax.swing.JButton btnAscen;
     private javax.swing.JButton btnDesc;
     private javax.swing.JButton btnExportexcel;
+    public static javax.swing.JButton btnInHoaDon;
     public static javax.swing.JButton btnLuuHoaDon;
-    public static javax.swing.JButton btnLuuHoaDon1;
     private javax.swing.JButton btnNewReceip2;
     private javax.swing.JButton btnSwichDanhsach;
     public static javax.swing.JButton btnThanhToan;

@@ -223,6 +223,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                     cart.setGia(resultSet.getFloat("giaban"));
                     cart.setMactsp(resultSet.getInt("mactsp"));
                     cart.setTongTien(resultSet.getFloat("tongtien"));
+                    cart.setSoLuong(resultSet.getInt("sl"));
                     listCart.add(cart);
                 }
                 resultSet.getStatement().close();

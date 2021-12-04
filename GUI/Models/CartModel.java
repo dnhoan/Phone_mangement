@@ -19,7 +19,16 @@ public class CartModel {
     private float gia;
     private float tongTien;
     private boolean trangThai;
+    private int soLuong;
     private List<DalImeiModel> listImeis;
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
 
     public boolean isTrangThai() {
         return trangThai;

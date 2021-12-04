@@ -20,7 +20,7 @@ public interface IHoaDonService {
     String UPDATE_TONGTIEN = "update hoadon set tongtien = ? where mahd = ?";
     String SELECT_LASTID = "SELECT Max(MaHD) as LastID FROM HoaDon";
     String SELECT_ALL1 = "SELECT HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
-            + "            KhachHang.MaKH, KhachHang.HoTen as TenKhach, KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen as TenNhanVien, PhiVanChuyen,  \n"
+            + "            KhachHang.MaKH, KhachHang.HoTen as TenKhach, KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen as TenNhanVien, PhiVanChuyen,TrangThaiGiaoHang,HoaDon.TrangThai,  \n"
             + "            COUNT(ChiTietHoaDon.MAHD) AS SoLuong \n"
             + "            FROM HoaDon JOIN ChiTietHoaDon   \n"
             + "                ON ChiTietHoaDon.MaHD = HoaDon.MaHD join KhachHang  \n"
@@ -28,7 +28,18 @@ public interface IHoaDonService {
             + "                on NhanVien.MaNV = HoaDon.MaNV  \n"
             + "            where HoaDon.TrangThai = ?  and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ?) \n"
             + "            Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
-            + "                KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen   \n"
+            + "                KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen, TrangThaiGiaoHang,HoaDon.TrangThai  \n"
+            + "            order by HoaDon.NgayTao desc";
+    String SELECT_ALL = "SELECT HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
+            + "            KhachHang.MaKH, KhachHang.HoTen as TenKhach, KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen as TenNhanVien, PhiVanChuyen, TrangThaiGiaoHang,HoaDon.TrangThai, \n"
+            + "            COUNT(ChiTietHoaDon.MAHD) AS SoLuong \n"
+            + "            FROM HoaDon inner JOIN ChiTietHoaDon   \n"
+            + "                ON ChiTietHoaDon.MaHD = HoaDon.MaHD inner join KhachHang  \n"
+            + "                on KhachHang.MaKH = HoaDon.MaKH inner join NhanVien   \n"
+            + "                on NhanVien.MaNV = HoaDon.MaNV  \n"
+            + "            where HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ? \n"
+            + "            Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
+            + "                KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen ,TrangThaiGiaoHang,HoaDon.TrangThai  \n"
             + "            order by HoaDon.NgayTao desc";
     String SELECT_NOT_THANH_TOAN = "SELECT HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
             + "            KhachHang.MaKH, KhachHang.HoTen as TenKhach, KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen as TenNhanVien, PhiVanChuyen,  \n"

@@ -23,7 +23,16 @@ public class BusHoaDon {
     private String diaChiNhanHang;
     private float phiVanChuyen;
     private String ghiChu;
+    private int trangThaiGiaoHang;
     private boolean trangThai;
+
+    public int getTrangThaiGiaoHang() {
+        return trangThaiGiaoHang;
+    }
+
+    public void setTrangThaiGiaoHang(int trangThaiGiaoHang) {
+        this.trangThaiGiaoHang = trangThaiGiaoHang;
+    }
 
     public float getPhiVanChuyen() {
         return phiVanChuyen;

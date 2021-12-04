@@ -122,11 +122,12 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         return list;
     }
 
-    public List<BusHoaDon> selectAll0() {
-        if (this.selectSql(SELECT_ALL1, 0) == null) {
-            return null;
+    public List<BusHoaDon> getAllHoaDon(String term) {
+        List<BusHoaDon> list = this.selectSql(SELECT_ALL, "%" + term + "%","%" + term + "%","%" + term + "%", "%" + term + "%" );
+        if (list.size() > 0) {
+            return list;
         }
-        return this.selectSql(SELECT_ALL1, 0);
+        return null;
     }
 
     public List<BusHoaDon> selectSql(String sql, Object... args) {
@@ -164,6 +165,8 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         busHoaDon.setDiaChiNhanHang(rs.getString("DiaChiNhanHang"));
         busHoaDon.setGhiChu(rs.getString("GhiChu"));
         busHoaDon.setPhiVanChuyen(rs.getFloat("PhiVanChuyen"));
+        busHoaDon.setTrangThaiGiaoHang(rs.getInt("TrangThaiGiaoHang"));
+        busHoaDon.setTrangThai(rs.getBoolean("TrangThai"));
         return busHoaDon;
     }
 
@@ -214,7 +217,10 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
 
     @Override
     public List<DalHoaDon> selectAll() {
-        return null;
+//        if (this.selectSql(SELECT_ALL) == null) {
+            return null;
+//        }
+//        return this.selectSql(SELECT_ALL);
     }
 
     @Override

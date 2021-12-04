@@ -27,5 +27,5 @@ public interface IDalImeiService {
             + "on Imei.MaCTSP = CTSANPHAM.MACTSP join ChiTietHoaDon \n"
             + "on ChiTietHoaDon.MaImei = Imei.MaImei join HoaDon\n"
             + "on HoaDon.MaHD = ChiTietHoaDon.MaHD\n"
-            + "where CTSANPHAM.MaCTSP = ? and HoaDon.MaHD = ?";
+            + "where CTSANPHAM.MaCTSP = ? and HoaDon.MaHD = ? and TrangThaiBan = 0";
 }

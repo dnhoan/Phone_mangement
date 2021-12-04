@@ -827,7 +827,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnLuuHoaDon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="In"/>
+        <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuHoaDonActionPerformed"/>
@@ -837,7 +837,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="1050" y="680" width="50" height="40"/>
+          <AbsoluteConstraints x="970" y="680" width="60" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -894,19 +894,19 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JButton" name="btnLuuHoaDon1">
+    <Component class="javax.swing.JButton" name="btnInHoaDon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
+        <Property name="text" type="java.lang.String" value="In"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuHoaDon1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInHoaDonActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="970" y="680" width="70" height="40"/>
+          <AbsoluteConstraints x="1040" y="680" width="60" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
