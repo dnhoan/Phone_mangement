@@ -266,7 +266,7 @@ public class ChangePass extends javax.swing.JDialog {
                 MessageService.alert(this, "Đổi mật khẩu thành công!!");
                 this.dispose();
             }else{
-                MessageService.alert(this, "Mật khẩu xác nhận không trùng mật khẩu");
+                MessageService.alert(this, "Mật khẩu xác nhận không trùng mật khẩu mới!");
             }
         }else{
             MessageService.alert(this, "Mật khẩu cũ nhập không chính xác!");

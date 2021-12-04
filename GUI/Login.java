@@ -240,7 +240,10 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_lblExitMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        login();
+        if(checkNull()&&checkTaiKhoan()){
+            login();
+        }
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
@@ -345,13 +348,8 @@ public class Login extends javax.swing.JDialog {
     private void login() {
         try {
             String user = txtUser.getText();
-            String pass = new String(txtPass.getPassword());
             NhanVienModel nvmodel = nvser.selectByID(user);
-            if (nvmodel == null) {
-                MessageService.alert(this, "Sai tên đăng nhập!");
-            } else if (!pass.equals(nvmodel.getMatKhau())) {
-                MessageService.alert(this, "Sai mật khẩu");
-            } else {
+              if(nvmodel!=null){
                 AuthService.user = nvmodel;
                 MessageService.alert(this, "Đăng nhập thành công");
                 this.dispose();
@@ -361,6 +359,27 @@ public class Login extends javax.swing.JDialog {
             e.printStackTrace();
         }
 
+    }
+    private boolean checkTaiKhoan(){
+         String user = txtUser.getText();
+            String pass = new String(txtPass.getPassword());
+               NhanVienModel nvmodel = nvser.selectByID(user);
+               
+               if(nvmodel == null) {
+                MessageService.alert(this, "Sai tên đăng nhập!");
+                return false;
+            } else if (!pass.equals(nvmodel.getMatKhau())) {
+                MessageService.alert(this, "Sai mật khẩu");
+                return false;
+                }
+        return true;
+    }
+    public boolean checkNull(){
+        if(txtUser.getText().isEmpty()||txtPass.getText().isEmpty()){
+                   MessageService.alert(this, "Không được để trống thông tin!");
+                return false;
+               }
+        return true;
     }
 
 }

@@ -752,7 +752,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         if (chekrong() == true) {
             if (checksdt() == true) {
                 if (checkmail() == true) {
-                    insert();
+                    if(checkhoTen()){
+                           insert();
+                    }
+                 
                 }
 
             }
@@ -763,7 +766,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         if (chekrong() == true) {
             if (checksdt() == true) {
                 if (checkmail() == true) {
-                    update();
+                    if(checkhoTen()){
+                          update();
+                    }
+                  
                 }
 
             }
@@ -1278,7 +1284,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
     }
 
     private boolean checksdt() {
-
+      
         try {
             int sdt = Integer.parseInt(txtSDT.getText());
         } catch (Exception e) {
@@ -1287,12 +1293,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
        
             return false;
         }
-        
-        if (!(txtSDT.getText()).matches("[0-9]{10}")) {
-            MessageService.alert(this, "Số điện thoại phải nhập đúng 10 số!");
+          if (!(txtSDT.getText()).matches("^0[987532]{1}\\d{8}$")) {
+            MessageService.alert(this, "Số điện thoại phải đúng 10 số hoặc do sai định dạng!");
             txtSDT.requestFocus();
             return false;
-
+            
         }
         return true;
     }
@@ -1308,8 +1313,20 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         }
         return true;
     }
-    
-
+    public static final String NAME_REG = "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$";
+    public boolean checkhoTen(){
+        
+        
+       
+          Pattern pt = Pattern.compile(NAME_REG);
+         Matcher matcher = pt.matcher(txtHoTenKH2.getText());
+         if(!matcher.matches()){
+               MessageService.alert(this, "Họ tên với nhập là chữ!");
+            txtHoTenKH2.requestFocus();
+            return false;
+         }
+         return true;
+    }
     void fillcomboBoxTuoi() {
         for (int i = 1; i < 71; i++) {
             tkcboTuoi.addItem(String.valueOf(i));

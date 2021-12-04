@@ -434,7 +434,8 @@ public class QuenPass extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnguiMouseClicked
-boolean ok = true;    void xoa() {
+boolean ok = true;    
+void xoa() {
         txttaikhoan.setText("");
         txtchekpass.setText("");
         txtpass.setText("");
