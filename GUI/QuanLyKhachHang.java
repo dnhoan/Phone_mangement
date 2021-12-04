@@ -527,7 +527,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tìm kiếm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 15))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(5, 10, 46));
         jLabel1.setText("Tên");
 
         tkTen.setEditable(false);
@@ -540,9 +541,11 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(5, 10, 46));
         jLabel2.setText("Khoảng tuổi");
 
+        tkcboTuoi.setEditable(true);
         tkcboTuoi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tkcboTuoi.setForeground(new java.awt.Color(25, 29, 74));
         tkcboTuoi.setEnabled(false);
@@ -560,6 +563,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel3.setText("-");
 
+        tk2cboTuoi.setEditable(true);
         tk2cboTuoi.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tk2cboTuoi.setForeground(new java.awt.Color(25, 29, 74));
         tk2cboTuoi.setEnabled(false);
@@ -605,7 +609,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
                 .addGap(11, 11, 11)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tkTen, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tkTen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(11, 11, 11)
@@ -619,6 +623,8 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         );
 
         chktimkiem.setBackground(new java.awt.Color(255, 255, 255));
+        chktimkiem.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        chktimkiem.setForeground(new java.awt.Color(5, 10, 46));
         chktimkiem.setText("Tick");
         chktimkiem.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {

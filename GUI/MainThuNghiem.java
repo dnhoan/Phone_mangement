@@ -116,9 +116,18 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
     public void openBanHang() {
         if (AuthService.isLogin()) {
-            QuanlyGiaoDichJFrame gd = new QuanlyGiaoDichJFrame();
+            QuanLyBanHang gd = new QuanLyBanHang();
             dashboardview.removeAll();
             dashboardview.add(gd).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
+    }
+    public void openHoaDon(){
+        if (AuthService.isLogin()) {
+            QuanLyHoaDon hd = new QuanLyHoaDon();
+            dashboardview.removeAll();
+            dashboardview.add(hd).setVisible(true);
         } else {
             MessageService.alert(this, "Vui lòng đăng nhập!");
         }
@@ -182,7 +191,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
         jpnBanHang = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jpnGiaoDich = new javax.swing.JPanel();
+        jpnGiamGia = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jpnNhanVien = new javax.swing.JPanel();
@@ -195,6 +204,9 @@ public class MainThuNghiem extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jpnHoaDon = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         menuhide1 = new javax.swing.JPanel();
         jpnChangePass = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -568,18 +580,18 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
         menuhide.add(jpnBanHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 220, -1));
 
-        jpnGiaoDich.setBackground(new java.awt.Color(25, 29, 74));
-        jpnGiaoDich.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jpnGiaoDich.setPreferredSize(new java.awt.Dimension(175, 70));
-        jpnGiaoDich.addMouseListener(new java.awt.event.MouseAdapter() {
+        jpnGiamGia.setBackground(new java.awt.Color(25, 29, 74));
+        jpnGiamGia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jpnGiamGia.setPreferredSize(new java.awt.Dimension(175, 70));
+        jpnGiamGia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpnGiaoDichMouseClicked(evt);
+                jpnGiamGiaMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jpnGiaoDichMouseEntered(evt);
+                jpnGiamGiaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jpnGiaoDichMouseExited(evt);
+                jpnGiamGiaMouseExited(evt);
             }
         });
 
@@ -589,28 +601,28 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/sale.png"))); // NOI18N
 
-        javax.swing.GroupLayout jpnGiaoDichLayout = new javax.swing.GroupLayout(jpnGiaoDich);
-        jpnGiaoDich.setLayout(jpnGiaoDichLayout);
-        jpnGiaoDichLayout.setHorizontalGroup(
-            jpnGiaoDichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnGiaoDichLayout.createSequentialGroup()
+        javax.swing.GroupLayout jpnGiamGiaLayout = new javax.swing.GroupLayout(jpnGiamGia);
+        jpnGiamGia.setLayout(jpnGiamGiaLayout);
+        jpnGiamGiaLayout.setHorizontalGroup(
+            jpnGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnGiamGiaLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel15)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
-        jpnGiaoDichLayout.setVerticalGroup(
-            jpnGiaoDichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnGiaoDichLayout.createSequentialGroup()
+        jpnGiamGiaLayout.setVerticalGroup(
+            jpnGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnGiamGiaLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jpnGiaoDichLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jpnGiamGiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        menuhide.add(jpnGiaoDich, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 220, -1));
+        menuhide.add(jpnGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 220, -1));
 
         jpnNhanVien.setBackground(new java.awt.Color(25, 29, 74));
         jpnNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -654,7 +666,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        menuhide.add(jpnNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 220, -1));
+        menuhide.add(jpnNhanVien, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 220, -1));
 
         jpnKhachHang.setBackground(new java.awt.Color(25, 29, 74));
         jpnKhachHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -698,7 +710,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        menuhide.add(jpnKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 650, 220, 70));
+        menuhide.add(jpnKhachHang, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 220, 70));
 
         jpnThongKe.setBackground(new java.awt.Color(25, 29, 74));
         jpnThongKe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -742,13 +754,58 @@ public class MainThuNghiem extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        menuhide.add(jpnThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 220, -1));
+        menuhide.add(jpnThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 790, 220, -1));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/image (1).png"))); // NOI18N
         menuhide.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 220));
+
+        jpnHoaDon.setBackground(new java.awt.Color(25, 29, 74));
+        jpnHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jpnHoaDon.setPreferredSize(new java.awt.Dimension(175, 70));
+        jpnHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jpnHoaDonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jpnHoaDonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jpnHoaDonMouseExited(evt);
+            }
+        });
+
+        jLabel18.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Hóa đơn");
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/bill.png"))); // NOI18N
+
+        javax.swing.GroupLayout jpnHoaDonLayout = new javax.swing.GroupLayout(jpnHoaDon);
+        jpnHoaDon.setLayout(jpnHoaDonLayout);
+        jpnHoaDonLayout.setHorizontalGroup(
+            jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnHoaDonLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel24)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addContainerGap(68, Short.MAX_VALUE))
+        );
+        jpnHoaDonLayout.setVerticalGroup(
+            jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnHoaDonLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jpnHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        menuhide.add(jpnHoaDon, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 220, -1));
 
         pnlMenu.add(menuhide, java.awt.BorderLayout.CENTER);
         menuhide.getAccessibleContext().setAccessibleParent(pnlMenu);
@@ -890,10 +947,10 @@ public class MainThuNghiem extends javax.swing.JFrame {
             }
         });
         lblName.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblNameInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         lblName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -1090,17 +1147,17 @@ public class MainThuNghiem extends javax.swing.JFrame {
         changeColor(jpnBanHang, new Color(25, 29, 74));
     }//GEN-LAST:event_jpnBanHangMouseExited
 
-    private void jpnGiaoDichMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiaoDichMouseClicked
+    private void jpnGiamGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiamGiaMouseClicked
 
-    }//GEN-LAST:event_jpnGiaoDichMouseClicked
+    }//GEN-LAST:event_jpnGiamGiaMouseClicked
 
-    private void jpnGiaoDichMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiaoDichMouseEntered
-        changeColor(jpnGiaoDich, new Color(25, 29, 150));
-    }//GEN-LAST:event_jpnGiaoDichMouseEntered
+    private void jpnGiamGiaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiamGiaMouseEntered
+        changeColor(jpnGiamGia, new Color(25, 29, 150));
+    }//GEN-LAST:event_jpnGiamGiaMouseEntered
 
-    private void jpnGiaoDichMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiaoDichMouseExited
-        changeColor(jpnGiaoDich, new Color(25, 29, 74));
-    }//GEN-LAST:event_jpnGiaoDichMouseExited
+    private void jpnGiamGiaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiamGiaMouseExited
+        changeColor(jpnGiamGia, new Color(25, 29, 74));
+    }//GEN-LAST:event_jpnGiamGiaMouseExited
 
     private void jpnNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnNhanVienMouseClicked
         openNhanVien();
@@ -1229,6 +1286,18 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblNameComponentShown
 
+    private void jpnHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHoaDonMouseClicked
+        openHoaDon();
+    }//GEN-LAST:event_jpnHoaDonMouseClicked
+
+    private void jpnHoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHoaDonMouseEntered
+        changeColor(jpnHoaDon, new Color(25, 29, 150));
+    }//GEN-LAST:event_jpnHoaDonMouseEntered
+
+    private void jpnHoaDonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHoaDonMouseExited
+        changeColor(jpnHoaDon, new Color(25, 29, 74));
+    }//GEN-LAST:event_jpnHoaDonMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -1278,12 +1347,14 @@ public class MainThuNghiem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1293,8 +1364,9 @@ public class MainThuNghiem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jpnBanHang;
     private javax.swing.JPanel jpnChangePass;
-    private javax.swing.JPanel jpnGiaoDich;
+    private javax.swing.JPanel jpnGiamGia;
     private javax.swing.JPanel jpnHangHoa;
+    private javax.swing.JPanel jpnHoaDon;
     private javax.swing.JPanel jpnHome;
     private javax.swing.JPanel jpnKhachHang;
     private javax.swing.JPanel jpnLogout;

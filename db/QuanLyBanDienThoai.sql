@@ -262,19 +262,8 @@ CREATE TABLE KhachHang(
 	)
 GO
 
-drop table KhachHang
 
-CREATE TABLE KhuyenMai(
-	MaKM int IDENTITY(1,1) NOT NULL,
-	TenKM nvarchar(50) NOT NULL,
-	DieuKienKM nvarchar(20) NOT NULL,
-	PhanTramKM float not null,
-	NgayBD Date default getdate(),
-	NgayKT date NOT NULL,
-	TrangThai bit default 1,
-	PRIMARY KEY (MaKM)
-)
-GO
+
 
 CREATE TABLE NhanVien(
 	MaNV varchar(20) NOT NULL,
@@ -324,6 +313,19 @@ CREATE TABLE ChiTietHoaDon(
  )
 GO
 
+CREATE TABLE KhuyenMai
+(
+	MaKM INT IDENTITY(1,1) NOT NULL,
+	TenKM NVARCHAR(50) NULL,
+	MaVC VARCHAR(20) NULL,
+	NgayBD DATE NULL,						
+	NgayKT DATE NULL,
+	LoaiGG BIT NULL,
+	TrangThai BIT NULL,
+	MucGG INT NULL, 
+	LoaiKM BIT NULL,
+	PRIMARY KEY (MaKM)
+)
 
 
 
@@ -400,7 +402,17 @@ GO
 	TrangThai bit default 1,
 	PRIMARY KEY (MaKM)
 
-INSERT [dbo].[KhuyenMai] ([TenKM], [DieuKienKM], [PhanTramKM], [NgayBD], [NgayKT], [TrangThai])  values('dsdsds','dsdsds',30,'2019/03/12','2020/12/24',1)
+	MaKM INT IDENTITY(1,1) NOT NULL,
+	TenKM NVARCHAR(50) NULL,
+	MaVC VARCHAR(20) NULL,
+	NgayBD DATE NULL,						
+	NgayKT DATE NULL,
+	LoaiGG BIT NULL,
+	TrangThai BIT NULL,
+	MucGG INT NULL, 
+	LoaiKM BIT NULL,
+
+INSERT [dbo].[KhuyenMai] ([TenKM], [MaVC], [NgayBD], [NgayKT],[LoaiGG], [TrangThai],[MucGG],[LoaiKM])  values('dsdsds','dsdsds','2019/03/12','2020/12/24',1,1,10000,1)
 
 SET IDENTITY_INSERT [dbo].[HoaDon] on
 INSERT [dbo].[HoaDon] ([MaHD],  [NgayBan], [Loai], [MaNV], [MaKH], [MaKM], [TrangThai]) VALUES (1, CAST(N'2020-11-10' AS Date), 1,  N'Nam01', 1,1,1)
