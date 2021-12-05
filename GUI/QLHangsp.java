@@ -8,9 +8,13 @@ package GUI;
 import BUS.Models.BusHangModel;
 
 import BUS.Services.HangService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -382,12 +386,19 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        insert();
+        if(check()){
+           insert(); 
+        }
+        
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
-        update();
+       
+        if(check()){
+            update();
+        fillTable();
+        }
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -419,23 +430,23 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
     }//GEN-LAST:event_formWindowClosed
 
     private void btnthemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseEntered
-      changeColor(btnthem, new Color(102, 0, 102));
+        changeColor(btnthem, new Color(102, 0, 102));
     }//GEN-LAST:event_btnthemMouseEntered
 
     private void btnthemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseExited
-         changeColor(btnthem, new Color(25, 29, 74));
+        changeColor(btnthem, new Color(25, 29, 74));
     }//GEN-LAST:event_btnthemMouseExited
 
     private void btnsuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseEntered
-       changeColor(btnsua, new Color(102, 0, 102));
+        changeColor(btnsua, new Color(102, 0, 102));
     }//GEN-LAST:event_btnsuaMouseEntered
 
     private void btnsuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseExited
-          changeColor(btnsua, new Color(25, 29, 74));
+        changeColor(btnsua, new Color(25, 29, 74));
     }//GEN-LAST:event_btnsuaMouseExited
 
     private void btnlammoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseEntered
-         changeColor(btnlammoi, new Color(102, 0, 102));
+        changeColor(btnlammoi, new Color(102, 0, 102));
     }//GEN-LAST:event_btnlammoiMouseEntered
 
     private void btnlammoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseExited
@@ -447,11 +458,11 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
-     changeColor(jButton1, new Color(102, 0, 102));
+        changeColor(jButton1, new Color(102, 0, 102));
     }//GEN-LAST:event_jButton1MouseEntered
 
     private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
-            changeColor(jButton1, new Color(25, 29, 74));
+        changeColor(jButton1, new Color(25, 29, 74));
     }//GEN-LAST:event_jButton1MouseExited
 
     /**
@@ -688,5 +699,32 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
     @Override
     public void setForm(Object entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean check() {
+        try {
+            int macheck = (int) tblHang.getValueAt(this.row, 0);
+            Connection con = JDBCHelper.ketnoi();
+            String sql = "select HangSanPham.MaHang from HangSanPham, DongSP,SanPham,CTSANPHAM\n"
+                    + "where HangSanPham.MaHang = DongSP.MaHang and DongSP.MaDong = SanPham.MaDong and SanPham.MaSP = CTSANPHAM.MaSP and CTSANPHAM.TrangThai = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int maxx = (int) rs.getInt("MaHang");
+
+                if (macheck == maxx) {
+                    JOptionPane.showMessageDialog(this, "Hãng này vẫn đang hoạt động");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        if (txtTenHang.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        } else {
+            return true;
+        }
     }
 }

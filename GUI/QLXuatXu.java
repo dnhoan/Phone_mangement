@@ -9,10 +9,14 @@ import GUI.Services.IEditService;
 import BUS.Models.BusXuatXuModel;
 
 import BUS.Services.XuatXuService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -383,13 +387,18 @@ public class QLXuatXu extends javax.swing.JFrame {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        insert();
+        if (check()) {
+            insert();
+        }
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
-        update();
+        if (check()) {
+             update();
         fillTable2();
+        }
+       
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -635,6 +644,33 @@ public class QLXuatXu extends javax.swing.JFrame {
             }
             updateStatus();
         } catch (Exception e) {
+        }
+    }
+    public boolean check() {
+        try {
+            int macheck = (int) tblxuatxu.getValueAt(this.row, 0);
+            Connection con = JDBCHelper.ketnoi();
+            String sql = "select ctsanpham.MaXuatXu from CTsANPHAM where TrangThai = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                int maxx = (int) rs.getInt("MaXuatXu");
+
+                if (macheck == maxx) {
+                    JOptionPane.showMessageDialog(this, "Ram này vẫn đang hoạt động");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        if (txtTenHang.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        }
+        
+         else {
+            return true;
         }
     }
 
