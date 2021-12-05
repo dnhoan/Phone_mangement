@@ -613,7 +613,6 @@ public class QLRam extends javax.swing.JFrame {
     }
 
     public boolean check() {
-
         try {
             int macheck = (int) tblram.getValueAt(this.row, 0);
             Connection con = JDBCHelper.ketnoi();
