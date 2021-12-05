@@ -111,7 +111,7 @@ public class Login extends javax.swing.JDialog {
 
         txtUser.setFont(new java.awt.Font("Segoe UI Light", 0, 15)); // NOI18N
         txtUser.setForeground(new java.awt.Color(102, 102, 102));
-        txtUser.setText("hoan");
+        txtUser.setText("nv02");
         txtUser.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ public class Login extends javax.swing.JDialog {
         });
 
         txtPass.setForeground(new java.awt.Color(102, 102, 102));
-        txtPass.setText("11");
+        txtPass.setText("111");
         txtPass.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(102, 102, 102)));
 
         btnLogin.setBackground(new java.awt.Color(25, 29, 74));
