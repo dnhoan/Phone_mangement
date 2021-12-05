@@ -19,6 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,6 +39,13 @@ public class QLXuatXu extends javax.swing.JFrame {
         init();
     }
 
+<<<<<<< HEAD
+=======
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
+>>>>>>> e508043551e0927928541117dc270f33abe0e853
     public void desginTable() {
         tblxuatxu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblxuatxu.getTableHeader().setOpaque(false);
@@ -102,6 +110,14 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnthem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnthem.setBorderPainted(false);
         btnthem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnthem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnthemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnthemMouseExited(evt);
+            }
+        });
         btnthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnthemActionPerformed(evt);
@@ -139,6 +155,14 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnsua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnsua.setBorderPainted(false);
         btnsua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnsua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsuaMouseExited(evt);
+            }
+        });
         btnsua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsuaActionPerformed(evt);
@@ -151,6 +175,14 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnlammoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnlammoi.setBorderPainted(false);
         btnlammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlammoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseExited(evt);
+            }
+        });
         btnlammoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlammoiActionPerformed(evt);
@@ -285,6 +317,14 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnkhoiphuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnkhoiphuc.setBorderPainted(false);
         btnkhoiphuc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnkhoiphuc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnkhoiphucMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnkhoiphucMouseExited(evt);
+            }
+        });
         btnkhoiphuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnkhoiphucActionPerformed(evt);
@@ -385,6 +425,38 @@ public class QLXuatXu extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         XuatXuService.fillCombo(QuanLySanPham.xuatXuModel, QuanLySanPham.cboXuatXu, QuanLySanPham.listXuatXu);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnthemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseEntered
+        changeColor(btnthem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnthemMouseEntered
+
+    private void btnthemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseExited
+        changeColor(btnthem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnthemMouseExited
+
+    private void btnsuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseEntered
+        changeColor(btnsua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnsuaMouseEntered
+
+    private void btnsuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseExited
+        changeColor(btnsua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnsuaMouseExited
+
+    private void btnlammoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseEntered
+        changeColor(btnlammoi, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnlammoiMouseEntered
+
+    private void btnlammoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseExited
+        changeColor(btnlammoi, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnlammoiMouseExited
+
+    private void btnkhoiphucMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhoiphucMouseEntered
+        changeColor(btnkhoiphuc, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnkhoiphucMouseEntered
+
+    private void btnkhoiphucMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkhoiphucMouseExited
+        changeColor(btnkhoiphuc, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnkhoiphucMouseExited
 
     /**
      * @param args the command line arguments

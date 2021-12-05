@@ -11,6 +11,7 @@ import GUI.Services.AuthService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -31,7 +32,9 @@ public class Login extends javax.swing.JDialog {
         init();
 
     }
-
+ public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
     public void setColor(JLabel lb) {
         lb.setForeground(new Color(25,29,74));
     }
