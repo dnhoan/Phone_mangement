@@ -1,9 +1,9 @@
-CREATE DATABASE MOBIMONSTER
+CREATE DATABASE MOBIMONSTER0
 GO
-USE MOBIMONSTER
+USE MOBIMONSTER0
 GO
 
-
+drop table DiemDanh
 CREATE TABLE DiemDanh
 (
 	MaDiemDanh INT IDENTITY(1,1) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE DiemDanh
 	DiMuon Bit default 1 null,
 	NgayDiemDanh DATE NULL,
 	TrangThai BIT DEFAULT 1 NULL,
-	PRIMARY KEY (MaDiemDanh)
+	PRIMARY KEY (MaDiemDanh),
 	FOREIGN KEY(MaNV) REFERENCES NhanVien(MaNV)
 )
 
@@ -21,8 +21,8 @@ GO
 CREATE TABLE Luong
 (
 	MaLuong INT IDENTITY(1,1) NOT NULL,
-	LuongTheoHopDong FLOAT NULL,
-	LuongHienCo Float null,
+	LuongHopDong money,
+	TongLuong money,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaLuong)
 )
@@ -46,10 +46,10 @@ CREATE TABLE NhanVien
 	Email NVARCHAR(100) NULL,
 	TrangThai BIT DEFAULT 1 NULL,
 	MaLuong INT NULL,
-	MaDiemDanh INT NULL,
+	
 	PRIMARY KEY(MaNV),
 	FOREIGN KEY(MaLuong) REFERENCES Luong(MaLuong),
-	FOREIGN KEY(MaDiemDanh)REFERENCES DiemDanh(MaDiemDanh),
+	
 
 )
 
@@ -300,4 +300,3 @@ CREATE TABLE PhanLoai
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaPhanLoai)
 )
-
