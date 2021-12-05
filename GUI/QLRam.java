@@ -692,7 +692,7 @@ public class QLRam extends javax.swing.JFrame {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
+                
                 int maxx = (int) rs.getInt("MaRam");
 
                 if (macheck == maxx) {

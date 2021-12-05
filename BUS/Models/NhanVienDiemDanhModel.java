@@ -10,24 +10,17 @@ package BUS.Models;
  * @author LENOVO
  */
 public class NhanVienDiemDanhModel {
-    String MaNV,Hoten,anh;
+    String MaNV,Hoten;
 
     public NhanVienDiemDanhModel() {
     }
 
-    public NhanVienDiemDanhModel(String MaNV, String Hoten, String anh) {
+    public NhanVienDiemDanhModel(String MaNV, String Hoten) {
         this.MaNV = MaNV;
         this.Hoten = Hoten;
-        this.anh = anh;
+       
     }
 
-    public String getAnh() {
-        return anh;
-    }
-
-    public void setAnh(String anh) {
-        this.anh = anh;
-    }
 
    
 

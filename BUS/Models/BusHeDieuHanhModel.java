@@ -12,7 +12,7 @@ import DAL.Models.*;
  * @author ADMIN
  */
 public class BusHeDieuHanhModel {
-    private String MaHeDieuHanh;
+    private int MaHeDieuHanh;
     private String tenHeDieuHanh;
     private boolean trangThai = true;
 
@@ -20,23 +20,23 @@ public class BusHeDieuHanhModel {
     }
 
     
-    public BusHeDieuHanhModel(String MaHeDieuHanh, String tenHeDieuHanh, boolean trangThai) {
+    public BusHeDieuHanhModel(int MaHeDieuHanh, String tenHeDieuHanh, boolean trangThai) {
         this.MaHeDieuHanh = MaHeDieuHanh;
         this.tenHeDieuHanh = tenHeDieuHanh;
         this.trangThai = trangThai;
     }
 
     
-    public BusHeDieuHanhModel(String MaHeDieuHanh, String tenHeDieuHanh) {
+    public BusHeDieuHanhModel(int MaHeDieuHanh, String tenHeDieuHanh) {
         this.MaHeDieuHanh = MaHeDieuHanh;
         this.tenHeDieuHanh = tenHeDieuHanh;
     }
 
-    public String getMaHeDieuHanh() {
+    public int getMaHeDieuHanh() {
         return MaHeDieuHanh;
     }
 
-    public void setMaHeDieuHanh(String MaHeDieuHanh) {
+    public void setMaHeDieuHanh(int MaHeDieuHanh) {
         this.MaHeDieuHanh = MaHeDieuHanh;
     }
 

@@ -44,8 +44,8 @@ public class NhanVienDiemDanhService {
             while (rs.next()) {
                 NhanVienDiemDanhModel busDiemDanh = new NhanVienDiemDanhModel(
                         rs.getString("MaNV"),
-                        rs.getString("HoTen"),
-                        rs.getString("Hinh")
+                        rs.getString("HoTen")
+                 
                 );
                 listHang.add(busDiemDanh);
             }

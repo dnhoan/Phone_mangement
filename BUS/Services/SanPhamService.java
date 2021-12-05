@@ -258,7 +258,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                 rs.getFloat("dungluongram")
         );
         BusHeDieuHanhModel heDieuHanhModel = new BusHeDieuHanhModel(
-                rs.getString("mahedieuhanh"),
+                rs.getInt("mahedieuhanh"),
                 rs.getString("tenHeDieuHanh")
         );
         BusXuatXuModel xuatXuModel = new BusXuatXuModel(
@@ -266,12 +266,12 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                 rs.getString("noixuatxu")
         );
         BusPinModel pinModel = new BusPinModel(
-                rs.getString("MaPin"),
+                rs.getInt("MaPin"),
                 rs.getString("LoaiPin"),
                 rs.getFloat("DungLuongPin")
         );
         BusManHinhModel manHinhModel = new BusManHinhModel(
-                rs.getString("MaManHinh"),
+                rs.getInt("MaManHinh"),
                 rs.getString("LoaiManHinh"),
                 rs.getFloat("KICKTHUOCMANHINH"),
                 rs.getString("DOPHANGIAIMANHINH")

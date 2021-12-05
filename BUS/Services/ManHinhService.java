@@ -22,7 +22,7 @@ import javax.swing.JComboBox;
  *
  * @author ADMIN
  */
-public class ManHinhService implements IPhoneMangementService<BusManHinhModel, String> {
+public class ManHinhService implements IPhoneMangementService<BusManHinhModel, Integer> {
 
     @Override
     public void insert(BusManHinhModel entity) {
@@ -48,12 +48,12 @@ public class ManHinhService implements IPhoneMangementService<BusManHinhModel, S
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public BusManHinhModel selectByID(String id) {
+    public BusManHinhModel selectByID(Integer id) {
         if (this.selectBySql(SELECT_BY_ID, id).isEmpty()) {
             return null;
         }
@@ -104,7 +104,7 @@ public class ManHinhService implements IPhoneMangementService<BusManHinhModel, S
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while (rs.next()) {
                 BusManHinhModel manHinhModel = new BusManHinhModel(
-                        rs.getString("MaManHinh"),
+                        rs.getInt("MaManHinh"),
                         rs.getString("LoaiManHinh"),
                         rs.getFloat("KichThuoc"),
                         rs.getString("DoPhanGiai"),

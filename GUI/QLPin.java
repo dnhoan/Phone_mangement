@@ -11,6 +11,7 @@ import BUS.Models.BusSanPham;
 import BUS.Models.ValidConstrainModel;
 
 import BUS.Services.PinService;
+import DAL.Services.JDBCHelper;
 import static GUI.QLPhanLoai.tblKD;
 import static GUI.QLPhanLoai.tblNKD;
 import GUI.Services.IEditService;
@@ -18,6 +19,10 @@ import GUI.Services.MessageService;
 import GUI.Services.ValidateService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -32,6 +37,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     BusPinModel pin = new BusPinModel();
     PinService psr = new PinService();
     int row = -1;
+     Connection con = null;
+    String sql= "SELECT MaPin from CTSANPHAM where TrangThai = 1";
 
     /**
      * Creates new form QLPin
@@ -441,7 +448,7 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            if(updateByStatus()&&checkNull()&&checkNumber()){
+            if(checkNull()&&checkNumber()&&checkUpdate()){
                  update();
             }
 
@@ -629,12 +636,12 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     @Override
     public void edit() {
         if (tabs.getSelectedIndex() == 0) {
-            String idpin = (String) tblKD.getValueAt(this.row, 0);
+            int idpin = (int) tblKD.getValueAt(this.row, 0);
             BusPinModel pinmodel = this.psr.selectByID(idpin);
             setForm(pinmodel);
             updateStatus();
         } else {
-            String idpin = (String) tblNKD.getValueAt(this.row, 0);
+            int idpin = (int) tblNKD.getValueAt(this.row, 0);
             BusPinModel pinmodel = this.psr.selectByID(idpin);
             setForm(pinmodel);
             updateStatus2();
@@ -694,7 +701,7 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     public void update() {
 
         BusPinModel busPinModel = this.getForm();
-        String idpin = (String) tblKD.getValueAt(this.row, 0);
+        int idpin = (int) tblKD.getValueAt(this.row, 0);
         busPinModel.setMaLoaiPin(idpin);
         try {
             psr.update(busPinModel);
@@ -709,7 +716,7 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
 
     public void update2() {
         BusPinModel busPinModel = this.getForm();
-        String idpin = (String) tblNKD.getValueAt(this.row, 0);
+        int idpin = (int) tblNKD.getValueAt(this.row, 0);
         busPinModel.setMaLoaiPin(idpin);
         try {
             psr.update(busPinModel);
@@ -764,12 +771,24 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     public void fillTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public boolean updateByStatus(){
-        if(ctsp.isTrangThai()==true&&pin.isTrangThai()==true){
-            MessageService.alert(this, "Pin đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
-            return false;
+    public boolean checkUpdate(){
+        try {
+        int chkmapin = (int) tblKD.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmapin==rs.getInt("MaPin")){
+                MessageService.alert(this, "Pin này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
         }
-        return true;    
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
     }
     public boolean checkNull(){
         if(txtLoaiPin.getText().isEmpty()){

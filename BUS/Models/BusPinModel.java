@@ -13,7 +13,7 @@ import DAL.Models.*;
  */
 public class BusPinModel {
 
-    private String maLoaiPin;
+    private int maLoaiPin;
     private String loaiPin;
     private float dungLuongPin;
     private boolean trangThai = true;
@@ -21,7 +21,7 @@ public class BusPinModel {
     public BusPinModel() {
     }
 
-    public BusPinModel(String maLoaiPin, String loaiPin, float dungLuongPin, boolean trangThai) {
+    public BusPinModel(int maLoaiPin, String loaiPin, float dungLuongPin, boolean trangThai) {
 
         this.maLoaiPin = maLoaiPin;
         this.loaiPin = loaiPin;
@@ -29,17 +29,17 @@ public class BusPinModel {
         this.trangThai = trangThai;
     }
 
-    public BusPinModel(String maLoaiPin, String loaiPin, float dungLuongPin) {
+    public BusPinModel(int maLoaiPin, String loaiPin, float dungLuongPin) {
         this.maLoaiPin = maLoaiPin;
         this.loaiPin = loaiPin;
         this.dungLuongPin = dungLuongPin;
     }
 
-    public String getMaLoaiPin() {
+    public int getMaLoaiPin() {
         return maLoaiPin;
     }
 
-    public void setMaLoaiPin(String maLoaiPin) {
+    public void setMaLoaiPin(int maLoaiPin) {
         this.maLoaiPin = maLoaiPin;
     }
 

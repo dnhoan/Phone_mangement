@@ -10,10 +10,15 @@ import BUS.Models.BusHeDieuHanhModel;
 import BUS.Models.BusSanPham;
 import BUS.Services.CpuService;
 import BUS.Services.HeDieuHanhService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +32,8 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     BusHeDieuHanhModel hdh = new BusHeDieuHanhModel();
     HeDieuHanhService hdhser = new HeDieuHanhService();
     int row = -1;
+    Connection con = null;
+    String sql= "SELECT MaHeDieuHanh from CTSANPHAM where TrangThai = 1";
 
     /**
      * Creates new form QLHeDieuHanh
@@ -326,7 +333,7 @@ public void desginTable() {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            if(updateByStatus()&&checkNull()){
+            if(checkNull()&&checkUpdate()){
                      update();
             }
        
@@ -482,7 +489,7 @@ public void desginTable() {
     public void update() {
 
         BusHeDieuHanhModel hdhmodel = this.getForm();
-        String idhdh = (String) tblDSD.getValueAt(this.row, 0);
+        int idhdh = (int) tblDSD.getValueAt(this.row, 0);
         hdhmodel.setMaHeDieuHanh(idhdh);
         try {
             hdhser.update(hdhmodel);
@@ -498,7 +505,7 @@ public void desginTable() {
 
     public void update2() {
         BusHeDieuHanhModel hdhmodel = this.getForm();
-        String idhdh = (String) tblNSD.getValueAt(this.row, 0);
+       int idhdh = (int) tblNSD.getValueAt(this.row, 0);
         hdhmodel.setMaHeDieuHanh(idhdh);
         try {
             hdhser.update(hdhmodel);
@@ -522,13 +529,13 @@ public void desginTable() {
     public void edit() {
         if (tabs.getSelectedIndex() == 0) {
 
-            String idhdh = (String) tblDSD.getValueAt(this.row, 0);
+            int idhdh = (int) tblDSD.getValueAt(this.row, 0);
 
             BusHeDieuHanhModel hdhmodel = this.hdhser.selectByID(idhdh);
             setForm(hdhmodel);
             updateStatus();
         } else {
-            String idhdh = (String) tblNSD.getValueAt(this.row, 0);
+            int idhdh = (int) tblNSD.getValueAt(this.row, 0);
 
             BusHeDieuHanhModel hdhmodel = this.hdhser.selectByID(idhdh);
             setForm(hdhmodel);
@@ -603,12 +610,24 @@ public void desginTable() {
             e.printStackTrace();
         }
     }
-       public boolean updateByStatus(){
-        if(ctsp.isTrangThai()==true&&hdh.isTrangThai()==true){
-            MessageService.alert(this, "Hệ điều hành đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
-            return false;
+       public boolean checkUpdate(){
+        try {
+        int chkmahdh = (int) tblDSD.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmahdh==rs.getInt("MaHeDieuHanh")){
+                MessageService.alert(this, "Hệ điều hành này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
         }
-        return true;    
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
     }
     public boolean checkNull(){
         if(txtTenHDH.getText().isEmpty()){
