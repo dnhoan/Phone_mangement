@@ -9,7 +9,9 @@ package BUS.IServices;
  *
  * @author ADMIN
  */
+
 public interface IDongService {
+
 
     String INSERT = "INSERT INTO DongSP(TenDong, MaHang, TrangThai) VALUES (?,?,?)";
     String SELECT_ALL = "SELECT * FROM DongSP";

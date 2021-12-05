@@ -9,10 +9,14 @@ import GUI.Services.IEditService;
 import BUS.Models.BusRamModel;
 
 import BUS.Services.RamService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -29,22 +33,24 @@ public class QLRam extends javax.swing.JFrame {
      */
     public QLRam() {
         initComponents();
-          getContentPane().setBackground(Color.WHITE);
-         desginTable();
+        getContentPane().setBackground(Color.WHITE);
+        desginTable();
         init();
     }
-public void desginTable() {
+
+    public void desginTable() {
         tblram.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblram.getTableHeader().setOpaque(false);
         tblram.getTableHeader().setBackground(new Color(25, 29, 74));
-       tblram.getTableHeader().setForeground(Color.WHITE);
-        
+        tblram.getTableHeader().setForeground(Color.WHITE);
+
         tblram.getTableHeader().setDraggedColumn(null);
         tblram2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-      tblram2.getTableHeader().setOpaque(false);
-         tblram2.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblram2.getTableHeader().setOpaque(false);
+        tblram2.getTableHeader().setBackground(new Color(25, 29, 74));
         tblram2.getTableHeader().setForeground(Color.WHITE);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -374,13 +380,18 @@ public void desginTable() {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        insert();
+        if (check()) {
+            insert();
+        }
 
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
-        update();
-        fillTable2();
+
+        if (check()) {
+            update();
+            fillTable2();
+        }
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -397,7 +408,7 @@ public void desginTable() {
     private void tblram2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblram2MouseClicked
         // TODO add your handling code here:
         this.rowRecycle = tblram2.getSelectedRow();
-        
+
     }//GEN-LAST:event_tblram2MouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -598,6 +609,37 @@ public void desginTable() {
             }
 
         } catch (Exception e) {
+        }
+    }
+
+    public boolean check() {
+
+        try {
+            int macheck = (int) tblram.getValueAt(this.row, 0);
+            Connection con = JDBCHelper.ketnoi();
+            String sql = "select ctsanpham.MaRam from CTsANPHAM where TrangThai = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int maxx = (int) rs.getInt("MaRam");
+
+                if (macheck == maxx) {
+                    JOptionPane.showMessageDialog(this, "Ram này vẫn đang hoạt động");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        if (txtdungluong.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        }
+        if (txtloai.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        } else {
+            return true;
         }
     }
 
