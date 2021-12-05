@@ -572,10 +572,10 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        btnDiemDanh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1870, 1002));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabs.setBackground(new java.awt.Color(255, 255, 255));
         tabs.setForeground(new java.awt.Color(102, 0, 102));
@@ -915,8 +915,6 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         );
 
         tabs.addTab("DANH SÁCH NHÂN VIÊN ĐÃ NGHỈ VIÊC", jPanel3);
-
-        getContentPane().add(tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 1040, 650));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1311,8 +1309,6 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSua, btnThem});
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 130, 528, 653));
-
         jPanel5.setBackground(new java.awt.Color(25, 29, 74));
         jPanel5.setPreferredSize(new java.awt.Dimension(1870, 100));
 
@@ -1345,9 +1341,55 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 114));
+        btnDiemDanh.setBackground(new java.awt.Color(25, 29, 74));
+        btnDiemDanh.setForeground(new java.awt.Color(25, 29, 74));
+        btnDiemDanh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/check.png"))); // NOI18N
+        btnDiemDanh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
+        btnDiemDanh.setBorderPainted(false);
+        btnDiemDanh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDiemDanh.setPreferredSize(new java.awt.Dimension(86, 41));
+        btnDiemDanh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDiemDanhMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDiemDanhMouseExited(evt);
+            }
+        });
+        btnDiemDanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDiemDanhActionPerformed(evt);
+            }
+        });
 
-        pack();
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 1040, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7))
+            .addComponent(btnDiemDanh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+                .addComponent(btnDiemDanh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        setBounds(0, 0, 1893, 1063);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDSNVONAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tblDSNVONAncestorAdded
@@ -1653,8 +1695,21 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         changeColor(btnLast, new Color(25, 29, 74));
     }//GEN-LAST:event_btnLastMouseExited
 
+    private void btnDiemDanhMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiemDanhMouseEntered
+          changeColor(btnDiemDanh, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnDiemDanhMouseEntered
+
+    private void btnDiemDanhMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDiemDanhMouseExited
+        changeColor(btnDiemDanh, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnDiemDanhMouseExited
+
+    private void btnDiemDanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiemDanhActionPerformed
+        new DiemDanh().setVisible(true);
+    }//GEN-LAST:event_btnDiemDanhActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDiemDanh;
     private javax.swing.JButton btnFirst;
     private javax.swing.JButton btnLast;
     private javax.swing.JButton btnMoi;

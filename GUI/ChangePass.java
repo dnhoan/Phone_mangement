@@ -8,6 +8,8 @@ package GUI;
 import BUS.Services.NhanVienService;
 import GUI.Services.AuthService;
 import GUI.Services.MessageService;
+import java.awt.Color;
+import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 /**
@@ -92,6 +94,14 @@ public class ChangePass extends javax.swing.JDialog {
         btnDongY.setBackground(new java.awt.Color(25, 29, 74));
         btnDongY.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
         btnDongY.setText("Đồng ý");
+        btnDongY.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDongYMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDongYMouseExited(evt);
+            }
+        });
         btnDongY.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDongYActionPerformed(evt);
@@ -101,6 +111,14 @@ public class ChangePass extends javax.swing.JDialog {
         btnHuy.setBackground(new java.awt.Color(25, 29, 74));
         btnHuy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
         btnHuy.setText("Hủy bỏ");
+        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHuyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHuyMouseExited(evt);
+            }
+        });
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
@@ -193,6 +211,22 @@ public class ChangePass extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnDongYActionPerformed
 
+    private void btnDongYMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDongYMouseEntered
+        changeColor(btnDongY, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnDongYMouseEntered
+
+    private void btnDongYMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDongYMouseExited
+        changeColor(btnDongY, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnDongYMouseExited
+
+    private void btnHuyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseEntered
+         changeColor(btnHuy, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnHuyMouseEntered
+
+    private void btnHuyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseExited
+         changeColor(btnHuy, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnHuyMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -233,6 +267,9 @@ public class ChangePass extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+ public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

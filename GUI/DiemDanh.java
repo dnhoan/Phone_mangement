@@ -94,7 +94,7 @@ public class DiemDanh extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbllichsu = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -117,7 +117,7 @@ public class DiemDanh extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Mã Nhân viên", "Họ & tên"
+                "Mã NV", "Họ & tên"
             }
         ) {
             boolean[] canEdit = new boolean [] {
