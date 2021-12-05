@@ -696,6 +696,10 @@ BusManHinhModel mh = new BusManHinhModel();
         }
     }
      public boolean updateByStatus(){
+         String tbl = (String) QuanLyBanHang.tblSanPham.getValueAt(row, 6);
+         if(tbl==tblNKD.getValueAt(row, 1)){
+             
+         }
         if(ctsp.isTrangThai()==true&&mh.isTrangThai()==true){
             MessageService.alert(this, "Màn hình đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
             return false;

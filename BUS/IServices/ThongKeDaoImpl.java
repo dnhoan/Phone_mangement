@@ -24,9 +24,9 @@ public class ThongKeDaoImpl implements ThongKeDao {
     @Override
     public List<soluongbanmodel> GetSLBan() {
         Connection cons = help.ketnoi();
-        String sql = "select MONTH(HoaDon.NgayThanhToan) as thang, count(ChiTietHoaDon.MaImei) as soluong \n"
-                + "                from HoaDon, ChiTietHoaDon where HoaDon.MaHD = ChiTietHoaDon.MaHD\n"
-                + "                GROUP BY MONTH(HoaDon.NgayThanhToan)";
+        String sql = "select MONTH(HoaDon.NgayBan) as thang, count(ChiTietHoaDon.MaImei) as soluong \n"
+                + "from HoaDon, ChiTietHoaDon where HoaDon.MaHD = ChiTietHoaDon.MaHD\n"
+                + "GROUP BY MONTH(HoaDon.NgayBan)";
         List<soluongbanmodel> list = new ArrayList<>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);

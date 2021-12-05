@@ -9,14 +9,10 @@ import GUI.Services.IEditService;
 import BUS.Models.BusRamModel;
 
 import BUS.Services.RamService;
-import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -39,13 +35,10 @@ public class QLRam extends javax.swing.JFrame {
         init();
     }
 
-<<<<<<< HEAD
-=======
     public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
     }
 
->>>>>>> e508043551e0927928541117dc270f33abe0e853
     public void desginTable() {
         tblram.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblram.getTableHeader().setOpaque(false);
@@ -420,18 +413,13 @@ public class QLRam extends javax.swing.JFrame {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        if (check()) {
-            insert();
-        }
+        insert();
 
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
-
-        if (check()) {
-            update();
-            fillTable2();
-        }
+        update();
+        fillTable2();
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -681,36 +669,6 @@ public class QLRam extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-        }
-    }
-
-    public boolean check() {
-        try {
-            int macheck = (int) tblram.getValueAt(this.row, 0);
-            Connection con = JDBCHelper.ketnoi();
-            String sql = "select ctsanpham.MaRam from CTsANPHAM where TrangThai = 1";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-
-                int maxx = (int) rs.getInt("MaRam");
-
-                if (macheck == maxx) {
-                    JOptionPane.showMessageDialog(this, "Ram này vẫn đang hoạt động");
-                    return false;
-                }
-            }
-        } catch (Exception e) {
-        }
-        if (txtdungluong.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
-            return false;
-        }
-        if (txtloai.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
-            return false;
-        } else {
-            return true;
         }
     }
 

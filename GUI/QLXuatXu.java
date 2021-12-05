@@ -9,14 +9,10 @@ import GUI.Services.IEditService;
 import BUS.Models.BusXuatXuModel;
 
 import BUS.Services.XuatXuService;
-import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -39,13 +35,10 @@ public class QLXuatXu extends javax.swing.JFrame {
         init();
     }
 
-<<<<<<< HEAD
-=======
     public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
     }
 
->>>>>>> e508043551e0927928541117dc270f33abe0e853
     public void desginTable() {
         tblxuatxu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblxuatxu.getTableHeader().setOpaque(false);
@@ -390,19 +383,13 @@ public class QLXuatXu extends javax.swing.JFrame {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        if (!check()) {
-            insert();
-        }
-
+        insert();
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
-        if (check()) {
-            update();
-            fillTable2();
-        }
-
+        update();
+        fillTable2();
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -649,32 +636,6 @@ public class QLXuatXu extends javax.swing.JFrame {
             updateStatus();
         } catch (Exception e) {
         }
-    }
-
-    public boolean check() {
-        try {
-            int macheck = (int) tblxuatxu.getValueAt(this.row, 0);
-            Connection con = JDBCHelper.ketnoi();
-            String sql = "select CTSanPham.MaXuatXu from CTSanPham where trangthai = 1";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-
-                int maxx = (int) rs.getInt("MaXuatXu");
-
-                if (macheck != maxx) {
-                } else {
-                    JOptionPane.showMessageDialog(this, "Khu vực này vẫn đang hoạt động");
-                    return false;
-                }
-            }
-        } catch (Exception e) {
-        }
-        if (txtTenHang.equals("")) {
-            JOptionPane.showMessageDialog(this, "Không được để trống");
-            return false;
-        }
-        return true;
     }
 
 }

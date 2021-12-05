@@ -87,7 +87,6 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         } catch (SQLException e) {
         }
     }
-    
     public int selectLastIdSp() {
         try {
             ResultSet rs = JDBCHelper.executeQuery(LAST_ID);
