@@ -81,7 +81,9 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         int w = d.width;
         this.setSize(w, h);
     }
-
+ public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
     public void desginTable() {
         tblKhachHang.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblKhachHang.getTableHeader().setOpaque(false);
@@ -337,6 +339,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnThem2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnThem2.setBorderPainted(false);
         btnThem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThem2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThem2MouseExited(evt);
+            }
+        });
         btnThem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem2ActionPerformed(evt);
@@ -351,6 +361,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnSua2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnSua2.setBorderPainted(false);
         btnSua2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSua2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSua2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSua2MouseExited(evt);
+            }
+        });
         btnSua2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSua2ActionPerformed(evt);
@@ -364,6 +382,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnXoa2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnXoa2.setBorderPainted(false);
         btnXoa2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXoa2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXoa2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXoa2MouseExited(evt);
+            }
+        });
         btnXoa2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoa2ActionPerformed(evt);
@@ -377,6 +403,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnMoi2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnMoi2.setBorderPainted(false);
         btnMoi2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMoi2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMoi2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMoi2MouseExited(evt);
+            }
+        });
         btnMoi2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoi2ActionPerformed(evt);
@@ -394,6 +428,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnFirst.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnFirst.setBorderPainted(false);
         btnFirst.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFirst.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFirstMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFirstMouseExited(evt);
+            }
+        });
         btnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFirstActionPerformed(evt);
@@ -407,6 +449,17 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnPrev.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnPrev.setBorderPainted(false);
         btnPrev.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrev.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPrevMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPrevMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPrevMouseExited(evt);
+            }
+        });
         btnPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrevActionPerformed(evt);
@@ -420,6 +473,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnNext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnNext.setBorderPainted(false);
         btnNext.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNext.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNextMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNextMouseExited(evt);
+            }
+        });
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);
@@ -435,6 +496,14 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         btnLast.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLast.setMaximumSize(new java.awt.Dimension(213, 27));
         btnLast.setPreferredSize(new java.awt.Dimension(70, 27));
+        btnLast.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLastMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLastMouseExited(evt);
+            }
+        });
         btnLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLastActionPerformed(evt);
@@ -822,6 +891,74 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
         }
     }//GEN-LAST:event_tabsMouseClicked
+
+    private void btnFirstMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFirstMouseEntered
+        changeColor(btnFirst, new Color(102,0,102));
+    }//GEN-LAST:event_btnFirstMouseEntered
+
+    private void btnFirstMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFirstMouseExited
+         changeColor(btnFirst, new Color(25,29,74));
+    }//GEN-LAST:event_btnFirstMouseExited
+
+    private void btnPrevMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrevMouseClicked
+      
+    }//GEN-LAST:event_btnPrevMouseClicked
+
+    private void btnPrevMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrevMouseEntered
+     changeColor(btnPrev, new Color(102,0,102));
+    }//GEN-LAST:event_btnPrevMouseEntered
+
+    private void btnPrevMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrevMouseExited
+         changeColor(btnPrev, new Color(25,29,74));
+    }//GEN-LAST:event_btnPrevMouseExited
+
+    private void btnNextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextMouseEntered
+        changeColor(btnNext, new Color(102,0,102));
+    }//GEN-LAST:event_btnNextMouseEntered
+
+    private void btnNextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextMouseExited
+         changeColor(btnNext, new Color(25,29,74));
+    }//GEN-LAST:event_btnNextMouseExited
+
+    private void btnLastMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLastMouseEntered
+        changeColor(btnLast, new Color(102,0,102));
+    }//GEN-LAST:event_btnLastMouseEntered
+
+    private void btnLastMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLastMouseExited
+        changeColor(btnLast, new Color(25,29,74));
+    }//GEN-LAST:event_btnLastMouseExited
+
+    private void btnThem2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem2MouseEntered
+      changeColor(btnThem2, new Color(102,0,102));
+    }//GEN-LAST:event_btnThem2MouseEntered
+
+    private void btnThem2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem2MouseExited
+        changeColor(btnThem2, new Color(25,29,74));
+    }//GEN-LAST:event_btnThem2MouseExited
+
+    private void btnSua2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSua2MouseEntered
+      changeColor(btnSua2, new Color(102,0,102));
+    }//GEN-LAST:event_btnSua2MouseEntered
+
+    private void btnSua2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSua2MouseExited
+        changeColor(btnSua2, new Color(25,29,74));
+    }//GEN-LAST:event_btnSua2MouseExited
+
+    private void btnXoa2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa2MouseEntered
+       changeColor(btnXoa2, new Color(102,0,102));
+    }//GEN-LAST:event_btnXoa2MouseEntered
+
+    private void btnXoa2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa2MouseExited
+        changeColor(btnXoa2, new Color(25,29,74));
+    }//GEN-LAST:event_btnXoa2MouseExited
+
+    private void btnMoi2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoi2MouseEntered
+       changeColor(btnMoi2, new Color(102,0,102));
+    }//GEN-LAST:event_btnMoi2MouseEntered
+
+    private void btnMoi2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoi2MouseExited
+       changeColor(btnMoi2, new Color(25,29,74));
+    }//GEN-LAST:event_btnMoi2MouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1259,6 +1396,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
 
         ButtonColumn buttonColumn = new ButtonColumn(tblKhachHang2, delete, 10);
         buttonColumn.setMnemonic(KeyEvent.VK_D);
+        
     }
 
     private boolean chekrong() {

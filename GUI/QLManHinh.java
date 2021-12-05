@@ -13,6 +13,7 @@ import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,6 +34,9 @@ BusManHinhModel mh = new BusManHinhModel();
          getContentPane().setBackground(Color.WHITE);
          desginTable();
         init();
+    }
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
     }
     public void desginTable() {
         tblDKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -130,6 +134,14 @@ BusManHinhModel mh = new BusManHinhModel();
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
         btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnThem.setBorderPainted(false);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -142,6 +154,14 @@ BusManHinhModel mh = new BusManHinhModel();
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
         btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnSua.setBorderPainted(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -154,6 +174,14 @@ BusManHinhModel mh = new BusManHinhModel();
         btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
         btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -400,6 +428,30 @@ BusManHinhModel mh = new BusManHinhModel();
     private void rdoDKDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDKDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoDKDActionPerformed
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+         changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+         changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+         changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+        changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+            changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+               changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
      * @param args the command line arguments
