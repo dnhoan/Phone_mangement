@@ -21,7 +21,7 @@ import javax.swing.JComboBox;
  */
 public class NhanVienDiemDanhService {
 
-    String sqlSelect1 = "select NhanVien.MaNV, NhanVien.HoTen,NhanVien.Hinh from NhanVien where trangthai=1";
+    String sqlSelect1 = "select NhanVien.MaNV, NhanVien.HoTen from NhanVien where trangthai=1";
     String sqlSelect_BY_ID = "select NhanVien.MaNV, NhanVien.HoTen,NhanVien.Hinh from NhanVien where trangthai=1 and MaNV = ?";
 
     public List<NhanVienDiemDanhModel> selectAll() {
@@ -44,8 +44,8 @@ public class NhanVienDiemDanhService {
             while (rs.next()) {
                 NhanVienDiemDanhModel busDiemDanh = new NhanVienDiemDanhModel(
                         rs.getString("MaNV"),
-                        rs.getString("HoTen"),
-                        rs.getString("Hinh")
+                        rs.getString("HoTen")
+                 
                 );
                 listHang.add(busDiemDanh);
             }

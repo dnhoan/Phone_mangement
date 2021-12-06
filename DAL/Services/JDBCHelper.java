@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class JDBCHelper {
 
-    private static final String URL = "jdbc:sqlserver://localhost;database=MOBIMONSTER";
+    private static final String URL = "jdbc:sqlserver://localhost;database=MOBIMONSTER0";
     private static final String DRIVE = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "123";
@@ -82,7 +82,7 @@ public class JDBCHelper {
             String user = "sa";
             String pass = "123";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=MOBIMONSTER";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=MOBIMONSTER0";
             Connection cn = DriverManager.getConnection(url, user, pass);
             return cn;
         } catch (Exception e) {

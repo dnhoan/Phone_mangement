@@ -53,6 +53,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -80,7 +81,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         desginTable();
 
     }
-
+public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
     public void desginTable() {
         tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblSanPham.getTableHeader().setOpaque(false);
@@ -170,7 +173,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         cboSanPham = new javax.swing.JComboBox<>();
         btnLoaiSanPham = new javax.swing.JButton();
         jLabel69 = new javax.swing.JLabel();
-        txtGiamDan = new javax.swing.JButton();
+        btnGiamDan = new javax.swing.JButton();
         btnTangDan = new javax.swing.JButton();
         cboListImei = new javax.swing.JComboBox<>();
         btnOpenImei = new javax.swing.JButton();
@@ -215,6 +218,11 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel3.setPreferredSize(new java.awt.Dimension(1754, 1002));
+        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel3MouseEntered(evt);
+            }
+        });
 
         tblSanPham.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         tblSanPham.setForeground(new java.awt.Color(25, 29, 74));
@@ -294,6 +302,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnEditHang3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnEditHang3.setBorderPainted(false);
         btnEditHang3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditHang3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEditHang3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEditHang3MouseExited(evt);
+            }
+        });
         btnEditHang3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditHang3ActionPerformed(evt);
@@ -323,6 +339,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnDong3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnDong3.setBorderPainted(false);
         btnDong3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDong3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDong3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDong3MouseExited(evt);
+            }
+        });
         btnDong3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDong3ActionPerformed(evt);
@@ -348,6 +372,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnCamera.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnCamera.setBorderPainted(false);
         btnCamera.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCamera.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCameraMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCameraMouseExited(evt);
+            }
+        });
         btnCamera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCameraActionPerformed(evt);
@@ -372,6 +404,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnHeDieuHanh3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnHeDieuHanh3.setBorderPainted(false);
         btnHeDieuHanh3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnHeDieuHanh3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHeDieuHanh3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHeDieuHanh3MouseExited(evt);
+            }
+        });
         btnHeDieuHanh3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHeDieuHanh3ActionPerformed(evt);
@@ -396,6 +436,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnCpu3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnCpu3.setBorderPainted(false);
         btnCpu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCpu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCpu3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCpu3MouseExited(evt);
+            }
+        });
         btnCpu3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCpu3ActionPerformed(evt);
@@ -420,6 +468,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         tbnRom3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         tbnRom3.setBorderPainted(false);
         tbnRom3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tbnRom3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tbnRom3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tbnRom3MouseExited(evt);
+            }
+        });
         tbnRom3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbnRom3ActionPerformed(evt);
@@ -444,6 +500,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnRam3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnRam3.setBorderPainted(false);
         btnRam3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRam3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRam3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRam3MouseExited(evt);
+            }
+        });
         btnRam3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRam3ActionPerformed(evt);
@@ -473,6 +537,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnManHinh3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnManHinh3.setBorderPainted(false);
         btnManHinh3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnManHinh3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnManHinh3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnManHinh3MouseExited(evt);
+            }
+        });
         btnManHinh3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnManHinh3ActionPerformed(evt);
@@ -511,6 +583,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnFirst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/step-backward.png"))); // NOI18N
         btnFirst.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnFirst.setBorderPainted(false);
+        btnFirst.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnFirstMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnFirstMouseExited(evt);
+            }
+        });
         btnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFirstActionPerformed(evt);
@@ -522,6 +602,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/fast-backward.png"))); // NOI18N
         btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnBack.setBorderPainted(false);
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBackMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnBackMouseExited(evt);
+            }
+        });
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -533,6 +621,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/fast-forward.png"))); // NOI18N
         btnNext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnNext.setBorderPainted(false);
+        btnNext.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnNextMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNextMouseExited(evt);
+            }
+        });
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);
@@ -544,6 +640,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnLast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/step-forward.png"))); // NOI18N
         btnLast.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnLast.setBorderPainted(false);
+        btnLast.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLastMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLastMouseExited(evt);
+            }
+        });
         btnLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLastActionPerformed(evt);
@@ -616,6 +720,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnXuatxu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnXuatxu.setBorderPainted(false);
         btnXuatxu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXuatxu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXuatxuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXuatxuMouseExited(evt);
+            }
+        });
         btnXuatxu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXuatxuActionPerformed(evt);
@@ -641,6 +753,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnpin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnpin.setBorderPainted(false);
         btnpin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnpin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnpinMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnpinMouseExited(evt);
+            }
+        });
         btnpin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnpinActionPerformed(evt);
@@ -662,6 +782,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnLoaiSanPham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnLoaiSanPham.setBorderPainted(false);
         btnLoaiSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLoaiSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLoaiSanPhamMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLoaiSanPhamMouseExited(evt);
+            }
+        });
         btnLoaiSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoaiSanPhamActionPerformed(evt);
@@ -672,13 +800,21 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         jLabel69.setForeground(new java.awt.Color(5, 10, 46));
         jLabel69.setText("Sắp xếp theo");
 
-        txtGiamDan.setBackground(new java.awt.Color(25, 29, 74));
-        txtGiamDan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/descend.png"))); // NOI18N
-        txtGiamDan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
-        txtGiamDan.setBorderPainted(false);
-        txtGiamDan.addActionListener(new java.awt.event.ActionListener() {
+        btnGiamDan.setBackground(new java.awt.Color(25, 29, 74));
+        btnGiamDan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/descend.png"))); // NOI18N
+        btnGiamDan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
+        btnGiamDan.setBorderPainted(false);
+        btnGiamDan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGiamDanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGiamDanMouseExited(evt);
+            }
+        });
+        btnGiamDan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtGiamDanActionPerformed(evt);
+                btnGiamDanActionPerformed(evt);
             }
         });
 
@@ -686,6 +822,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnTangDan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/ascend.png"))); // NOI18N
         btnTangDan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnTangDan.setBorderPainted(false);
+        btnTangDan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTangDanMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTangDanMouseExited(evt);
+            }
+        });
         btnTangDan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTangDanbtnTangDanActionPerformed(evt);
@@ -701,6 +845,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnOpenImei.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnOpenImei.setBorderPainted(false);
         btnOpenImei.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOpenImei.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOpenImeiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnOpenImeiMouseExited(evt);
+            }
+        });
         btnOpenImei.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOpenImeiActionPerformed(evt);
@@ -730,6 +882,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnMauSac.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnMauSac.setBorderPainted(false);
         btnMauSac.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMauSac.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMauSacMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMauSacMouseExited(evt);
+            }
+        });
         btnMauSac.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMauSacActionPerformed(evt);
@@ -756,6 +916,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnPhanLoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         btnPhanLoai.setBorderPainted(false);
         btnPhanLoai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPhanLoai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPhanLoaiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPhanLoaiMouseExited(evt);
+            }
+        });
         btnPhanLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPhanLoaiActionPerformed(evt);
@@ -770,6 +938,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnThem.setBorderPainted(false);
         btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -781,6 +957,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
         btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnSua.setBorderPainted(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -793,6 +977,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnXoa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnXoa.setBorderPainted(false);
         btnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnXoaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnXoaMouseExited(evt);
+            }
+        });
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaActionPerformed(evt);
@@ -805,6 +997,14 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         btnLamMoiForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnLamMoiForm.setBorderPainted(false);
         btnLamMoiForm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLamMoiForm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiFormMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiFormMouseExited(evt);
+            }
+        });
         btnLamMoiForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiFormActionPerformed(evt);
@@ -856,7 +1056,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                             .addComponent(btnTangDan, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(10, 10, 10)
-                                            .addComponent(txtGiamDan, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(btnGiamDan, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jLabel69))
                                     .addGap(274, 274, 274)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -926,12 +1126,26 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnTangDan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGiamDan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGiamDan, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jPanel45, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                            .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(11, 11, 11)
+                                            .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(396, 396, 396)
+                                .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -943,21 +1157,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                                             .addComponent(jPanel49, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jPanel51, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(97, 97, 97)))
-                                .addGap(12, 12, 12))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jPanel47, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jPanel45, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                            .addComponent(jPanel44, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(11, 11, 11)
-                                            .addComponent(jPanel48, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jPanel50, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(396, 396, 396)
-                        .addComponent(jPanel52, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(432, 432, 432))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel46, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1000,8 +1202,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                                 .addComponent(jLabel72)
                                 .addGap(1, 1, 1)
                                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(103, 103, 103)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -1242,9 +1442,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private void txtSearchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBoxKeyPressed
     }//GEN-LAST:event_txtSearchBoxKeyPressed
 
-    private void txtGiamDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiamDanActionPerformed
+    private void btnGiamDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGiamDanActionPerformed
         this.sortDesc();
-    }//GEN-LAST:event_txtGiamDanActionPerformed
+    }//GEN-LAST:event_btnGiamDanActionPerformed
 
     private void btnTangDanbtnTangDanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTangDanbtnTangDanActionPerformed
         this.sortAsend();
@@ -1281,6 +1481,202 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         // TODO add your handling code here:
     }//GEN-LAST:event_cboManHinhActionPerformed
 
+    private void btnTangDanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTangDanMouseEntered
+      changeColor(btnTangDan, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnTangDanMouseEntered
+
+    private void btnTangDanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTangDanMouseExited
+        changeColor(btnTangDan, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnTangDanMouseExited
+
+    private void btnGiamDanMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGiamDanMouseEntered
+      changeColor(btnGiamDan, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnGiamDanMouseEntered
+
+    private void btnGiamDanMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGiamDanMouseExited
+          changeColor(btnGiamDan, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnGiamDanMouseExited
+
+    private void btnLoaiSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoaiSanPhamMouseEntered
+         changeColor(btnLoaiSanPham, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLoaiSanPhamMouseEntered
+
+    private void btnLoaiSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoaiSanPhamMouseExited
+          changeColor(btnLoaiSanPham, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLoaiSanPhamMouseExited
+
+    private void btnOpenImeiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenImeiMouseEntered
+         changeColor(btnOpenImei, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnOpenImeiMouseEntered
+
+    private void btnOpenImeiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenImeiMouseExited
+         changeColor(btnOpenImei, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnOpenImeiMouseExited
+
+    private void tbnRom3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbnRom3MouseEntered
+       changeColor(tbnRom3, new Color(102, 0, 102));
+    }//GEN-LAST:event_tbnRom3MouseEntered
+
+    private void tbnRom3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbnRom3MouseExited
+       changeColor(tbnRom3, new Color(25, 29, 74));
+    }//GEN-LAST:event_tbnRom3MouseExited
+
+    private void btnManHinh3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManHinh3MouseEntered
+     changeColor(btnManHinh3, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnManHinh3MouseEntered
+
+    private void btnManHinh3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnManHinh3MouseExited
+       changeColor(btnManHinh3, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnManHinh3MouseExited
+
+    private void btnEditHang3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditHang3MouseEntered
+        changeColor(btnEditHang3, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnEditHang3MouseEntered
+
+    private void btnEditHang3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditHang3MouseExited
+       changeColor(btnEditHang3, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnEditHang3MouseExited
+
+    private void btnDong3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDong3MouseEntered
+         changeColor(btnDong3, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnDong3MouseEntered
+
+    private void btnDong3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDong3MouseExited
+          changeColor(btnDong3, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnDong3MouseExited
+
+    private void btnCameraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCameraMouseEntered
+     changeColor(btnCamera, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnCameraMouseEntered
+
+    private void btnCameraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCameraMouseExited
+       changeColor(btnCamera, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnCameraMouseExited
+
+    private void btnRam3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRam3MouseEntered
+        changeColor(btnRam3, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnRam3MouseEntered
+
+    private void btnRam3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRam3MouseExited
+          changeColor(btnRam3, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnRam3MouseExited
+
+    private void btnHeDieuHanh3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHeDieuHanh3MouseEntered
+        changeColor(btnHeDieuHanh3, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnHeDieuHanh3MouseEntered
+
+    private void btnHeDieuHanh3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHeDieuHanh3MouseExited
+       changeColor(btnHeDieuHanh3, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnHeDieuHanh3MouseExited
+
+    private void btnCpu3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCpu3MouseEntered
+        changeColor(btnCpu3, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnCpu3MouseEntered
+
+    private void btnCpu3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCpu3MouseExited
+      changeColor(btnCpu3, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnCpu3MouseExited
+
+    private void btnXuatxuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatxuMouseEntered
+         changeColor(btnXuatxu, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnXuatxuMouseEntered
+
+    private void btnXuatxuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXuatxuMouseExited
+        changeColor(btnXuatxu, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnXuatxuMouseExited
+
+    private void btnpinMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpinMouseEntered
+        changeColor(btnpin, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnpinMouseEntered
+
+    private void btnpinMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnpinMouseExited
+       changeColor(btnpin, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnpinMouseExited
+
+    private void btnMauSacMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMauSacMouseEntered
+      changeColor(btnMauSac, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnMauSacMouseEntered
+
+    private void btnMauSacMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMauSacMouseExited
+         changeColor(btnMauSac, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnMauSacMouseExited
+
+    private void btnPhanLoaiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhanLoaiMouseEntered
+       changeColor(btnPhanLoai, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnPhanLoaiMouseEntered
+
+    private void btnPhanLoaiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPhanLoaiMouseExited
+     changeColor(btnPhanLoai, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnPhanLoaiMouseExited
+
+    private void btnFirstMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFirstMouseEntered
+      changeColor(btnFirst, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnFirstMouseEntered
+
+    private void btnFirstMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFirstMouseExited
+       changeColor(btnFirst, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnFirstMouseExited
+
+    private void btnBackMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseEntered
+   changeColor(btnBack, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnBackMouseEntered
+
+    private void btnBackMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseExited
+        changeColor(btnBack, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnBackMouseExited
+
+    private void btnNextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextMouseEntered
+        changeColor(btnNext, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnNextMouseEntered
+
+    private void btnNextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextMouseExited
+      changeColor(btnNext, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnNextMouseExited
+
+    private void btnLastMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLastMouseEntered
+       changeColor(btnLast, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLastMouseEntered
+
+    private void btnLastMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLastMouseExited
+          changeColor(btnLast, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLastMouseExited
+
+    private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3MouseEntered
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+         changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+          changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+           changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+        changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
+            changeColor(btnXoa, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnXoaMouseEntered
+
+    private void btnXoaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseExited
+        changeColor(btnXoa, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnXoaMouseExited
+
+    private void btnLamMoiFormMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiFormMouseEntered
+         changeColor(btnLamMoiForm, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiFormMouseEntered
+
+    private void btnLamMoiFormMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiFormMouseExited
+         changeColor(btnLamMoiForm, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiFormMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -1289,6 +1685,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private javax.swing.JButton btnDong3;
     private javax.swing.JButton btnEditHang3;
     private javax.swing.JButton btnFirst;
+    private javax.swing.JButton btnGiamDan;
     private javax.swing.JButton btnHeDieuHanh3;
     private javax.swing.JButton btnLamMoiForm;
     private javax.swing.JButton btnLast;
@@ -1373,7 +1770,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private javax.swing.JButton tbnRom3;
     private javax.swing.JTextField txtGiaBan;
     private javax.swing.JTextField txtGiaNhap;
-    private javax.swing.JButton txtGiamDan;
     private javax.swing.JTextArea txtMota;
     private javax.swing.JTextField txtSearchBox;
     private javax.swing.JTextField txtSearchRecycle;

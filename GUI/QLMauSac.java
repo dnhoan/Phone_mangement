@@ -12,6 +12,7 @@ import DAL.Models.DalMauSacModel;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,26 +27,32 @@ public class QLMauSac extends javax.swing.JFrame {
     public QLMauSac() {
         initComponents();
         this.setLocationRelativeTo(null);
-         getContentPane().setBackground(Color.WHITE);
-         desginTable();
+        getContentPane().setBackground(Color.WHITE);
+        desginTable();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
+
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
     public void desginTable() {
         tblKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblKD.getTableHeader().setOpaque(false);
         tblKD.getTableHeader().setBackground(new Color(25, 29, 74));
-       tblKD.getTableHeader().setForeground(Color.WHITE);
-        
+        tblKD.getTableHeader().setForeground(Color.WHITE);
+
         tblKD.getTableHeader().setDraggedColumn(null);
         tblNKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-      tblNKD.getTableHeader().setOpaque(false);
-         tblNKD.getTableHeader().setBackground(new Color(25, 29, 74));
-         tblNKD.getTableHeader().setForeground(Color.WHITE);
+        tblNKD.getTableHeader().setOpaque(false);
+        tblNKD.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblNKD.getTableHeader().setForeground(Color.WHITE);
     }
     DefaultTableModel modelDkd;
     DefaultTableModel modelNkd;
     int rowSeleted;
     int maMau;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -234,6 +241,14 @@ public class QLMauSac extends javax.swing.JFrame {
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
         btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnThem.setBorderPainted(false);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -245,6 +260,14 @@ public class QLMauSac extends javax.swing.JFrame {
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
         btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnSua.setBorderPainted(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -256,6 +279,14 @@ public class QLMauSac extends javax.swing.JFrame {
         btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
         btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -305,10 +336,10 @@ public class QLMauSac extends javax.swing.JFrame {
                     .addComponent(rdoKd)
                     .addComponent(rdoNKD))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLamMoiForm4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLamMoiForm4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(65, 65, 65))
         );
 
@@ -389,7 +420,31 @@ public class QLMauSac extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         MauSacService.fillCombo(QuanLySanPham.mauSacModel, QuanLySanPham.cboMauSac);
     }//GEN-LAST:event_formWindowClosed
-    
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+         changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+       changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+            changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+          changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+        changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+        changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
+
     void filTable() {
         if (tabs.getSelectedIndex() == 0) {
             MauSacService.getDataMau(1);
@@ -400,6 +455,7 @@ public class QLMauSac extends javax.swing.JFrame {
         }
         clearForm();
     }
+
     DalMauSacModel getForm() {
         DalMauSacModel dalMauSacModel = new DalMauSacModel();
         if (rowSeleted >= 0 && tabs.getSelectedIndex() == 0) {
@@ -412,12 +468,13 @@ public class QLMauSac extends javax.swing.JFrame {
         dalMauSacModel.setTrangThai(rdoKd.isSelected());
         return dalMauSacModel;
     }
-    
+
     void setForm() {
         BusMauSacModel busMauSacModel = MauSacService.selectMauSac(maMau);
         txtTenMau.setText(busMauSacModel.getDalMauSacModel().getTenMau());
         rdoKd.setSelected(busMauSacModel.getDalMauSacModel().isTrangThai());
     }
+
     void clearForm() {
         txtTenMau.setText("");
         btnThem.setEnabled(true);

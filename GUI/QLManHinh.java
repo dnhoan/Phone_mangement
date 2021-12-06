@@ -8,11 +8,19 @@ package GUI;
 import BUS.Models.BusCTSanPhamModel;
 import BUS.Models.BusManHinhModel;
 import BUS.Services.ManHinhService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +32,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
 BusManHinhModel mh = new BusManHinhModel();
     ManHinhService mhser = new ManHinhService();
     int row = -1;
+    Connection con = null;
+    String sql= "SELECT MaManHinh from CTSANPHAM where TrangThai = 1";
 
     /**
      * Creates new form QLManHinh
@@ -33,6 +43,9 @@ BusManHinhModel mh = new BusManHinhModel();
          getContentPane().setBackground(Color.WHITE);
          desginTable();
         init();
+    }
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
     }
     public void desginTable() {
         tblDKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -130,6 +143,14 @@ BusManHinhModel mh = new BusManHinhModel();
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
         btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnThem.setBorderPainted(false);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -142,6 +163,14 @@ BusManHinhModel mh = new BusManHinhModel();
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
         btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnSua.setBorderPainted(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -154,6 +183,14 @@ BusManHinhModel mh = new BusManHinhModel();
         btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
         btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -379,14 +416,23 @@ BusManHinhModel mh = new BusManHinhModel();
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            update();
+            if(checkNull()&&checkNumber()&&checkStatus()){
+                  update();
+            }
+          
         } else {
-            update2();
+             if(checkNull()&&checkNumber()){
+                    update2();
+            }
+          
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+       if(checkNull()&&checkNumber()){
+           insert();
+       }
+        
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -400,6 +446,30 @@ BusManHinhModel mh = new BusManHinhModel();
     private void rdoDKDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDKDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoDKDActionPerformed
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+         changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+         changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+         changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+        changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+            changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+               changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
      * @param args the command line arguments
@@ -525,7 +595,7 @@ BusManHinhModel mh = new BusManHinhModel();
     public void update() {
 
         BusManHinhModel busmhModel = this.getForm();
-        String idmh = (String) tblDKD.getValueAt(this.row, 0);
+        int idmh = (int) tblDKD.getValueAt(this.row, 0);
         busmhModel.setMaManHinh(idmh);
         try {
             mhser.update(busmhModel);
@@ -541,7 +611,7 @@ BusManHinhModel mh = new BusManHinhModel();
 
     public void update2() {
         BusManHinhModel busmhModel = this.getForm();
-        String idmh = (String) tblNKD.getValueAt(this.row, 0);
+        int idmh = (int) tblNKD.getValueAt(this.row, 0);
         busmhModel.setMaManHinh(idmh);
         try {
             mhser.update(busmhModel);
@@ -562,12 +632,12 @@ BusManHinhModel mh = new BusManHinhModel();
     @Override
     public void edit() {
         if (tabs.getSelectedIndex() == 0) {
-            String idmh = (String) tblDKD.getValueAt(this.row, 0);
+            int idmh = (int) tblDKD.getValueAt(this.row, 0);
             BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
             setForm(pinmodel);
             updateStatus();
         } else {
-            String idmh = (String) tblNKD.getValueAt(this.row, 0);
+            int idmh = (int) tblNKD.getValueAt(this.row, 0);
             BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
             setForm(pinmodel);
             updateStatus2();
@@ -643,12 +713,24 @@ BusManHinhModel mh = new BusManHinhModel();
             e.printStackTrace();
         }
     }
-     public boolean updateByStatus(){
-        if(ctsp.isTrangThai()==true&&mh.isTrangThai()==true){
-            MessageService.alert(this, "Màn hình đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
-            return false;
+     public boolean checkStatus(){
+    try {
+        int chkmamh = (int) tblDKD.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmamh==rs.getInt("MaManHinh")){
+                MessageService.alert(this, "Màn hình này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
         }
-        return true;    
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+    return true;    
     }
     public boolean checkNull(){
         if(txtKichThuoc.getText().isEmpty()){

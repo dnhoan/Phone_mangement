@@ -10,11 +10,17 @@ import BUS.Models.BusHeDieuHanhModel;
 import BUS.Models.BusSanPham;
 import BUS.Services.CpuService;
 import BUS.Services.HeDieuHanhService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +32,8 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     BusHeDieuHanhModel hdh = new BusHeDieuHanhModel();
     HeDieuHanhService hdhser = new HeDieuHanhService();
     int row = -1;
+    Connection con = null;
+    String sql= "SELECT MaHeDieuHanh from CTSANPHAM where TrangThai = 1";
 
     /**
      * Creates new form QLHeDieuHanh
@@ -35,6 +43,9 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
          getContentPane().setBackground(Color.WHITE);
          desginTable();
         init();
+    }
+     public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
     }
 public void desginTable() {
         tblDSD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -112,6 +123,14 @@ public void desginTable() {
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
         btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnThem.setBorderPainted(false);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -123,6 +142,14 @@ public void desginTable() {
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
         btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnSua.setBorderPainted(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -134,6 +161,14 @@ public void desginTable() {
         btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
         btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -298,7 +333,7 @@ public void desginTable() {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            if(updateByStatus()&&checkNull()){
+            if(checkNull()&&checkUpdate()){
                      update();
             }
        
@@ -317,6 +352,30 @@ public void desginTable() {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         HeDieuHanhService.fillCombo(QuanLySanPham.heDieuHanhModel, QuanLySanPham.cboHeDieuHanh, QuanLySanPham.listHeDieuHanh);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+      changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+        changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+              changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+         changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+       changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+       changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
      * @param args the command line arguments
@@ -430,7 +489,7 @@ public void desginTable() {
     public void update() {
 
         BusHeDieuHanhModel hdhmodel = this.getForm();
-        String idhdh = (String) tblDSD.getValueAt(this.row, 0);
+        int idhdh = (int) tblDSD.getValueAt(this.row, 0);
         hdhmodel.setMaHeDieuHanh(idhdh);
         try {
             hdhser.update(hdhmodel);
@@ -446,7 +505,7 @@ public void desginTable() {
 
     public void update2() {
         BusHeDieuHanhModel hdhmodel = this.getForm();
-        String idhdh = (String) tblNSD.getValueAt(this.row, 0);
+       int idhdh = (int) tblNSD.getValueAt(this.row, 0);
         hdhmodel.setMaHeDieuHanh(idhdh);
         try {
             hdhser.update(hdhmodel);
@@ -470,13 +529,13 @@ public void desginTable() {
     public void edit() {
         if (tabs.getSelectedIndex() == 0) {
 
-            String idhdh = (String) tblDSD.getValueAt(this.row, 0);
+            int idhdh = (int) tblDSD.getValueAt(this.row, 0);
 
             BusHeDieuHanhModel hdhmodel = this.hdhser.selectByID(idhdh);
             setForm(hdhmodel);
             updateStatus();
         } else {
-            String idhdh = (String) tblNSD.getValueAt(this.row, 0);
+            int idhdh = (int) tblNSD.getValueAt(this.row, 0);
 
             BusHeDieuHanhModel hdhmodel = this.hdhser.selectByID(idhdh);
             setForm(hdhmodel);
@@ -551,12 +610,24 @@ public void desginTable() {
             e.printStackTrace();
         }
     }
-       public boolean updateByStatus(){
-        if(ctsp.isTrangThai()==true&&hdh.isTrangThai()==true){
-            MessageService.alert(this, "Hệ điều hành đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
-            return false;
+       public boolean checkUpdate(){
+        try {
+        int chkmahdh = (int) tblDSD.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmahdh==rs.getInt("MaHeDieuHanh")){
+                MessageService.alert(this, "Hệ điều hành này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
         }
-        return true;    
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
     }
     public boolean checkNull(){
         if(txtTenHDH.getText().isEmpty()){

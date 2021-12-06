@@ -1,9 +1,9 @@
-CREATE DATABASE MOBIMONSTER
+CREATE DATABASE MOBIMONSTER0
 GO
-USE MOBIMONSTER
+USE MOBIMONSTER0
 GO
 
-
+drop table DiemDanh
 CREATE TABLE DiemDanh
 (
 	MaDiemDanh INT IDENTITY(1,1) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE DiemDanh
 	DiMuon Bit default 1 null,
 	NgayDiemDanh DATE NULL,
 	TrangThai BIT DEFAULT 1 NULL,
-	PRIMARY KEY (MaDiemDanh)
+	PRIMARY KEY (MaDiemDanh),
 	FOREIGN KEY(MaNV) REFERENCES NhanVien(MaNV)
 )
 
@@ -21,8 +21,8 @@ GO
 CREATE TABLE Luong
 (
 	MaLuong INT IDENTITY(1,1) NOT NULL,
-	LuongTheoHopDong FLOAT NULL,
-	LuongHienCo Float null,
+	LuongHopDong money,
+	TongLuong money,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaLuong)
 )
@@ -46,10 +46,10 @@ CREATE TABLE NhanVien
 	Email NVARCHAR(100) NULL,
 	TrangThai BIT DEFAULT 1 NULL,
 	MaLuong INT NULL,
-	MaDiemDanh INT NULL,
+	
 	PRIMARY KEY(MaNV),
 	FOREIGN KEY(MaLuong) REFERENCES Luong(MaLuong),
-	FOREIGN KEY(MaDiemDanh)REFERENCES DiemDanh(MaDiemDanh),
+	
 
 )
 
@@ -313,14 +313,14 @@ begin
 	where ChiTietHoaDon.TrangThai = 0 and IMEI.TRANGTHAI = 1
 	group by MACTSP ) as Stock where CTSANPHAM.MACTSP = Stock.MACTSP
 end
--- c?p nh?t tr?ng thái bán trong imei khi insert vào chi ti?t hóa ??n
+-- c?p nh?t tr?ng thï¿½i bï¿½n trong imei khi insert vï¿½o chi ti?t hï¿½a ??n
 create trigger trg_updateTrangThaiBanTo0 on ChiTietHoaDon after insert as
 begin
 	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei
 end
 
 drop trigger trg_updateTrangThaiBanTo1
--- c?p nh?t tr?ng thái trong imei khi tr?ng thái ? chi ti?t hóa b? xóa
+-- c?p nh?t tr?ng thï¿½i trong imei khi tr?ng thï¿½i ? chi ti?t hï¿½a b? xï¿½a
 update ChiTietHoaDon set MaImei = ? where MaImei = ?
 create trigger trg_updateTrangThaiBanTo1 on ChiTietHoaDon after update as
 begin

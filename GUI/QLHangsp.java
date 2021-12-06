@@ -8,11 +8,16 @@ package GUI;
 import BUS.Models.BusHangModel;
 
 import BUS.Services.HangService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,22 +29,28 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
 
     public QLHangsp() {
         initComponents();
-         getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(Color.WHITE);
         desginTable();
         init();
     }
-public void desginTable() {
+
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
+    public void desginTable() {
         tblHang.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-      tblHang.getTableHeader().setOpaque(false);
+        tblHang.getTableHeader().setOpaque(false);
         tblHang.getTableHeader().setBackground(new Color(25, 29, 74));
         tblHang.getTableHeader().setForeground(Color.WHITE);
-        
+
         tblHang.getTableHeader().setDraggedColumn(null);
         tblhang2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblhang2.getTableHeader().setOpaque(false);
-          tblhang2.getTableHeader().setBackground(new Color(25, 29, 74));
-          tblhang2.getTableHeader().setForeground(Color.WHITE);
+        tblhang2.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblhang2.getTableHeader().setForeground(Color.WHITE);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,6 +134,14 @@ public void desginTable() {
         btnthem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnthem.setBorderPainted(false);
         btnthem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnthem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnthemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnthemMouseExited(evt);
+            }
+        });
         btnthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnthemActionPerformed(evt);
@@ -159,6 +178,14 @@ public void desginTable() {
         btnsua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnsua.setBorderPainted(false);
         btnsua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnsua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsuaMouseExited(evt);
+            }
+        });
         btnsua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsuaActionPerformed(evt);
@@ -170,6 +197,14 @@ public void desginTable() {
         btnlammoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnlammoi.setBorderPainted(false);
         btnlammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlammoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseExited(evt);
+            }
+        });
         btnlammoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlammoiActionPerformed(evt);
@@ -284,6 +319,17 @@ public void desginTable() {
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -340,12 +386,19 @@ public void desginTable() {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        insert();
+        if(check()){
+           insert(); 
+        }
+        
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
-        update();
+       
+        if(check()){
+            update();
+        fillTable();
+        }
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -355,8 +408,8 @@ public void desginTable() {
 
     private void tblHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHangMouseClicked
         // TODO add your handling code here:
-         //this.row = tblHang.rowAtPoint(evt.getPoint());
-         this.row = tblHang.getSelectedRow();
+        //this.row = tblHang.rowAtPoint(evt.getPoint());
+        this.row = tblHang.getSelectedRow();
         this.edit();
     }//GEN-LAST:event_tblHangMouseClicked
 
@@ -368,13 +421,49 @@ public void desginTable() {
 
     private void tblhang2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhang2MouseClicked
         // TODO add your handling code here:
-         this.row = tblhang2.getSelectedRow();
-        
+        this.row = tblhang2.getSelectedRow();
+
     }//GEN-LAST:event_tblhang2MouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         QuanLySanPham.fillHangCombo();
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnthemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseEntered
+        changeColor(btnthem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnthemMouseEntered
+
+    private void btnthemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseExited
+        changeColor(btnthem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnthemMouseExited
+
+    private void btnsuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseEntered
+        changeColor(btnsua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnsuaMouseEntered
+
+    private void btnsuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseExited
+        changeColor(btnsua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnsuaMouseExited
+
+    private void btnlammoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseEntered
+        changeColor(btnlammoi, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnlammoiMouseEntered
+
+    private void btnlammoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseExited
+        changeColor(btnlammoi, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnlammoiMouseExited
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        changeColor(jButton1, new Color(102, 0, 102));
+    }//GEN-LAST:event_jButton1MouseEntered
+
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        changeColor(jButton1, new Color(25, 29, 74));
+    }//GEN-LAST:event_jButton1MouseExited
 
     /**
      * @param args the command line arguments
@@ -447,10 +536,11 @@ public void desginTable() {
         this.setTitle("");
         this.fillTable();
         this.fillTable2();
-          
+
     }
-    public void khoiphuc(){
-         BusHangModel modell = this.getForm();
+
+    public void khoiphuc() {
+        BusHangModel modell = this.getForm();
         int id = (int) tblhang2.getValueAt(this.row, 0);
         modell.setMaHang(id);
         try {
@@ -460,19 +550,22 @@ public void desginTable() {
         } catch (Exception e) {
         }
     }
+
     @Override
     public BusHangModel getForm() {
-         BusHangModel modell = new BusHangModel();
+        BusHangModel modell = new BusHangModel();
         modell.setTenHang(txtTenHang.getText());
         boolean trangthai;
-        if(JradioNgungKD.isSelected()){
+        if (JradioNgungKD.isSelected()) {
             trangthai = false;
-        }else trangthai=true;
+        } else {
+            trangthai = true;
+        }
         modell.setTrangThai(trangthai);
-        
+
         return modell;
     }
- 
+
     public void setForm(BusHangModel bushangmodel) {
 //        txtTenHang.setText(bushangmodel.getTenHang());
 //         boolean trangthai = bushangmodel.isTrangThai();
@@ -481,17 +574,17 @@ public void desginTable() {
 //        }
 //        //jrdioDangKD.setSelected(bushangmodel.isTrangThai());
         txtTenHang.setText(bushangmodel.getTenHang());
-          jrdioDangKD.setSelected(bushangmodel.isTrangThai());
-         JradioNgungKD.setSelected(!bushangmodel.isTrangThai());
+        jrdioDangKD.setSelected(bushangmodel.isTrangThai());
+        JradioNgungKD.setSelected(!bushangmodel.isTrangThai());
     }
 
     @Override
     public void updateStatus() {
-         boolean edit = (this.row >= 0);
+        boolean edit = (this.row >= 0);
         btnthem.setEnabled(!edit);
         btnsua.setEnabled(edit);
         btnlammoi.setEnabled(edit);
-        
+
     }
 
     @Override
@@ -505,7 +598,7 @@ public void desginTable() {
             JOptionPane.showMessageDialog(this, "Thêm thành công");
         } catch (Exception e) {
         }
-        
+
     }
 
     @Override
@@ -538,9 +631,9 @@ public void desginTable() {
     public void clearForm() {
         BusHangModel bus = new BusHangModel();
         setForm(bus);
-        row=-1;
-       this.updateStatus();
-       
+        row = -1;
+        this.updateStatus();
+
     }
 
     @Override
@@ -550,12 +643,12 @@ public void desginTable() {
         model.setRowCount(0);
         try {
             this.list = hang.selectAll();
-            if(this.list != null) {
-                for(BusHangModel sp : list){
-                    model.addRow(new Object[]{sp.getMaHang(),sp.getTenHang(),sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"});               
+            if (this.list != null) {
+                for (BusHangModel sp : list) {
+                    model.addRow(new Object[]{sp.getMaHang(), sp.getTenHang(), sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"});
                 }
             }
-           this.updateStatus();
+            this.updateStatus();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -590,14 +683,15 @@ public void desginTable() {
         row = -1;
         modelRecycle = (DefaultTableModel) tblhang2.getModel();
         modelRecycle.setRowCount(0);
-        
+
         try {
             listRecycle = hang.selectStatus();
-            for(BusHangModel sp : listRecycle){
+            for (BusHangModel sp : listRecycle) {
                 modelRecycle.addRow(new Object[]{
                     sp.getMaHang(), sp.getTenHang(), sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"
                 });
-            }updateStatus();
+            }
+            updateStatus();
         } catch (Exception e) {
         }
     }
@@ -605,5 +699,32 @@ public void desginTable() {
     @Override
     public void setForm(Object entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean check() {
+        try {
+            int macheck = (int) tblHang.getValueAt(this.row, 0);
+            Connection con = JDBCHelper.ketnoi();
+            String sql = "select HangSanPham.MaHang from HangSanPham, DongSP,SanPham,CTSANPHAM\n"
+                    + "where HangSanPham.MaHang = DongSP.MaHang and DongSP.MaDong = SanPham.MaDong and SanPham.MaSP = CTSANPHAM.MaSP and CTSANPHAM.TrangThai = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int maxx = (int) rs.getInt("MaHang");
+
+                if (macheck == maxx) {
+                    JOptionPane.showMessageDialog(this, "Hãng này vẫn đang hoạt động");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        if (txtTenHang.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        } else {
+            return true;
+        }
     }
 }

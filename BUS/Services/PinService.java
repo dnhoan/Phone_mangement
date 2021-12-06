@@ -23,7 +23,7 @@ import javax.swing.JComboBox;
  *
  * @author ADMIN
  */
-public class PinService implements IPhoneMangementService<BusPinModel, String> {
+public class PinService implements IPhoneMangementService<BusPinModel, Integer> {
 
     @Override
     public void insert(BusPinModel busPinModel) {
@@ -48,12 +48,12 @@ public class PinService implements IPhoneMangementService<BusPinModel, String> {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public BusPinModel selectByID(String id) {
+    public BusPinModel selectByID(Integer id) {
         if (this.selectBySql(SELECT_BY_ID,id).isEmpty()) {
             return null;
         }
@@ -96,7 +96,7 @@ public class PinService implements IPhoneMangementService<BusPinModel, String> {
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while (rs.next()) {
                 BusPinModel pinModel = new BusPinModel(
-                        rs.getString("MaPin"),
+                        rs.getInt("MaPin"),
                         rs.getString("LoaiPin"),
                         rs.getFloat("DungLuongPin"),
                         rs.getBoolean("TrangThai")

@@ -11,6 +11,7 @@ import BUS.Models.BusSanPham;
 import BUS.Models.ValidConstrainModel;
 
 import BUS.Services.PinService;
+import DAL.Services.JDBCHelper;
 import static GUI.QLPhanLoai.tblKD;
 import static GUI.QLPhanLoai.tblNKD;
 import GUI.Services.IEditService;
@@ -18,7 +19,12 @@ import GUI.Services.MessageService;
 import GUI.Services.ValidateService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,6 +37,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     BusPinModel pin = new BusPinModel();
     PinService psr = new PinService();
     int row = -1;
+     Connection con = null;
+    String sql= "SELECT MaPin from CTSANPHAM where TrangThai = 1";
 
     /**
      * Creates new form QLPin
@@ -42,6 +50,10 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
          desginTable();
         init();
     }
+       public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
   public void desginTable() {
         tblKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblKD.getTableHeader().setOpaque(false);
@@ -281,6 +293,14 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
         btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnLamMoiForm4.setBorderPainted(false);
         btnLamMoiForm4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -293,6 +313,14 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
         btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnThem.setBorderPainted(false);
         btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -305,6 +333,14 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
         btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnSua.setBorderPainted(false);
         btnSua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -412,7 +448,7 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            if(updateByStatus()&&checkNull()&&checkNumber()){
+            if(checkNull()&&checkNumber()&&checkUpdate()){
                  update();
             }
 
@@ -469,6 +505,30 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         PinService.fillCombo(QuanLySanPham.pinModel, QuanLySanPham.cboPin, QuanLySanPham.listPin);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+     changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+             changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+            changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+          changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+       changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+         changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
      * @param args the command line arguments
@@ -576,12 +636,12 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     @Override
     public void edit() {
         if (tabs.getSelectedIndex() == 0) {
-            String idpin = (String) tblKD.getValueAt(this.row, 0);
+            int idpin = (int) tblKD.getValueAt(this.row, 0);
             BusPinModel pinmodel = this.psr.selectByID(idpin);
             setForm(pinmodel);
             updateStatus();
         } else {
-            String idpin = (String) tblNKD.getValueAt(this.row, 0);
+            int idpin = (int) tblNKD.getValueAt(this.row, 0);
             BusPinModel pinmodel = this.psr.selectByID(idpin);
             setForm(pinmodel);
             updateStatus2();
@@ -641,7 +701,7 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     public void update() {
 
         BusPinModel busPinModel = this.getForm();
-        String idpin = (String) tblKD.getValueAt(this.row, 0);
+        int idpin = (int) tblKD.getValueAt(this.row, 0);
         busPinModel.setMaLoaiPin(idpin);
         try {
             psr.update(busPinModel);
@@ -656,7 +716,7 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
 
     public void update2() {
         BusPinModel busPinModel = this.getForm();
-        String idpin = (String) tblNKD.getValueAt(this.row, 0);
+        int idpin = (int) tblNKD.getValueAt(this.row, 0);
         busPinModel.setMaLoaiPin(idpin);
         try {
             psr.update(busPinModel);
@@ -711,12 +771,24 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     public void fillTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public boolean updateByStatus(){
-        if(ctsp.isTrangThai()==true&&pin.isTrangThai()==true){
-            MessageService.alert(this, "Pin đang tồn tại trong sản phẩm không thể ngừng kinh doanh!");
-            return false;
+    public boolean checkUpdate(){
+        try {
+        int chkmapin = (int) tblKD.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmapin==rs.getInt("MaPin")){
+                MessageService.alert(this, "Pin này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
         }
-        return true;    
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
     }
     public boolean checkNull(){
         if(txtLoaiPin.getText().isEmpty()){

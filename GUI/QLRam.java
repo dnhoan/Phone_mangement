@@ -9,12 +9,17 @@ import GUI.Services.IEditService;
 import BUS.Models.BusRamModel;
 
 import BUS.Services.RamService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,22 +34,29 @@ public class QLRam extends javax.swing.JFrame {
      */
     public QLRam() {
         initComponents();
-          getContentPane().setBackground(Color.WHITE);
-         desginTable();
+        getContentPane().setBackground(Color.WHITE);
+        desginTable();
         init();
     }
-public void desginTable() {
+
+
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
+    public void desginTable() {
         tblram.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblram.getTableHeader().setOpaque(false);
         tblram.getTableHeader().setBackground(new Color(25, 29, 74));
-       tblram.getTableHeader().setForeground(Color.WHITE);
-        
+        tblram.getTableHeader().setForeground(Color.WHITE);
+
         tblram.getTableHeader().setDraggedColumn(null);
         tblram2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-      tblram2.getTableHeader().setOpaque(false);
-         tblram2.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblram2.getTableHeader().setOpaque(false);
+        tblram2.getTableHeader().setBackground(new Color(25, 29, 74));
         tblram2.getTableHeader().setForeground(Color.WHITE);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,6 +142,14 @@ public void desginTable() {
         btnthem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnthem.setBorderPainted(false);
         btnthem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnthem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnthemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnthemMouseExited(evt);
+            }
+        });
         btnthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnthemActionPerformed(evt);
@@ -165,6 +185,14 @@ public void desginTable() {
         btnsua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnsua.setBorderPainted(false);
         btnsua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnsua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsuaMouseExited(evt);
+            }
+        });
         btnsua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsuaActionPerformed(evt);
@@ -176,6 +204,14 @@ public void desginTable() {
         btnlammoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnlammoi.setBorderPainted(false);
         btnlammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlammoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseExited(evt);
+            }
+        });
         btnlammoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlammoiActionPerformed(evt);
@@ -256,7 +292,7 @@ public void desginTable() {
                 .addGap(2, 2, 2)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                 .addGap(8, 8, 8))
         );
         jPanel1Layout.setVerticalGroup(
@@ -277,6 +313,14 @@ public void desginTable() {
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -374,13 +418,18 @@ public void desginTable() {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        insert();
+        if (check()) {
+            insert();
+        }
 
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
-        update();
-        fillTable2();
+
+        if (check()) {
+            update();
+            fillTable2();
+        }
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -397,12 +446,44 @@ public void desginTable() {
     private void tblram2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblram2MouseClicked
         // TODO add your handling code here:
         this.rowRecycle = tblram2.getSelectedRow();
-        
+
     }//GEN-LAST:event_tblram2MouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         RamService.fillCombo(QuanLySanPham.ramModel, QuanLySanPham.cboRam, QuanLySanPham.listRam);
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnthemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseEntered
+        changeColor(btnthem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnthemMouseEntered
+
+    private void btnthemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseExited
+        changeColor(btnthem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnthemMouseExited
+
+    private void btnsuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseEntered
+        changeColor(btnsua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnsuaMouseEntered
+
+    private void btnsuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseExited
+        changeColor(btnsua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnsuaMouseExited
+
+    private void btnlammoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseExited
+        changeColor(btnlammoi, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnlammoiMouseExited
+
+    private void btnlammoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseEntered
+        changeColor(btnlammoi, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnlammoiMouseEntered
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        changeColor(jButton1, new Color(102, 0, 102));
+    }//GEN-LAST:event_jButton1MouseEntered
+
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        changeColor(jButton1, new Color(25, 29, 74));
+    }//GEN-LAST:event_jButton1MouseExited
 
     /**
      * @param args the command line arguments
@@ -429,6 +510,8 @@ public void desginTable() {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(QLRam.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -598,6 +681,36 @@ public void desginTable() {
             }
 
         } catch (Exception e) {
+        }
+    }
+
+    public boolean check() {
+        try {
+            int macheck = (int) tblram.getValueAt(this.row, 0);
+            Connection con = JDBCHelper.ketnoi();
+            String sql = "select ctsanpham.MaRam from CTsANPHAM where TrangThai = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                
+                int maxx = (int) rs.getInt("MaRam");
+
+                if (macheck == maxx) {
+                    JOptionPane.showMessageDialog(this, "Ram này vẫn đang hoạt động");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        if (txtdungluong.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        }
+        if (txtloai.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        } else {
+            return true;
         }
     }
 

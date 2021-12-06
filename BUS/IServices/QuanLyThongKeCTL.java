@@ -43,7 +43,7 @@ public class QuanLyThongKeCTL {
                 dataset.addValue(x.getSoluongban(), "số lượng", "Tháng: " + x.getThang());
             }
 
-            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê số lượng hàng bán trong tháng".toUpperCase(),
+            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê số lượng hàng bán được theo tháng".toUpperCase(),
                      "tháng",
                     "Số lượng", dataset,
                     PlotOrientation.VERTICAL, false, true, false);
@@ -66,7 +66,7 @@ public class QuanLyThongKeCTL {
                 dataset.addValue(x.getDoanhthu(), "Doanh thu", "Tháng: " + x.getThang());
             }
 
-            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu trong tháng".toUpperCase(),
+            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu theo tháng".toUpperCase(),
                      "tháng",
                     "Doanh thu", dataset,
                     PlotOrientation.VERTICAL, false, true, false);

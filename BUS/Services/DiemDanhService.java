@@ -25,18 +25,31 @@ public class DiemDanhService {
     String sqlDiemDanh = "insert into DiemDanh(MaNV,DiemDanh,DiMuon,NgayDiemDanh) values(?,1,0,getdate())";
     String sqlDiMuon = "insert into DiemDanh(MaNV,DiemDanh,DiMuon,NgayDiemDanh) values(?,1,1,getdate())";
     String sqlBoVe = "UPDATE DiemDanh set TrangThai = 0 where MaDiemDanh = ?";
+    String sqlThongKe = "select  diemdanh.MaNV, count( DiemDanh.DiemDanh) as diemdanh, MONTH(DiemDanh.NgayDiemDanh) as thang -- count(diemdanh.DiMuon) as solandimuon\n"
+            + "from DiemDanh,NhanVien\n"
+            + "where NhanVien.MaNV = DiemDanh.MaNV and DiemDanh.TrangThai = 1 --and MONTH(DiemDanh.NgayDiemDanh) = MONTH(GETDATE())   -- DiemDanh.DiMuon =1\n"
+            + "group by DiemDanh.MaNV, NhanVien.HoTen, MONTH(DiemDanh.NgayDiemDanh) ";
+
     public void select1(BusDiemDanh model) {
         try {
 
         } catch (Exception e) {
         }
     }
+    
 
     public List<BusDiemDanh> selectAll() {
         if (this.selectBySql(sqlSelect1) == null) {
             return null;
         }
         return this.selectBySql(sqlSelect1);
+    }
+
+    public List<BusDiemDanh> thongKe() {
+        if (this.selectBySql(sqlThongKe) == null) {
+            return null;
+        }
+        return this.selectBySql(sqlThongKe);
     }
 
     public void DiemDanh(BusDiemDanh entity) {
@@ -52,12 +65,15 @@ public class DiemDanhService {
         } catch (Exception e) {
         }
     }
-     public void BoVe(BusDiemDanh entity) {
+
+    public void BoVe(Integer entity) {
         try {
-            this.selectBySql(sqlBoVe, entity.getMadiemdanh());
+            //BusDiemDanh model = new BusDiemDanh();
+            this.selectBySql(sqlBoVe, entity);
         } catch (Exception e) {
         }
     }
+
     public List<BusDiemDanh> selectBySql(String sql, Object... args) {
         List<BusDiemDanh> listHang = new ArrayList<>();
         try {
@@ -79,4 +95,5 @@ public class DiemDanhService {
             throw new RuntimeException(ex);
         }
     }
+
 }

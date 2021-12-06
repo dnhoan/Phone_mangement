@@ -123,6 +123,16 @@ public class MainThuNghiem extends javax.swing.JFrame {
             MessageService.alert(this, "Vui lòng đăng nhập!");
         }
     }
+     public void openThongKe() {
+        if (AuthService.isLogin()) {
+            
+            QlthongKe tk = new QlthongKe();
+            dashboardview.removeAll();
+            dashboardview.add(tk).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
+    }
     public void openHoaDon(){
         if (AuthService.isLogin()) {
             QuanLyHoaDon hd = new QuanLyHoaDon();
@@ -422,7 +432,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(pnlmenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addComponent(pnlsettings, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addContainerGap(340, Short.MAX_VALUE))
         );
 
         pnlMenu.add(pnlMenuIcon, java.awt.BorderLayout.LINE_START);
@@ -730,6 +740,11 @@ public class MainThuNghiem extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 255, 255));
         jLabel21.setText("Thống kê");
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/stats.png"))); // NOI18N
 
@@ -1297,6 +1312,11 @@ public class MainThuNghiem extends javax.swing.JFrame {
     private void jpnHoaDonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnHoaDonMouseExited
         changeColor(jpnHoaDon, new Color(25, 29, 74));
     }//GEN-LAST:event_jpnHoaDonMouseExited
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+        // TODO add your handling code here:
+        openThongKe();
+    }//GEN-LAST:event_jLabel21MouseClicked
 
     /**
      * @param args the command line arguments
