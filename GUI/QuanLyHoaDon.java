@@ -9,13 +9,16 @@ import BUS.Models.BusHoaDon;
 import BUS.Models.BusImeiModel;
 import BUS.Models.BusSanPham;
 import BUS.Services.BusImeiService;
+import BUS.Services.CTHoaDonService;
 import BUS.Services.HoaDonService;
 import BUS.Services.SanPhamService;
 import DAL.Models.DalImeiModel;
 import GUI.Models.CartModel;
 import static GUI.QuanLyBanHang.currentMahd;
 import static GUI.QuanLyBanHang.tblHoaDon;
+import GUI.Services.AuthService;
 import GUI.Services.ButtonColumn;
+import GUI.Services.DateService;
 import GUI.Services.MessageService;
 import GUI.Services.UtilityService;
 import java.awt.Color;
@@ -27,10 +30,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ComboBoxEditor;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -48,6 +54,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
 
     Icon iconBackUp = new ImageIcon(getClass().getResource("/icon/curve-arrow.png"));
     Icon iconDelete = new ImageIcon(getClass().getResource("/icon/bin.png"));
+    CTHoaDonService cTHoaDonService = new CTHoaDonService();
 
     public QuanLyHoaDon() {
         initComponents();
@@ -60,24 +67,25 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         int h = d.height;
         int w = d.width;
         this.setSize(w, h);
-      
-       desginTable();
+
+        desginTable();
         this.init();
     }
-   public void desginTable() {
+
+    public void desginTable() {
         tblHoaDon.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-       tblHoaDon.getTableHeader().setOpaque(false);
-       tblHoaDon.getTableHeader().setBackground(new Color(25, 29, 74));
-       tblHoaDon.getTableHeader().setForeground(Color.WHITE);
-       tblImei.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-         tblImei.getTableHeader().setOpaque(false);
-       tblImei.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblHoaDon.getTableHeader().setOpaque(false);
+        tblHoaDon.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblHoaDon.getTableHeader().setForeground(Color.WHITE);
+        tblImei.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tblImei.getTableHeader().setOpaque(false);
+        tblImei.getTableHeader().setBackground(new Color(25, 29, 74));
         tblImei.getTableHeader().setForeground(Color.WHITE);
-          tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-     tblSanPham.getTableHeader().setOpaque(false);
+        tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tblSanPham.getTableHeader().setOpaque(false);
         tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
-       tblSanPham.getTableHeader().setForeground(Color.WHITE);
-        
+        tblSanPham.getTableHeader().setForeground(Color.WHITE);
+
     }
 
     /**
@@ -98,7 +106,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         txtGhiChu = new javax.swing.JTextArea();
         btnTraHang = new javax.swing.JButton();
-        btnMoiForm = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -110,6 +117,9 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
+        lblCount = new javax.swing.JLabel();
+        cboImei = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -136,7 +146,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         });
         tblHoaDon.setGridColor(new java.awt.Color(25, 29, 74));
         tblHoaDon.setRowHeight(30);
-        tblHoaDon.setRowMargin(0);
         tblHoaDon.getTableHeader().setReorderingAllowed(false);
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -176,7 +185,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(5, 10, 46));
         jLabel1.setText("Trạng thái giao hàng");
 
-        cboStatusGiaoHang.setEditable(true);
         cboStatusGiaoHang.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cboStatusGiaoHang.setForeground(new java.awt.Color(25, 29, 74));
         cboStatusGiaoHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Đã giao hàng", "Chưa giao hàng", "Đang giao" }));
@@ -217,7 +225,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         });
         tblImei.setGridColor(new java.awt.Color(25, 29, 74));
         tblImei.setRowHeight(30);
-        tblImei.setRowMargin(0);
         tblImei.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblImeiMouseClicked(evt);
@@ -261,17 +268,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             }
         });
 
-        btnMoiForm.setBackground(new java.awt.Color(25, 29, 74));
-        btnMoiForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
-        btnMoiForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
-        btnMoiForm.setBorderPainted(false);
-        btnMoiForm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMoiForm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoiFormActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(5, 10, 46));
         jLabel2.setText("Sản phẩm");
@@ -284,7 +280,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(5, 10, 46));
         jLabel4.setText("Ghi chú");
 
-        cboStatusHoadon.setEditable(true);
         cboStatusHoadon.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cboStatusHoadon.setForeground(new java.awt.Color(25, 29, 74));
         cboStatusHoadon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa thanh toán", "Đã thanh toán", "Đã xóa" }));
@@ -328,7 +323,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(39, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,10 +334,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         tblSanPham.setForeground(new java.awt.Color(25, 29, 74));
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Masp", "Tên sp", "Giá bán", "SL", "Thành tiền"
@@ -358,7 +350,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         });
         tblSanPham.setGridColor(new java.awt.Color(25, 29, 74));
         tblSanPham.setRowHeight(30);
-        tblSanPham.setRowMargin(0);
         tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblSanPhamMouseClicked(evt);
@@ -375,6 +366,22 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             tblSanPham.getColumnModel().getColumn(4).setMinWidth(120);
             tblSanPham.getColumnModel().getColumn(4).setMaxWidth(120);
         }
+
+        lblCount.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        lblCount.setForeground(new java.awt.Color(5, 10, 46));
+
+        cboImei.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cboImei.setForeground(new java.awt.Color(25, 29, 74));
+        cboImei.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        cboImei.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboImeiItemStateChanged(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(5, 10, 46));
+        jLabel8.setText("Chọn Imei máy muốn đổi");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -394,14 +401,14 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(100, 100, 100)
-                                .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)
-                                .addComponent(btnMoiForm, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cboImei, javax.swing.GroupLayout.Alignment.LEADING, 0, 308, Short.MAX_VALUE)
+                                .addComponent(lblCount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,15 +454,21 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMoiForm, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(4, 4, 4)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblCount, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboImei, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnTraHang, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -481,39 +494,45 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSearchHDKeyReleased
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
-        if (evt.getClickCount() == 2) {
-            int row = tblHoaDon.getSelectedRow();
-            this.currentMaHd = (int) tblHoaDon.getValueAt(row, 0);
+        if (evt.getClickCount() == 1) {
+            clearForm();
+            currentRowHoaDon = tblHoaDon.getSelectedRow();
+            this.currentMaHd = (int) tblHoaDon.getValueAt(currentRowHoaDon, 0);
             this.getDataSanPhamByMahd();
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-        if (evt.getClickCount() == 2) {
-            int row = tblSanPham.getSelectedRow();
-            this.currentMactsp = (int) tblSanPham.getValueAt(row, 0);
+        if (evt.getClickCount() == 1) {
+            int currentRowSanPham = tblSanPham.getSelectedRow();
+            this.currentMactsp = (int) tblSanPham.getValueAt(currentRowSanPham, 0);
             this.getDataImeiByMactsp();
         }
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
-    private void btnMoiFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiFormActionPerformed
-        clearForm();
-    }//GEN-LAST:event_btnMoiFormActionPerformed
-
     private void txtGhiChuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGhiChuKeyReleased
-        if(!txtGhiChu.getText().trim().isBlank() && !txtGhiChu.getText().trim().isEmpty()) {
+        if (!txtGhiChu.getText().trim().isBlank() && !txtGhiChu.getText().trim().isEmpty()) {
             btnTraHang.setEnabled(true);
+            lblCount.setText("Số ký tự: " + txtGhiChu.getText().trim().length() + "/30");
         } else {
+            lblCount.setText("");
             btnTraHang.setEnabled(false);
         }
     }//GEN-LAST:event_txtGhiChuKeyReleased
 
     private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
-        traHang();
+        if(validateForm()) {
+            doiHang();
+        }
     }//GEN-LAST:event_btnTraHangActionPerformed
 
     private void tblImeiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblImeiMouseClicked
-       txtGhiChu.setEditable(true);
+        txtGhiChu.setEnabled(true);
+        int row = tblImei.getSelectedRow();
+        if(row >= 0) {
+            currentMaImei = (int) tblImei.getValueAt(row, 0);
+            txtGhiChu.setEnabled(true);
+        }
     }//GEN-LAST:event_tblImeiMouseClicked
 
     private void btnTraHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTraHangMouseEntered
@@ -524,10 +543,16 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTraHangMouseExited
 
+    private void cboImeiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboImeiItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            
+        }
+    }//GEN-LAST:event_cboImeiItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMoiForm;
     private javax.swing.JButton btnTraHang;
+    private javax.swing.JComboBox<String> cboImei;
     private javax.swing.JComboBox<String> cboStatusGiaoHang;
     private javax.swing.JComboBox<String> cboStatusHoadon;
     private javax.swing.JButton jButton1;
@@ -538,12 +563,14 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTable tblImei;
     private javax.swing.JTable tblSanPham;
@@ -554,9 +581,12 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     int currentSelectedGiaoHang = 0;
     int currentMaHd = -1;
     int currentMactsp = -1;
-    int currentImei = -1;
+    int currentMaImei = -1;
+    int currentRowHoaDon = -1;
+    Date currentDate = new Date();
     HoaDonService hoaDonService = new HoaDonService();
     SanPhamService sanPhamService = new SanPhamService();
+    DefaultComboBoxModel<DalImeiModel> imeiModel;
     DefaultTableModel modelHoaDon;
     DefaultTableModel modelSanPham;
     DefaultTableModel modelImei;
@@ -568,7 +598,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     void init() {
         buttonRemoveHoaDon();
         getDataHoaDon();
-        filterHoaDon();
+        
     }
 
     void getDataHoaDon() {
@@ -577,9 +607,29 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             this.listHoaDon = this.hoaDonService.getAllHoaDon(term);
         } catch (Exception e) {
         }
+        filterHoaDon();
+    }
+
+    void clearForm() {
+        currentSelectedHoaDon = 0;
+        currentSelectedGiaoHang = 0;
+        currentMaHd = -1;
+        currentMactsp = -1;
+        currentMaImei = -1;
+        currentRowHoaDon = -1;
+        modelSanPham = (DefaultTableModel) tblSanPham.getModel();
+        modelSanPham.setRowCount(0);
+        modelImei = (DefaultTableModel) tblImei.getModel();
+        modelImei.setRowCount(0);
+        txtGhiChu.setText("");
+        txtGhiChu.setEnabled(false);
+        btnTraHang.setEnabled(false);
+        lblCount.setText("");
+        cboImei.removeAllItems();
     }
 
     void fillTableHoaDon(List<BusHoaDon> listShow) {
+        clearForm();
         modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
         modelHoaDon.setRowCount(0);
         if (listShow != null) {
@@ -603,8 +653,8 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                     hd.getMahd(),
                     hd.getKhachHangModel().getTenKH() + hd.getKhachHangModel().getSDT(),
                     hd.getNhanVienModel().getMaNV(),
-                    hd.getNgayTao(),
-                    hd.getNgayThanhToan(),
+                    DateService.toString(hd.getNgayTao(), "dd-MM-yyyy"),
+                    DateService.toString(hd.getNgayThanhToan(), "dd-MM-yyyy"),
                     hd.getSoLuong(),
                     UtilityService.toVnd(hd.getTongTien()),
                     hd.getDiaChiNhanHang(),
@@ -616,7 +666,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                 });
             });
         }
-        clearForm();
     }
 
     void getDataSanPhamByMahd() {
@@ -628,6 +677,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     }
 
     void fillTableSanPham() {
+        currentMactsp = -1;
         modelSanPham = (DefaultTableModel) tblSanPham.getModel();
         modelSanPham.setRowCount(0);
         this.listCart.forEach(sp -> {
@@ -643,16 +693,20 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
 
     void getDataImeiByMactsp() {
         try {
-            listImei = BusImeiService.getImeisByMactspAndMahd(currentMactsp, currentMaHd);
+            BusImeiService.fillComboImeiDoihang(imeiModel, cboImei, currentMactsp);
+            listImei = BusImeiService.getImeisByMactspAndMahd(currentMactsp, currentMaHd);  
             fillTableImei();
         } catch (Exception e) {
         }
-
     }
 
     void fillTableImei() {
         modelImei = (DefaultTableModel) tblImei.getModel();
         modelImei.setRowCount(0);
+        txtGhiChu.setText("");
+        lblCount.setText("");
+        btnTraHang.setEnabled(false);
+        currentMaImei = -1;
         this.listImei.forEach(imei -> {
             modelImei.addRow(new Object[]{
                 imei.getMaImei(),
@@ -660,25 +714,74 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             });
         });
     }
-
-    void traHang() {
-        if(txtGhiChu.getText().length() > 30) {
-            
-        } else {
-            MessageService.alert(this, "Vui lòng nhập lý do trả hàng tối thiểu 30 ký tự");
+    void doiHang() {
+        try {
+            DalImeiModel newImei = (DalImeiModel) cboImei.getSelectedItem();
+            String ghiChu = txtGhiChu.getText();
+            String commit = AuthService.user.getMaNV() + " " + DateService.toString(new Date(), "ss:mm:hh dd/MM/yyyy");
+            if(BusImeiService.updateGhiChuImei(currentMaImei, newImei.getMaImei(), ghiChu + "\n " + commit)) {
+                MessageService.alert(rootPane, "Đổi sản phẩm thành công");
+                getDataImeiByMactsp();
+            } else {
+                MessageService.alert(this, "Error");
+            }
+        } catch (Exception e) {
+            MessageService.alert(this, "Error");
         }
     }
-
-    void clearForm() {
-        currentMactsp = -1;
-        currentImei = -1;
-        txtSearchHD.setEditable(false);
-        tblImei.setRowSelectionInterval(0, 0);
-        tblSanPham.setRowSelectionInterval(0, 0);
-        modelImei = (DefaultTableModel) tblImei.getModel();
-        modelImei.setRowCount(0);
-        txtGhiChu.setText("");
-        btnTraHang.setEnabled(false);
+//    void traHang() {
+//        try {
+////            xóa hóa đơn chi tiết
+//            if (cTHoaDonService.updateByMaImei(currentMaImei)) {
+//                String ghiChu = txtGhiChu.getText();
+//                String commit = AuthService.user.getMaNV() + " " + DateService.toString(new Date(), "ss:mm:hh dd/MM/yyyy");
+////                cập nhật ghi chú imei máy trả hàng
+//                BusImeiService.updateGhiChuImei(currentMaImei, ghiChu + "\n " + commit);
+////                cập nhật lại tổng tiền hóa đơn
+//                float currentTongTien = (float) tblHoaDon.getValueAt(currentRowHoaDon, 6);
+//                float currentKhachThanhToan = (float) tblHoaDon.getValueAt(currentRowHoaDon, 11);
+//                float currentPhiShip = (float) tblHoaDon.getValueAt(currentRowHoaDon, 8);
+//                int rowSanPhamSelected = tblSanPham.getSelectedRow();
+//                float currentGiaSanPham = (float) tblSanPham.getValueAt(rowSanPhamSelected, 2);
+//                float tongTienCapNhat ;
+//                float tienKhachCapNhat;
+////                trường hợp khách thanh toán đủ
+//                tongTienCapNhat = currentTongTien - currentGiaSanPham;
+//                if((currentTongTien + currentPhiShip) == currentKhachThanhToan) {
+////                    trừ tổng tiền và trừ tiền khách thanh toán
+//                    tienKhachCapNhat = currentKhachThanhToan - currentGiaSanPham;
+//                } 
+////                trường hợp khách thanh toán chưa đủ nhưng trả hàng lại thừa tiền
+//                else if (currentTongTien - currentGiaSanPham + currentPhiShip < currentKhachThanhToan) {
+//                    tienKhachCapNhat = tongTienCapNhat;
+//                } 
+////                 trường hợp khách chưa thanh toán đủ và trả hàng vẫn còn thiếu                
+//                else {  
+//                    tienKhachCapNhat = currentKhachThanhToan;
+//                }
+//                hoaDonService.updateTongTienKhiTraHang(tongTienCapNhat, tienKhachCapNhat, currentMaHd);
+//                MessageService.alert(rootPane, "ok");
+//                getDataHoaDon();
+//                filterHoaDon();
+//            }
+//        } catch (Exception e) {
+//            MessageService.alert(this, "Error");
+//        }
+//    }
+    
+    public boolean validateForm() {
+        if (txtGhiChu.getText().length() < 30) {
+            MessageService.alert(this, "Vui lòng nhập lý do trả hàng tối thiểu 30 ký tự");
+           return false; 
+        }
+        Date ngayThanhToan = DateService.toDate(tblHoaDon.getValueAt(currentRowHoaDon, 4) + "", "dd-MM-yyyy");
+        long diff = currentDate.getTime() - ngayThanhToan.getTime();
+        int khoangNgay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        if(khoangNgay > 30) {
+            MessageService.alert(this, "Hóa đơn này đã hết hạn trả hàng");
+            return false;
+        }
+        return true;
     }
 
     void exportFileExcel() {
@@ -734,6 +837,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                 if (currentSelectedHoaDon == 3) {
                     if (MessageService.confirm(null, "Co muon khoi phuc hoa don ko")) {
                         hoaDonService.updateStatus(1, currentMahd);
+                        getDataHoaDon();
                         MessageService.alert(null, "back up  ok");
                     }
                 } else {

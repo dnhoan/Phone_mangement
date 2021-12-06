@@ -35,6 +35,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -102,23 +103,23 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         this.init();
     }
 
-   
     public void desginTable() {
         tblCart.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-       tblCart.getTableHeader().setOpaque(false);
+        tblCart.getTableHeader().setOpaque(false);
         tblCart.getTableHeader().setBackground(new Color(25, 29, 74));
         tblCart.getTableHeader().setForeground(Color.WHITE);
         tblHoaDon.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-     
-         tblHoaDon.getTableHeader().setOpaque(false);
+
+        tblHoaDon.getTableHeader().setOpaque(false);
         tblHoaDon.getTableHeader().setBackground(new Color(25, 29, 74));
-       tblHoaDon.getTableHeader().setForeground(Color.WHITE);
-       tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-     
-          tblSanPham.getTableHeader().setOpaque(false);
-           tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblHoaDon.getTableHeader().setForeground(Color.WHITE);
+        tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+
+        tblSanPham.getTableHeader().setOpaque(false);
+        tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPham.getTableHeader().setForeground(Color.WHITE);
     }
+
     static void setTienThanhToan() {
         lblTongTien.setText("Tổng tiền hàng: " + UtilityService.toVnd(totalMoney));
         lblKhachCanTra.setText("Khách cần trả: " + UtilityService.toVnd(totalMoney + phiShip));
@@ -373,6 +374,9 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHoaDonMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblHoaDonMouseEntered(evt);
+            }
         });
         jScrollPane10.setViewportView(tblHoaDon);
         if (tblHoaDon.getColumnModel().getColumnCount() > 0) {
@@ -516,7 +520,6 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         jLabel11.setText("Khách thanh toán");
 
         cboPhanLoai.setBackground(new java.awt.Color(153, 153, 153));
-        cboPhanLoai.setEditable(true);
         cboPhanLoai.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cboPhanLoai.setForeground(new java.awt.Color(25, 29, 74));
         cboPhanLoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(5, 10, 46), 2));
@@ -702,7 +705,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(39, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -926,7 +929,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void editKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editKhachHangActionPerformed
-        removeAllImei();
+//        removeAllImei();
 //        QuanLyKhachHang kh = new QuanLyKhachHang();
 //        MainThuNghiem.dashboardview.removeAll();
 //        MainThuNghiem.dashboardview.add(kh).setVisible(true);
@@ -972,7 +975,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 BusPhanLoaiSpModel busPhanLoaiSpModel = (BusPhanLoaiSpModel) cboPhanLoai.getSelectedItem();
                 getProductDataByPhanLoai(busPhanLoaiSpModel.getDalPhanLoaiSpModel().getMaPhanLoai());
                 fillTable(QuanLyBanHang.listSp);
-            } else {
+            } else if(!isFirst) {
                 cboSelected = cboPhanLoai.getSelectedIndex();
                 getDataHoaDon(cboSelected);
                 fillTableHoaDon(hoaDonModel, tblHoaDon, listHoaDon);
@@ -995,6 +998,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
     private void btnSwichDanhsachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwichDanhsachActionPerformed
         this.isDsHoaDon = !this.isDsHoaDon;
+        clearHoaDon();
         if (this.isDsHoaDon) {
             showDanhSachHoaDon();
         } else {
@@ -1026,7 +1030,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             } else {
                 this.insert(true);
             }
-           
+
         }
     }//GEN-LAST:event_btnLuuHoaDonActionPerformed
 
@@ -1078,6 +1082,10 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     private void rdoGiaoThanhCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoGiaoThanhCongActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdoGiaoThanhCongActionPerformed
+
+    private void tblHoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblHoaDonMouseEntered
     static void getPhiShip() {
         if (!txtTienShip.getText().isEmpty()) {
             try {
@@ -1110,7 +1118,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         buttonRemove();
         buttonRemoveHoaDon();
         AutoCompleteDecorator.decorate(cboKhachHang);
-       
+
         btnExportexcel.hide();
         jpnHoaDOn.hide();
         setTienThanhToan();
@@ -1155,6 +1163,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         isFirst = false;
         fillTable(QuanLyBanHang.listSp);
     }
+
     void getProductDataByPhanLoai(int maPhanLoai) {
         String keyWord = txtSearchBox.getText();
         try {
@@ -1163,6 +1172,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             MessageService.alert(this, "Lỗi lấy phân loại sản phẩm");
         }
     }
+
     void getProductData() {
         String keyWord = txtSearchBox.getText();
         try {
@@ -1281,10 +1291,11 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         }
     }
     Date currentDate = new Date();
+
     void update(boolean isSave) {
         try {
             DalHoaDon dalHoaDon = this.getFormHoaDon();
-            if(!isSave) {
+            if (!isSave) {
                 dalHoaDon.setNgayThanhToan(currentDate);
                 dalHoaDon.setTienKhachTra(phiShip + totalMoney);
             } else {
@@ -1324,20 +1335,16 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         dalChiTietHoaDon.setGiaBanSauSale(ca.getGia());
                         try {
                             cTHoaDonService.insert(dalChiTietHoaDon);
-                            BusImeiService.updateStatusSell(imei.getMaImei(), 0);
-//                            0: Đã bán
-//                            1: Chưa bán
                         } catch (Exception e) {
                             System.out.println("error insert" + ca.getMactsp());
                         }
                     }
-                    BusCTSanPhamModel sp = QuanLyBanHang.listSp.stream().filter(s -> s.getMaCTSP() == ca.getMactsp()).toList().get(0);
-//                    cập nhật lại stock của ctsanpham
-                    sanPhamService.updateStock(ca.getMactsp(), sp.getTonKho());
+//                    BusCTSanPhamModel sp = QuanLyBanHang.listSp.stream().filter(s -> s.getMaCTSP() == ca.getMactsp()).toList().get(0);
+//    //                    cập nhật lại stock của ctsanpham
+//                    sanPhamService.updateStock(ca.getMactsp(), sp.getTonKho());
                 });
                 this.clearHoaDon();
-//                this.getDataHoaDon();
-fillButtonHoaDonTreo();
+                fillButtonHoaDonTreo();
                 MessageService.alert(this, "Thêm hóa đơn thành công");
             }
         } catch (Exception e) {
@@ -1374,7 +1381,7 @@ fillButtonHoaDonTreo();
         } else {
             dalHoaDon.setTrangThaiGiaoHang(1);
         }
-        if(isEditting) {
+        if (isEditting) {
             dalHoaDon.setMaHD(currentHoaDonSelected.getMahd());
             dalHoaDon.setNgayTao(currentHoaDonSelected.getNgayTao());
         }
@@ -1418,7 +1425,8 @@ fillButtonHoaDonTreo();
 
     void setFormHoaDon(int maHd) {
         isEditting = true;
-        removeAllImei();
+        clearHoaDon();
+//        removeAllImei();
         try {
 //            select by mahd
             currentHoaDonSelected = hoaDonService.selectByMahd(maHd, 1);
@@ -1451,8 +1459,8 @@ fillButtonHoaDonTreo();
             phiShip = currentHoaDonSelected.getPhiVanChuyen();
             khachThanhToan = currentHoaDonSelected.getTienKhachTra();
             totalMoney = currentHoaDonSelected.getTongTien();
-            txtTienShip.setText(currentHoaDonSelected.getPhiVanChuyen() + "");
-            txtKhachThanhToan.setText(currentHoaDonSelected.getTienKhachTra() + "");
+            txtTienShip.setText(new BigDecimal(currentHoaDonSelected.getPhiVanChuyen()) + "");
+            txtKhachThanhToan.setText(new BigDecimal(currentHoaDonSelected.getTienKhachTra()) + "");
 //            getPhiShip();
             setTienThanhToan();
         } catch (Exception e) {
@@ -1555,7 +1563,7 @@ fillButtonHoaDonTreo();
         currentHoaDonSelected = new BusHoaDon();
         currentMahd = -1;
         isEditting = false;
-        removeAllImei();
+//        removeAllImei();
         cboKhachHang.getModel().setSelectedItem(null);
         txtDiahChiKh.setText("");
         txtGhiChu.setText("");

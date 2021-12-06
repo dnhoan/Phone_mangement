@@ -43,7 +43,16 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
         } catch (SQLException e) {
         }
     }
-
+    public boolean updateDoiHang(int currentImei, int newImei, String ghiChu) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE_GHICHU, ghiChu, currentImei);
+            JDBCHelper.executeUpdate(UPDATE_IMEI_IN_CTHD, newImei, currentImei);
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     public void updateStatusSellByMaHD(Integer statusSell, Integer mahd) {
 //        1: Chưa bán
 //        0: Đã bán

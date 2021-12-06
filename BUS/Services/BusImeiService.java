@@ -153,7 +153,15 @@ public class BusImeiService {
         return false;
     }
     
-    
+    public static boolean updateGhiChuImei(int currentImei, int newImei, String ghiChu) {
+        try {
+            dalImeiService.updateDoiHang(currentImei, newImei, ghiChu);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
     public static void fillcboImeiBymactsp(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo, int mactsp) {
         if (QuanLyBanHang.listCart.size() > 0) {
@@ -181,7 +189,14 @@ public class BusImeiService {
         }
         fillComboImei(model, cbo, listDalImei);
     }
-
+    public static void fillComboImeiDoihang(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo, int mactsp) {
+        try {
+            listDalImei = dalImeiService.selectImeisNotSell(mactsp);
+            fillComboImei(model, cbo, listDalImei);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void fillComboImei(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo, List<DalImeiModel> list) {
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();

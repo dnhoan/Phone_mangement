@@ -23,7 +23,9 @@ import java.util.List;
  * @author ADMIN
  */
 public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>, IHoaDonService {
+
     CTHoaDonService cTHoaDonService = new CTHoaDonService();
+
     @Override
     public void insert(DalHoaDon entity) {
         try {
@@ -64,6 +66,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
             e.printStackTrace();
         }
     }
+
     public void updateTongTien(float tongTien, int mahd) {
         try {
             JDBCHelper.executeQuery(UPDATE_TONGTIEN, mahd);
@@ -71,7 +74,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void delete(Integer id) {
 //        try {
@@ -80,11 +83,21 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
 //            e.printStackTrace();
 //        }
     }
-    
+
+    public boolean updateTongTienKhiTraHang(float tongTien, float khachThanhToan, int mahd) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE_TONGTIEN_KHACHTHANHTOAN, tongTien, khachThanhToan, mahd);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public void updateStatus(Integer status, Integer id) {
         try {
-            JDBCHelper.executeUpdate(UPDATE_STATUS, status, id);
             cTHoaDonService.updateStatus(status, id);
+            JDBCHelper.executeUpdate(UPDATE_STATUS, status, id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,28 +115,36 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     }
 
     public List<BusHoaDon> selectAll1(String term, int filter) {
-        String sql;
-        switch(filter) {
-            case 0:
-                sql = SELECT_ALL1;
-                break;
-            case 1: 
-                sql = SELECT_THANH_TOAN;
-                break;
-            case 2: 
-                sql = SELECT_NOT_THANH_TOAN;
-                break;
-            default: sql = SELECT_ALL1;
-        }
-        List<BusHoaDon> list = this.selectSql(sql,filter == 3 ? 0 : 1, "%" + term + "%","%" + term + "%","%" + term + "%", "%" + term + "%");
-        if (list == null) {
+        System.out.println(filter);
+        try {
+            String sql;
+            switch (filter) {
+                case 0:
+                    sql = SELECT_ALL1;
+                    break;
+                case 1:
+                    sql = SELECT_THANH_TOAN;
+                    break;
+                case 2:
+                    sql = SELECT_NOT_THANH_TOAN;
+                    break;
+                default:
+                    sql = SELECT_ALL1;
+            }
+
+            List<BusHoaDon> list = this.selectSql(sql, filter == 3 ? 0 : 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+            if (list == null) {
+                return null;
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-        return list;
     }
 
     public List<BusHoaDon> getAllHoaDon(String term) {
-        List<BusHoaDon> list = this.selectSql(SELECT_ALL, "%" + term + "%","%" + term + "%","%" + term + "%", "%" + term + "%" );
+        List<BusHoaDon> list = this.selectSql(SELECT_ALL, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
         if (list.size() > 0) {
             return list;
         }
@@ -166,7 +187,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         busHoaDon.setGhiChu(rs.getString("GhiChu"));
         busHoaDon.setPhiVanChuyen(rs.getFloat("PhiVanChuyen"));
         busHoaDon.setTrangThaiGiaoHang(rs.getInt("TrangThaiGiaoHang"));
-        busHoaDon.setTrangThai(rs.getBoolean("TrangThai"));
+//        busHoaDon.setTrangThai(rs.getBoolean("TrangThai"));
         return busHoaDon;
     }
 
@@ -218,7 +239,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     @Override
     public List<DalHoaDon> selectAll() {
 //        if (this.selectSql(SELECT_ALL) == null) {
-            return null;
+        return null;
 //        }
 //        return this.selectSql(SELECT_ALL);
     }

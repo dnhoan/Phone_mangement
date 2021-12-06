@@ -51,6 +51,17 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
         } catch (SQLException e) {
         }
     }
+    public boolean updateByMaImei(int maImei) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE_BY_MAIMEI,
+                    maImei
+            );
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     @Override
     public void delete(Integer idHoaDon) {
@@ -58,7 +69,7 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
     public void updateStatus(Integer status, Integer idHoaDon) {
         try {
             JDBCHelper.executeUpdate(UPDATE_STATUS, status, idHoaDon);
-            BusImeiService.updateStatusSellByMahd(status == 0 ? 1 : 0  , idHoaDon);
+//            BusImeiService.updateStatusSellByMahd(status == 0 ? 1 : 0  , idHoaDon);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -300,4 +300,35 @@ CREATE TABLE PhanLoai
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaPhanLoai)
 )
+-- trigger c?p nh?t t?n kho
+create trigger trg_CapNhatHoaDon on HoaDon after update as
+begin
+	update CTSANPHAM set TonKho = SoLuongNhap - stock.sl from (select count(mactsp) as sl, MACTSP from inserted inner join ChiTietHoaDon 
+	on ChiTietHoaDon.MaHD = inserted.MaHD inner join IMEI on IMEI.MaIMEI = ChiTietHoaDon.MaImei
+	where ChiTietHoaDon.TrangThai = 1 and IMEI.TRANGTHAI = 1
+	group by MACTSP ) as Stock where CTSANPHAM.MACTSP = Stock.MACTSP
 
+	update CTSANPHAM set TonKho = TonKho + stock.sl from (select count(mactsp) as sl, MACTSP from inserted inner join ChiTietHoaDon 
+	on ChiTietHoaDon.MaHD = inserted.MaHD inner join IMEI on IMEI.MaIMEI = ChiTietHoaDon.MaImei
+	where ChiTietHoaDon.TrangThai = 0 and IMEI.TRANGTHAI = 1
+	group by MACTSP ) as Stock where CTSANPHAM.MACTSP = Stock.MACTSP
+end
+-- c?p nh?t tr?ng thái bán trong imei khi insert vào chi ti?t hóa ??n
+create trigger trg_updateTrangThaiBanTo0 on ChiTietHoaDon after insert as
+begin
+	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei
+end
+
+drop trigger trg_updateTrangThaiBanTo1
+-- c?p nh?t tr?ng thái trong imei khi tr?ng thái ? chi ti?t hóa b? xóa
+update ChiTietHoaDon set MaImei = ? where MaImei = ?
+create trigger trg_updateTrangThaiBanTo1 on ChiTietHoaDon after update as
+begin
+	update IMEI set TrangThaiBan = 1 from IMEI join deleted on deleted.MaImei = IMEI.MaImei where deleted.trangThai = 1
+	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei where inserted.trangThai = 1
+end
+select count(mactsp) from Imei where TrangThaiBan = 0 and MACTSP = 1
+
+update CTSANPHAM set TonKho = SoLuongNhap - (select count(mactsp) from Imei join inserted on inserted.MaImei = IMEI.MaIMEI 
+	where TrangThaiBan = 0 and MACTSP = IMEI.MaCTSP and inserted.TrangThai = 1 and Imei.TrangThai = 1)
+end
