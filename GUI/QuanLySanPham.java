@@ -1929,16 +1929,16 @@ public void changeColor(JButton hover, Color rand) {
         sp.setMaSp(busSanPham.getMasp());
 
         BusHeDieuHanhModel busHeDieuHanhModel = (BusHeDieuHanhModel) cboHeDieuHanh.getSelectedItem();
-        sp.setMaHeDieuHanh(Integer.parseInt(busHeDieuHanhModel.getMaHeDieuHanh()));
+        sp.setMaHeDieuHanh(busHeDieuHanhModel.getMaHeDieuHanh());
 
         BusManHinhModel busManHinhModel = (BusManHinhModel) cboManHinh.getSelectedItem();
-        sp.setMaManHinh(Integer.parseInt(busManHinhModel.getMaManHinh()));
+        sp.setMaManHinh(busManHinhModel.getMaManHinh());
 
         BusRamModel busRamModel = (BusRamModel) cboRam.getSelectedItem();
         sp.setMaRam(busRamModel.getMaRam());
 
         BusPinModel busPinModel = (BusPinModel) cboPin.getSelectedItem();
-        sp.setMaLoaiPin(Integer.parseInt(busPinModel.getMaLoaiPin()));
+        sp.setMaLoaiPin(busPinModel.getMaLoaiPin());
 
         BusRomModel busRomModel = (BusRomModel) cboRom.getSelectedItem();
         sp.setMaRom(busRomModel.getMaRom());
