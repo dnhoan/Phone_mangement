@@ -40,11 +40,11 @@ public class QuanLyThongKeCTL {
         if (listItem != null) {
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
             for (soluongbanmodel x : listItem) {
-                dataset.addValue(x.getSoluongban(), "số lượng", "Tháng: " + x.getThang());
+                dataset.addValue(x.getSoluongban(), "số lượng", "Ngày: " + x.getThang());
             }
 
-            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê số lượng hàng bán được theo tháng".toUpperCase(),
-                     "tháng",
+            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê số lượng hàng bán được trong tháng".toUpperCase(),
+                     "Ngày",
                     "Số lượng", dataset,
                     PlotOrientation.VERTICAL, false, true, false);
             ChartPanel chartPanel = new ChartPanel(baChart);
@@ -63,11 +63,11 @@ public class QuanLyThongKeCTL {
         if (listItem != null) {
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
             for (doanhthuModel x : listItem) {
-                dataset.addValue(x.getDoanhthu(), "Doanh thu", "Tháng: " + x.getThang());
+                dataset.addValue(x.getDoanhthu(), "Doanh thu", "Ngày: " + x.getThang());
             }
 
-            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu theo tháng".toUpperCase(),
-                     "tháng",
+            JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu trong tháng".toUpperCase(),
+                     "Ngày",
                     "Doanh thu", dataset,
                     PlotOrientation.VERTICAL, false, true, false);
             ChartPanel chartPanel = new ChartPanel(baChart);

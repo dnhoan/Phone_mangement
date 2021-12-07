@@ -23,11 +23,12 @@ public class ThongKeDaoImpl implements ThongKeDao {
 
     @Override
     public List<soluongbanmodel> GetSLBan() {
-        
+
         Connection cons = help.ketnoi();
-        String sql = "select MONTH(HoaDon.NgayThanhToan) as thang, count(ChiTietHoaDon.MaImei) as soluong \n"
-                + "                from HoaDon, ChiTietHoaDon where HoaDon.MaHD = ChiTietHoaDon.MaHD\n"
-                + "                GROUP BY MONTH(HoaDon.NgayThanhToan)";
+        String sql = "select NgayThanhToan, count(ChiTietHoaDon.MaImei) as soluong\n"
+                + "from HoaDon, ChiTietHoaDon\n"
+                + "where HoaDon.MaHD = ChiTietHoaDon.MaHD and MONTH(HoaDon.NgayThanhToan) = month( GETDATE())\n"
+                + "GROUP BY MONTH(HoaDon.NgayThanhToan), NgayThanhToan";
         List<soluongbanmodel> list = new ArrayList<>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
@@ -50,9 +51,9 @@ public class ThongKeDaoImpl implements ThongKeDao {
     @Override
     public List<doanhthuModel> GetDoanhThu() {
         Connection cons = help.ketnoi();
-        String sql = "select MONTH(HoaDon.NgayThanhToan) as thang, sum(HoaDon.TongTien) as tongtien \n"
-                + "                from HoaDon\n"
-                + "                GROUP BY MONTH(HoaDon.NgayThanhToan)";
+        String sql = "select NgayThanhToan , sum(HoaDon.TongTien) as tongtien\n"
+                + "from HoaDon where MONTH(HoaDon.NgayThanhToan) = MONTH(GETDATE())\n"
+                + "GROUP BY MONTH(HoaDon.NgayThanhToan), NgayThanhToan";
         List<doanhthuModel> list = new ArrayList<>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
