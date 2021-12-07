@@ -64,17 +64,17 @@ public interface IHoaDonService {
             + "            Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
             + "                KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen, TrangThaiGiaoHang   \n"
             + "            order by HoaDon.NgayTao desc";
-    String SELECT_BY_MAHD = "SELECT HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu, \n"
-            + "             KhachHang.MaKH, KhachHang.HoTen as TenKhach, KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen as TenNhanVien, PhiVanChuyen,TrangThaiGiaoHang, \n"
-            + "             COUNT(ChiTietHoaDon.MAHD) AS SoLuong\n"
-            + "             FROM HoaDon JOIN ChiTietHoaDon  \n"
-            + "                 ON ChiTietHoaDon.MaHD = HoaDon.MaHD join KhachHang \n"
-            + "                 on KhachHang.MaKH = HoaDon.MaKH join NhanVien  \n"
-            + "                 on NhanVien.MaNV = HoaDon.MaNV \n"
-            + "             where HoaDon.TrangThai = ?  and HoaDon.MaHD = ? \n"
-            + "             Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,TrangThaiGiaoHang \n"
-            + "                 KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen,PhiVanChuyen  \n"
-            + "             order by HoaDon.NgayThanhToan desc";
+    String SELECT_BY_MAHD = "SELECT HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n" +
+"                          KhachHang.MaKH, KhachHang.HoTen as TenKhach, KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen as TenNhanVien, PhiVanChuyen,TrangThaiGiaoHang\n" +
+"						  ,  \n" +
+"                          COUNT(ChiTietHoaDon.MAHD) AS SoLuong \n" +
+"                          FROM HoaDon JOIN ChiTietHoaDon ON ChiTietHoaDon.MaHD = HoaDon.MaHD join KhachHang  \n" +
+"                              on KhachHang.MaKH = HoaDon.MaKH join NhanVien   \n" +
+"                              on NhanVien.MaNV = HoaDon.MaNV  \n" +
+"                          where HoaDon.TrangThai = ? and HoaDon.MaHD = ?  \n" +
+"                          Group by  HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n" +
+"                          KhachHang.MaKH, KhachHang.HoTen, KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen , PhiVanChuyen,TrangThaiGiaoHang\n" +
+"                          order by HoaDon.NgayThanhToan desc";
 //    String SELECT_HOA_DON_IN_DATE_AND_TREO= "select * from HoaDon where ((DAY(HoaDon.NgayTao) = DAY(GETDATE()) and Month(HoaDon.NgayTao) = Month(GETDATE()) and Year(HoaDon.NgayTao) = Year(GETDATE())) or TongTien != TienKhachTra) and TrangThai = 1 ";
     String SELECT_HOA_DON_TREO = "select * from HoaDon where  TienKhachTra !=  TongTien + PhiVanChuyen and TrangThai = 1 order by mahd desc";
 }

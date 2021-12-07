@@ -225,10 +225,16 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     }
 
     public BusHoaDon selectByMahd(Integer mahd, int isRemoved) {
-        if (this.selectSql(SELECT_BY_MAHD, isRemoved, mahd) == null) {
+        try {
+//            if (this.selectSql(SELECT_BY_MAHD, isRemoved, mahd).isEmpty()) {
+//                return null;
+//            }
+            return this.selectSql(SELECT_BY_MAHD, isRemoved, mahd).get(0);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-        return this.selectSql(SELECT_BY_MAHD, isRemoved, mahd).get(0);
     }
 
     @Override

@@ -204,14 +204,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton1MouseExited(evt);
-            }
-        });
 
         tblImei.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         tblImei.setForeground(new java.awt.Color(25, 29, 74));
@@ -265,14 +257,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         btnTraHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnTraHang.setBorderPainted(false);
         btnTraHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnTraHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnTraHangMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnTraHangMouseExited(evt);
-            }
-        });
         btnTraHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTraHangActionPerformed(evt);
@@ -531,12 +515,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtGhiChuKeyReleased
 
-    private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
-        if(validateForm()) {
-            doiHang();
-        }
-    }//GEN-LAST:event_btnTraHangActionPerformed
-
     private void tblImeiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblImeiMouseClicked
         txtGhiChu.setEnabled(true);
         int row = tblImei.getSelectedRow();
@@ -546,19 +524,17 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tblImeiMouseClicked
 
-    private void btnTraHangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTraHangMouseEntered
-      changeColor(btnTraHang, new Color(102, 0, 102));
-    }//GEN-LAST:event_btnTraHangMouseEntered
-
-    private void btnTraHangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTraHangMouseExited
-          changeColor(btnTraHang, new Color(25, 29, 74));
-    }//GEN-LAST:event_btnTraHangMouseExited
-
     private void cboImeiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboImeiItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             
         }
     }//GEN-LAST:event_cboImeiItemStateChanged
+
+    private void btnTraHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraHangActionPerformed
+        if(validateForm()) {
+            doiHang();
+        }
+    }//GEN-LAST:event_btnTraHangActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

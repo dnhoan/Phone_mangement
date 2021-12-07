@@ -208,14 +208,6 @@ public void changeColor(JButton hover, Color rand) {
         btnThanhToan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnThanhToan.setBorderPainted(false);
         btnThanhToan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnThanhToanMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnThanhToanMouseExited(evt);
-            }
-        });
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToanActionPerformed(evt);
@@ -260,14 +252,6 @@ public void changeColor(JButton hover, Color rand) {
         editKhachHang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 20));
         editKhachHang.setBorderPainted(false);
         editKhachHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        editKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                editKhachHangMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                editKhachHangMouseExited(evt);
-            }
-        });
         editKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editKhachHangActionPerformed(evt);
@@ -482,14 +466,6 @@ public void changeColor(JButton hover, Color rand) {
         btnExportexcel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnExportexcel.setBorderPainted(false);
         btnExportexcel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExportexcel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnExportexcelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnExportexcelMouseExited(evt);
-            }
-        });
 
         btnAscen.setBackground(new java.awt.Color(25, 29, 74));
         btnAscen.setForeground(new java.awt.Color(25, 29, 74));
@@ -497,14 +473,6 @@ public void changeColor(JButton hover, Color rand) {
         btnAscen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnAscen.setBorderPainted(false);
         btnAscen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAscen.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAscenMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAscenMouseExited(evt);
-            }
-        });
         btnAscen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAscenActionPerformed(evt);
@@ -533,14 +501,6 @@ public void changeColor(JButton hover, Color rand) {
         btnNewReceip2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnNewReceip2.setBorderPainted(false);
         btnNewReceip2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNewReceip2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNewReceip2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNewReceip2MouseExited(evt);
-            }
-        });
         btnNewReceip2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewReceip2ActionPerformed(evt);
@@ -640,14 +600,6 @@ public void changeColor(JButton hover, Color rand) {
         btnSwichDanhsach.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 20));
         btnSwichDanhsach.setBorderPainted(false);
         btnSwichDanhsach.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSwichDanhsach.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSwichDanhsachMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSwichDanhsachMouseExited(evt);
-            }
-        });
         btnSwichDanhsach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSwichDanhsachActionPerformed(evt);
@@ -659,14 +611,6 @@ public void changeColor(JButton hover, Color rand) {
         btnDesc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnDesc.setBorderPainted(false);
         btnDesc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDesc.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDescMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDescMouseExited(evt);
-            }
-        });
         btnDesc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDescActionPerformed(evt);
@@ -688,14 +632,6 @@ public void changeColor(JButton hover, Color rand) {
         btnLuuHoaDon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnLuuHoaDon.setBorderPainted(false);
         btnLuuHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLuuHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLuuHoaDonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnLuuHoaDonMouseExited(evt);
-            }
-        });
         btnLuuHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLuuHoaDonActionPerformed(evt);
@@ -740,14 +676,6 @@ public void changeColor(JButton hover, Color rand) {
         btnInHoaDon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnInHoaDon.setBorderPainted(false);
         btnInHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnInHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnInHoaDonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnInHoaDonMouseExited(evt);
-            }
-        });
         btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInHoaDonActionPerformed(evt);
@@ -1036,7 +964,7 @@ public void changeColor(JButton hover, Color rand) {
     }//GEN-LAST:event_btnAscenActionPerformed
 
     private void btnNewReceip2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewReceip2ActionPerformed
-        this.clearHoaDon();
+        this.clearHoaDon(false);
     }//GEN-LAST:event_btnNewReceip2ActionPerformed
 
     private void txtNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNhanVienActionPerformed
@@ -1072,7 +1000,7 @@ public void changeColor(JButton hover, Color rand) {
 
     private void btnSwichDanhsachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwichDanhsachActionPerformed
         this.isDsHoaDon = !this.isDsHoaDon;
-        clearHoaDon();
+        clearHoaDon(false);
         if (this.isDsHoaDon) {
             showDanhSachHoaDon();
         } else {
@@ -1087,6 +1015,7 @@ public void changeColor(JButton hover, Color rand) {
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         rowHoaDon = tblHoaDon.getSelectedRow();
         currentMahd = (int) tblHoaDon.getValueAt(rowHoaDon, 0);
+        System.out.println("curent hoa don" + currentMahd);
         setFormHoaDon(currentMahd);
         isEditting = true;
     }//GEN-LAST:event_tblHoaDonMouseClicked
@@ -1150,7 +1079,22 @@ public void changeColor(JButton hover, Color rand) {
     }//GEN-LAST:event_txtNgayGiaoHangKeyReleased
 
     private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
-       
+        int rowHOaDon = tblHoaDon.getSelectedRow();
+        currentMahd = (int) tblHoaDon.getValueAt(rowHOaDon, 0);
+        if(currentMahd >= 0) {
+            System.out.println("mahd" +  currentMahd);
+            if (MessageService.confirm(this, "Bạn có muốn in hóa đơn không")) {
+                try {
+                    System.out.println("run");
+                    currentHoaDonSelected = hoaDonService.selectByMahd(currentMahd, 1);
+                    System.out.println("ten khach hang " + currentHoaDonSelected.getTongTien());
+                    FirstPdf.exportFile(currentHoaDonSelected, listCart);
+                    MessageService.alert(this, "In thành công");
+                } catch (Exception e) {
+                    MessageService.alert(this, "Lỗi in hóa đơn");
+                }
+            }
+        }
     }//GEN-LAST:event_btnInHoaDonActionPerformed
 
     private void rdoGiaoThanhCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoGiaoThanhCongActionPerformed
@@ -1376,7 +1320,7 @@ public void changeColor(JButton hover, Color rand) {
                 dalHoaDon.setNgayThanhToan(currentHoaDonSelected.getNgayThanhToan());
             }
             hoaDonService.update(dalHoaDon);
-            clearHoaDon();
+            clearHoaDon(false);
             fillButtonHoaDonTreo();
             MessageService.alert(rootPane, "ok");
         } catch (Exception e) {
@@ -1417,7 +1361,7 @@ public void changeColor(JButton hover, Color rand) {
 //    //                    cập nhật lại stock của ctsanpham
 //                    sanPhamService.updateStock(ca.getMactsp(), sp.getTonKho());
                 });
-                this.clearHoaDon();
+                this.clearHoaDon(false);
                 fillButtonHoaDonTreo();
                 MessageService.alert(this, "Thêm hóa đơn thành công");
             }
@@ -1499,7 +1443,7 @@ public void changeColor(JButton hover, Color rand) {
 
     void setFormHoaDon(int maHd) {
         isEditting = true;
-        clearHoaDon();
+        clearHoaDon(true);
 //        removeAllImei();
         try {
 //            select by mahd
@@ -1600,7 +1544,7 @@ public void changeColor(JButton hover, Color rand) {
                     }
                 }
                 fillButtonHoaDonTreo();
-                clearHoaDon();
+                clearHoaDon(false);
                 getDataHoaDon(cboSelected);
                 fillTableHoaDon(hoaDonModel, tblHoaDon, listHoaDon);
             }
@@ -1633,15 +1577,12 @@ public void changeColor(JButton hover, Color rand) {
         listCart.clear();
     }
 
-    void clearHoaDon() {
-        currentHoaDonSelected = new BusHoaDon();
-        currentMahd = -1;
+    void clearHoaDon(boolean isNotFillHoaDon) {
         isEditting = false;
 //        removeAllImei();
         cboKhachHang.getModel().setSelectedItem(null);
         txtDiahChiKh.setText("");
         txtGhiChu.setText("");
-        currentMahd = -1;
         txtNgayGiaoHang.setDate(currentDate);
         txtKhachThanhToan.setText("");
         txtTienShip.setText("");
@@ -1651,8 +1592,12 @@ public void changeColor(JButton hover, Color rand) {
         setTienThanhToan();
         QuanLyBanHang.listCart.clear();
         QuanLyBanHang.fillToCart(cartModel, tblCart);
-        this.getProductData();
-        fillTable(QuanLyBanHang.listSp);
+        if(isNotFillHoaDon) {
+            currentHoaDonSelected = new BusHoaDon();
+            currentMahd = -1;
+            this.getProductData();
+            fillTable(QuanLyBanHang.listSp);
+        }
     }
 
     public void addTableHeader() {
