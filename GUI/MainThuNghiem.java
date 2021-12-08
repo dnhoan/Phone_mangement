@@ -123,16 +123,21 @@ public class MainThuNghiem extends javax.swing.JFrame {
             MessageService.alert(this, "Vui lòng đăng nhập!");
         }
     }
-     public void openThongKe() {
-        if (AuthService.isLogin()) {
-            
+     public boolean openThongKe() {
+           if (!AuthService.isLogin()) {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+            return false;
+        } else if (!AuthService.isManager()) {
+            MessageService.alert(this, "Bạn không có quyền sử dụng chức năng này!");
+            return false;
+        }
+       else if (AuthService.isLogin()) {
             QlthongKe tk = new QlthongKe();
             dashboardview.removeAll();
             dashboardview.add(tk).setVisible(true);
-        } else {
-            MessageService.alert(this, "Vui lòng đăng nhập!");
-        }
-    }
+        } 
+           return true;
+     }
     public void openHoaDon(){
         if (AuthService.isLogin()) {
             QuanLyHoaDon hd = new QuanLyHoaDon();
@@ -1203,7 +1208,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnKhachHangMouseExited
 
     private void jpnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnThongKeMouseClicked
-        // TODO add your handling code here:
+        openThongKe();
     }//GEN-LAST:event_jpnThongKeMouseClicked
 
     private void jpnThongKeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnThongKeMouseEntered
