@@ -258,18 +258,18 @@ public void changeColor(JButton hover, Color rand) {
         });
         jScrollPane7.setViewportView(tblSanPham);
         if (tblSanPham.getColumnModel().getColumnCount() > 0) {
-            tblSanPham.getColumnModel().getColumn(0).setMinWidth(60);
-            tblSanPham.getColumnModel().getColumn(0).setMaxWidth(60);
+            tblSanPham.getColumnModel().getColumn(0).setMinWidth(0);
+            tblSanPham.getColumnModel().getColumn(0).setMaxWidth(0);
             tblSanPham.getColumnModel().getColumn(1).setMinWidth(300);
             tblSanPham.getColumnModel().getColumn(1).setMaxWidth(300);
             tblSanPham.getColumnModel().getColumn(2).setMinWidth(80);
             tblSanPham.getColumnModel().getColumn(2).setMaxWidth(80);
-            tblSanPham.getColumnModel().getColumn(3).setMinWidth(60);
-            tblSanPham.getColumnModel().getColumn(3).setMaxWidth(60);
-            tblSanPham.getColumnModel().getColumn(4).setMinWidth(60);
-            tblSanPham.getColumnModel().getColumn(4).setMaxWidth(60);
-            tblSanPham.getColumnModel().getColumn(5).setMinWidth(60);
-            tblSanPham.getColumnModel().getColumn(5).setMaxWidth(60);
+            tblSanPham.getColumnModel().getColumn(3).setMinWidth(80);
+            tblSanPham.getColumnModel().getColumn(3).setMaxWidth(80);
+            tblSanPham.getColumnModel().getColumn(4).setMinWidth(80);
+            tblSanPham.getColumnModel().getColumn(4).setMaxWidth(80);
+            tblSanPham.getColumnModel().getColumn(5).setMinWidth(80);
+            tblSanPham.getColumnModel().getColumn(5).setMaxWidth(80);
             tblSanPham.getColumnModel().getColumn(6).setMinWidth(80);
             tblSanPham.getColumnModel().getColumn(6).setMaxWidth(80);
             tblSanPham.getColumnModel().getColumn(7).setMinWidth(40);
@@ -1231,6 +1231,10 @@ public void changeColor(JButton hover, Color rand) {
             }
         });
         jScrollPane1.setViewportView(tblRecycle);
+        if (tblRecycle.getColumnModel().getColumnCount() > 0) {
+            tblRecycle.getColumnModel().getColumn(0).setMinWidth(0);
+            tblRecycle.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 102, 1744, 715));
 

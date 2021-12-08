@@ -216,6 +216,10 @@ public void desginTable() {
             }
         });
         jScrollPane1.setViewportView(tblDSD);
+        if (tblDSD.getColumnModel().getColumnCount() > 0) {
+            tblDSD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDSD.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         tabs.addTab("Đang sử dụng", jScrollPane1);
 
@@ -250,6 +254,10 @@ public void desginTable() {
             }
         });
         jScrollPane2.setViewportView(tblNSD);
+        if (tblNSD.getColumnModel().getColumnCount() > 0) {
+            tblNSD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNSD.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         tabs.addTab("Ngừng sử dụng", jScrollPane2);
 

@@ -288,8 +288,8 @@ public class DiemDanh extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbllichsu);
         if (tbllichsu.getColumnModel().getColumnCount() > 0) {
-            tbllichsu.getColumnModel().getColumn(0).setMinWidth(80);
-            tbllichsu.getColumnModel().getColumn(0).setMaxWidth(80);
+            tbllichsu.getColumnModel().getColumn(0).setMinWidth(0);
+            tbllichsu.getColumnModel().getColumn(0).setMaxWidth(0);
             tbllichsu.getColumnModel().getColumn(1).setMinWidth(80);
             tbllichsu.getColumnModel().getColumn(1).setMaxWidth(80);
             tbllichsu.getColumnModel().getColumn(2).setMinWidth(90);
@@ -319,7 +319,7 @@ public class DiemDanh extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

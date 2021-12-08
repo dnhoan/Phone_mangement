@@ -136,6 +136,10 @@ public class QLMauSac extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblKD);
+        if (tblKD.getColumnModel().getColumnCount() > 0) {
+            tblKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblKD.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -197,6 +201,10 @@ public class QLMauSac extends javax.swing.JFrame {
             }
         });
         j.setViewportView(tblNKD);
+        if (tblNKD.getColumnModel().getColumnCount() > 0) {
+            tblNKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNKD.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

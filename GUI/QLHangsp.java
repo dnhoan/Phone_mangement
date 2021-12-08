@@ -126,6 +126,10 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
             }
         });
         jScrollPane1.setViewportView(tblHang);
+        if (tblHang.getColumnModel().getColumnCount() > 0) {
+            tblHang.getColumnModel().getColumn(0).setMinWidth(0);
+            tblHang.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -313,6 +317,10 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
             }
         });
         jScrollPane2.setViewportView(tblhang2);
+        if (tblhang2.getColumnModel().getColumnCount() > 0) {
+            tblhang2.getColumnModel().getColumn(0).setMinWidth(0);
+            tblhang2.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jButton1.setBackground(new java.awt.Color(25, 29, 74));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restore1.png"))); // NOI18N

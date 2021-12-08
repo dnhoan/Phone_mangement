@@ -608,10 +608,10 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         tblDSNVON.setRowMargin(0);
         tblDSNVON.getTableHeader().setReorderingAllowed(false);
         tblDSNVON.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 tblDSNVONAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -622,6 +622,10 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tblDSNVON);
+        if (tblDSNVON.getColumnModel().getColumnCount() > 0) {
+            tblDSNVON.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDSNVON.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(5, 10, 46));
@@ -822,10 +826,10 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         tblDSNVOFF.setRowMargin(0);
         tblDSNVOFF.getTableHeader().setReorderingAllowed(false);
         tblDSNVOFF.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 tblDSNVOFFAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -839,6 +843,10 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane3.setViewportView(tblDSNVOFF);
+        if (tblDSNVOFF.getColumnModel().getColumnCount() > 0) {
+            tblDSNVOFF.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDSNVOFF.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jButton3.setBackground(new java.awt.Color(25, 29, 74));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

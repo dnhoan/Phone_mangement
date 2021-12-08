@@ -128,6 +128,10 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
             }
         });
         jScrollPane1.setViewportView(tblHoatDong);
+        if (tblHoatDong.getColumnModel().getColumnCount() > 0) {
+            tblHoatDong.getColumnModel().getColumn(0).setMinWidth(0);
+            tblHoatDong.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
@@ -367,6 +371,10 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
             }
         });
         jScrollPane3.setViewportView(tblXOa);
+        if (tblXOa.getColumnModel().getColumnCount() > 0) {
+            tblXOa.getColumnModel().getColumn(0).setMinWidth(0);
+            tblXOa.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

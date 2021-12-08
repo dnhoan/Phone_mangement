@@ -197,8 +197,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
         });
         jScrollPane1.setViewportView(tblKD);
         if (tblKD.getColumnModel().getColumnCount() > 0) {
-            tblKD.getColumnModel().getColumn(0).setMinWidth(50);
-            tblKD.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblKD.getColumnModel().getColumn(0).setMaxWidth(0);
             tblKD.getColumnModel().getColumn(1).setMinWidth(130);
             tblKD.getColumnModel().getColumn(1).setMaxWidth(130);
             tblKD.getColumnModel().getColumn(2).setMinWidth(110);
@@ -266,8 +266,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
         });
         j.setViewportView(tblNKD);
         if (tblNKD.getColumnModel().getColumnCount() > 0) {
-            tblNKD.getColumnModel().getColumn(0).setMinWidth(50);
-            tblNKD.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblNKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNKD.getColumnModel().getColumn(0).setMaxWidth(0);
             tblNKD.getColumnModel().getColumn(1).setMinWidth(130);
             tblNKD.getColumnModel().getColumn(1).setMaxWidth(130);
             tblNKD.getColumnModel().getColumn(2).setMinWidth(110);

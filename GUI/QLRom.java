@@ -109,6 +109,10 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
             }
         });
         jScrollPane1.setViewportView(tblRom);
+        if (tblRom.getColumnModel().getColumnCount() > 0) {
+            tblRom.getColumnModel().getColumn(0).setMinWidth(0);
+            tblRom.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
@@ -274,6 +278,10 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
             }
         });
         jScrollPane2.setViewportView(tblXoa);
+        if (tblXoa.getColumnModel().getColumnCount() > 0) {
+            tblXoa.getColumnModel().getColumn(0).setMinWidth(0);
+            tblXoa.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         btnbackup.setBackground(new java.awt.Color(25, 29, 74));
         btnbackup.setForeground(new java.awt.Color(25, 29, 74));

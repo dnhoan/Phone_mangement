@@ -246,8 +246,8 @@ BusManHinhModel mh = new BusManHinhModel();
         });
         jScrollPane1.setViewportView(tblDKD);
         if (tblDKD.getColumnModel().getColumnCount() > 0) {
-            tblDKD.getColumnModel().getColumn(0).setMinWidth(50);
-            tblDKD.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblDKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDKD.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -295,8 +295,8 @@ BusManHinhModel mh = new BusManHinhModel();
         });
         d.setViewportView(tblNKD);
         if (tblNKD.getColumnModel().getColumnCount() > 0) {
-            tblNKD.getColumnModel().getColumn(0).setMinWidth(50);
-            tblNKD.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblNKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNKD.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

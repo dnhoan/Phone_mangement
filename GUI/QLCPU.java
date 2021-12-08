@@ -206,6 +206,10 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
             }
         });
         jScrollPane1.setViewportView(tbldsd);
+        if (tbldsd.getColumnModel().getColumnCount() > 0) {
+            tbldsd.getColumnModel().getColumn(0).setMinWidth(0);
+            tbldsd.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -245,6 +249,10 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
             }
         });
         jScrollPane2.setViewportView(tblnsd);
+        if (tblnsd.getColumnModel().getColumnCount() > 0) {
+            tblnsd.getColumnModel().getColumn(0).setMinWidth(0);
+            tblnsd.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

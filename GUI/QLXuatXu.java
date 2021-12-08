@@ -104,7 +104,6 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnthem.setBackground(new java.awt.Color(25, 29, 74));
         btnthem.setForeground(new java.awt.Color(25, 29, 74));
         btnthem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
-        btnthem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnthem.setBorderPainted(false);
         btnthem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnthem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,7 +148,6 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnsua.setBackground(new java.awt.Color(25, 29, 74));
         btnsua.setForeground(new java.awt.Color(25, 29, 74));
         btnsua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
-        btnsua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnsua.setBorderPainted(false);
         btnsua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnsua.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,7 +167,6 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnlammoi.setBackground(new java.awt.Color(25, 29, 74));
         btnlammoi.setForeground(new java.awt.Color(25, 29, 74));
         btnlammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
-        btnlammoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
         btnlammoi.setBorderPainted(false);
         btnlammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlammoi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,6 +256,8 @@ public class QLXuatXu extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblxuatxu);
         if (tblxuatxu.getColumnModel().getColumnCount() > 0) {
+            tblxuatxu.getColumnModel().getColumn(0).setMinWidth(0);
+            tblxuatxu.getColumnModel().getColumn(0).setMaxWidth(0);
             tblxuatxu.getColumnModel().getColumn(1).setResizable(false);
         }
 
@@ -307,11 +306,15 @@ public class QLXuatXu extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tblxuatxu2);
+        if (tblxuatxu2.getColumnModel().getColumnCount() > 0) {
+            tblxuatxu2.getColumnModel().getColumn(0).setMinWidth(0);
+            tblxuatxu2.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         btnkhoiphuc.setBackground(new java.awt.Color(25, 29, 74));
         btnkhoiphuc.setForeground(new java.awt.Color(25, 29, 74));
         btnkhoiphuc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restore1.png"))); // NOI18N
-        btnkhoiphuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 70));
+        btnkhoiphuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnkhoiphuc.setBorderPainted(false);
         btnkhoiphuc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnkhoiphuc.addMouseListener(new java.awt.event.MouseAdapter() {

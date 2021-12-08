@@ -230,6 +230,10 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
             }
         });
         jScrollPane1.setViewportView(tbldsd);
+        if (tbldsd.getColumnModel().getColumnCount() > 0) {
+            tbldsd.getColumnModel().getColumn(0).setMinWidth(0);
+            tbldsd.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -266,6 +270,10 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
             }
         });
         jScrollPane2.setViewportView(tblnsd);
+        if (tblnsd.getColumnModel().getColumnCount() > 0) {
+            tblnsd.getColumnModel().getColumn(0).setMinWidth(0);
+            tblnsd.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

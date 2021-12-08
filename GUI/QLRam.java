@@ -134,6 +134,10 @@ public class QLRam extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblram);
+        if (tblram.getColumnModel().getColumnCount() > 0) {
+            tblram.getColumnModel().getColumn(0).setMinWidth(0);
+            tblram.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -292,7 +296,7 @@ public class QLRam extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 279, Short.MAX_VALUE)
                 .addGap(8, 8, 8))
         );
         jPanel1Layout.setVerticalGroup(
@@ -301,7 +305,9 @@ public class QLRam extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Danh sách", jPanel1);
@@ -358,6 +364,10 @@ public class QLRam extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(tblram2);
+        if (tblram2.getColumnModel().getColumnCount() > 0) {
+            tblram2.getColumnModel().getColumn(0).setMinWidth(0);
+            tblram2.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

@@ -213,7 +213,6 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         });
         tblKhachHang.setFocusable(false);
         tblKhachHang.setGridColor(new java.awt.Color(25, 29, 74));
-        tblKhachHang.setIntercellSpacing(new java.awt.Dimension(0, 0));
         tblKhachHang.setRowHeight(30);
         tblKhachHang.getTableHeader().setReorderingAllowed(false);
         tblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -222,6 +221,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
             }
         });
         jScrollPane4.setViewportView(tblKhachHang);
+        if (tblKhachHang.getColumnModel().getColumnCount() > 0) {
+            tblKhachHang.getColumnModel().getColumn(0).setMinWidth(0);
+            tblKhachHang.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         jPanel9.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 1030, 390));
 
@@ -540,6 +543,10 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         tblKhachHang2.setGridColor(new java.awt.Color(25, 29, 74));
         tblKhachHang2.setRowHeight(30);
         jScrollPane1.setViewportView(tblKhachHang2);
+        if (tblKhachHang2.getColumnModel().getColumnCount() > 0) {
+            tblKhachHang2.getColumnModel().getColumn(0).setMinWidth(0);
+            tblKhachHang2.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
