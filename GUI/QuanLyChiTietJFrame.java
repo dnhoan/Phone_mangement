@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import BUS.Services.NhanVienService;
+import java.time.LocalDate;
+import java.util.Date;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -16,6 +19,13 @@ public class QuanLyChiTietJFrame extends javax.swing.JInternalFrame {
     /**
      * Creates new form QuanLyChiTietJFrame
      */
+    NhanVienService nvdao = new NhanVienService();
+    int today = LocalDate.now().getYear();
+    int lastday;
+    int j=0;
+    LocalDate dateNgay = LocalDate.now();
+    int index =0;
+    Date d;
     public QuanLyChiTietJFrame() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));

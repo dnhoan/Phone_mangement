@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class JDBCHelper {
 
-    private static final String URL = "jdbc:sqlserver://localhost;database=QLBanDienThoai";
+    private static final String URL = "jdbc:sqlserver://localhost;database=QuanLyBanDienThoai";
     private static final String DRIVE = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "123";
@@ -73,6 +73,19 @@ public class JDBCHelper {
             } finally{
                 stmt.getConnection().close();
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static Connection ketnoi() {
+        try {
+            String user = "sa";
+            String pass = "123";
+
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyBanDienThoai";
+            Connection cn = DriverManager.getConnection(url, user, pass);
+            return cn;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
