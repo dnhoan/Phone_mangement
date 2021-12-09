@@ -10,7 +10,7 @@ package DAL.IServices;
  * @author ADMIN
  */
 public interface IDalImeiService {
-
+ 
     String INSERT = "INSERT INTO IMEI(MACTSP, MaSPSale, TenImei) VALUES(?,?,?)";
     String UPDATE = "update IMEI set TenImei = ? where MaIMEI = ?";
     String UPDATE_GHICHU =  "update imei set ghichu = ? where maimei = ?";
