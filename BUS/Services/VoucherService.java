@@ -32,9 +32,28 @@ public class VoucherService implements IVoucher,IPhoneMangementService<BusVouche
                     entity.getLoaiGG(),
                     entity.isTrangThai(),
                     entity.getMucGG(),
-                    entity.isLoaikm()
+                    entity.getLoaikm()
                     );
 //            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    public void insertsalehoadon(BusVoucherModel entity) {
+        try {
+            JDBCHelper.executeUpdate(INSERT_SALE_HOADON,
+                    entity.getTenKM(),
+                    entity.getMaVC(),
+                    entity.getNgayBD(),
+                    entity.getNgayKT(),
+                    entity.getLoaiGG(),
+                    entity.isTrangThai(),
+                    entity.getMucGG(),
+                    entity.getLoaikm(),
+                    entity.getDKKM()
+                    );
+//            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM],[DKKM]
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,6 +98,19 @@ public void  insertspsale(int masp ){
                     entity.getTenKM(),
                     entity.getLoaiGG(),
                     entity.getMucGG(),
+                    entity.getMaKM()
+                    );
+//            TenKM=?, LoaiGG=?, MucGG=?
+        } catch (Exception e) {
+        }
+    }
+    public void updatesalehoadon(BusVoucherModel entity) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE_SALE_HOADON,
+                    entity.getTenKM(),
+                    entity.getLoaiGG(),
+                    entity.getMucGG(),
+                    entity.getDKKM(),
                     entity.getMaKM()
                     );
 //            TenKM=?, LoaiGG=?, MucGG=?
@@ -164,7 +196,7 @@ public void  insertspsale(int masp ){
 //        [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
         BusVoucherModel entity = new BusVoucherModel();
         entity.setMaKM(rs.getInt("MaKM"));
-        entity.setLoaikm(rs.getBoolean("loaiKm"));
+        entity.setLoaikm(rs.getInt("loaiKm"));
         entity.setTenKM(rs.getString("tenKM"));
       entity.setMaVC(rs.getString("mavc"));
         entity.setLoaiGG(rs.getInt("LoaiGG"));
@@ -172,8 +204,10 @@ public void  insertspsale(int masp ){
        entity.setNgayKT(rs.getDate("NgayKT"));
        entity.setMucGG(rs.getInt("mucGG"));
        entity.setTrangThai(rs.getBoolean("trangthai"));
+       entity.setDKKM(rs.getInt("DKKM"));
         return entity;
 
     }
+    
     
 }

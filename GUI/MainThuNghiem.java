@@ -164,7 +164,15 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
         return true;
     }
-
+    public void openGiamGia(){
+         if (AuthService.isLogin()) {
+             QLGiamGia gg = new QLGiamGia();
+            dashboardview.removeAll();
+            dashboardview.add(gg).setVisible(true);
+        } else {
+            MessageService.alert(this, "Vui lòng đăng nhập!");
+        }
+    }
     public void changeImage() {
 
     }
@@ -1168,7 +1176,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnBanHangMouseExited
 
     private void jpnGiamGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiamGiaMouseClicked
-
+        openGiamGia();
     }//GEN-LAST:event_jpnGiamGiaMouseClicked
 
     private void jpnGiamGiaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnGiamGiaMouseEntered

@@ -12,10 +12,11 @@ package BUS.IServices;
 public interface IVoucher {
     String INSERT_SPSALE="INSERT [dbo].[sanphamdcsale] ([MaSP],[MaKM]) VALUES (?,?)";
     String INSERT = "INSERT [dbo].[KhuyenMai] ([tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]) VALUES(?,?,?,?,?,?,?,?)";
+    String INSERT_SALE_HOADON = "INSERT [dbo].[KhuyenMai] ([tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM],[DKKM]) VALUES(?,?,?,?,?,?,?,?,?)";
     String SELECT_ALL = "SELECT * FROM khuyenmai";
     String UPDATE = "UPDATE [dbo].[KhuyenMai] SET TenKM=?, LoaiGG=?, MucGG=? where MaKM=?";
+    String UPDATE_SALE_HOADON = "UPDATE [dbo].[KhuyenMai] SET TenKM=?, LoaiGG=?, MucGG=?,DKKM=? where MaKM=?";
     String DELETE = "UPDATE KHUYENMAI SET TrangThai = 1 WHERE MAVOCHER = ?";
-    String INSERTNEW=
-            "INSERT INTO [dbo].[sanphamdcsale] ([MaSp],[MaKM]) VALUES(?,(SELECT TOP 1 makm FROM [dbo].[KhuyenMai] ORDER BY makm DESC))";
-    String UPDATE_NGAYBD_NGAYKT="UPDATE [dbo].[KhuyenMai] SET NgayBD=?, NgayKT=? where MaKM=?"  ;
+    String INSERTNEW = "INSERT INTO [dbo].[sanphamdcsale] ([MaSp],[MaKM]) VALUES(?,(SELECT TOP 1 makm FROM [dbo].[KhuyenMai] ORDER BY makm DESC))";
+    String UPDATE_NGAYBD_NGAYKT = "UPDATE [dbo].[KhuyenMai] SET NgayBD=?, NgayKT=? where MaKM=?"  ;
 }

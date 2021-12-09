@@ -17,7 +17,7 @@ import java.util.Date;
  */
 public class BusVoucherModel {
 //    [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
-    private int MaKM;
+ private int MaKM;
     private boolean loaikm;
     private String tenKM;
     private String maVC;
@@ -149,9 +149,6 @@ public class BusVoucherModel {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-
-    
-
     
 
    
