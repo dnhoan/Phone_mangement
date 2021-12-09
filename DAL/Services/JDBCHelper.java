@@ -81,9 +81,8 @@ public class JDBCHelper {
         try {
             String user = "sa";
             String pass = "123";
-
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyBanDienThoai";
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=MOBIMONSTER0";
             Connection cn = DriverManager.getConnection(url, user, pass);
             return cn;
         } catch (Exception e) {

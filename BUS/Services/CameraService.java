@@ -5,7 +5,9 @@
  */
 package BUS.Services;
 
+import BUS.IServices.ICameraService;
 import static BUS.IServices.ISanPhamService.SELECT_ALL;
+import BUS.Models.BusCameraModel;
 import BUS.Models.BusCameraModel;
 import BUS.Models.BusCameraModel;
 import DAL.IServices.IPhoneMangementService;
@@ -14,44 +16,82 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
  * @author ADMIN
  */
-public class CameraService implements IPhoneMangementService<BusCameraModel, Integer> {
+public class CameraService implements ICameraService, IPhoneMangementService<BusCameraModel, Integer> {
 
     @Override
     public void insert(BusCameraModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.selectBySql(INSERT, 
+                    entity.getTenCamera(), 
+                    entity.getDoPhanGiai(), 
+                    entity.isTrangThai()
+            );
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public void update(BusCameraModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.selectBySql(UPDATE, 
+                    entity.getTenCamera(), 
+                    entity.getDoPhanGiai(), 
+                    entity.isTrangThai(),
+                    entity.getMaCamera()
+            );
+        } catch (Exception e) {
+        }
     }
 
     @Override
     public void delete(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public BusCameraModel selectByID(Integer id) {
-        if (this.selectBySql(SELECT_ALL).isEmpty()) {
+        if (this.selectBySql(SELECT_BY_ID, id) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_ALL).get(0);
+        return this.selectBySql(SELECT_BY_ID, id).get(0);
+    }
+
+    public List<BusCameraModel> selectRecycle() {
+        if (this.selectBySql(SELECT_BY_RECYCLE) == null) {
+            return null;
+        }
+        return this.selectBySql(SELECT_BY_RECYCLE);
     }
 
     @Override
     public List<BusCameraModel> selectAll() {
-        if (this.selectBySql(SELECT_ALL).isEmpty()) {
+        if (this.selectBySql(SELECT_BY_USING) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_ALL);
+        return this.selectBySql(SELECT_BY_USING);
     }
-
+    public static void fillCombo(DefaultComboBoxModel<BusCameraModel> model, JComboBox cbo, List<BusCameraModel> list) {
+        CameraService cameraService = new CameraService();
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = cameraService.selectAll();
+            if (list != null) {
+                for (BusCameraModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+            cbo.getModel().setSelectedItem(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public List<BusCameraModel> selectBySql(String sql, Object... args) {
         List<BusCameraModel> listCam = new ArrayList<>();
@@ -61,15 +101,16 @@ public class CameraService implements IPhoneMangementService<BusCameraModel, Int
                 BusCameraModel cameraModel = new BusCameraModel(
                         rs.getInt("macamera"),
                         rs.getString("loaicamera"),
-                        rs.getString("dophangiacam")
+                        rs.getString("DoPhanGiai"),
+                        rs.getBoolean("trangthai")
                 );
                 listCam.add(cameraModel);
             }
             rs.getStatement().close();
             return listCam;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (Exception e) {
         }
+        return null;
     }
 
 }

@@ -6,11 +6,16 @@
 package GUI;
 
 import BUS.Models.BusCPUModel;
-import BUS.Models.BusPinModel;
 import BUS.Services.CpuService;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,10 +26,29 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
     CpuService csr = new CpuService();
     int row = -1;
+//    QuanLySanPham qlsp = new QuanLySanPham();
 
     public QLCPU() {
         initComponents();
+
+        desginTable();
         init();
+    }
+
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
+    public void desginTable() {
+        tbldsd.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tbldsd.getTableHeader().setOpaque(false);
+        tbldsd.getTableHeader().setBackground(new Color(25, 29, 74));
+        tbldsd.getTableHeader().setForeground(Color.WHITE);
+        tblnsd.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tbldsd.getTableHeader().setDraggedColumn(null);
+        tblnsd.getTableHeader().setOpaque(false);
+        tblnsd.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblnsd.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -43,8 +67,8 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         rdo0 = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel53 = new javax.swing.JPanel();
-        btnSua4 = new javax.swing.JButton();
         btnThem4 = new javax.swing.JButton();
+        btnSua4 = new javax.swing.JButton();
         btnLamMoiForm4 = new javax.swing.JButton();
         TAB = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -55,29 +79,54 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         tblnsd = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(5, 10, 46));
         jLabel1.setText("Tên CPU");
 
+        txtTencpu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtTencpu.setForeground(new java.awt.Color(25, 29, 74));
+        txtTencpu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
+
+        rdo1.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdo1);
+        rdo1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdo1.setForeground(new java.awt.Color(25, 29, 74));
         rdo1.setSelected(true);
         rdo1.setText("Đang sử dụng");
 
+        rdo0.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdo0);
+        rdo0.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdo0.setForeground(new java.awt.Color(25, 29, 74));
         rdo0.setText("Ngừng sử dụng");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(5, 10, 46));
         jLabel3.setText("Trạng thái");
 
-        jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+        jPanel53.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel53.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        btnSua4.setText("Sửa");
-        btnSua4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSua4ActionPerformed(evt);
+        btnThem4.setBackground(new java.awt.Color(25, 29, 74));
+        btnThem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
+        btnThem4.setToolTipText("");
+        btnThem4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnThem4.setBorderPainted(false);
+        btnThem4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThem4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThem4MouseExited(evt);
             }
         });
-        jPanel53.add(btnSua4);
-
-        btnThem4.setText("Thêm");
         btnThem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem4ActionPerformed(evt);
@@ -85,7 +134,37 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         });
         jPanel53.add(btnThem4);
 
-        btnLamMoiForm4.setText("Làm mới");
+        btnSua4.setBackground(new java.awt.Color(25, 29, 74));
+        btnSua4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
+        btnSua4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnSua4.setBorderPainted(false);
+        btnSua4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSua4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSua4MouseExited(evt);
+            }
+        });
+        btnSua4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSua4ActionPerformed(evt);
+            }
+        });
+        jPanel53.add(btnSua4);
+
+        btnLamMoiForm4.setBackground(new java.awt.Color(25, 29, 74));
+        btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
+        btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -93,12 +172,19 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         });
         jPanel53.add(btnLamMoiForm4);
 
+        TAB.setBackground(new java.awt.Color(255, 255, 255));
+        TAB.setForeground(new java.awt.Color(102, 0, 102));
+        TAB.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         TAB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TABMouseClicked(evt);
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        tbldsd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tbldsd.setForeground(new java.awt.Color(25, 29, 74));
         tbldsd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -110,29 +196,38 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
                 "Mã CPU", "Tên CPU", "Trạng thái"
             }
         ));
+        tbldsd.setGridColor(new java.awt.Color(25, 29, 74));
+        tbldsd.setRowHeight(25);
+        tbldsd.setRowMargin(0);
+        tbldsd.getTableHeader().setReorderingAllowed(false);
         tbldsd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbldsdMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tbldsd);
+        if (tbldsd.getColumnModel().getColumnCount() > 0) {
+            tbldsd.getColumnModel().getColumn(0).setMinWidth(0);
+            tbldsd.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
         );
 
         TAB.addTab("Đang sử dụng", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblnsd.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblnsd.setForeground(new java.awt.Color(25, 29, 74));
         tblnsd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -144,25 +239,30 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
                 "Mã CPU", "Tên CPU", "Trạng thái"
             }
         ));
+        tblnsd.setGridColor(new java.awt.Color(25, 29, 74));
+        tblnsd.setRowHeight(25);
+        tblnsd.setRowMargin(0);
+        tblnsd.getTableHeader().setReorderingAllowed(false);
         tblnsd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblnsdMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblnsd);
+        if (tblnsd.getColumnModel().getColumnCount() > 0) {
+            tblnsd.getColumnModel().getColumn(0).setMinWidth(0);
+            tblnsd.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
         );
 
         TAB.addTab("Ngừng sử dụng", jPanel2);
@@ -174,39 +274,42 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(TAB)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rdo1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdo0, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3)
-                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtTencpu, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdo1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdo0))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(txtTencpu))))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTencpu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdo1)
-                            .addComponent(rdo0))
-                        .addGap(37, 37, 37)
-                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(TAB, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(TAB)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(13, 13, 13)
+                .addComponent(txtTencpu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdo1)
+                    .addComponent(rdo0))
+                .addGap(30, 30, 30)
+                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -214,7 +317,7 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
     private void tbldsdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldsdMouseClicked
         // TODO add your handling code here:
-          if (evt.getClickCount() == 1) {
+        if (evt.getClickCount() == 1) {
             this.row = tbldsd.getSelectedRow();
             this.edit();
 
@@ -223,7 +326,7 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
     private void tblnsdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblnsdMouseClicked
         // TODO add your handling code here:
-         if (evt.getClickCount() == 1) {
+        if (evt.getClickCount() == 1) {
             this.row = tblnsd.getSelectedRow();
             this.edit();
         }
@@ -236,7 +339,7 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
     private void btnSua4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua4ActionPerformed
         // TODO add your handling code here:
-          if (TAB.getSelectedIndex() == 0) {
+        if (TAB.getSelectedIndex() == 0) {
             update();
         } else {
             update2();
@@ -244,20 +347,48 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
     }//GEN-LAST:event_btnSua4ActionPerformed
 
     private void btnThem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem4ActionPerformed
-insert();        // TODO add your handling code here:
+        insert();        // TODO add your handling code here:
     }//GEN-LAST:event_btnThem4ActionPerformed
 
     private void TABMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TABMouseClicked
         // TODO add your handling code here:
-          if(TAB.getSelectedIndex()==0){
+        if (TAB.getSelectedIndex() == 0) {
             clearForm();
             updateStatus();
-       
-       }else{
+
+        } else {
             clearForm();
             updateStatus2();
-       }
+        }
     }//GEN-LAST:event_TABMouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        CpuService.fillCombo(QuanLySanPham.cpuModel, QuanLySanPham.cboCpu, QuanLySanPham.listCpu);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnThem4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem4MouseEntered
+        changeColor(btnThem4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThem4MouseEntered
+
+    private void btnThem4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem4MouseExited
+        changeColor(btnThem4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThem4MouseExited
+
+    private void btnSua4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSua4MouseEntered
+        changeColor(btnSua4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSua4MouseEntered
+
+    private void btnSua4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSua4MouseExited
+        changeColor(btnSua4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSua4MouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+        changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+        changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
      * @param args the command line arguments
@@ -270,7 +401,7 @@ insert();        // TODO add your handling code here:
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -316,10 +447,12 @@ insert();        // TODO add your handling code here:
     @Override
     public void init() {
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.fillTableDsd();
         this.fillTableNsd();
         updateStatus();
         this.row = -1;
+        getContentPane().setBackground(Color.WHITE);
     }
 
     void fillTableDsd() {
@@ -345,7 +478,7 @@ insert();        // TODO add your handling code here:
         modelnsd.setRowCount(0);
         try {
             List<BusCPUModel> listnsd = csr.selectAllNsd();
-            if(listnsd != null) {
+            if (listnsd != null) {
                 for (BusCPUModel x : listnsd) {
                     Object[] row = {x.getMaCPU(), x.getTenCPU(),
                         x.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
@@ -369,23 +502,28 @@ insert();        // TODO add your handling code here:
     @Override
     public void setForm(BusCPUModel entity) {
         txtTencpu.setText(entity.getTenCPU());
-        rdo1.setSelected(entity.isTrangThai());
-        rdo0.setSelected(!entity.isTrangThai());
-    }
-     @Override
-    public void edit() {
-        
-        if (TAB.getSelectedIndex() == 0) {      
-            String idCPU = (String) tbldsd.getValueAt(this.row, 0);
-            BusCPUModel cpumodel = this.csr.selectByID(idCPU);
-            setForm(cpumodel);
-         updateStatus();
+        System.out.println(entity.isTrangThai());
+        if (entity.isTrangThai()) {
+            rdo1.setSelected(true);
         } else {
-            String idCPU = (String) tblnsd.getValueAt(this.row, 0);
+            rdo0.setSelected(true);
+        }
+    }
+
+    @Override
+    public void edit() {
+
+        if (TAB.getSelectedIndex() == 0) {
+            int idCPU = (int) tbldsd.getValueAt(this.row, 0);
             BusCPUModel cpumodel = this.csr.selectByID(idCPU);
             setForm(cpumodel);
-         updateStatus2();
-        
+            updateStatus();
+        } else {
+            int idCPU = (int) tblnsd.getValueAt(this.row, 0);
+            BusCPUModel cpumodel = this.csr.selectByID(idCPU);
+            setForm(cpumodel);
+            updateStatus2();
+
         }
 
     }
@@ -397,19 +535,20 @@ insert();        // TODO add your handling code here:
         btnSua4.setEnabled(edit);
         btnLamMoiForm4.setEnabled(true);
     }
-     public void updateStatus2() {
+
+    public void updateStatus2() {
         boolean edit = (this.row >= 0);
         btnThem4.setEnabled(false);
         btnSua4.setEnabled(edit);
         btnLamMoiForm4.setEnabled(false);
     }
-    
-        @Override
+
+    @Override
     public void update() {
 
         BusCPUModel busCpuModel = this.getForm();
-        String idcpu = (String) tbldsd.getValueAt(this.row, 0);
-        busCpuModel.setMaCPU(Integer.parseInt(idcpu));
+        int idCPU = (int) tbldsd.getValueAt(this.row, 0);
+        busCpuModel.setMaCPU(idCPU);
         try {
             csr.update(busCpuModel);
             this.fillTableDsd();
@@ -423,8 +562,8 @@ insert();        // TODO add your handling code here:
 
     public void update2() {
         BusCPUModel busCpuModel = this.getForm();
-        String idcpu = (String) tblnsd.getValueAt(this.row, 0);
-        busCpuModel.setMaCPU(Integer.parseInt(idcpu));
+        int idCPU = (int) tblnsd.getValueAt(this.row, 0);
+        busCpuModel.setMaCPU(idCPU);
         try {
             csr.update(busCpuModel);
             this.fillTableNsd();
@@ -438,7 +577,7 @@ insert();        // TODO add your handling code here:
 
     @Override
     public void insert() {
-         BusCPUModel busCpuModel = this.getForm();
+        BusCPUModel busCpuModel = this.getForm();
         try {
             csr.insert(busCpuModel);
             this.fillTableDsd();
@@ -451,14 +590,10 @@ insert();        // TODO add your handling code here:
         }
     }
 
-
-
     @Override
     public void delete() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
 
     @Override
     public void clearForm() {
@@ -467,8 +602,6 @@ insert();        // TODO add your handling code here:
         this.setForm(cpumodel);
         this.updateStatus();
     }
-
-   
 
     @Override
     public void first() {

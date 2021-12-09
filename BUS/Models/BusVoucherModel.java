@@ -16,29 +16,29 @@ import java.util.Date;
  * @author 84349
  */
 public class BusVoucherModel {
-
-    private int MaKM;
+//    [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
+ private int MaKM;
     private boolean loaikm;
     private String tenKM;
     private String maVC;
-    private String DieuKienKM;
-    private int LoaiGG;
     private Date NgayBD;
     private Date NgayKT;
-    private int SotienduocTru;
-    private int GiaTriDonHangToiThieu;
-    private int tongsoluotsd;
-    private boolean  TrangThai;
-
-    public boolean isTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(boolean TrangThai) {
-        this.TrangThai = TrangThai;
+    private int LoaiGG;
+    private int mucGG;
+    private boolean TrangThai;
+    public  String MucGGtable(){
+        String ha= null;
+        if(LoaiGG==0){
+            ha=mucGG+" VND";
+        }else if(LoaiGG==1){
+            ha= mucGG+" %";
+        }
+        
+        return ha;
     }
     public String TrangThaitable() {
         String hi = null;
+        
         try {
             LocalDate dateNgay = LocalDate.now();
             Date d = new SimpleDateFormat("yyyy-MM-dd").parse(dateNgay.toString());
@@ -52,29 +52,28 @@ public class BusVoucherModel {
 //        // Công thức tính số ngày giữa 2 mốc thời gian:
             long noDay = (c2.getTime().getTime() - c1.getTime().getTime()) / (24 * 3600 * 1000);
             long noDay1 = (c3.getTime().getTime() - c2.getTime().getTime()) / (24 * 3600 * 1000);
-            
+            long noDay2 = (c3.getTime().getTime() - c2.getTime().getTime()) / (24 * 3600 * 1000);
             if (noDay <0) {
+                TrangThai=false;
                 return hi="Sắp diễn ra";
                 
             }
-            else if(noDay>0&&noDay1>0){
+            else if(noDay>0&&noDay1>0||noDay==0){
+                TrangThai=true;
                 return hi="Đang diễn ra";
             }
-            else if(noDay1<0){
-                return hi="Đã két thúc";
+            else if(noDay1<0 ||noDay2==0){
+                TrangThai=false;
+                return hi="Đã kết thúc";
             }
+//            else if(noDay1==0){
+//                TrangThai=false;
+//                return hi=""
+//            }
         } catch (Exception e) {
            e.printStackTrace();
         }
         return hi;
-    }
-
-    public int getTongsoluotsd() {
-        return tongsoluotsd;
-    }
-
-    public void setTongsoluotsd(int tongsoluotsd) {
-        this.tongsoluotsd = tongsoluotsd;
     }
 
     public int getMaKM() {
@@ -109,22 +108,6 @@ public class BusVoucherModel {
         this.maVC = maVC;
     }
 
-    public String getDieuKienKM() {
-        return DieuKienKM;
-    }
-
-    public void setDieuKienKM(String DieuKienKM) {
-        this.DieuKienKM = DieuKienKM;
-    }
-
-    public int getLoaiGG() {
-        return LoaiGG;
-    }
-
-    public void setLoaiGG(int LoaiGG) {
-        this.LoaiGG = LoaiGG;
-    }
-
     public Date getNgayBD() {
         return NgayBD;
     }
@@ -141,20 +124,33 @@ public class BusVoucherModel {
         this.NgayKT = NgayKT;
     }
 
-    public int getSotienduocTru() {
-        return SotienduocTru;
+    public int getLoaiGG() {
+        return LoaiGG;
     }
 
-    public void setSotienduocTru(int SotienduocTru) {
-        this.SotienduocTru = SotienduocTru;
+    public void setLoaiGG(int LoaiGG) {
+        this.LoaiGG = LoaiGG;
     }
 
-    public int getGiaTriDonHangToiThieu() {
-        return GiaTriDonHangToiThieu;
+    
+
+    public int getMucGG() {
+        return mucGG;
     }
 
-    public void setGiaTriDonHangToiThieu(int GiaTriDonHangToiThieu) {
-        this.GiaTriDonHangToiThieu = GiaTriDonHangToiThieu;
+    public void setMucGG(int mucGG) {
+        this.mucGG = mucGG;
     }
+
+    public boolean isTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(boolean TrangThai) {
+        this.TrangThai = TrangThai;
+    }
+    
+
+   
 
 }

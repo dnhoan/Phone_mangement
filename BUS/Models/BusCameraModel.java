@@ -1,14 +1,12 @@
 
 package BUS.Models;
 
-import DAL.Models.*;
-
 public class BusCameraModel {
     private int maCamera;
     private String tenCamera;
     private String doPhanGiai;
     private boolean trangThai;
-
+ 
     public BusCameraModel(int maCamera, String tenCamera, String doPhanGiai, boolean trangThai) {
         this.maCamera = maCamera;
         this.tenCamera = tenCamera;
@@ -20,6 +18,9 @@ public class BusCameraModel {
         this.maCamera = maCamera;
         this.tenCamera = tenCamera;
         this.doPhanGiai = doPhanGiai;
+    }
+
+    public BusCameraModel() {
     }
 
     public int getMaCamera() {
@@ -52,6 +53,11 @@ public class BusCameraModel {
 
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
+    }
+
+    @Override
+    public String toString() {
+        return tenCamera  + " - "+doPhanGiai;
     }
     
     

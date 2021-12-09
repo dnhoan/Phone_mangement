@@ -5,26 +5,59 @@
  */
 package GUI;
 
+import BUS.Models.BusCTSanPhamModel;
 import BUS.Models.BusManHinhModel;
 import BUS.Services.ManHinhService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ADMIN
  */
-public class QLManHinh extends javax.swing.JFrame implements IEditService<BusManHinhModel>{
+public class QLManHinh extends javax.swing.JFrame implements IEditService<BusManHinhModel> {
+BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
+BusManHinhModel mh = new BusManHinhModel();
     ManHinhService mhser = new ManHinhService();
     int row = -1;
+    Connection con = null;
+    String sql= "SELECT MaManHinh from CTSANPHAM where TrangThai = 1";
+
     /**
      * Creates new form QLManHinh
      */
     public QLManHinh() {
         initComponents();
+         getContentPane().setBackground(Color.WHITE);
+         desginTable();
         init();
+    }
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+    public void desginTable() {
+        tblDKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tblDKD.getTableHeader().setOpaque(false);
+        tblDKD.getTableHeader().setBackground(new Color(25, 29, 74));
+       tblDKD.getTableHeader().setForeground(Color.WHITE);
+        
+        tblDKD.getTableHeader().setDraggedColumn(null);
+        tblNKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+      tblNKD.getTableHeader().setOpaque(false);
+         tblNKD.getTableHeader().setBackground(new Color(25, 29, 74));
+         tblNKD.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -59,23 +92,65 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Màn hình");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(5, 10, 46));
         jLabel1.setText("Loại màn hình");
 
+        txtLoaiMH.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtLoaiMH.setForeground(new java.awt.Color(25, 29, 74));
+        txtLoaiMH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
+
+        rdoDKD.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdoDKD);
+        rdoDKD.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdoDKD.setForeground(new java.awt.Color(25, 29, 74));
         rdoDKD.setSelected(true);
         rdoDKD.setText("Đang kinh doanh");
+        rdoDKD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoDKDActionPerformed(evt);
+            }
+        });
 
+        rdoNKD.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdoNKD);
+        rdoNKD.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdoNKD.setForeground(new java.awt.Color(25, 29, 74));
         rdoNKD.setText("Ngừng kinh doanh");
 
+        txtKichThuoc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtKichThuoc.setForeground(new java.awt.Color(25, 29, 74));
+        txtKichThuoc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(5, 10, 46));
         jLabel2.setText("Kích thước");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(5, 10, 46));
         jLabel3.setText("Trạng thái");
 
-        jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+        jPanel53.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        btnThem.setText("Thêm");
+        btnThem.setBackground(new java.awt.Color(25, 29, 74));
+        btnThem.setForeground(new java.awt.Color(25, 29, 74));
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
+        btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnThem.setBorderPainted(false);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -83,7 +158,19 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         });
         jPanel53.add(btnThem);
 
-        btnSua.setText("Sửa");
+        btnSua.setBackground(new java.awt.Color(25, 29, 74));
+        btnSua.setForeground(new java.awt.Color(25, 29, 74));
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
+        btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnSua.setBorderPainted(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -91,7 +178,19 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         });
         jPanel53.add(btnSua);
 
-        btnLamMoiForm4.setText("Làm mới");
+        btnLamMoiForm4.setBackground(new java.awt.Color(25, 29, 74));
+        btnLamMoiForm4.setForeground(new java.awt.Color(25, 29, 74));
+        btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
+        btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -99,16 +198,24 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         });
         jPanel53.add(btnLamMoiForm4);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(5, 10, 46));
         jLabel4.setText("Inch");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(5, 10, 46));
         jLabel5.setText("Độ phân giải");
 
+        tabs.setForeground(new java.awt.Color(102, 0, 102));
+        tabs.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tabs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabsMouseClicked(evt);
             }
         });
 
+        tblDKD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblDKD.setForeground(new java.awt.Color(25, 29, 74));
         tblDKD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -128,6 +235,10 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
                 return canEdit [columnIndex];
             }
         });
+        tblDKD.setGridColor(new java.awt.Color(25, 29, 74));
+        tblDKD.setRowHeight(25);
+        tblDKD.setRowMargin(0);
+        tblDKD.getTableHeader().setReorderingAllowed(false);
         tblDKD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDKDMouseClicked(evt);
@@ -135,29 +246,25 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         });
         jScrollPane1.setViewportView(tblDKD);
         if (tblDKD.getColumnModel().getColumnCount() > 0) {
-            tblDKD.getColumnModel().getColumn(0).setMinWidth(50);
-            tblDKD.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblDKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDKD.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
         );
 
         tabs.addTab("Đang kinh doanh", jPanel1);
 
+        tblNKD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblNKD.setForeground(new java.awt.Color(25, 29, 74));
         tblNKD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -177,6 +284,10 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
                 return canEdit [columnIndex];
             }
         });
+        tblNKD.setGridColor(new java.awt.Color(25, 29, 74));
+        tblNKD.setRowHeight(25);
+        tblNKD.setRowMargin(0);
+        tblNKD.getTableHeader().setReorderingAllowed(false);
         tblNKD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNKDMouseClicked(evt);
@@ -184,30 +295,31 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         });
         d.setViewportView(tblNKD);
         if (tblNKD.getColumnModel().getColumnCount() > 0) {
-            tblNKD.getColumnModel().getColumn(0).setMinWidth(50);
-            tblNKD.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblNKD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNKD.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(d, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
         );
 
         tabs.addTab("Ngừng kinh doanh", jPanel3);
 
+        cboDPG.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cboDPG.setForeground(new java.awt.Color(25, 29, 74));
         cboDPG.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "HD", "HD+", "WXGA", "FULL HD", "FULL HD+", "QHD", "QHD+", "UHD" }));
+        cboDPG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDPGActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -215,40 +327,36 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5)
+                    .addComponent(cboDPG, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
-                    .addComponent(txtLoaiMH, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoaiMH, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cboDPG, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rdoDKD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(rdoNKD, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(68, 68, 68))
+                        .addComponent(rdoDKD)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdoNKD))
+                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtKichThuoc, txtLoaiMH});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(16, Short.MAX_VALUE)
-                        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtLoaiMH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +366,7 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtKichThuoc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addGap(9, 9, 9)
                         .addComponent(cboDPG, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,37 +377,37 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
                             .addComponent(rdoDKD)
                             .addComponent(rdoNKD))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblDKDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDKDMouseClicked
-        if(evt.getClickCount()==1){
+        if (evt.getClickCount() == 1) {
             this.row = tblDKD.getSelectedRow();
             this.edit();
         }
     }//GEN-LAST:event_tblDKDMouseClicked
 
     private void tblNKDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNKDMouseClicked
-         if(evt.getClickCount()==1){
+        if (evt.getClickCount() == 1) {
             this.row = tblNKD.getSelectedRow();
             this.edit();
         }
     }//GEN-LAST:event_tblNKDMouseClicked
 
     private void tabsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabsMouseClicked
-           if(tabs.getSelectedIndex()==0){
+        if (tabs.getSelectedIndex() == 0) {
             clearForm();
             updateStatus();
-       
-       }else{
+
+        } else {
             clearForm();
             updateStatus2();
-       }
+        }
     }//GEN-LAST:event_tabsMouseClicked
 
     private void btnLamMoiForm4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiForm4ActionPerformed
@@ -308,15 +416,60 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            update();
+            if(checkNull()&&checkNumber()&&checkStatus()){
+                  update();
+            }
+          
         } else {
-            update2();
+             if(checkNull()&&checkNumber()){
+                    update2();
+            }
+          
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+       if(checkNull()&&checkNumber()){
+           insert();
+       }
+        
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       ManHinhService.fillCombo(QuanLySanPham.manHinhModel, QuanLySanPham.cboManHinh, QuanLySanPham.listManHinh);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void cboDPGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDPGActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboDPGActionPerformed
+
+    private void rdoDKDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoDKDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoDKDActionPerformed
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+         changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+         changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+         changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+        changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+            changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+               changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
      * @param args the command line arguments
@@ -381,10 +534,11 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     @Override
     public void init() {
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.fillTableDKD();
         this.fillTableNKD();
         updateStatus();
-        row =-1;
+        row = -1;
     }
 
     @Override
@@ -392,7 +546,7 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         BusManHinhModel busMhModel = new BusManHinhModel();
         busMhModel.setLoaiManHinh(txtLoaiMH.getText());
         busMhModel.setKichThuoc(Float.parseFloat(txtKichThuoc.getText()));
-        busMhModel.setDoPhanGiaiManHinh(cboDPG.getSelectedItem()+"");
+        busMhModel.setDoPhanGiaiManHinh(cboDPG.getSelectedItem() + "");
         busMhModel.setTrangThai(rdoDKD.isSelected());
         return busMhModel;
     }
@@ -400,30 +554,31 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     @Override
     public void setForm(BusManHinhModel model) {
         txtLoaiMH.setText(model.getLoaiManHinh());
-        txtKichThuoc.setText(model.getKichThuoc()+"");
+        txtKichThuoc.setText(model.getKichThuoc() + "");
         cboDPG.setSelectedItem(model.getDoPhanGiaiManHinh());
         rdoDKD.setSelected(model.isTrangThai());
         rdoNKD.setSelected(!model.isTrangThai());
-        
+
     }
 
     @Override
-     public void updateStatus() {
+    public void updateStatus() {
         boolean edit = (this.row >= 0);
         btnThem.setEnabled(!edit);
         btnSua.setEnabled(edit);
-        btnLamMoiForm4.setEnabled(true);
+        btnLamMoiForm4.setEnabled(edit);
     }
+
     public void updateStatus2() {
         boolean edit = (this.row >= 0);
-        btnThem.setEnabled(false);
+        btnThem.setEnabled(!edit);
         btnSua.setEnabled(edit);
-        btnLamMoiForm4.setEnabled(false);
+        btnLamMoiForm4.setEnabled(edit);
     }
 
     @Override
     public void insert() {
-         BusManHinhModel busmhModel = this.getForm();
+        BusManHinhModel busmhModel = this.getForm();
         try {
             mhser.insert(busmhModel);
             this.fillTableDKD();
@@ -437,10 +592,10 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     }
 
     @Override
-     public void update() {
+    public void update() {
 
         BusManHinhModel busmhModel = this.getForm();
-        String idmh = (String) tblDKD.getValueAt(this.row, 0);
+        int idmh = (int) tblDKD.getValueAt(this.row, 0);
         busmhModel.setMaManHinh(idmh);
         try {
             mhser.update(busmhModel);
@@ -455,8 +610,8 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
     }
 
     public void update2() {
-         BusManHinhModel busmhModel = this.getForm();
-           String idmh = (String) tblNKD.getValueAt(this.row, 0);
+        BusManHinhModel busmhModel = this.getForm();
+        int idmh = (int) tblNKD.getValueAt(this.row, 0);
         busmhModel.setMaManHinh(idmh);
         try {
             mhser.update(busmhModel);
@@ -469,7 +624,6 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         }
     }
 
-
     @Override
     public void delete() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -477,25 +631,23 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
 
     @Override
     public void edit() {
-         if (tabs.getSelectedIndex() == 0) {
-            
-            String idmh = (String) tblDKD.getValueAt(this.row, 0);
-
-             BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
+        if (tabs.getSelectedIndex() == 0) {
+            int idmh = (int) tblDKD.getValueAt(this.row, 0);
+            BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
             setForm(pinmodel);
-         updateStatus();
+            updateStatus();
         } else {
-            String idmh = (String) tblNKD.getValueAt(this.row, 0);
-            BusManHinhModel  pinmodel = this.mhser.selectByID(idmh);
+            int idmh = (int) tblNKD.getValueAt(this.row, 0);
+            BusManHinhModel pinmodel = this.mhser.selectByID(idmh);
             setForm(pinmodel);
-         updateStatus2();
-        
+            updateStatus2();
+
         }
     }
 
     @Override
     public void clearForm() {
-         BusManHinhModel mhmodel = new BusManHinhModel();
+        BusManHinhModel mhmodel = new BusManHinhModel();
         this.row = -1;
         this.setForm(mhmodel);
         this.updateStatus();
@@ -537,27 +689,67 @@ public class QLManHinh extends javax.swing.JFrame implements IEditService<BusMan
         modeldkd.setRowCount(0);
         try {
             List<BusManHinhModel> listmh = mhser.selectAllKD();
-            for(BusManHinhModel mh:listmh){
-                Object []row ={mh.getMaManHinh(),mh.getLoaiManHinh(),mh.getKichThuoc(),mh.getDoPhanGiaiManHinh(),mh.isTrangThai()?"Đang kinh doanh":"Ngừng kinh doanh"};
+            for (BusManHinhModel mh : listmh) {
+                Object[] row = {mh.getMaManHinh(), mh.getLoaiManHinh(), mh.getKichThuoc(), mh.getDoPhanGiaiManHinh(), mh.isTrangThai() ? "Đang kinh doanh" : "Ngừng kinh doanh"};
                 modeldkd.addRow(row);
             }
-               
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    private void fillTableNKD(){
+
+    private void fillTableNKD() {
         DefaultTableModel modeldkd = (DefaultTableModel) tblNKD.getModel();
         modeldkd.setRowCount(0);
         try {
             List<BusManHinhModel> listmh = mhser.selectAllNKD();
-            for(BusManHinhModel mh:listmh){
-                Object []row ={mh.getMaManHinh(),mh.getLoaiManHinh(),mh.getKichThuoc(),mh.getDoPhanGiaiManHinh(),mh.isTrangThai()?"Đang kinh doanh":"Ngừng kinh doanh"};
+            for (BusManHinhModel mh : listmh) {
+                Object[] row = {mh.getMaManHinh(), mh.getLoaiManHinh(), mh.getKichThuoc(), mh.getDoPhanGiaiManHinh(), mh.isTrangThai() ? "Đang kinh doanh" : "Ngừng kinh doanh"};
                 modeldkd.addRow(row);
             }
-               
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+     public boolean checkStatus(){
+    try {
+        int chkmamh = (int) tblDKD.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmamh==rs.getInt("MaManHinh")){
+                MessageService.alert(this, "Màn hình này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
+        }
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+    return true;    
+    }
+    public boolean checkNull(){
+        if(txtKichThuoc.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống kích thước!");
+            return false;
+        }
+        if(txtLoaiMH.getText().isEmpty()){
+             MessageService.alert(this, "Không bỏ trống loại màn hình!");
+            return false;
+        }
+        return true;
+    }
+     public boolean checkNumber(){
+        try {
+            float so = Float.parseFloat(txtKichThuoc.getText());
+        } catch (Exception e) {
+             MessageService.alert(this, "Kích thước phải là số!");
+            return false;
+        }
+        return true;
     }
 }

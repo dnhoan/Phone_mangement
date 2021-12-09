@@ -25,38 +25,111 @@ public class VoucherService implements IVoucher,IPhoneMangementService<BusVouche
     public void insert(BusVoucherModel entity) {
         try {
             JDBCHelper.executeUpdate(INSERT,
-                    entity.isLoaikm(),
                     entity.getTenKM(),
                     entity.getMaVC(),
-                    entity.getDieuKienKM(),
-                    entity.getLoaiGG(),
                     entity.getNgayBD(),
                     entity.getNgayKT(),
-                    entity.getSotienduocTru(),
-                    entity.getGiaTriDonHangToiThieu(),
-                    entity.isTrangThai()
+                    entity.getLoaiGG(),
+                    entity.isTrangThai(),
+                    entity.getMucGG(),
+                    entity.getLoaikm()
                     );
-//            [loaima],[tenKM],[mavocher],[DieuKienKM],[LoaiGiamGia],[NgayBD],[NgayKT],[sotienduoctru],[giatridonhangtoithieu],[trangthai]
+//            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
         } catch (Exception e) {
             e.printStackTrace();
         }
         
     }
+    public void insertsalehoadon(BusVoucherModel entity) {
+        try {
+            JDBCHelper.executeUpdate(INSERT_SALE_HOADON,
+                    entity.getTenKM(),
+                    entity.getMaVC(),
+                    entity.getNgayBD(),
+                    entity.getNgayKT(),
+                    entity.getLoaiGG(),
+                    entity.isTrangThai(),
+                    entity.getMucGG(),
+                    entity.getLoaikm(),
+                    entity.getDKKM()
+                    );
+//            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM],[DKKM]
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+public void  insertspsale(int masp ){
+    try {
+            JDBCHelper.executeUpdate(INSERTNEW,
+                    masp
+                    );
+//            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+}
 
+    public void insertsanphamdcsale(int masp,int makm) {
+        try {
+            JDBCHelper.executeUpdate(INSERT_SPSALE,
+                    masp,
+                    makm
+                    );
+//            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    public void deleteSPsale(BusVoucherModel entity){
+        try {
+            String sql="DELETE FROM sanphamdcsale WHERE maKM=?";
+            JDBCHelper.executeUpdate(sql, entity.getMaKM());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
     @Override
     public void update(BusVoucherModel entity) {
         try {
             JDBCHelper.executeUpdate(UPDATE,
-                    entity.getDieuKienKM(),
+                    entity.getTenKM(),
                     entity.getLoaiGG(),
-                    entity.getSotienduocTru(),
-                    entity.getGiaTriDonHangToiThieu(),
-                    entity.getMaVC()
+                    entity.getMucGG(),
+                    entity.getMaKM()
                     );
-//            UPDATE KHUYENMAI SET DIEUKIENKM =?, LOAIGIAMGIA=?,SOTIENDUOCTRU=?,GIATRIDONHANGTOITHIEU=? WHERE MAVOCHER=? 
+//            TenKM=?, LoaiGG=?, MucGG=?
         } catch (Exception e) {
         }
     }
+    public void updatesalehoadon(BusVoucherModel entity) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE_SALE_HOADON,
+                    entity.getTenKM(),
+                    entity.getLoaiGG(),
+                    entity.getMucGG(),
+                    entity.getDKKM(),
+                    entity.getMaKM()
+                    );
+//            TenKM=?, LoaiGG=?, MucGG=?
+        } catch (Exception e) {
+        }
+    }
+    public void updatebyMaKM(BusVoucherModel entity) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE,
+                    entity.getTenKM(),
+                    entity.getLoaiGG(),
+                    entity.getMucGG(),
+                    entity.getMaKM()
+                    );
+//            TenKM=?, LoaiGG=?, MucGG=?
+        } catch (Exception e) {
+        }
+    }
+    
 
     @Override
     public void delete(Object id) {
@@ -72,7 +145,7 @@ public class VoucherService implements IVoucher,IPhoneMangementService<BusVouche
 
     @Override
     public BusVoucherModel selectByID(Object id) {
-        String sql = "SELECT * FROM KhuyenMai WHERE Mavocher=?";
+        String sql = "SELECT * FROM KhuyenMai WHERE Makm=?";
         List<BusVoucherModel> list = selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
     }
@@ -104,24 +177,37 @@ public class VoucherService implements IVoucher,IPhoneMangementService<BusVouche
         return list;
     
     }
+    public void Update_NgayBD_Ngaykt(BusVoucherModel entity){
+        try {
+            JDBCHelper.executeUpdate(UPDATE_NGAYBD_NGAYKT, 
+                    entity.getNgayBD(),
+                    entity.getNgayKT(),
+                    entity.getMaKM()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     
     
     private BusVoucherModel readFromResultSet(ResultSet rs) throws SQLException {
+//        [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
         BusVoucherModel entity = new BusVoucherModel();
         entity.setMaKM(rs.getInt("MaKM"));
-        entity.setLoaikm(rs.getBoolean("loaima"));
+        entity.setLoaikm(rs.getInt("loaiKm"));
         entity.setTenKM(rs.getString("tenKM"));
-      entity.setMaVC(rs.getString("mavocher"));
-       entity.setDieuKienKM(rs.getString("DieuKienKM"));
-        entity.setLoaiGG(rs.getInt("LoaiGiamGia"));
+      entity.setMaVC(rs.getString("mavc"));
+        entity.setLoaiGG(rs.getInt("LoaiGG"));
         entity.setNgayBD(rs.getDate("NgayBD"));
        entity.setNgayKT(rs.getDate("NgayKT"));
-       entity.setSotienduocTru(rs.getInt("sotienduoctru"));
-       entity.setGiaTriDonHangToiThieu(rs.getInt("giatridonhangtoithieu"));
+       entity.setMucGG(rs.getInt("mucGG"));
        entity.setTrangThai(rs.getBoolean("trangthai"));
+       entity.setDKKM(rs.getInt("DKKM"));
         return entity;
 
     }
+    
     
 }

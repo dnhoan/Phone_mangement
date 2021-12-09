@@ -5,10 +5,21 @@
  */
 package GUI.Services;
 
+import DAL.Models.NhanVienModel;
+
 /**
  *
  * @author ADMIN
  */
 public class AuthService {
-    
+     public static NhanVienModel user =  null;
+    public static void clear(){
+        AuthService.user = null;
+    }
+    public static boolean isLogin(){
+        return AuthService.user != null;
+    }
+    public static boolean isManager(){
+        return AuthService.isLogin()&&user.isVaiTro();
+    }
 }

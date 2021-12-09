@@ -6,16 +6,16 @@
 package BUS.Services;
 
 import BUS.IServices.IDongService;
-import static BUS.IServices.ISanPhamService.SELECT_ALL;
-import BUS.Models.BusDongSpModel;
 import BUS.Models.BusDongSpModel;
 import BUS.Models.BusHangModel;
+import BUS.Models.BusDongSpModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -25,12 +25,29 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
 
     @Override
     public void insert(BusDongSpModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println(entity.getBusHangModel().getMaHang() + " " + entity.getTenDong() + " " + entity.isTrangThai());
+        try {
+            this.selectBySql(INSERT,
+                    entity.getTenDong(),
+                    entity.getBusHangModel().getMaHang(),
+                    entity.isTrangThai()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update(BusDongSpModel entity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.selectBySql(UPDATE,
+                    entity.getTenDong(),
+                    entity.getBusHangModel().getMaHang(),
+                    entity.isTrangThai(),
+                    entity.getMaDong()
+            );
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -40,47 +57,57 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
 
     @Override
     public BusDongSpModel selectByID(Integer id) {
-        if (this.selectBySql(SELECT_ALL).isEmpty()) {
+        if (this.selectBySql(SELECT_BY_ID, id) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_ALL).get(0);
+        return this.selectBySql(SELECT_BY_ID, id).get(0);
     }
 
     @Override
     public List<BusDongSpModel> selectAll() {
-        if (this.selectBySql(SELECT_ALL) == null) {
+        if (this.selectBySql(SELECT_BY_STATUS) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_ALL);
+        return this.selectBySql(SELECT_BY_STATUS);
     }
-    public List<BusDongSpModel> selectByHangsp(int id) {
-        System.out.println(id);
-        if (this.selectBySql(SELECT_BY_MAHANG,id) == null) {
+
+    public List<BusDongSpModel> selectRecycle() {
+        if (this.selectBySql(SELECT_BY_RECYCLE) == null) {
             return null;
         }
-        return this.selectBySql(SELECT_BY_MAHANG, id);
+        return this.selectBySql(SELECT_BY_RECYCLE);
     }
+
+    public List<BusDongSpModel> selectByHangsp(int idHang) {
+        if (this.selectBySql(SELECT_BY_MAHANG, idHang) == null) {
+            return null;
+        }
+        return this.selectBySql(SELECT_BY_MAHANG, idHang);
+    }
+
     @Override
     public List<BusDongSpModel> selectBySql(String sql, Object... args) {
         List<BusDongSpModel> listDongsp = new ArrayList<>();
         try {
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while (rs.next()) {
-                BusHangModel dalHangModel = new BusHangModel(
+                BusHangModel busHangModel = new BusHangModel(
                         rs.getInt("mahang"),
                         rs.getString("tenHang")
                 );
                 BusDongSpModel busDongSpModel = new BusDongSpModel(
                         rs.getInt("madong"),
                         rs.getString("tendong"),
-                        dalHangModel);
+                        busHangModel,
+                        rs.getBoolean("trangthai")
+                );
                 listDongsp.add(busDongSpModel);
             }
             rs.getStatement().close();
             return listDongsp;
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (Exception e) {
         }
+        return null;
     }
 
 }

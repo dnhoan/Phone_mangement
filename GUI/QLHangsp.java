@@ -5,14 +5,19 @@
  */
 package GUI;
 
-import GUI.Services.IEditService;
 import BUS.Models.BusHangModel;
 
 import BUS.Services.HangService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
-import GUI.Services.MessageService;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,7 +29,26 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
 
     public QLHangsp() {
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
+        desginTable();
         init();
+    }
+
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+
+    public void desginTable() {
+        tblHang.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tblHang.getTableHeader().setOpaque(false);
+        tblHang.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblHang.getTableHeader().setForeground(Color.WHITE);
+
+        tblHang.getTableHeader().setDraggedColumn(null);
+        tblhang2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tblhang2.getTableHeader().setOpaque(false);
+        tblhang2.getTableHeader().setBackground(new Color(25, 29, 74));
+        tblhang2.getTableHeader().setForeground(Color.WHITE);
     }
 
     /**
@@ -57,9 +81,22 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setForeground(new java.awt.Color(102, 0, 102));
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblHang.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblHang.setForeground(new java.awt.Color(25, 29, 74));
         tblHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -79,40 +116,99 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
                 return canEdit [columnIndex];
             }
         });
+        tblHang.setGridColor(new java.awt.Color(25, 29, 74));
+        tblHang.setRowHeight(25);
+        tblHang.setRowMargin(0);
+        tblHang.getTableHeader().setReorderingAllowed(false);
         tblHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHangMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblHang);
+        if (tblHang.getColumnModel().getColumnCount() > 0) {
+            tblHang.getColumnModel().getColumn(0).setMinWidth(0);
+            tblHang.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
-        jPanel20.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel20.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnthem.setText("Thêm");
+        btnthem.setBackground(new java.awt.Color(25, 29, 74));
+        btnthem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
+        btnthem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnthem.setBorderPainted(false);
+        btnthem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnthem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnthemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnthemMouseExited(evt);
+            }
+        });
         btnthem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnthemActionPerformed(evt);
             }
         });
 
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(5, 10, 46));
         jLabel21.setText("Tên hãng:");
 
+        txtTenHang.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtTenHang.setForeground(new java.awt.Color(25, 29, 74));
+        txtTenHang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(5, 10, 46));
         jLabel22.setText("Trạng thái:");
 
+        jrdioDangKD.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(jrdioDangKD);
+        jrdioDangKD.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jrdioDangKD.setForeground(new java.awt.Color(25, 29, 74));
+        jrdioDangKD.setSelected(true);
         jrdioDangKD.setText("Đang kinh doanh");
 
+        JradioNgungKD.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(JradioNgungKD);
+        JradioNgungKD.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        JradioNgungKD.setForeground(new java.awt.Color(25, 29, 74));
         JradioNgungKD.setText("Ngừng kinh doanh");
 
-        btnsua.setText("Sửa");
+        btnsua.setBackground(new java.awt.Color(25, 29, 74));
+        btnsua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
+        btnsua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnsua.setBorderPainted(false);
+        btnsua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnsua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnsuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnsuaMouseExited(evt);
+            }
+        });
         btnsua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsuaActionPerformed(evt);
             }
         });
 
-        btnlammoi.setText("Làm mới");
+        btnlammoi.setBackground(new java.awt.Color(25, 29, 74));
+        btnlammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
+        btnlammoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnlammoi.setBorderPainted(false);
+        btnlammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnlammoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnlammoiMouseExited(evt);
+            }
+        });
         btnlammoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnlammoiActionPerformed(evt);
@@ -123,72 +219,75 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTenHang)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jrdioDangKD)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(jrdioDangKD)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JradioNgungKD))
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel20Layout.createSequentialGroup()
-                                .addComponent(btnthem)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnsua)
-                                .addGap(26, 26, 26)
-                                .addComponent(btnlammoi))
-                            .addComponent(jLabel22))
+                                .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnsua, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnlammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel22)
+                            .addComponent(txtTenHang, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
+
+        jPanel20Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnlammoi, btnsua, btnthem});
+
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(49, 49, 49)
                 .addComponent(jLabel21)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTenHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(txtTenHang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrdioDangKD)
                     .addComponent(JradioNgungKD))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnlammoi)
-                    .addComponent(btnsua)
-                    .addComponent(btnthem))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnlammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnsua, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
+
+        jPanel20Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnlammoi, btnsua, btnthem});
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Danh sách", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblhang2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblhang2.setForeground(new java.awt.Color(25, 29, 74));
         tblhang2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -208,14 +307,37 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
                 return canEdit [columnIndex];
             }
         });
+        tblhang2.setGridColor(new java.awt.Color(25, 29, 74));
+        tblhang2.setRowHeight(25);
+        tblhang2.setRowMargin(0);
+        tblhang2.getTableHeader().setReorderingAllowed(false);
         tblhang2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblhang2MouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblhang2);
+        if (tblhang2.getColumnModel().getColumnCount() > 0) {
+            tblhang2.getColumnModel().getColumn(0).setMinWidth(0);
+            tblhang2.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
-        jButton1.setText("Khôi phục");
+        jButton1.setBackground(new java.awt.Color(25, 29, 74));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restore1.png"))); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        jButton1.setBorderPainted(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButton1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButton1MouseExited(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -228,21 +350,17 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 182, Short.MAX_VALUE))
+                .addGap(105, 105, 105)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 108, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addContainerGap(268, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(26, 26, 26))))
+                .addGap(102, 102, 102)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ngừng kinh doanh", jPanel2);
@@ -253,19 +371,22 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 276, Short.MAX_VALUE)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -273,12 +394,19 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
-        insert();
+        if(check()){
+           insert(); 
+        }
+        
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
         // TODO add your handling code here:
-        update();
+       
+        if(check()){
+            update();
+        fillTable();
+        }
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void btnlammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlammoiActionPerformed
@@ -288,8 +416,8 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
 
     private void tblHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHangMouseClicked
         // TODO add your handling code here:
-         //this.row = tblHang.rowAtPoint(evt.getPoint());
-         this.row = tblHang.getSelectedRow();
+        //this.row = tblHang.rowAtPoint(evt.getPoint());
+        this.row = tblHang.getSelectedRow();
         this.edit();
     }//GEN-LAST:event_tblHangMouseClicked
 
@@ -301,9 +429,49 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
 
     private void tblhang2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhang2MouseClicked
         // TODO add your handling code here:
-         this.row = tblhang2.getSelectedRow();
-        
+        this.row = tblhang2.getSelectedRow();
+
     }//GEN-LAST:event_tblhang2MouseClicked
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        QuanLySanPham.fillHangCombo();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnthemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseEntered
+        changeColor(btnthem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnthemMouseEntered
+
+    private void btnthemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseExited
+        changeColor(btnthem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnthemMouseExited
+
+    private void btnsuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseEntered
+        changeColor(btnsua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnsuaMouseEntered
+
+    private void btnsuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnsuaMouseExited
+        changeColor(btnsua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnsuaMouseExited
+
+    private void btnlammoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseEntered
+        changeColor(btnlammoi, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnlammoiMouseEntered
+
+    private void btnlammoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlammoiMouseExited
+        changeColor(btnlammoi, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnlammoiMouseExited
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
+        changeColor(jButton1, new Color(102, 0, 102));
+    }//GEN-LAST:event_jButton1MouseEntered
+
+    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
+        changeColor(jButton1, new Color(25, 29, 74));
+    }//GEN-LAST:event_jButton1MouseExited
 
     /**
      * @param args the command line arguments
@@ -316,7 +484,7 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -372,13 +540,15 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
     @Override
     public void init() {
         this.setLocationRelativeTo(this);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("");
         this.fillTable();
         this.fillTable2();
-          
+
     }
-    public void khoiphuc(){
-         BusHangModel modell = this.getForm();
+
+    public void khoiphuc() {
+        BusHangModel modell = this.getForm();
         int id = (int) tblhang2.getValueAt(this.row, 0);
         modell.setMaHang(id);
         try {
@@ -388,19 +558,22 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         } catch (Exception e) {
         }
     }
+
     @Override
     public BusHangModel getForm() {
-         BusHangModel modell = new BusHangModel();
+        BusHangModel modell = new BusHangModel();
         modell.setTenHang(txtTenHang.getText());
         boolean trangthai;
-        if(JradioNgungKD.isSelected()){
+        if (JradioNgungKD.isSelected()) {
             trangthai = false;
-        }else trangthai=true;
+        } else {
+            trangthai = true;
+        }
         modell.setTrangThai(trangthai);
-        
+
         return modell;
     }
- 
+
     public void setForm(BusHangModel bushangmodel) {
 //        txtTenHang.setText(bushangmodel.getTenHang());
 //         boolean trangthai = bushangmodel.isTrangThai();
@@ -409,17 +582,17 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
 //        }
 //        //jrdioDangKD.setSelected(bushangmodel.isTrangThai());
         txtTenHang.setText(bushangmodel.getTenHang());
-          jrdioDangKD.setSelected(bushangmodel.isTrangThai());
-         JradioNgungKD.setSelected(!bushangmodel.isTrangThai());
+        jrdioDangKD.setSelected(bushangmodel.isTrangThai());
+        JradioNgungKD.setSelected(!bushangmodel.isTrangThai());
     }
 
     @Override
     public void updateStatus() {
-         boolean edit = (this.row >= 0);
+        boolean edit = (this.row >= 0);
         btnthem.setEnabled(!edit);
         btnsua.setEnabled(edit);
         btnlammoi.setEnabled(edit);
-        
+
     }
 
     @Override
@@ -433,7 +606,7 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
             JOptionPane.showMessageDialog(this, "Thêm thành công");
         } catch (Exception e) {
         }
-        
+
     }
 
     @Override
@@ -466,9 +639,9 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
     public void clearForm() {
         BusHangModel bus = new BusHangModel();
         setForm(bus);
-        row=-1;
-       this.updateStatus();
-       
+        row = -1;
+        this.updateStatus();
+
     }
 
     @Override
@@ -478,12 +651,12 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         model.setRowCount(0);
         try {
             this.list = hang.selectAll();
-            if(this.list != null) {
-                for(BusHangModel sp : list){
-                    model.addRow(new Object[]{sp.getMaHang(),sp.getTenHang(),sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"});               
+            if (this.list != null) {
+                for (BusHangModel sp : list) {
+                    model.addRow(new Object[]{sp.getMaHang(), sp.getTenHang(), sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"});
                 }
             }
-           this.updateStatus();
+            this.updateStatus();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -518,14 +691,15 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         row = -1;
         modelRecycle = (DefaultTableModel) tblhang2.getModel();
         modelRecycle.setRowCount(0);
-        
+
         try {
             listRecycle = hang.selectStatus();
-            for(BusHangModel sp : listRecycle){
+            for (BusHangModel sp : listRecycle) {
                 modelRecycle.addRow(new Object[]{
                     sp.getMaHang(), sp.getTenHang(), sp.isTrangThai() ? "đang kinh doanh" : "ngừng kính doanh"
                 });
-            }updateStatus();
+            }
+            updateStatus();
         } catch (Exception e) {
         }
     }
@@ -533,5 +707,32 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
     @Override
     public void setForm(Object entity) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean check() {
+        try {
+            int macheck = (int) tblHang.getValueAt(this.row, 0);
+            Connection con = JDBCHelper.ketnoi();
+            String sql = "select HangSanPham.MaHang from HangSanPham, DongSP,SanPham,CTSANPHAM\n"
+                    + "where HangSanPham.MaHang = DongSP.MaHang and DongSP.MaDong = SanPham.MaDong and SanPham.MaSP = CTSANPHAM.MaSP and CTSANPHAM.TrangThai = 1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int maxx = (int) rs.getInt("MaHang");
+
+                if (macheck == maxx) {
+                    JOptionPane.showMessageDialog(this, "Hãng này vẫn đang hoạt động");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        if (txtTenHang.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Không được để trống dữ liệu");
+            return false;
+        } else {
+            return true;
+        }
     }
 }

@@ -5,11 +5,22 @@
  */
 package GUI;
 
+import BUS.Models.BusCTSanPhamModel;
 import BUS.Models.BusHeDieuHanhModel;
+import BUS.Models.BusSanPham;
+import BUS.Services.CpuService;
 import BUS.Services.HeDieuHanhService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,18 +28,37 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<BusHeDieuHanhModel> {
-
+   BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
+    BusHeDieuHanhModel hdh = new BusHeDieuHanhModel();
     HeDieuHanhService hdhser = new HeDieuHanhService();
     int row = -1;
+    Connection con = null;
+    String sql= "SELECT MaHeDieuHanh from CTSANPHAM where TrangThai = 1";
 
     /**
      * Creates new form QLHeDieuHanh
      */
     public QLHeDieuHanh() {
         initComponents();
+         getContentPane().setBackground(Color.WHITE);
+         desginTable();
         init();
     }
-
+     public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
+public void desginTable() {
+        tblDSD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+        tblDSD.getTableHeader().setOpaque(false);
+        tblDSD.getTableHeader().setBackground(new Color(25, 29, 74));
+       tblDSD.getTableHeader().setForeground(Color.WHITE);
+        
+        tblDSD.getTableHeader().setDraggedColumn(null);
+        tblNSD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
+       tblNSD.getTableHeader().setOpaque(false);
+         tblNSD.getTableHeader().setBackground(new Color(25, 29, 74));
+         tblNSD.getTableHeader().setForeground(Color.WHITE);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,21 +86,51 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Hệ điều hành");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(5, 10, 46));
         jLabel1.setText("Tên hệ điều hành");
 
+        txtTenHDH.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtTenHDH.setForeground(new java.awt.Color(25, 29, 74));
+        txtTenHDH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
+
+        rdoDSD.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdoDSD);
+        rdoDSD.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdoDSD.setForeground(new java.awt.Color(25, 29, 74));
         rdoDSD.setSelected(true);
         rdoDSD.setText("Đang sử dụng");
 
+        rdoNSD.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rdoNSD);
+        rdoNSD.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rdoNSD.setForeground(new java.awt.Color(25, 29, 74));
         rdoNSD.setText("Ngừng sử dụng");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(5, 10, 46));
         jLabel3.setText("Trạng thái");
 
-        jPanel53.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+        jPanel53.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        btnThem.setText("Thêm");
+        btnThem.setBackground(new java.awt.Color(25, 29, 74));
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
+        btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnThem.setBorderPainted(false);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
         btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThemActionPerformed(evt);
@@ -78,7 +138,18 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
         });
         jPanel53.add(btnThem);
 
-        btnSua.setText("Sửa");
+        btnSua.setBackground(new java.awt.Color(25, 29, 74));
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
+        btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnSua.setBorderPainted(false);
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSuaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSuaMouseExited(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -86,7 +157,18 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
         });
         jPanel53.add(btnSua);
 
-        btnLamMoiForm4.setText("Làm mới");
+        btnLamMoiForm4.setBackground(new java.awt.Color(25, 29, 74));
+        btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
+        btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiForm4MouseExited(evt);
+            }
+        });
         btnLamMoiForm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiForm4ActionPerformed(evt);
@@ -94,12 +176,17 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
         });
         jPanel53.add(btnLamMoiForm4);
 
+        tabs.setBackground(new java.awt.Color(255, 255, 255));
+        tabs.setForeground(new java.awt.Color(102, 0, 102));
+        tabs.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         tabs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabsMouseClicked(evt);
             }
         });
 
+        tblDSD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblDSD.setForeground(new java.awt.Color(25, 29, 74));
         tblDSD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -119,15 +206,25 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 return canEdit [columnIndex];
             }
         });
+        tblDSD.setGridColor(new java.awt.Color(25, 29, 74));
+        tblDSD.setRowHeight(25);
+        tblDSD.setRowMargin(0);
+        tblDSD.getTableHeader().setReorderingAllowed(false);
         tblDSD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDSDMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblDSD);
+        if (tblDSD.getColumnModel().getColumnCount() > 0) {
+            tblDSD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblDSD.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         tabs.addTab("Đang sử dụng", jScrollPane1);
 
+        tblNSD.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tblNSD.setForeground(new java.awt.Color(25, 29, 74));
         tblNSD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -136,7 +233,7 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 {null, null, null}
             },
             new String [] {
-                "Mã Hệ điều hành", "Tên hệ điều hành", "Trạng thái"
+                "Mã HDH", "Tên HDH", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -147,12 +244,20 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 return canEdit [columnIndex];
             }
         });
+        tblNSD.setGridColor(new java.awt.Color(25, 29, 74));
+        tblNSD.setRowHeight(25);
+        tblNSD.setRowMargin(0);
+        tblNSD.getTableHeader().setReorderingAllowed(false);
         tblNSD.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNSDMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblNSD);
+        if (tblNSD.getColumnModel().getColumnCount() > 0) {
+            tblNSD.getColumnModel().getColumn(0).setMinWidth(0);
+            tblNSD.getColumnModel().getColumn(0).setMaxWidth(0);
+        }
 
         tabs.addTab("Ngừng sử dụng", jScrollPane2);
 
@@ -162,38 +267,44 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rdoDSD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdoNSD, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3)
-                    .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtTenHDH, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(rdoDSD)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rdoNSD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(txtTenHDH, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTenHDH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoDSD)
-                    .addComponent(rdoNSD))
-                .addGap(37, 37, 37)
-                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTenHDH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rdoDSD)
+                            .addComponent(rdoNSD))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,15 +341,49 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (tabs.getSelectedIndex() == 0) {
-            update();
+            if(checkNull()&&checkUpdate()){
+                     update();
+            }
+       
         } else {
             update2();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+        if (checkNull()) {
+             insert();
+        }
+       
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        HeDieuHanhService.fillCombo(QuanLySanPham.heDieuHanhModel, QuanLySanPham.cboHeDieuHanh, QuanLySanPham.listHeDieuHanh);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+      changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+        changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+              changeColor(btnSua, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+         changeColor(btnSua, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
+       changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnLamMoiForm4MouseEntered
+
+    private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
+       changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
      * @param args the command line arguments
@@ -296,6 +441,7 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     @Override
     public void init() {
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         fillTableDSD();
         fillTableNSD();
         updateStatus();
@@ -351,7 +497,7 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     public void update() {
 
         BusHeDieuHanhModel hdhmodel = this.getForm();
-        String idhdh = (String) tblDSD.getValueAt(this.row, 0);
+        int idhdh = (int) tblDSD.getValueAt(this.row, 0);
         hdhmodel.setMaHeDieuHanh(idhdh);
         try {
             hdhser.update(hdhmodel);
@@ -367,7 +513,7 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
 
     public void update2() {
         BusHeDieuHanhModel hdhmodel = this.getForm();
-        String idhdh = (String) tblNSD.getValueAt(this.row, 0);
+       int idhdh = (int) tblNSD.getValueAt(this.row, 0);
         hdhmodel.setMaHeDieuHanh(idhdh);
         try {
             hdhser.update(hdhmodel);
@@ -391,13 +537,13 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     public void edit() {
         if (tabs.getSelectedIndex() == 0) {
 
-            String idhdh = (String) tblDSD.getValueAt(this.row, 0);
+            int idhdh = (int) tblDSD.getValueAt(this.row, 0);
 
             BusHeDieuHanhModel hdhmodel = this.hdhser.selectByID(idhdh);
             setForm(hdhmodel);
             updateStatus();
         } else {
-            String idhdh = (String) tblNSD.getValueAt(this.row, 0);
+            int idhdh = (int) tblNSD.getValueAt(this.row, 0);
 
             BusHeDieuHanhModel hdhmodel = this.hdhser.selectByID(idhdh);
             setForm(hdhmodel);
@@ -454,7 +600,6 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 Object[] row = {hdh.getMaHeDieuHanh(), hdh.getTenHeDieuHanh(), hdh.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
                 modeldsd.addRow(row);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -469,9 +614,35 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
                 Object[] row = {hdh.getMaHeDieuHanh(), hdh.getTenHeDieuHanh(), hdh.isTrangThai() ? "Đang sử dụng" : "Ngừng sử dụng"};
                 modelnsd.addRow(row);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+       public boolean checkUpdate(){
+        try {
+        int chkmahdh = (int) tblDSD.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmahdh==rs.getInt("MaHeDieuHanh")){
+                MessageService.alert(this, "Hệ điều hành này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
+        }
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
+    }
+    public boolean checkNull(){
+        if(txtTenHDH.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống tên hệ điều hành!");
+            return false;
+        }
+       
+        return true;
     }
 }

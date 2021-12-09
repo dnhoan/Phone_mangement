@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import BUS.IServices.IRamService;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 /**
  *
  * @author ADMIN
@@ -72,7 +74,22 @@ public class RamService implements IRamService, IPhoneMangementService<BusRamMod
         }
         return this.selectBySql(SELECT_BY_STATUS,0);
     }
-
+    public static void fillCombo(DefaultComboBoxModel<BusRamModel> model, JComboBox cbo, List<BusRamModel> list) {
+        RamService ramService = new RamService();
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = ramService.selectAll();
+            if (list != null) {
+                for (BusRamModel ram : list) {
+                    model.addElement(ram);
+                }
+            }
+            cbo.getModel().setSelectedItem(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public List<BusRamModel> selectBySql(String sql, Object... args) {

@@ -10,15 +10,15 @@ import DAL.IServices.IPhoneMangementService;
 import DAL.Models.NhanVienModel;
 import DAL.Services.JDBCHelper;
 
-
+import GUI.Services.MessageService;
 import java.sql.ResultSet;
-
+import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.sql.SQLException;
+
 /**
  *
  * @author 84349
@@ -52,6 +52,12 @@ public class NhanVienService implements IPhoneMangementService<NhanVienModel, St
     @Override
     public void update(NhanVienModel entity) {
         try {
+//            String sql = UPDATE;
+//            JDBCHelper.executeUpdate(sql,
+//                    
+//                    
+//                    "123",
+//                    "hiho","0999999999",true,"2002-02-02","hdahdha",true,"dfff","anh1","d@gmail.com","2012-2011","22sda"
             this.selectBySql(UPDATE,
                     entity.getMatKhau(),
                     entity.getHoTen(),
@@ -73,7 +79,7 @@ public class NhanVienService implements IPhoneMangementService<NhanVienModel, St
 
     @Override
     public NhanVienModel selectByID(String id) {
-        String sql = "SELECT * FROM Nhanvien WHERE Manv=?";
+        String sql = "SELECT * FROM Nhanvien WHERE MaNV=?";
         List<NhanVienModel> list = selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
     }
@@ -81,11 +87,13 @@ public class NhanVienService implements IPhoneMangementService<NhanVienModel, St
     @Override
     public List<NhanVienModel> selectAll() {
         String sql = SELECT_ALL;
+//        JDBCHelper.executeQuery(sql, args)
         return selectBySql(sql);
     }
 
     public List<NhanVienModel> selectAllON() {
         String sql = SELECT_ON;
+//        JDBCHelper.executeQuery(sql, args)
         return selectBySql(sql);
     }
 

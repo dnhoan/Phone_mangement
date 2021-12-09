@@ -8,18 +8,21 @@ package BUS.Services;
 import static BUS.IServices.IManHinhService.*;
 
 import BUS.Models.BusManHinhModel;
+import BUS.Models.BusManHinhModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
  * @author ADMIN
  */
-public class ManHinhService implements IPhoneMangementService<BusManHinhModel, String> {
+public class ManHinhService implements IPhoneMangementService<BusManHinhModel, Integer> {
 
     @Override
     public void insert(BusManHinhModel entity) {
@@ -45,12 +48,12 @@ public class ManHinhService implements IPhoneMangementService<BusManHinhModel, S
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public BusManHinhModel selectByID(String id) {
+    public BusManHinhModel selectByID(Integer id) {
         if (this.selectBySql(SELECT_BY_ID, id).isEmpty()) {
             return null;
         }
@@ -78,7 +81,22 @@ public class ManHinhService implements IPhoneMangementService<BusManHinhModel, S
         }
         return this.selectBySql(SELECT_BY_STATUS, 0);
     }
-
+    public static void fillCombo(DefaultComboBoxModel<BusManHinhModel> model, JComboBox cbo, List<BusManHinhModel> list) {
+        ManHinhService manHinhService = new ManHinhService();
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = manHinhService.selectAllKD();
+            if (list != null) {
+                for (BusManHinhModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+            cbo.getModel().setSelectedItem(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public List<BusManHinhModel> selectBySql(String sql, Object... args) {
         List<BusManHinhModel> listCam = new ArrayList<>();
@@ -86,7 +104,7 @@ public class ManHinhService implements IPhoneMangementService<BusManHinhModel, S
             ResultSet rs = JDBCHelper.executeQuery(sql, args);
             while (rs.next()) {
                 BusManHinhModel manHinhModel = new BusManHinhModel(
-                        rs.getString("MaManHinh"),
+                        rs.getInt("MaManHinh"),
                         rs.getString("LoaiManHinh"),
                         rs.getFloat("KichThuoc"),
                         rs.getString("DoPhanGiai"),

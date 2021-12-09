@@ -6,6 +6,7 @@
 package GUI.Services;
 
 import BUS.Models.ValidConstrainModel;
+import javax.swing.JTextField;
 
 public class ValidateService {
     public static boolean isEmpty(ValidConstrainModel... arguments) {
@@ -38,4 +39,6 @@ public class ValidateService {
         }
         return false;
     }
+
+
 }
