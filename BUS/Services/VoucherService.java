@@ -208,6 +208,4 @@ public void  insertspsale(int masp ){
         return entity;
 
     }
-    
-    
 }

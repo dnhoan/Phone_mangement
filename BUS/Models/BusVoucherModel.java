@@ -17,15 +17,37 @@ import java.util.Date;
  */
 public class BusVoucherModel {
 //    [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
- private int MaKM;
-    private boolean loaikm;
+  private int MaKM;
+    private int loaikm;
     private String tenKM;
     private String maVC;
     private Date NgayBD;
     private Date NgayKT;
     private int LoaiGG;
     private int mucGG;
+    private int DKKM;
     private boolean TrangThai;
+
+    public int getDKKM() {
+        return DKKM;
+    }
+
+    public void setDKKM(int DKKM) {
+        this.DKKM = DKKM;
+    }
+    public  String loaiKMtable(){
+        String a1= null;
+        if(loaikm==0){
+            a1="Giảm giá toàn shop";
+        }else if(loaikm==1){
+            a1= "Giảm giá theo sản phẩm";
+        }
+        else if(loaikm==2){
+            a1= "Giảm giá theo hóa đơn";
+        }
+        
+        return a1;
+    }
     public  String MucGGtable(){
         String ha= null;
         if(LoaiGG==0){
@@ -84,14 +106,15 @@ public class BusVoucherModel {
         this.MaKM = MaKM;
     }
 
-    public boolean isLoaikm() {
+    public int getLoaikm() {
         return loaikm;
     }
 
-    public void setLoaikm(boolean loaikm) {
+    public void setLoaikm(int loaikm) {
         this.loaikm = loaikm;
     }
 
+    
     public String getTenKM() {
         return tenKM;
     }
@@ -149,7 +172,7 @@ public class BusVoucherModel {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
+
 
    
 

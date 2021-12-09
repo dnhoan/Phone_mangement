@@ -104,6 +104,7 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnthem.setBackground(new java.awt.Color(25, 29, 74));
         btnthem.setForeground(new java.awt.Color(25, 29, 74));
         btnthem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
+        btnthem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnthem.setBorderPainted(false);
         btnthem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnthem.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -148,6 +149,7 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnsua.setBackground(new java.awt.Color(25, 29, 74));
         btnsua.setForeground(new java.awt.Color(25, 29, 74));
         btnsua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
+        btnsua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnsua.setBorderPainted(false);
         btnsua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnsua.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,6 +169,7 @@ public class QLXuatXu extends javax.swing.JFrame {
         btnlammoi.setBackground(new java.awt.Color(25, 29, 74));
         btnlammoi.setForeground(new java.awt.Color(25, 29, 74));
         btnlammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
+        btnlammoi.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnlammoi.setBorderPainted(false);
         btnlammoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnlammoi.addMouseListener(new java.awt.event.MouseAdapter() {

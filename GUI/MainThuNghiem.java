@@ -975,10 +975,10 @@ public class MainThuNghiem extends javax.swing.JFrame {
             }
         });
         lblName.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblNameInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         lblName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -1006,7 +1006,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
         dashboardview.setLayout(new java.awt.BorderLayout());
         getContentPane().add(dashboardview, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(1280, 900));
+        setSize(new java.awt.Dimension(1920, 1060));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
