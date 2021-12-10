@@ -25,6 +25,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -1011,7 +1012,13 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
-        System.exit(0);
+           boolean chooser = MessageService.confirm(this, "Bạn có chắc chắn muốn thoát không ???");
+        if (chooser == true) {
+            System.exit(0);
+
+        } else {
+            return;
+        }
     }//GEN-LAST:event_closeMouseClicked
 
     private void closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseEntered
