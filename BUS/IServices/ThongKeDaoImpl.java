@@ -8,7 +8,7 @@ package BUS.IServices;
 import BUS.Models.doanhthuModel;
 import BUS.Models.soluongbanmodel;
 import java.util.List;
-
+import DAL.Services.JDBCHelper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +24,7 @@ public class ThongKeDaoImpl implements ThongKeDao {
     @Override
     public List<soluongbanmodel> GetSLBan() {
 
-        Connection cons = help.ketnoi();
+        Connection cons = JDBCHelper.ketnoi();
         String sql = "select NgayThanhToan, count(ChiTietHoaDon.MaImei) as soluong\n"
                 + "from HoaDon, ChiTietHoaDon\n"
                 + "where HoaDon.MaHD = ChiTietHoaDon.MaHD and MONTH(HoaDon.NgayThanhToan) = month( GETDATE())\n"

@@ -25,6 +25,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +37,8 @@ import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -182,6 +187,11 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         jButton1.setBorderPainted(false);
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1426, 140, 180, 41));
 
         tblImei.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -436,6 +446,11 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             doiHang();
         }
     }//GEN-LAST:event_btnTraHangActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        xuatfile();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -737,5 +752,34 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         };
         ButtonColumn buttonColumn = new ButtonColumn(tblHoaDon, add, 12);
         buttonColumn.setMnemonic(KeyEvent.VK_D);
+    }
+    public void xuatfile(){
+          JFileChooser chooser = new JFileChooser();
+        int i = chooser.showSaveDialog(chooser);
+        if (i == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                FileWriter out = new FileWriter(file + ".xls");
+                BufferedWriter bwrite = new BufferedWriter(out);
+                DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+                // ten Cot
+                for (int j = 0; j < tblHoaDon.getColumnCount(); j++) {
+                    bwrite.write(model.getColumnName(j) + "\t");
+                }
+                bwrite.write("\n");
+                // Lay du lieu dong
+                for (int j = 0; j < tblHoaDon.getRowCount(); j++) {
+                    for (int k = 0; k < tblHoaDon.getColumnCount(); k++) {
+                        bwrite.write(model.getValueAt(j, k) + "\t");
+                    }
+                    bwrite.write("\n");
+                }
+                bwrite.close();
+                
+                JOptionPane.showMessageDialog(null, "Lưu file thành công!");
+            } catch (Exception e2) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");
+            }
+        }
     }
 }
