@@ -1275,9 +1275,16 @@ public class MainThuNghiem extends javax.swing.JFrame {
     }//GEN-LAST:event_jpnLogoutMouseWheelMoved
 
     private void jpnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnLogoutMouseClicked
+            boolean chooser = MessageService.confirm(this, "Bạn muốn đăng xuất???");
+        if (chooser == true) {
         AuthService.clear();
         setVisible(false);
         new Login(this, true).setVisible(true);
+
+        } else {
+            return;
+        }
+      
     }//GEN-LAST:event_jpnLogoutMouseClicked
 
     private void jpnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpnLogoutMouseEntered
