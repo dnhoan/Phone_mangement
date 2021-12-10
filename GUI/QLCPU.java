@@ -7,10 +7,15 @@ package GUI;
 
 import BUS.Models.BusCPUModel;
 import BUS.Services.CpuService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.UIDefaults;
@@ -26,7 +31,9 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
     CpuService csr = new CpuService();
     int row = -1;
+     Connection con = null;
 //    QuanLySanPham qlsp = new QuanLySanPham();
+      String sql= "SELECT MaCPU from CTSANPHAM where TrangThai = 1";
 
     public QLCPU() {
         initComponents();
@@ -340,14 +347,20 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
     private void btnSua4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua4ActionPerformed
         // TODO add your handling code here:
         if (TAB.getSelectedIndex() == 0) {
-            update();
+            if(checkNull()&&checkUpdate()){
+                update();
+            }
+            
         } else {
             update2();
         }
     }//GEN-LAST:event_btnSua4ActionPerformed
 
     private void btnThem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem4ActionPerformed
-        insert();        // TODO add your handling code here:
+        if(checkNull()&&checkUpdate()){
+             insert();
+        }
+          // TODO add your handling code here:
     }//GEN-LAST:event_btnThem4ActionPerformed
 
     private void TABMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TABMouseClicked
@@ -601,6 +614,33 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         this.row = -1;
         this.setForm(cpumodel);
         this.updateStatus();
+    }
+     public boolean checkUpdate(){
+        try {
+        int chkmacpu = (int) tbldsd.getValueAt(row, 0);
+        con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmacpu==rs.getInt("MaCPU")){
+                MessageService.alert(this, "CPU này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
+        }
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
+    }
+    public boolean checkNull(){
+        if(txtTencpu.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống tên cpu!");
+            return false;
+        }
+       
+        return true;
     }
 
     @Override
