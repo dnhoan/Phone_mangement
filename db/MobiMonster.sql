@@ -134,9 +134,20 @@ CREATE TABLE KhuyenMai
 	LoaiGG BIT NULL,
 	TrangThai BIT NULL,
 	MucGG INT NULL, 
-	LoaiKM BIT NULL,
+	LoaiKM int NULL,
+	DKKM int null
 	PRIMARY KEY (MaKM)
 )
+alter table Khuyenmai alter column LoaiKM int null
+alter table Khuyenmai add CONSTRAINT fk_khuyenmai FOREIGN KEY(LoaiKM) REFERENCES loaimagiamgia(idloaimagiamgia)
+CREATE TABLE loaimagiamgia(
+	idloaimagiamgia int primary key,
+	tenloaigiamgia nvarchar(50),
+)
+update loaimagiamgia set idloaimagiamgia = 0 where idloaimagiamgia = 1
+insert into loaimagiamgia values(0,'Giảm giá toàn shop')
+insert into loaimagiamgia values(1,'Giảm giá theo sản phẩm')
+insert into loaimagiamgia values(2,'Giảm giá theo hóa đơn')
 
 GO
 
