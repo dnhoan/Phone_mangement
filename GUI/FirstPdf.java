@@ -8,6 +8,7 @@ package GUI;
 package de.vogella.itext.write;
 
 import BUS.Models.BusHoaDon;
+import BUS.Models.KhachHangModel;
 import BUS.Services.HoaDonService;
 import GUI.Models.CartModel;
 import GUI.Services.DateService;
@@ -45,13 +46,21 @@ public class FirstPdf {
 //            Font.BOLD);
     private static Font font_12_normer, font_20, titleFont, font_12, font_16, font_i;
     static BaseFont bf;
-    public static BusHoaDon busHoaDon;
-    public static List<CartModel> listCart = new ArrayList<>();
+//    public static BusHoaDon busHoaDon;
+    KhachHangModel khachHang;
+    float tongTienHang = 0;
+    float phiVanChuyen;
+    float khachThanhToan;
+    String diaChiNhanHang;
+    List<CartModel> listCart = new ArrayList<>();
 
-    public static boolean exportFile(BusHoaDon currentHoaDonSelected, List<CartModel> carts) {
-        System.out.println("sizze cart" + carts.size());
-        FirstPdf.busHoaDon = currentHoaDonSelected;
-        FirstPdf.listCart = carts;
+    public boolean exportFile(KhachHangModel khachHangModel,  float phiVanChuyen, float khachThanhToan, String diaChiNhanHang, List<CartModel> carts) {
+//        FirstPdf.busHoaDon = currentHoaDonSelected;
+        this.khachHang = khachHangModel;
+        this.phiVanChuyen = phiVanChuyen;
+        this.khachThanhToan = khachThanhToan;
+        this.listCart = carts;
+        this.diaChiNhanHang = diaChiNhanHang;
         try {
             titleFont = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25);
             font_20 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 20);
@@ -64,7 +73,6 @@ public class FirstPdf {
             document.open();
             addMetaData(document);
             addTitlePage(document);
-            addContent(document);
             document.close();
             return true;
         } catch (Exception e) {
@@ -74,31 +82,27 @@ public class FirstPdf {
     }
     static HoaDonService hoaDonService = new HoaDonService();
 
-    public static void main(String[] args) {
-        FirstPdf.busHoaDon = hoaDonService.selectByMahd(3, 1);
-//        FirstPdf.listCart = carts;
-        try {
-            titleFont = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25);
-            font_20 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 20);
-            font_16 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 16);
-            font_12 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
-            font_12_normer = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-            font_i = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 22);
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
-            document.open();
-            addMetaData(document);
-            addTitlePage(document);
-            addContent(document);
-            document.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // iText allows to add metadata to the PDF which can be viewed in your Adobe
-    // Reader
-    // under File -> Properties
+//    public static void main(String[] args) {
+//        FirstPdf.busHoaDon = hoaDonService.selectByMahd(3, 1);
+////        FirstPdf.listCart = carts;
+//        try {
+//            titleFont = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25);
+//            font_20 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 20);
+//            font_16 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 16);
+//            font_12 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
+//            font_12_normer = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
+//            font_i = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 22);
+//            Document document = new Document();
+//            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+//            document.open();
+//            addMetaData(document);
+//            addTitlePage(document);
+//            addContent(document);
+//            document.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
     private static void addMetaData(Document document) {
         document.addTitle("Cửa hàng điện thoại MobiMonster");
         document.addSubject("Biên nhận thanh toán " + new Date());
@@ -107,7 +111,7 @@ public class FirstPdf {
         document.addCreator("Lars Vogel");
     }
 
-    private static void addTitlePage(Document document)
+    private void addTitlePage(Document document)
             throws DocumentException {
 
         Paragraph preface = new Paragraph();
@@ -132,30 +136,24 @@ public class FirstPdf {
         addEmptyLine(preface, 1);
 
         preface.add(new Paragraph(
-                "Khách hàng: " + busHoaDon.getKhachHangModel().getTenKH(),
+                "Khách hàng: " + khachHang.getTenKH(),
                 font_12_normer));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph(
-                "Điện thoại: " + busHoaDon.getKhachHangModel().getSDT(),
+                "Điện thoại: " + khachHang.getSDT(),
                 font_12_normer));
         addEmptyLine(preface, 1);
-        if (busHoaDon.getKhachHangModel().getDiaChi() != null) {
+        if (khachHang.getDiaChi() != null) {
             preface.add(new Paragraph(
-                    "Địa chỉ khách hàng: " + busHoaDon.getKhachHangModel().getDiaChi(),
+                    "Địa chỉ khách hàng: " + khachHang.getDiaChi(),
                     font_12_normer));
             addEmptyLine(preface, 1);
         }
-        System.out.println(busHoaDon.getDiaChiNhanHang());
-        String diaChiNhanHang = busHoaDon.getDiaChiNhanHang() == null ? "Tại cửa hàng" : busHoaDon.getDiaChiNhanHang();
         preface.add(new Paragraph(
                 "Địa chỉ nhận hàng: " + diaChiNhanHang,
                 font_12_normer));
 //        addEmptyLine(preface, 1);
         PdfPTable table = new PdfPTable(5);
-//         t.setBorderColor(BaseColor.GRAY);
-//         t.setPadding(4);
-//         t.setSpacing(4);
-//         t.setBorderWidth(1);
         table.setWidthPercentage(100);
         float[] columnWidths = new float[]{6f, 40f, 16f, 6f, 16f};
         table.setWidths(columnWidths);
@@ -182,6 +180,7 @@ public class FirstPdf {
                 table.addCell(new Phrase(UtilityService.toVnd(ca.getGia()), font_12_normer));
                 table.addCell(new Phrase(ca.getSoLuong() + "", font_12_normer));
                 table.addCell(new Phrase(UtilityService.toVnd(ca.getSoLuong() * ca.getGia()), font_12_normer));
+                tongTienHang += ca.getTongTien();
             }
         }
         preface.add(table);
@@ -189,107 +188,26 @@ public class FirstPdf {
 //                "                                           ============================================================================",
 //                font_12));
         addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Tổng tiền hàng:                                                                                          " + UtilityService.toVnd(busHoaDon.getTongTien()) , font_12_normer));
+        preface.add(new Paragraph("Tổng tiền hàng:                                                                                          " + UtilityService.toVnd(tongTienHang), font_12_normer));
         addEmptyLine(preface, 1);
 //        preface.add(new Paragraph("Tổng tiền hàng:                                                                                           " + UtilityService.toVnd(busHoaDon.getPhiVanChuyen()) , font_12_normer));
 //        addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Phí vận chuyển:                                                                                          " + UtilityService.toVnd(busHoaDon.getTongTien()) , font_12_normer));
+        preface.add(new Paragraph("Phí vận chuyển:                                                                                          " + UtilityService.toVnd(phiVanChuyen), font_12_normer));
         addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Tổng phải trả:                                                               " + UtilityService.toVnd(busHoaDon.getTongTien() + busHoaDon.getPhiVanChuyen()) , font_16));
+        preface.add(new Paragraph("Tổng phải trả:                                                               " + UtilityService.toVnd(tongTienHang + phiVanChuyen), font_16));
         addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Khách thanh toán:                                                                                      " + UtilityService.toVnd(busHoaDon.getTienKhachTra()) , font_12_normer));
+        preface.add(new Paragraph("Khách thanh toán:                                                                                      " + UtilityService.toVnd(khachThanhToan), font_12_normer));
         addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Tiền thừa:                                                                                                 " + UtilityService.toVnd(0), font_12_normer));
+        preface.add(new Paragraph("Tiền thừa:                                                                                                 " + UtilityService.toVnd((khachThanhToan - tongTienHang + phiVanChuyen) >= 0 ? (khachThanhToan - tongTienHang + phiVanChuyen) : 0), font_12_normer));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph(
                 "                                           ===========================================================",
                 font_12));
         preface.add(new Paragraph("                                                            Xin cảm ơn quý khách", font_12_normer));
-        preface.add(new Paragraph("                                                                  Hẹn gặp lại !" , font_12_normer));
+        preface.add(new Paragraph("                                                                  Hẹn gặp lại !", font_12_normer));
         document.add(preface);
         // Start a new page
         document.newPage();
-    }
-
-    private static void addContent(Document document) throws DocumentException {
-//        Anchor anchor = new Anchor("First Chapter", catFont);
-//        anchor.setName("First Chapter");
-
-        // Second parameter is the number of the chapter
-//        Chapter catPart = new Chapter(new Paragraph(anchor), 1);
-//        Paragraph subPara = new Paragraph("Subcategory 1", subFont);
-//        Section subCatPart = catPart.addSection(subPara);
-//        subCatPart.add(new Paragraph("Hello"));
-//        subPara = new Paragraph("Subcategory 2", subFont);
-//        subCatPart = catPart.addSection(subPara);
-//        subCatPart.add(new Paragraph("Paragraph 1"));
-//        subCatPart.add(new Paragraph("Paragraph 2"));
-//        subCatPart.add(new Paragraph("Paragraph 3"));
-        // add a list
-//        createList(subCatPart);
-//        Paragraph paragraph = new Paragraph();
-//        addEmptyLine(paragraph, 5);
-//        subCatPart.add(paragraph);
-//         add a table
-//        createTable(subCatPart);
-        // now add all this to the document
-//        document.add(catPart);
-        // Next section
-//        anchor = new Anchor("Second Chapter", catFont);
-//        anchor.setName("Second Chapter");
-        // Second parameter is the number of the chapter
-//        catPart = new Chapter(new Paragraph(anchor), 1);
-//        subPara = new Paragraph("Subcategory", subFont);
-//        subCatPart = catPart.addSection(subPara);
-//        subCatPart.add(new Paragraph("This is a very important message"));
-        // now add all this to the document
-//        document.add(catPart);
-    }
-
-    private static void createTable(Section subCatPart)
-            throws BadElementException {
-        PdfPTable table = new PdfPTable(5);
-
-        // t.setBorderColor(BaseColor.GRAY);
-        // t.setPadding(4);
-        // t.setSpacing(4);
-        // t.setBorderWidth(1);
-        PdfPCell c1 = new PdfPCell(new Phrase("STT"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("Ten sp"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-
-        c1 = new PdfPCell(new Phrase("Gia ban"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-        c1 = new PdfPCell(new Phrase("SL"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-        c1 = new PdfPCell(new Phrase("Thanh tien"));
-        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-        table.addCell(c1);
-        table.setHeaderRows(1);
-
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
-
-        subCatPart.add(table);
-
-    }
-
-    private static void createList(Section subCatPart) {
-//        List list = new List(true, false, 10);
-//        list.add(new ListItem("First point"));
-//        list.add(new ListItem("Second point"));
-//        list.add(new ListItem("Third point"));
-//        subCatPart.add(list);
     }
 
     private static void addEmptyLine(Paragraph paragraph, int number) {

@@ -5,12 +5,8 @@
  */
 package GUI;
 
-import BUS.Models.BusCTSanPhamModel;
 import BUS.Services.BusImeiService;
 import DAL.Models.DalImeiModel;
-import GUI.Models.CartModel;
-import static GUI.QuanlyGiaoDichJFrame.cartModel;
-import static GUI.QuanlyGiaoDichJFrame.tblSanPham;
 import GUI.Services.ButtonColumn;
 import GUI.Services.MessageService;
 import java.awt.Color;
@@ -24,7 +20,6 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  *
