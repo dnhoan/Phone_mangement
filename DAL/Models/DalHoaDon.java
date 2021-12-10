@@ -24,7 +24,25 @@ public class DalHoaDon {
     private Date ngayGiaoHang;
     private String ghiChu;
     private int TrangThaiGiaoHang;
+    private float tienKm;
+    private int maKm;
     private boolean trangThai;
+
+    public int getMaKm() {
+        return maKm;
+    }
+
+    public void setMaKm(int maKm) {
+        this.maKm = maKm;
+    }
+
+    public float getTienKm() {
+        return tienKm;
+    }
+
+    public void setTienKm(float tienKm) {
+        this.tienKm = tienKm;
+    }
 
     public int getTrangThaiGiaoHang() {
         return TrangThaiGiaoHang;

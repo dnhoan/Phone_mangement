@@ -39,7 +39,9 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
                     entity.getDiaChiNhanHang(),
                     entity.getPhiVanChuyen(),
                     entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy"),
-                    entity.getTrangThaiGiaoHang()
+                    entity.getTrangThaiGiaoHang(),
+                    entity.getMaKm(),
+                    entity.getTienKm()
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,6 +62,8 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
                     entity.getPhiVanChuyen(),
                     entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy"),
                     entity.getTrangThaiGiaoHang(),
+                    entity.getTienKm(),
+                    entity.getMaKm(),
                     entity.getMaHD()
             );
         } catch (SQLException e) {
@@ -116,24 +120,31 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
 
     public List<BusHoaDon> selectAll1(String term, int filter) {
         System.out.println(filter);
+        List<BusHoaDon> list = new ArrayList<>();
         try {
             String sql;
             switch (filter) {
                 case 0:
-                    sql = SELECT_ALL1;
+                    sql = SELECT_ALL1; // tất cả hóa đơn đang treo
+                    list = this.selectSql(sql, 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
                     break;
-                case 1:
-                    sql = SELECT_THANH_TOAN;
+                case 1: // đang giao
+                    sql = SELECT_BY_TRANG_THAI_GIAO_HANG;
+                    list = this.selectSql(sql, 2, 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
                     break;
-                case 2:
-                    sql = SELECT_NOT_THANH_TOAN;
+                case 2: // chưa giao
+                    sql = SELECT_BY_TRANG_THAI_GIAO_HANG;
+                    list = this.selectSql(sql, 0, 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+                    break;
+                case 3: // hóa đơn xóa
+                    sql = SELECT_TREO_BI_XOA;
+                    list = this.selectSql(sql, 0, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
                     break;
                 default:
                     sql = SELECT_ALL1;
             }
 
-            List<BusHoaDon> list = this.selectSql(sql, filter == 3 ? 0 : 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
-            if (list == null) {
+            if (list.isEmpty()) {
                 return null;
             }
             return list;
@@ -143,8 +154,8 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         }
     }
 
-    public List<BusHoaDon> getAllHoaDon(String term) {
-        List<BusHoaDon> list = this.selectSql(SELECT_ALL, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+    public List<BusHoaDon> getAllHoaDon(String term, int statusHoaDon) {
+        List<BusHoaDon> list = this.selectSql(SELECT_ALL, statusHoaDon == 1 ? 0: 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
         if (list.size() > 0) {
             return list;
         }
@@ -187,6 +198,8 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         busHoaDon.setGhiChu(rs.getString("GhiChu"));
         busHoaDon.setPhiVanChuyen(rs.getFloat("PhiVanChuyen"));
         busHoaDon.setTrangThaiGiaoHang(rs.getInt("TrangThaiGiaoHang"));
+        busHoaDon.setTiemKhuyenMai(rs.getFloat("tienKhuyenMai"));
+        busHoaDon.setMakm(rs.getInt("makm"));
 //        busHoaDon.setTrangThai(rs.getBoolean("TrangThai"));
         return busHoaDon;
     }
@@ -205,6 +218,8 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         busHoaDon.setDiaChiNhanHang(rs.getString("DiaChiNhanHang"));
         busHoaDon.setGhiChu(rs.getString("GhiChu"));
         busHoaDon.setPhiVanChuyen(rs.getFloat("PhiVanChuyen"));
+        busHoaDon.setTiemKhuyenMai(rs.getFloat("tienKhuyenMai"));
+        busHoaDon.setMakm(rs.getInt("makm"));
         busHoaDon.setNgayTao(rs.getDate("NgayTao"));
         return busHoaDon;
     }

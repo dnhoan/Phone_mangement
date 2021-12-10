@@ -24,7 +24,25 @@ public class BusHoaDon {
     private float phiVanChuyen;
     private String ghiChu;
     private int trangThaiGiaoHang;
+    private int makm;
+    private float tiemKhuyenMai;
     private boolean trangThai;
+
+    public int getMakm() {
+        return makm;
+    }
+
+    public void setMakm(int makm) {
+        this.makm = makm;
+    }
+
+    public float getTiemKhuyenMai() {
+        return tiemKhuyenMai;
+    }
+
+    public void setTiemKhuyenMai(float tiemKhuyenMai) {
+        this.tiemKhuyenMai = tiemKhuyenMai;
+    }
 
     public int getTrangThaiGiaoHang() {
         return trangThaiGiaoHang;

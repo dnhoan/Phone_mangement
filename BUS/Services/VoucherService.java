@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 /**
  *
  * @author 84349
@@ -188,8 +190,48 @@ public void  insertspsale(int masp ){
             e.printStackTrace();
         }
     }
-    
-
+    public static List<BusVoucherModel> selectGiamGiaByMasp(int masp) {
+        VoucherService voucherService = new VoucherService();
+        List<BusVoucherModel> list = voucherService.selectBySql(SELECT_MAGG_BY_MASP, masp);
+        return list == null ?  null : list;
+    }
+    public static List<BusVoucherModel> selectGiamGiaHoaDon() {
+        VoucherService voucherService = new VoucherService();
+        List<BusVoucherModel> list = voucherService.selectBySql(SELECT_GIAMGAI_HOADON);
+        return list == null ?  null : list;
+    }
+    public static void fillCombo(DefaultComboBoxModel<BusVoucherModel> model, JComboBox cbo, int masp) {
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            List<BusVoucherModel> list = selectGiamGiaByMasp(masp);
+            cbo.addItem("");
+            if (list != null) {
+                for (BusVoucherModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+            cbo.getModel().setSelectedItem(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void fillCombo(DefaultComboBoxModel<BusVoucherModel> model, JComboBox cbo, List<BusVoucherModel> list) {
+        model = (DefaultComboBoxModel) cbo.getModel();
+        model.removeAllElements();
+        try {
+            list = selectGiamGiaHoaDon();
+            cbo.addItem("");
+            if (list != null) {
+                for (BusVoucherModel bus : list) {
+                    model.addElement(bus);
+                }
+            }
+            cbo.getModel().setSelectedItem(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     
     
     private BusVoucherModel readFromResultSet(ResultSet rs) throws SQLException {

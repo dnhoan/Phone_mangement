@@ -63,14 +63,15 @@ public class test extends javax.swing.JFrame {
         for(int i = 0; i < 10; i++) {
             model.addRow(new Object[] {
                 i,
-                "asdfjklasdjlfj \n asljdfkljsad\njdklsajfk\n"
+                "x"
             });
         }
-//         setUpSportColumn(table, table.getColumnModel().getColumn(1));
+         setUpSportColumn(table, table.getColumnModel().getColumn(1));
     }
     DefaultTableModel model;
     public void setUpSportColumn(JTable table,
                                  TableColumn sportColumn) {
+        System.out.println("fillCOmbo");
         //Set up the editor for the sport cells.
         JComboBox comboBox = new JComboBox();
         comboBox.addItem("Snowboarding");

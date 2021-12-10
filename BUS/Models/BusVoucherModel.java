@@ -6,6 +6,7 @@
 package BUS.Models;
 
 import GUI.Services.DateService;
+import GUI.Services.UtilityService;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -171,6 +172,11 @@ public class BusVoucherModel {
 
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
+    }
+
+    @Override
+    public String toString() {
+        return ">= " + UtilityService.toVnd(getDKKM()) + " - giảm "+ (getLoaiGG() == 0 ? UtilityService.toVnd(getMucGG()) : getMucGG() + " %");
     }
 
 

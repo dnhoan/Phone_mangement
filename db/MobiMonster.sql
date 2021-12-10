@@ -138,8 +138,9 @@ CREATE TABLE KhuyenMai
 	DKKM int null
 	PRIMARY KEY (MaKM)
 )
-alter table Khuyenmai alter column LoaiKM int null
-alter table Khuyenmai add CONSTRAINT fk_khuyenmai FOREIGN KEY(LoaiKM) REFERENCES loaimagiamgia(idloaimagiamgia)
+select * from HoaDon
+select * from KhuyenMai
+
 CREATE TABLE loaimagiamgia(
 	idloaimagiamgia int primary key,
 	tenloaigiamgia nvarchar(50),
@@ -150,7 +151,7 @@ insert into loaimagiamgia values(1,'Giảm giá theo sản phẩm')
 insert into loaimagiamgia values(2,'Giảm giá theo hóa đơn')
 
 GO
-
+iif(TienKhuyenMai is null, 0, TienKhuyenMai)
 CREATE TABLE SanPhamDCSale
 (
 	MaSPSale INT IDENTITY(1,1) NOT NULL,

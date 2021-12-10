@@ -5,6 +5,7 @@
  */
 package GUI.Models;
 
+import BUS.Models.BusSanPham;
 import DAL.Models.DalImeiModel;
 import java.util.List;
 
@@ -20,7 +21,43 @@ public class CartModel {
     private float tongTien;
     private boolean trangThai;
     private int soLuong;
+    private BusSanPham busSanPham;
+    private String voucherGiamGia;
+    private boolean giamTheoTien;
+    private float soLuongGiam;
     private List<DalImeiModel> listImeis;
+
+    public boolean isGiamTheoTien() {
+        return giamTheoTien;
+    }
+
+    public void setGiamTheoTien(boolean giamTheoTien) {
+        this.giamTheoTien = giamTheoTien;
+    }
+
+    public float getSoLuongGiam() {
+        return soLuongGiam;
+    }
+
+    public void setSoLuongGiam(float soLuongGiam) {
+        this.soLuongGiam = soLuongGiam;
+    }
+
+    public BusSanPham getBusSanPham() {
+        return busSanPham;
+    }
+
+    public void setBusSanPham(BusSanPham busSanPham) {
+        this.busSanPham = busSanPham;
+    }
+    
+    public String getVoucherGiamGia() {
+        return voucherGiamGia;
+    }
+
+    public void setVoucherGiamGia(String voucherGiamGia) {
+        this.voucherGiamGia = voucherGiamGia;
+    }
 
     public int getSoLuong() {
         return soLuong;
