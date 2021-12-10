@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import DAL.Services.JDBCHelper;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,9 +36,13 @@ public class BaoCao extends javax.swing.JFrame {
      */
     public BaoCao() {
         initComponents();
-        con = JDBCHelper.ketnoi();
+//        con = JDBCHelper.ketnoi();
         setLocationRelativeTo(this);
+        getContentPane().setBackground(Color.white);
 
+    }
+ public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
     }
 
     /**
@@ -54,7 +60,11 @@ public class BaoCao extends javax.swing.JFrame {
         lbltime = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
+        txtemail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txtemail.setForeground(new java.awt.Color(25, 29, 74));
+        txtemail.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
         txtemail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtemailActionPerformed(evt);
@@ -62,14 +72,31 @@ public class BaoCao extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(5, 10, 46));
         jLabel1.setText("Mời bạn nhập mail của sếp!");
 
-        btnbaocao.setText("Báo cáo");
+        btnbaocao.setBackground(new java.awt.Color(25, 29, 74));
+        btnbaocao.setForeground(new java.awt.Color(25, 29, 74));
+        btnbaocao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/report1.png"))); // NOI18N
+        btnbaocao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnbaocao.setBorderPainted(false);
+        btnbaocao.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnbaocao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnbaocaoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnbaocaoMouseExited(evt);
+            }
+        });
         btnbaocao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbaocaoActionPerformed(evt);
             }
         });
+
+        lbltime.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbltime.setForeground(new java.awt.Color(25, 29, 74));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,28 +106,25 @@ public class BaoCao extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnbaocao, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbltime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 17, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(lbltime, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(btnbaocao, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnbaocao, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(lbltime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(btnbaocao, javax.swing.GroupLayout.PREFERRED_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(lbltime, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -121,6 +145,14 @@ public class BaoCao extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnbaocaoActionPerformed
 
+    private void btnbaocaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbaocaoMouseEntered
+       changeColor(btnbaocao, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnbaocaoMouseEntered
+
+    private void btnbaocaoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbaocaoMouseExited
+       changeColor(btnbaocao, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnbaocaoMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -132,7 +164,7 @@ public class BaoCao extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

@@ -8,10 +8,15 @@ package GUI;
 import BUS.Models.BusCameraModel;
 import BUS.Services.CameraService;
 import BUS.Services.HeDieuHanhService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +32,9 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
      */
     int row = -1;
     CameraService cameraService = new CameraService();
+    Connection con = null;
+//    QuanLySanPham qlsp = new QuanLySanPham();
+    String sql = "SELECT MaCamera from CTSANPHAM where TrangThai = 1";
 
     public QLCameraSp() {
         initComponents();
@@ -365,14 +373,21 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
     private void btnSua4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua4ActionPerformed
         // TODO add your handling code here:
         if (TAB.getSelectedIndex() == 0) {
-            update();
+            if (checkNull() && checkUpdate()) {
+                update();
+            }
+
         } else {
             update2();
         }
     }//GEN-LAST:event_btnSua4ActionPerformed
 
     private void btnThem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem4ActionPerformed
-        insert();        // TODO add your handling code here:
+
+        if (checkNull() && checkUpdate()) {
+            insert();
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnThem4ActionPerformed
 
     private void btnLamMoiForm4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiForm4ActionPerformed
@@ -380,7 +395,7 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         clearForm();
     }//GEN-LAST:event_btnLamMoiForm4ActionPerformed
 
-                    
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
@@ -394,15 +409,15 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
     }//GEN-LAST:event_btnThem4MouseEntered
 
     private void btnThem4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem4MouseExited
-         changeColor(btnThem4, new Color(25, 29, 74));
+        changeColor(btnThem4, new Color(25, 29, 74));
     }//GEN-LAST:event_btnThem4MouseExited
 
     private void btnSua4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSua4MouseEntered
-       changeColor(btnSua4, new Color(102, 0, 102));
+        changeColor(btnSua4, new Color(102, 0, 102));
     }//GEN-LAST:event_btnSua4MouseEntered
 
     private void btnSua4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSua4MouseExited
-          changeColor(btnSua4, new Color(25, 29, 74));
+        changeColor(btnSua4, new Color(25, 29, 74));
     }//GEN-LAST:event_btnSua4MouseExited
 
     private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
@@ -410,7 +425,7 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
     }//GEN-LAST:event_btnLamMoiForm4MouseEntered
 
     private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
-          changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+        changeColor(btnLamMoiForm4, new Color(25, 29, 74));
     }//GEN-LAST:event_btnLamMoiForm4MouseExited
 
     /**
@@ -595,6 +610,38 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
             MessageService.alert(this, "err");
             e.printStackTrace();
         }
+    }
+
+    public boolean checkUpdate() {
+        try {
+            int chkmacam = (int) tbldsd.getValueAt(row, 0);
+            con = JDBCHelper.ketnoi();
+            PreparedStatement pstm = con.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                if (chkmacam == rs.getInt("MaCamera")) {
+                    MessageService.alert(this, "Camera này vẫn đang được sử dụng trong sản phẩm!");
+                    return false;
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            MessageService.alert(this, "Lỗi check update");
+        }
+        return true;
+    }
+
+    public boolean checkNull() {
+        if (txtLoaiCam.getText().isEmpty()) {
+            MessageService.alert(this, "Không bỏ trống loại cam!");
+            return false;
+        }
+        if (txtDoPhanGia.getText().isEmpty()) {
+            MessageService.alert(this, "Không bỏ trống độ phân giải!");
+            return false;
+        }
+        return true;
     }
 
     @Override
