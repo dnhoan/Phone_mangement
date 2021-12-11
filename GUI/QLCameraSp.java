@@ -32,9 +32,9 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
      */
     int row = -1;
     CameraService cameraService = new CameraService();
-    Connection con = null;
+    
 //    QuanLySanPham qlsp = new QuanLySanPham();
-    String sql = "SELECT MaCamera from CTSANPHAM where TrangThai = 1";
+    
 
     public QLCameraSp() {
         initComponents();
@@ -373,7 +373,7 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
     private void btnSua4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua4ActionPerformed
         // TODO add your handling code here:
         if (TAB.getSelectedIndex() == 0) {
-            if (checkNull() && checkUpdate()) {
+            if (checkNull() ) {
                 update();
             }
 
@@ -615,8 +615,8 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
     public boolean checkUpdate() {
         try {
             int chkmacam = (int) tbldsd.getValueAt(row, 0);
-            con = JDBCHelper.ketnoi();
-            PreparedStatement pstm = con.prepareStatement(sql);
+             Connection con = JDBCHelper.ketnoi();
+            PreparedStatement pstm = con.prepareStatement("SELECT MaCamera from CTSANPHAM where TrangThai = 1");
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 if (chkmacam == rs.getInt("MaCamera")) {

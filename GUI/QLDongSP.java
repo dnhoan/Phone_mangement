@@ -9,10 +9,15 @@ import BUS.Models.BusDongSpModel;
 import BUS.Models.BusHangModel;
 import BUS.Services.DongSPService;
 import BUS.Services.HangService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -351,14 +356,20 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
     private void btnSua4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua4ActionPerformed
         // TODO add your handling code here:
         if (TAB.getSelectedIndex() == 0) {
-            update();
+            if(checkNull()&&checkStatus()){
+                 update();
+            }
+           
         } else {
             update2();
         }
     }//GEN-LAST:event_btnSua4ActionPerformed
 
     private void btnThem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem4ActionPerformed
-        insert();        // TODO add your handling code here:
+       if(checkNull()){
+            insert();    
+       }
+           // TODO add your handling code here:
     }//GEN-LAST:event_btnThem4ActionPerformed
 
     private void btnLamMoiForm4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiForm4ActionPerformed
@@ -645,6 +656,34 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
             }
         } catch (Exception e) {
         }
+    }
+     public boolean checkStatus(){
+    try {
+        int chkmadong = (int) tbldsd.getValueAt(row, 0);
+        Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("select DongSP.MaDong from DongSP, SanPham,CTSANPHAM\n"
+                    + "where DongSP.MaDong = SanPham.MaDong and SanPham.MaSP = CTSANPHAM.MaSP and CTSANPHAM.TrangThai = 1");
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmadong==rs.getInt("MaDong")){
+                MessageService.alert(this, "Dòng này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
+        }
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+    return true;    
+    }
+    public boolean checkNull(){
+        if(txtTenDongsp.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống tên dòng sản phẩm!");
+            return false;
+        }
+       
+        return true;
     }
 
     @Override

@@ -37,8 +37,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     BusPinModel pin = new BusPinModel();
     PinService psr = new PinService();
     int row = -1;
-     Connection con = null;
-    String sql= "SELECT MaPin from CTSANPHAM where TrangThai = 1";
+    
+
 
     /**
      * Creates new form QLPin
@@ -774,8 +774,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
     public boolean checkUpdate(){
         try {
         int chkmapin = (int) tblKD.getValueAt(row, 0);
-        con = JDBCHelper.ketnoi();
-        PreparedStatement pstm = con.prepareStatement(sql);
+      Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("SELECT MaPin from CTSANPHAM where TrangThai = 1");
         ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
             if(chkmapin==rs.getInt("MaPin")){

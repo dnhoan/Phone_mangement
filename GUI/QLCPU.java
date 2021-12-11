@@ -31,9 +31,9 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
     CpuService csr = new CpuService();
     int row = -1;
-     Connection con = null;
+  
 //    QuanLySanPham qlsp = new QuanLySanPham();
-      String sql= "SELECT MaCPU from CTSANPHAM where TrangThai = 1";
+     
 
     public QLCPU() {
         initComponents();
@@ -357,7 +357,7 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
     }//GEN-LAST:event_btnSua4ActionPerformed
 
     private void btnThem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem4ActionPerformed
-        if(checkNull()&&checkUpdate()){
+        if(checkNull()){
              insert();
         }
           // TODO add your handling code here:
@@ -618,8 +618,8 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
      public boolean checkUpdate(){
         try {
         int chkmacpu = (int) tbldsd.getValueAt(row, 0);
-        con = JDBCHelper.ketnoi();
-        PreparedStatement pstm = con.prepareStatement(sql);
+        Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("SELECT MaCPU from CTSANPHAM where TrangThai = 1");
         ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
             if(chkmacpu==rs.getInt("MaCPU")){

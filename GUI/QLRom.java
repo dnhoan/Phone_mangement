@@ -7,10 +7,15 @@ package GUI;
 
 import BUS.Models.BusRomModel;
 import BUS.Services.RomService;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -340,16 +345,26 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         if (MessageService.confirm(this, "xoa ko")) {
-            this.delete();
+            if(checkUpdate()){
+                 this.delete();
+            }
+           
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        this.update();
+        if(checkNull()&&checkNumber()){
+             this.update();
+        }
+       
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        this.insert();
+       
+        if(checkNull()&&checkNumber()){
+            this.insert();
+        }
+        
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
@@ -624,7 +639,46 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
         boolean edit = (this.rowRecycle >= 0);
         btnbackup.setEnabled(edit);
     }
-
+    
+public boolean checkUpdate(){
+        try {
+        int chkmarom = (int) tblRom.getValueAt(row, 0);
+      Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("SELECT MaROM from CTSANPHAM where TrangThai = 1");
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmarom==rs.getInt("MaROM")){
+                MessageService.alert(this, "Rom này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
+        }
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
+    }
+    public boolean checkNull(){
+        if(txtLoaiRam.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống loại rom!");
+            return false;
+        }
+        if(txtDungLuong.getText().isEmpty()){
+             MessageService.alert(this, "Không bỏ trống dung lượng rom!");
+            return false;
+        }
+        return true;
+    }
+    public boolean checkNumber(){
+        try {
+            float so = Float.parseFloat(txtDungLuong.getText());
+        } catch (Exception e) {
+             MessageService.alert(this, "Dung lượng rom phải là số!");
+            return false;
+        }
+        return true;
+    }
     @Override
     public void first() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
