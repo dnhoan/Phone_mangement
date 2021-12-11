@@ -41,7 +41,6 @@ public class BusImeiService {
         try {
             listDalImei = dalImeiService.selectByMaCtSp(mactsp, keyWord);
             listDalImei.forEach(i -> {
-                System.out.println(i.getMaImei());
                 BusImeiModel busImeiModel = new BusImeiModel();
                 busImeiModel.setDalImeiModel(i);
                 listBusImei.add(busImeiModel);

@@ -20,12 +20,21 @@ public class CartModel {
     private float gia;
     private float tongTien;
     private boolean trangThai;
+    private float tongTienHang;
     private int soLuong;
     private BusSanPham busSanPham;
-    private String voucherGiamGia;
     private boolean giamTheoTien;
     private float soLuongGiam;
     private List<DalImeiModel> listImeis;
+
+    public float getTongTienHang() {
+        return tongTienHang;
+    }
+
+    public void setTongTienHang(float tongTienHang) {
+        this.tongTienHang = tongTienHang;
+    }
+
 
     public boolean isGiamTheoTien() {
         return giamTheoTien;
@@ -51,13 +60,6 @@ public class CartModel {
         this.busSanPham = busSanPham;
     }
     
-    public String getVoucherGiamGia() {
-        return voucherGiamGia;
-    }
-
-    public void setVoucherGiamGia(String voucherGiamGia) {
-        this.voucherGiamGia = voucherGiamGia;
-    }
 
     public int getSoLuong() {
         return soLuong;

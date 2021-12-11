@@ -28,6 +28,15 @@ public class BusVoucherModel {
     private int mucGG;
     private int DKKM;
     private boolean TrangThai;
+    private int maspDCSale;
+
+    public int getMaspDCSale() {
+        return maspDCSale;
+    }
+
+    public void setMaspDCSale(int maspDCSale) {
+        this.maspDCSale = maspDCSale;
+    }
 
     public int getDKKM() {
         return DKKM;

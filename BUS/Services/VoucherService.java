@@ -17,11 +17,12 @@ import java.util.logging.Logger;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+
 /**
  *
  * @author 84349
  */
-public class VoucherService implements IVoucher,IPhoneMangementService<BusVoucherModel, Object>{
+public class VoucherService implements IVoucher, IPhoneMangementService<BusVoucherModel, Object> {
 
     @Override
     public void insert(BusVoucherModel entity) {
@@ -35,13 +36,14 @@ public class VoucherService implements IVoucher,IPhoneMangementService<BusVouche
                     entity.isTrangThai(),
                     entity.getMucGG(),
                     entity.getLoaikm()
-                    );
+            );
 //            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
+
     public void insertsalehoadon(BusVoucherModel entity) {
         try {
             JDBCHelper.executeUpdate(INSERT_SALE_HOADON,
@@ -54,45 +56,48 @@ public class VoucherService implements IVoucher,IPhoneMangementService<BusVouche
                     entity.getMucGG(),
                     entity.getLoaikm(),
                     entity.getDKKM()
-                    );
+            );
 //            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM],[DKKM]
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
-public void  insertspsale(int masp ){
-    try {
+
+    public void insertspsale(int masp) {
+        try {
             JDBCHelper.executeUpdate(INSERTNEW,
                     masp
-                    );
+            );
 //            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
         } catch (Exception e) {
             e.printStackTrace();
         }
-}
+    }
 
-    public void insertsanphamdcsale(int masp,int makm) {
+    public void insertsanphamdcsale(int masp, int makm) {
         try {
             JDBCHelper.executeUpdate(INSERT_SPSALE,
                     masp,
                     makm
-                    );
+            );
 //            [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
-    public void deleteSPsale(BusVoucherModel entity){
+
+    public void deleteSPsale(BusVoucherModel entity) {
         try {
-            String sql="DELETE FROM sanphamdcsale WHERE maKM=?";
+            String sql = "DELETE FROM sanphamdcsale WHERE maKM=?";
             JDBCHelper.executeUpdate(sql, entity.getMaKM());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
+
     @Override
     public void update(BusVoucherModel entity) {
         try {
@@ -101,11 +106,12 @@ public void  insertspsale(int masp ){
                     entity.getLoaiGG(),
                     entity.getMucGG(),
                     entity.getMaKM()
-                    );
+            );
 //            TenKM=?, LoaiGG=?, MucGG=?
         } catch (Exception e) {
         }
     }
+
     public void updatesalehoadon(BusVoucherModel entity) {
         try {
             JDBCHelper.executeUpdate(UPDATE_SALE_HOADON,
@@ -114,11 +120,12 @@ public void  insertspsale(int masp ){
                     entity.getMucGG(),
                     entity.getDKKM(),
                     entity.getMaKM()
-                    );
+            );
 //            TenKM=?, LoaiGG=?, MucGG=?
         } catch (Exception e) {
         }
     }
+
     public void updatebyMaKM(BusVoucherModel entity) {
         try {
             JDBCHelper.executeUpdate(UPDATE,
@@ -126,12 +133,11 @@ public void  insertspsale(int masp ){
                     entity.getLoaiGG(),
                     entity.getMucGG(),
                     entity.getMaKM()
-                    );
+            );
 //            TenKM=?, LoaiGG=?, MucGG=?
         } catch (Exception e) {
         }
     }
-    
 
     @Override
     public void delete(Object id) {
@@ -151,10 +157,15 @@ public void  insertspsale(int masp ){
         List<BusVoucherModel> list = selectBySql(sql, id);
         return list.size() > 0 ? list.get(0) : null;
     }
+    public BusVoucherModel selectVoucherByMaImei(int maspSale) {
+        String sql = SELECT_VOUCHER_BY_MASPSALE;
+        List<BusVoucherModel> list = selectBySQLHasSPSale(sql, maspSale);
+        return list.size() > 0 ? list.get(0) : null;
+    }
 
     @Override
     public List<BusVoucherModel> selectAll() {
-         String sql = SELECT_ALL;
+        String sql = SELECT_ALL;
         return selectBySql(sql);
     }
 
@@ -164,7 +175,7 @@ public void  insertspsale(int masp ){
         try {
             ResultSet rs = null;
             try {
-                 rs = JDBCHelper.executeQuery(sql, args);
+                rs = JDBCHelper.executeQuery(sql, args);
                 while (rs.next()) {
                     BusVoucherModel model = readFromResultSet(rs);
                     list.add(model);
@@ -177,11 +188,12 @@ public void  insertspsale(int masp ){
             throw new RuntimeException(ex);
         }
         return list;
-    
+
     }
-    public void Update_NgayBD_Ngaykt(BusVoucherModel entity){
+
+    public void Update_NgayBD_Ngaykt(BusVoucherModel entity) {
         try {
-            JDBCHelper.executeUpdate(UPDATE_NGAYBD_NGAYKT, 
+            JDBCHelper.executeUpdate(UPDATE_NGAYBD_NGAYKT,
                     entity.getNgayBD(),
                     entity.getNgayKT(),
                     entity.getMaKM()
@@ -190,16 +202,19 @@ public void  insertspsale(int masp ){
             e.printStackTrace();
         }
     }
+
     public static List<BusVoucherModel> selectGiamGiaByMasp(int masp) {
         VoucherService voucherService = new VoucherService();
-        List<BusVoucherModel> list = voucherService.selectBySql(SELECT_MAGG_BY_MASP, masp);
-        return list == null ?  null : list;
+        List<BusVoucherModel> list = voucherService.selectBySQLHasSPSale(SELECT_MAGG_BY_MASP, masp);
+        return list == null ? null : list;
     }
+
     public static List<BusVoucherModel> selectGiamGiaHoaDon() {
         VoucherService voucherService = new VoucherService();
         List<BusVoucherModel> list = voucherService.selectBySql(SELECT_GIAMGAI_HOADON);
-        return list == null ?  null : list;
+        return list == null ? null : list;
     }
+
     public static void fillCombo(DefaultComboBoxModel<BusVoucherModel> model, JComboBox cbo, int masp) {
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
@@ -216,6 +231,7 @@ public void  insertspsale(int masp ){
             e.printStackTrace();
         }
     }
+
     public static void fillCombo(DefaultComboBoxModel<BusVoucherModel> model, JComboBox cbo, List<BusVoucherModel> list) {
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();
@@ -232,21 +248,56 @@ public void  insertspsale(int masp ){
             e.printStackTrace();
         }
     }
-    
-    
+    public List<BusVoucherModel> selectBySQLHasSPSale(String sql, Object... args) {
+        List<BusVoucherModel> list = new ArrayList<>();
+        try {
+            ResultSet rs = null;
+            try {
+                rs = JDBCHelper.executeQuery(sql, args);
+                while (rs.next()) {
+                    BusVoucherModel model = readFromResultSetHasSPSale(rs);
+                    list.add(model);
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException ex) {
+//            System.out.println("hi");
+            throw new RuntimeException(ex);
+        }
+        return list;
+
+    }
     private BusVoucherModel readFromResultSet(ResultSet rs) throws SQLException {
 //        [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
         BusVoucherModel entity = new BusVoucherModel();
         entity.setMaKM(rs.getInt("MaKM"));
         entity.setLoaikm(rs.getInt("loaiKm"));
         entity.setTenKM(rs.getString("tenKM"));
-      entity.setMaVC(rs.getString("mavc"));
+        entity.setMaVC(rs.getString("mavc"));
         entity.setLoaiGG(rs.getInt("LoaiGG"));
         entity.setNgayBD(rs.getDate("NgayBD"));
-       entity.setNgayKT(rs.getDate("NgayKT"));
-       entity.setMucGG(rs.getInt("mucGG"));
-       entity.setTrangThai(rs.getBoolean("trangthai"));
-       entity.setDKKM(rs.getInt("DKKM"));
+        entity.setNgayKT(rs.getDate("NgayKT"));
+        entity.setMucGG(rs.getInt("mucGG"));
+        entity.setTrangThai(rs.getBoolean("trangthai"));
+        entity.setDKKM(rs.getInt("DKKM"));
+        return entity;
+
+    }
+    private BusVoucherModel readFromResultSetHasSPSale(ResultSet rs) throws SQLException {
+//        [tenKM],[MaVC],[NgayBD],[NgayKT],[LoaiGG],[TrangThai],[mucGG],[LoaiKM]
+        BusVoucherModel entity = new BusVoucherModel();
+        entity.setMaKM(rs.getInt("MaKM"));
+        entity.setLoaikm(rs.getInt("loaiKm"));
+        entity.setTenKM(rs.getString("tenKM"));
+        entity.setMaVC(rs.getString("mavc"));
+        entity.setLoaiGG(rs.getInt("LoaiGG"));
+        entity.setNgayBD(rs.getDate("NgayBD"));
+        entity.setNgayKT(rs.getDate("NgayKT"));
+        entity.setMucGG(rs.getInt("mucGG"));
+        entity.setTrangThai(rs.getBoolean("trangthai"));
+        entity.setDKKM(rs.getInt("DKKM"));
+        entity.setMaspDCSale(rs.getInt("MaSPSale"));
         return entity;
 
     }

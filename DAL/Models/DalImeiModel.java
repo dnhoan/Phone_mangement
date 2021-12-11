@@ -16,6 +16,15 @@ public class DalImeiModel {
     private String tenImei;
     private boolean trangThaiBan;
     private boolean trangThai;
+    private String ghiChu;
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
 
     public boolean isTrangThaiBan() {
         return trangThaiBan;

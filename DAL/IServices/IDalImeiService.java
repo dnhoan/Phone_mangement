@@ -25,7 +25,7 @@ public interface IDalImeiService {
     String SELECT_IMEIS_NOT_SELL = "select * from IMEI where MACTSP = ? and TRANGTHAI = 1 and TrangThaiBan = 1";
     String DELETE = "update IMEI set TRANGTHAI = 0 where MaIMEI = ?";
 
-    String SELECT_IMEI_BY_MACTSP_AND_MAHD = "select Imei.maImei, CTSANPHAM.MACTSP, tenImei, maspsale, TrangThaiBan  from CTSANPHAM join Imei \n"
+    String SELECT_IMEI_BY_MACTSP_AND_MAHD = "select Imei.maImei, CTSANPHAM.MACTSP, tenImei, maspsale, TrangThaiBan, Imei.ghichu  from CTSANPHAM join Imei \n"
             + "on Imei.MaCTSP = CTSANPHAM.MACTSP join ChiTietHoaDon \n"
             + "on ChiTietHoaDon.MaImei = Imei.MaImei join HoaDon\n"
             + "on HoaDon.MaHD = ChiTietHoaDon.MaHD\n"

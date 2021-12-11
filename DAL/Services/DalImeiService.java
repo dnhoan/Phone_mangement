@@ -43,6 +43,13 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
         } catch (SQLException e) {
         }
     }
+    public void updateMaSPSale(int maImei, int maspSale) {
+        try {
+            JDBCHelper.executeUpdate("update Imei set MaSPSale = ? where MaImei = ?", maspSale, maImei);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public boolean updateDoiHang(int currentImei, int newImei, String ghiChu) {
         try {
             JDBCHelper.executeUpdate(UPDATE_GHICHU, ghiChu, currentImei);
@@ -120,6 +127,7 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
                 dalImeiModel.setTenImei(rs.getString("tenImei"));
                 dalImeiModel.setMaSpSale(rs.getInt("maspsale"));
                 dalImeiModel.setTrangThaiBan(rs.getBoolean("TrangThaiBan"));
+                dalImeiModel.setGhiChu(rs.getString("ghichu"));
                 listImei.add(dalImeiModel);
             }
             return listImei;

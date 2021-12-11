@@ -156,7 +156,18 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
         }
         return null;
     }
-
+    public Integer selectMaspByMactsp(int mactsp) {
+        try {
+            ResultSet resultSet = JDBCHelper.executeQuery("select SanPham.MaSP from SanPham inner join CTSANPHAM on SanPham.MaSP = CTSANPHAM.MaSP where MACTSP = ?", mactsp);
+            while (resultSet.next()) {
+                return resultSet.getInt("masp");
+            }
+            resultSet.getStatement().close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
 //    public static void main(String[] args) {
 //        SanPhamService sanPhamService = new SanPhamService();
 //        BusCTSanPhamModel busCTSanPhamModel = sanPhamService.selectID(5);

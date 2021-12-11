@@ -16,6 +16,7 @@ import static GUI.QuanLyBanHang.listSp;
 import static GUI.QuanLyBanHang.tblCart;
 import static GUI.QuanLyBanHang.tblSanPham;
 import GUI.Services.MessageService;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -50,12 +51,17 @@ public class SelectImei extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnOk = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtGhiChu = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         cboImei.setEditable(true);
+        cboImei.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboImeiItemStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Chọn Imei");
 
@@ -66,9 +72,10 @@ public class SelectImei extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtGhiChu.setEditable(false);
+        txtGhiChu.setColumns(20);
+        txtGhiChu.setRows(5);
+        jScrollPane1.setViewportView(txtGhiChu);
 
         jLabel2.setText("Ghi chú");
 
@@ -113,6 +120,17 @@ public class SelectImei extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 
+    private void cboImeiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboImeiItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if ("".equals(cboImei.getSelectedItem()) || cboImei.getSelectedItem() == null) {
+                txtGhiChu.setText("");
+            } else {
+                DalImeiModel imei = (DalImeiModel) cboImei.getSelectedItem();
+                txtGhiChu.setText(imei.getGhiChu());
+            }
+        }
+    }//GEN-LAST:event_cboImeiItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -154,7 +172,7 @@ public class SelectImei extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtGhiChu;
     // End of variables declaration//GEN-END:variables
 
     static DefaultComboBoxModel<DalImeiModel> imeiModel;
@@ -172,9 +190,8 @@ public class SelectImei extends javax.swing.JFrame {
             MessageService.alert(null, "Bạn chưa nhập imei máy");
         } else {
             DalImeiModel imei = (DalImeiModel) cboImei.getSelectedItem();
-            
+
 //            BusImeiService.updateStatusSell(imei.getMaImei(), 0);
-            
             List<DalImeiModel> listImeis = new ArrayList<>();
             CartModel cart = new CartModel();
             cart.setMactsp(busCTSanPhamModel.getMaCTSP());
@@ -190,7 +207,7 @@ public class SelectImei extends javax.swing.JFrame {
                         listImeis.add(imei);
                         cart.setListImeis(listImeis);
                         cart.setTongTien(busCTSanPhamModel.getGiaBan() * cart.getListImeis().size());
-
+                        cart.setTongTienHang(busCTSanPhamModel.getGiaBan() * cart.getListImeis().size());
                         int indexsp = listSp.indexOf(busCTSanPhamModel);
                         int conLai = busCTSanPhamModel.getTonKho() - 1;
                         busCTSanPhamModel.setTonKho(conLai);
@@ -202,7 +219,7 @@ public class SelectImei extends javax.swing.JFrame {
                         listImeis.add(imei);
                         cart.setListImeis(listImeis);
                         cart.setTongTien(busCTSanPhamModel.getGiaBan() * cart.getListImeis().size());
-
+                        cart.setTongTienHang(busCTSanPhamModel.getGiaBan() * cart.getListImeis().size());
                         int indexsp = listSp.indexOf(busCTSanPhamModel);
                         int conLai = busCTSanPhamModel.getTonKho() - 1;
                         busCTSanPhamModel.setTonKho(conLai);
@@ -216,7 +233,7 @@ public class SelectImei extends javax.swing.JFrame {
                 listImeis.add(imei);
                 cart.setListImeis(listImeis);
                 cart.setTongTien(busCTSanPhamModel.getGiaBan() * cart.getListImeis().size());
-
+                cart.setTongTienHang(busCTSanPhamModel.getGiaBan() * cart.getListImeis().size());
                 int indexsp = listSp.indexOf(busCTSanPhamModel);
                 int conLai = busCTSanPhamModel.getTonKho() - 1;
                 busCTSanPhamModel.setTonKho(conLai);

@@ -21,4 +21,5 @@ public interface IVoucher {
     String SELECT_MAGG_BY_MASP = "select * from SanPhamDCSale inner join KhuyenMai on KhuyenMai.MaKM = SanPhamDCSale.MaKM where GETDATE() >= NgayBD and GETDATE() <= NgayKT AND masp = ?"; 
     String UPDATE_NGAYBD_NGAYKT = "UPDATE [dbo].[KhuyenMai] SET NgayBD=?, NgayKT=? where MaKM=?"  ;
     String SELECT_GIAMGAI_HOADON = "select * from KhuyenMai where GETDATE() >= NgayBD and GETDATE() <= NgayKT AND LoaiKM = 2";
+    String SELECT_VOUCHER_BY_MASPSALE = "select * from SanPhamDCSale join KhuyenMai on KhuyenMai.MaKM = SanPhamDCSale.MaKM where MaSPSale = ? and GETDATE() <= NgayKT";
 }

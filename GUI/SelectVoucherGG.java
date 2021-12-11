@@ -1,19 +1,27 @@
 package GUI;
 
 import BUS.Models.BusVoucherModel;
+import BUS.Services.SanPhamService;
 import BUS.Services.VoucherService;
+import DAL.Models.DalImeiModel;
 import GUI.Models.CartModel;
 import javax.swing.DefaultComboBoxModel;
 
 public class SelectVoucherGG extends javax.swing.JFrame {
 
     int masp;
+    int mactsp;
     DefaultComboBoxModel<BusVoucherModel> model;
+    SanPhamService sanPhamService = new SanPhamService();
 
-    public SelectVoucherGG(int maSpSelect) {
+    public SelectVoucherGG(int mactsp) {
         initComponents();
-        this.masp = maSpSelect;
+        this.mactsp = mactsp;
+        this.masp = sanPhamService.selectMaspByMactsp(mactsp);
+        System.out.println("masp " + this.masp);
         setTitle("Chọn mã voucher giảm giá");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         VoucherService.fillCombo(model, cboGiamGia, masp);
     }
 
@@ -59,18 +67,40 @@ public class SelectVoucherGG extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (cboGiamGia.getSelectedIndex() == 0) {
-
+            for (CartModel cart : QuanLyBanHang.listCart) {
+                if (cart.getBusSanPham().getMasp() == this.masp) {
+                    cart.setTongTien(cart.getTongTienHang());
+                    cart.getListImeis().forEach(imei -> {
+                        imei.setMaSpSale(0);
+                    });
+                    cart.setSoLuongGiam(0);
+                    cart.setGiamTheoTien(true);
+                    break;
+                }
+            }
         } else {
             BusVoucherModel busVoucherModel = (BusVoucherModel) cboGiamGia.getSelectedItem();
             for (CartModel cart : QuanLyBanHang.listCart) {
-                if (cart.getBusSanPham().getMasp() == this.masp) {
-                    cart.setVoucherGiamGia(busVoucherModel.getMaVC());
-//                    0: tiền, 1 là %
-                    cart.setGiamTheoTien(busVoucherModel.getLoaiGG() == 1);
+                if (cart.getMactsp() == this.mactsp) {
+                    //                    0: tiền, 1 là %
+                    cart.getListImeis().forEach(imei -> {
+                        imei.setMaSpSale(busVoucherModel.getMaspDCSale());
+                    });
+                    float tongTienSauSale;
+                    if (busVoucherModel.getLoaiGG() == 1) {
+                        tongTienSauSale = cart.getTongTienHang() - ((cart.getGia() * busVoucherModel.getMucGG() / 100) * cart.getListImeis().size());
+                    } else {
+                        tongTienSauSale = cart.getTongTienHang() - (busVoucherModel.getMucGG() * cart.getListImeis().size());
+                    }
                     cart.setSoLuongGiam(busVoucherModel.getMucGG());
+                    cart.setGiamTheoTien(busVoucherModel.getLoaiGG() == 0);
+                    cart.setTongTien(tongTienSauSale);
+                    break;
                 }
             }
         }
+        QuanLyBanHang.fillToCart(QuanLyBanHang.cartModel, QuanLyBanHang.tblCart);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

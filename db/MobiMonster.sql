@@ -90,7 +90,6 @@ CREATE TABLE HoaDon(
 	FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH),
 )
 GO
-select * from HoaDon
 CREATE TABLE HangSanPham(
 	MaHang INT IDENTITY(1,1) NOT NULL,
 	TenHang NVARCHAR(20) NULL,
@@ -138,8 +137,6 @@ CREATE TABLE KhuyenMai
 	DKKM int null
 	PRIMARY KEY (MaKM)
 )
-select * from HoaDon
-select * from KhuyenMai
 
 CREATE TABLE loaimagiamgia(
 	idloaimagiamgia int primary key,
@@ -151,7 +148,6 @@ insert into loaimagiamgia values(1,'Giảm giá theo sản phẩm')
 insert into loaimagiamgia values(2,'Giảm giá theo hóa đơn')
 
 GO
-iif(TienKhuyenMai is null, 0, TienKhuyenMai)
 CREATE TABLE SanPhamDCSale
 (
 	MaSPSale INT IDENTITY(1,1) NOT NULL,
@@ -330,17 +326,9 @@ create trigger trg_updateTrangThaiBanTo0 on ChiTietHoaDon after insert as
 begin
 	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei
 end
-
-drop trigger trg_updateTrangThaiBanTo1
 -- c?p nh?t tr?ng th�i trong imei khi tr?ng th�i ? chi ti?t h�a b? x�a
-update ChiTietHoaDon set MaImei = ? where MaImei = ?
 create trigger trg_updateTrangThaiBanTo1 on ChiTietHoaDon after update as
 begin
 	update IMEI set TrangThaiBan = 1 from IMEI join deleted on deleted.MaImei = IMEI.MaImei where deleted.trangThai = 1
 	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei where inserted.trangThai = 1
-end
-select count(mactsp) from Imei where TrangThaiBan = 0 and MACTSP = 1
-
-update CTSANPHAM set TonKho = SoLuongNhap - (select count(mactsp) from Imei join inserted on inserted.MaImei = IMEI.MaIMEI 
-	where TrangThaiBan = 0 and MACTSP = IMEI.MaCTSP and inserted.TrangThai = 1 and Imei.TrangThai = 1)
 end
