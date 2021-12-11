@@ -13,11 +13,16 @@ import BUS.Services.HangService;
 import BUS.Services.LoaiSPService;
 import BUS.Services.SanPhamService;
 import DAL.Models.DalLoaiSanPham;
+import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -430,11 +435,18 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        this.update();
+       if(checkNull()&&checkUpdate()){
+            this.update();
+       }
+       
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        this.insert();
+       
+       if(checkNull()){
+            this.insert();
+       } 
+       
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
@@ -769,7 +781,33 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
         txtTensp.setText("");
         this.updateStatus();
     }
-
+ public boolean checkUpdate(){
+        try {
+        int chkmasp = (int) tblHoatDong.getValueAt(row, 0);
+         Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("SELECT MaSP from CTSANPHAM where TrangThai = 1");
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmasp==rs.getInt("MaSP")){
+                MessageService.alert(this, "Loại này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
+        }
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
+    }
+    public boolean checkNull(){
+        if(txtTensp.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống tên sản phẩm!");
+            return false;
+        }
+       
+        return true;
+    }
     @Override
     public void first() {
     }

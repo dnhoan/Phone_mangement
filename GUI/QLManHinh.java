@@ -32,8 +32,8 @@ BusCTSanPhamModel ctsp = new BusCTSanPhamModel();
 BusManHinhModel mh = new BusManHinhModel();
     ManHinhService mhser = new ManHinhService();
     int row = -1;
-    Connection con = null;
-    String sql= "SELECT MaManHinh from CTSANPHAM where TrangThai = 1";
+
+    
 
     /**
      * Creates new form QLManHinh
@@ -716,8 +716,8 @@ BusManHinhModel mh = new BusManHinhModel();
      public boolean checkStatus(){
     try {
         int chkmamh = (int) tblDKD.getValueAt(row, 0);
-        con = JDBCHelper.ketnoi();
-        PreparedStatement pstm = con.prepareStatement(sql);
+        Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("SELECT MaManHinh from CTSANPHAM where TrangThai = 1");
         ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
             if(chkmamh==rs.getInt("MaManHinh")){

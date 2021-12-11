@@ -9,9 +9,14 @@ import BUS.Models.BusMauSacModel;
 import BUS.Services.BusPhanLoaiSpService;
 import BUS.Services.MauSacService;
 import DAL.Models.DalMauSacModel;
+import DAL.Services.JDBCHelper;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
@@ -399,22 +404,28 @@ public class QLMauSac extends javax.swing.JFrame {
     }//GEN-LAST:event_tabsPropertyChange
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        DalMauSacModel dalMauSacModel = getForm();
+        if(checkNull()){
+            DalMauSacModel dalMauSacModel = getForm();
         if (MauSacService.insert(dalMauSacModel)) {
             MessageService.alert(this, "yeahhh");
             filTable();
         } else {
             MessageService.alert(this, "no");
+        } 
         }
+       
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (MauSacService.update(this.getForm())) {
+       if(checkNull()&&checkUpdate()){
+            if (MauSacService.update(this.getForm())) {
             MessageService.alert(this, "yeahhh");
             filTable();
         } else {
             MessageService.alert(this, "no");
         }
+       }
+       
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnLamMoiForm4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiForm4ActionPerformed
@@ -489,7 +500,33 @@ public class QLMauSac extends javax.swing.JFrame {
         btnSua.setEnabled(false);
         rowSeleted = -1;
     }
-
+public boolean checkUpdate(){
+        try {
+        int chkmamau = (int) tblKD.getValueAt(rowSeleted, 0);
+      Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("SELECT MaMau from CTSANPHAM where TrangThai = 1");
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            if(chkmamau==rs.getInt("MaMau")){
+                MessageService.alert(this, "Màu này vẫn đang được sử dụng trong sản phẩm!");
+                return false;
+            }
+            
+        }
+        
+    } catch (SQLException ex) {
+        MessageService.alert(this, "Lỗi check update");
+    }
+        return true;
+    }
+    public boolean checkNull(){
+        if(txtTenMau.getText().isEmpty()){
+            MessageService.alert(this, "Không bỏ trống tên màu!");
+            return false;
+        }
+      
+        return true;
+    }
     /**
      * @param args the command line arguments
      */

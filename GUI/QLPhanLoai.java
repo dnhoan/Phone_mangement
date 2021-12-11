@@ -8,9 +8,14 @@ package GUI;
 import BUS.Models.BusPhanLoaiSpModel;
 import BUS.Services.BusPhanLoaiSpService;
 import DAL.Models.DalPhanLoaiSpModel;
+import DAL.Services.JDBCHelper;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JButton;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
@@ -418,22 +423,30 @@ public class QLPhanLoai extends javax.swing.JFrame {
     }//GEN-LAST:event_tabsPropertyChange
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        DalPhanLoaiSpModel dalMauSacModel = getForm();
-        if (BusPhanLoaiSpService.insert(dalMauSacModel)) {
-            MessageService.alert(this, "yeahhh");
-            filTable();
-        } else {
-            MessageService.alert(this, "no");
+        if (checkNull()) {
+            DalPhanLoaiSpModel dalMauSacModel = getForm();
+            if (BusPhanLoaiSpService.insert(dalMauSacModel)) {
+                MessageService.alert(this, "yeahhh");
+                filTable();
+            } else {
+                MessageService.alert(this, "no");
+            }
         }
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (BusPhanLoaiSpService.update(this.getForm())) {
-            MessageService.alert(this, "yeahhh");
-            filTable();
-        } else {
-            MessageService.alert(this, "no");
+
+        if (checkNull() && checkUpdate()) {
+            if (BusPhanLoaiSpService.update(this.getForm())) {
+                MessageService.alert(this, "yeahhh");
+                filTable();
+            } else {
+                MessageService.alert(this, "no");
+            }
         }
+
+
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnLamMoiForm4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiForm4ActionPerformed
@@ -449,11 +462,11 @@ public class QLPhanLoai extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemMouseEntered
 
     private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
-      changeColor(btnThem, new Color(25, 29, 74));
+        changeColor(btnThem, new Color(25, 29, 74));
     }//GEN-LAST:event_btnThemMouseExited
 
     private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
-            changeColor(btnSua, new Color(102, 0, 102));
+        changeColor(btnSua, new Color(102, 0, 102));
     }//GEN-LAST:event_btnSuaMouseEntered
 
     private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
@@ -461,11 +474,11 @@ public class QLPhanLoai extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSuaMouseExited
 
     private void btnLamMoiForm4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseEntered
-                    changeColor(btnLamMoiForm4, new Color(102, 0, 102));
+        changeColor(btnLamMoiForm4, new Color(102, 0, 102));
     }//GEN-LAST:event_btnLamMoiForm4MouseEntered
 
     private void btnLamMoiForm4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiForm4MouseExited
-          changeColor(btnLamMoiForm4, new Color(25, 29, 74));
+        changeColor(btnLamMoiForm4, new Color(25, 29, 74));
     }//GEN-LAST:event_btnLamMoiForm4MouseExited
     void filTable() {
         if (tabs.getSelectedIndex() == 0) {
@@ -502,6 +515,35 @@ public class QLPhanLoai extends javax.swing.JFrame {
         btnThem.setEnabled(true);
         btnSua.setEnabled(false);
         rowSeleted = -1;
+    }
+
+    public boolean checkUpdate() {
+        try {
+            int chkmaphanloai = (int) tblKD.getValueAt(rowSeleted, 0);
+            Connection con = JDBCHelper.ketnoi();
+            PreparedStatement pstm = con.prepareStatement("SELECT MaPhanLoai from CTSANPHAM where TrangThai = 1");
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                if (chkmaphanloai == rs.getInt("MaPhanLoai")) {
+                    MessageService.alert(this, "Phân loại này vẫn đang được sử dụng trong sản phẩm!");
+                    return false;
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            MessageService.alert(this, "Lỗi check update");
+        }
+        return true;
+    }
+
+    public boolean checkNull() {
+        if (txtTenMau.getText().isEmpty()) {
+            MessageService.alert(this, "Không bỏ trống tên phân loại!");
+            return false;
+        }
+
+        return true;
     }
 
     /**

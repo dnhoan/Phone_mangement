@@ -32,8 +32,8 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
     BusHeDieuHanhModel hdh = new BusHeDieuHanhModel();
     HeDieuHanhService hdhser = new HeDieuHanhService();
     int row = -1;
-    Connection con = null;
-    String sql= "SELECT MaHeDieuHanh from CTSANPHAM where TrangThai = 1";
+    
+ 
 
     /**
      * Creates new form QLHeDieuHanh
@@ -621,8 +621,8 @@ public void desginTable() {
        public boolean checkUpdate(){
         try {
         int chkmahdh = (int) tblDSD.getValueAt(row, 0);
-        con = JDBCHelper.ketnoi();
-        PreparedStatement pstm = con.prepareStatement(sql);
+         Connection con = JDBCHelper.ketnoi();
+        PreparedStatement pstm = con.prepareStatement("SELECT MaHeDieuHanh from CTSANPHAM where TrangThai = 1");
         ResultSet rs = pstm.executeQuery();
         while (rs.next()) {
             if(chkmahdh==rs.getInt("MaHeDieuHanh")){
