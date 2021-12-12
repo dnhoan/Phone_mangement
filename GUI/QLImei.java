@@ -7,6 +7,7 @@ package GUI;
 
 import BUS.Services.BusImeiService;
 import DAL.Models.DalImeiModel;
+import DAL.Services.DalImeiService;
 import GUI.Services.ButtonColumn;
 import GUI.Services.MessageService;
 import java.awt.Color;
@@ -19,6 +20,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +34,7 @@ public class QLImei extends javax.swing.JFrame {
     static List<String> listImei = new ArrayList<>();
     boolean isNewProduct = false;
     int currentRow;
+    DalImeiService dalImeiService = new DalImeiService();
 
     public QLImei() {
         initComponents();
@@ -43,13 +46,14 @@ public class QLImei extends javax.swing.JFrame {
         buttonRemove();
         fillTable(listImei);
     }
+
     public void desginTable() {
         tblImei.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblImei.getTableHeader().setOpaque(false);
         tblImei.getTableHeader().setBackground(new Color(25, 29, 74));
-       tblImei.getTableHeader().setForeground(Color.WHITE);
-        
-       tblImei.getTableHeader().setDraggedColumn(null);
+        tblImei.getTableHeader().setForeground(Color.WHITE);
+
+        tblImei.getTableHeader().setDraggedColumn(null);
 
     }
 
@@ -71,7 +75,7 @@ public class QLImei extends javax.swing.JFrame {
                 });
             }
         }
-        lblSoluong.setText("Tổng: "+ tblImei.getRowCount());
+        lblSoluong.setText("Tổng: " + tblImei.getRowCount());
     }
 
     void buttonRemove() {
@@ -147,6 +151,7 @@ public class QLImei extends javax.swing.JFrame {
         txtSearch = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         lblSoluong = new javax.swing.JLabel();
+        btnThem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -189,6 +194,9 @@ public class QLImei extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtTenImeiKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTenImeiKeyReleased(evt);
+            }
         });
 
         lblThem.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -199,8 +207,8 @@ public class QLImei extends javax.swing.JFrame {
         txtSearch.setForeground(new java.awt.Color(25, 29, 74));
         txtSearch.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtSearchKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
             }
         });
 
@@ -213,22 +221,45 @@ public class QLImei extends javax.swing.JFrame {
         lblSoluong.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSoluong.setText("Tổng: 0");
 
+        btnThem.setBackground(new java.awt.Color(25, 29, 74));
+        btnThem.setForeground(new java.awt.Color(5, 10, 46));
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
+        btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        btnThem.setBorderPainted(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnThemMouseExited(evt);
+            }
+        });
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblThem)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
                         .addComponent(lblSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblThem)
-                    .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,10 +275,13 @@ public class QLImei extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(lblThem)
-                .addGap(12, 12, 12)
-                .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblThem)
+                        .addGap(12, 12, 12)
+                        .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -264,22 +298,48 @@ public class QLImei extends javax.swing.JFrame {
         for (int i = 0; i < tblImei.getRowCount(); i++) {
             DalImeiModel dalImeiModel = new DalImeiModel();
             dalImeiModel.setTenImei((String) tblImei.getValueAt(i, 1));
-            if(!isNewProduct) {
+            if (!isNewProduct) {
                 int maImei = (int) tblImei.getValueAt(i, 0);
                 dalImeiModel.setMaImei(maImei);
             }
             QuanLySanPham.listImei.add(dalImeiModel);
         }
-        if(isNewProduct) {
+        if (isNewProduct) {
             QuanLySanPham.txtTonKho.setText(QuanLySanPham.listImei.size() + "");
         }
         BusImeiService.fillComboImei(QuanLySanPham.imeiModel, QuanLySanPham.cboListImei, QuanLySanPham.listImei);
-        lblSoluong.setText("Tổng: "+0);
+        lblSoluong.setText("Tổng: " + 0);
         modelImei = (DefaultTableModel) tblImei.getModel();
         modelImei.setRowCount(0);
     }//GEN-LAST:event_formWindowClosed
 
-    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+    private void txtTenImeiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenImeiKeyPressed
+
+    }//GEN-LAST:event_txtTenImeiKeyPressed
+
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
+        changeColor(btnThem, new Color(102, 0, 102));
+    }//GEN-LAST:event_btnThemMouseEntered
+
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
+        changeColor(btnThem, new Color(25, 29, 74));
+    }//GEN-LAST:event_btnThemMouseExited
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        String imeiAdd = txtTenImei.getText();
+        addImei(imeiAdd);
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void txtTenImeiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenImeiKeyReleased
+        String imeiAdd = txtTenImei.getText();
+        if (imeiAdd.matches("^[0-9]{15}")) {
+            btnThem.setEnabled(true);
+        } else {
+            btnThem.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtTenImeiKeyReleased
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         if (isNewProduct) {
             if (txtSearch.getText().length() > 0) {
                 List<String> listFilter = listImei.stream().filter(imei -> imei.contains(txtSearch.getText())).toList();
@@ -290,31 +350,10 @@ public class QLImei extends javax.swing.JFrame {
         } else {
             clearForm();
         }
-    }//GEN-LAST:event_txtSearchKeyTyped
-
-    private void txtTenImeiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenImeiKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER && txtTenImei.getText() != null && !"".equals(txtTenImei.getText().trim())) {
-            if (isNewProduct) {
-                listImei.add(txtTenImei.getText());
-                clearFormList();
-            } else {
-                DalImeiModel dalImeiModel = new DalImeiModel();
-                dalImeiModel.setMaCtsp(this.mactsp);
-                dalImeiModel.setTenImei(txtTenImei.getText());
-                if (BusImeiService.insert(dalImeiModel)) {
-                    int currentStock = Integer.parseInt(QuanLySanPham.txtTonKho.getText());
-                    currentStock++;
-                    QuanLySanPham.txtTonKho.setText(currentStock+"");
-                    MessageService.alert(this, "Ok");
-                    clearForm();
-                } else {
-                    MessageService.alert(this, "false");
-                }
-                
-            }
-        }
-    }//GEN-LAST:event_txtTenImeiKeyPressed
-
+    }//GEN-LAST:event_txtSearchKeyReleased
+    public void changeColor(JButton hover, Color rand) {
+        hover.setBackground(rand);
+    }
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -348,6 +387,7 @@ public class QLImei extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnThem;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblSoluong;
@@ -356,10 +396,61 @@ public class QLImei extends javax.swing.JFrame {
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtTenImei;
     // End of variables declaration//GEN-END:variables
-
+//  014109002431693
+//    546168219735897
+//    864675917024329
+//    500653521781436
+//    547465960596091
+//    333946805840024
+//    869068252624140
+//    501236005641190
+//    999133656101641
+//    013762940416993
+//    502463588344716
+//    863107742209660
+//    499523071863608
+//    350736940239200
+//    997890792366840
+//    535582199013666
+//    997519698738394
+//    507869074025871
+//    449062261104649
+//    501144457670669
+//    532144552937172
     DefaultTableModel modelImei;
 
+    void addImei(String imeiAdd) {
+        if (isValidIMEI(imeiAdd)) {
+            if (!dalImeiService.isImeiExist(imeiAdd)) {
+                if (MessageService.confirm(rootPane, "Bạn có muốn thêm Imei này không ?")) {
+                    if (isNewProduct) {
+                        listImei.add(imeiAdd);
+                        clearFormList();
+                    } else {
+                        DalImeiModel dalImeiModel = new DalImeiModel();
+                        dalImeiModel.setMaCtsp(this.mactsp);
+                        dalImeiModel.setTenImei(imeiAdd);
+                        if (BusImeiService.insert(dalImeiModel)) {
+                            int currentStock = Integer.parseInt(QuanLySanPham.txtTonKho.getText());
+                            currentStock++;
+                            QuanLySanPham.txtTonKho.setText(currentStock + "");
+                            MessageService.alert(this, "Thêm Imei thành công!");
+                            clearForm();
+                        } else {
+                            MessageService.alert(this, "Thêm Imei thất bại @");
+                        }
+                    }
+                }
+            } else {
+                MessageService.alert(rootPane, "Imei này đã tồn tại vui lòng nhập Imei khác @");
+            }
+        } else {
+            MessageService.alert(rootPane, "Imei này không đúng quy định vui lòng kiểm tra lại @");
+        }
+    }
+
     void init() {
+        
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         BusImeiService.fillTable(modelImei, tblImei, BusImeiService.listDalImei);
@@ -367,6 +458,7 @@ public class QLImei extends javax.swing.JFrame {
     }
 
     void clearFormList() {
+        btnThem.setEnabled(false);
         fillTable(listImei);
         txtTenImei.setText("");
     }
@@ -374,8 +466,41 @@ public class QLImei extends javax.swing.JFrame {
     void clearForm() {
         BusImeiService.getImeiByMactsp(this.mactsp, txtSearch.getText());
         BusImeiService.fillTable(modelImei, tblImei, BusImeiService.listDalImei);
-        
+        btnThem.setEnabled(false);
         txtTenImei.setText("");
         currentRow = -1;
+    }
+
+    static int sumDig(int n) {
+        int a = 0;
+        while (n > 0) {
+            a = a + n % 10;
+            n = n / 10;
+        }
+        return a;
+    }
+
+    boolean isValidIMEI(String imei) {
+        long n = Long.parseLong(imei);
+        int len = imei.length();
+
+        if (len != 15) {
+            return false;
+        }
+
+        int sum = 0;
+        for (int i = len; i >= 1; i--) {
+            int d = (int) (n % 10);
+
+            // Doubling every alternate digit
+            if (i % 2 == 0) {
+                d = 2 * d;
+            }
+
+            // Finding sum of the digits
+            sum += sumDig(d);
+            n = n / 10;
+        }
+        return (sum % 10 == 0);
     }
 }

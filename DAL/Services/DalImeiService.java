@@ -43,6 +43,34 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
         } catch (SQLException e) {
         }
     }
+    
+    public boolean isImeiExist(String imei) {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(CHECK_EXIST, imei);
+            while(rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean isDuocPhepXoa(int maImei) {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(CHECK_TRANG_THAI_BAN, maImei);
+            while(rs.next()) {
+                if(rs.getBoolean("TrangThaiBan")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public void updateMaSPSale(int maImei, int maspSale) {
         try {
             JDBCHelper.executeUpdate("update Imei set MaSPSale = ? where MaImei = ?", maspSale, maImei);

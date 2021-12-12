@@ -91,19 +91,22 @@ public class BusImeiService {
         Action remove = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (MessageService.confirm(null, "Xoa ko")) {
-                    int row = tbl.getSelectedRow();
-                    int maImei = (int) tbl.getValueAt(row, 0);
-                    dalImeiService.delete(maImei);
-                    int currentStock = Integer.parseInt(QuanLySanPham.txtTonKho.getText());
-                    System.out.println("stock " + currentStock);
-                    if (currentStock > 0) {
-                        currentStock--;
+                int row = tbl.getSelectedRow();
+                int maImei = (int) tbl.getValueAt(row, 0);
+                if (dalImeiService.isDuocPhepXoa(maImei)) {
+                    if (MessageService.confirm(null, "Bạn có thực sự muốn xóa máy có Imei này không ?")) {
+                        dalImeiService.delete(maImei);
+                        int currentStock = Integer.parseInt(QuanLySanPham.txtTonKho.getText());
+                        if (currentStock > 0) {
+                            currentStock--;
+                        }
+                        MessageService.alert(null, "Xóa Imei máy thành công !");
+                        QuanLySanPham.txtTonKho.setText(currentStock + "");
+                        getImeiByMactsp(QLImei.mactsp, "");
+                        fillTable(model, tbl, listDalImei);
                     }
-                    System.out.println("stock2 " + currentStock);
-                    QuanLySanPham.txtTonKho.setText(currentStock + "");
-                    getImeiByMactsp(QLImei.mactsp, "");
-                    fillTable(model, tbl, listDalImei);
+                } else {
+                    MessageService.alert(null, "Mã Imei đã được bán cho khách hàng @");
                 }
             }
         };
@@ -142,6 +145,7 @@ public class BusImeiService {
         }
         return false;
     }
+
     public static boolean updateStatusSellByMahd(Integer statusSell, Integer mahd) {
         try {
             dalImeiService.updateStatusSellByMaHD(statusSell, mahd);
@@ -151,7 +155,7 @@ public class BusImeiService {
         }
         return false;
     }
-    
+
     public static boolean updateGhiChuImei(int currentImei, int newImei, String ghiChu) {
         try {
             dalImeiService.updateDoiHang(currentImei, newImei, ghiChu);
@@ -161,24 +165,24 @@ public class BusImeiService {
             return false;
         }
     }
-    
+
     public static void fillcboImeiBymactsp(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo, int mactsp) {
         if (QuanLyBanHang.listCart.size() > 0) {
             List<CartModel> listTestExist = QuanLyBanHang.listCart.stream().filter(ca -> ca.getMactsp() == mactsp).toList();
-            if(listTestExist.size() > 0) {
+            if (listTestExist.size() > 0) {
                 CartModel currentCart = listTestExist.get(0);
                 if (currentCart != null) {
                     if (currentCart.getListImeis().size() > 0) {
                         currentCart.getListImeis().forEach(imeiCart -> {
                             int index = 0;
-                            boolean isDelete = false; 
-                            for(int i = 0; i < listDalImei.size(); i++) {
-                                if(listDalImei.get(i).getTenImei().equals(imeiCart.getTenImei())) {
+                            boolean isDelete = false;
+                            for (int i = 0; i < listDalImei.size(); i++) {
+                                if (listDalImei.get(i).getTenImei().equals(imeiCart.getTenImei())) {
                                     index = i;
                                     isDelete = true;
                                 }
                             }
-                            if(isDelete) {
+                            if (isDelete) {
                                 listDalImei.remove(index);
                             }
                         });
@@ -188,6 +192,7 @@ public class BusImeiService {
         }
         fillComboImei(model, cbo, listDalImei);
     }
+
     public static void fillComboImeiDoihang(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo, int mactsp) {
         try {
             listDalImei = dalImeiService.selectImeisNotSell(mactsp);
@@ -196,6 +201,7 @@ public class BusImeiService {
             e.printStackTrace();
         }
     }
+
     public static void fillComboImei(DefaultComboBoxModel<DalImeiModel> model, JComboBox cbo, List<DalImeiModel> list) {
         model = (DefaultComboBoxModel) cbo.getModel();
         model.removeAllElements();

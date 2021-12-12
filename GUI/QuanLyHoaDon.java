@@ -14,7 +14,6 @@ import DAL.Models.DalImeiModel;
 import GUI.Models.CartModel;
 import static GUI.QuanLyBanHang.currentMahd;
 import GUI.Services.AuthService;
-import GUI.Services.ButtonColumn;
 import GUI.Services.DateService;
 import GUI.Services.MessageService;
 import GUI.Services.UtilityService;
@@ -22,9 +21,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -32,8 +29,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -42,7 +37,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -125,17 +119,17 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         tblHoaDon.setForeground(new java.awt.Color(25, 29, 74));
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "MaHD", "Khách hàng + SĐT", "Mã nv", "Ngày tạo", "Ngày thanh toán", "SL", "Tổng tiền hàng", "Phí vận chuyển", "Số tiền giảm giá", "Tổng tiền hóa đơn"
+                "MaHD", "Khách hàng", "Sđt KH", "Mã nv", "Ngày tạo", "Ngày thanh toán", "SL", "Tổng tiền hàng", "Phí vận chuyển", "Số tiền giảm giá", "Tổng tiền hóa đơn"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -156,14 +150,14 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             tblHoaDon.getColumnModel().getColumn(0).setMaxWidth(0);
             tblHoaDon.getColumnModel().getColumn(1).setMinWidth(200);
             tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(200);
-            tblHoaDon.getColumnModel().getColumn(2).setMinWidth(60);
-            tblHoaDon.getColumnModel().getColumn(2).setMaxWidth(60);
-            tblHoaDon.getColumnModel().getColumn(3).setMinWidth(100);
-            tblHoaDon.getColumnModel().getColumn(3).setMaxWidth(100);
+            tblHoaDon.getColumnModel().getColumn(3).setMinWidth(70);
+            tblHoaDon.getColumnModel().getColumn(3).setMaxWidth(70);
             tblHoaDon.getColumnModel().getColumn(4).setMinWidth(150);
             tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(150);
-            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(40);
-            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(40);
+            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(6).setMinWidth(40);
+            tblHoaDon.getColumnModel().getColumn(6).setMaxWidth(40);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1600, 450));
@@ -571,7 +565,8 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             listShow.forEach((hd) -> {
                 modelHoaDon.addRow(new Object[]{
                     hd.getMahd(),
-                    hd.getKhachHangModel().getTenKH() + " - " + hd.getKhachHangModel().getSDT(),
+                    hd.getKhachHangModel().getTenKH(),
+                    hd.getKhachHangModel().getSDT(),
                     hd.getNhanVienModel().getMaNV(),
                     DateService.toString(hd.getNgayTao(), "dd-MM-yyyy"),
                     DateService.toString(hd.getNgayThanhToan(), "dd-MM-yyyy"),

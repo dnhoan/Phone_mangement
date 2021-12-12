@@ -30,4 +30,6 @@ public interface IDalImeiService {
             + "on ChiTietHoaDon.MaImei = Imei.MaImei join HoaDon\n"
             + "on HoaDon.MaHD = ChiTietHoaDon.MaHD\n"
             + "where CTSANPHAM.MaCTSP = ? and HoaDon.MaHD = ? and TrangThaiBan = 0";
+    String CHECK_TRANG_THAI_BAN = "select TrangThaiBan from Imei where MaImei = ?";
+    String CHECK_EXIST = "select * from Imei where TenImei = ?";
 }
