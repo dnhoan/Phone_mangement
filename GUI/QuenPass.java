@@ -6,7 +6,10 @@ package GUI;
  * and open the template in the editor.
  */
 import DAL.Services.JDBCHelper;
+import GUI.Services.ImageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Message;
@@ -18,6 +21,8 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import org.jdesktop.swingx.border.DropShadowBorder;
 import org.jdesktop.swingx.painter.effects.ShadowPathEffect;
 
@@ -39,6 +44,7 @@ public class QuenPass extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+              setIconImage(ImageService.getAppIcon());
 
     }
 
@@ -500,6 +506,12 @@ public class QuenPass extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

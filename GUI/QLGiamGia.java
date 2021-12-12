@@ -14,6 +14,7 @@ import DAL.Models.ThemSPsaleMoldel;
 import DAL.Services.JDBCHelper;
 import GUI.Services.DateService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -92,26 +93,38 @@ public class QLGiamGia extends javax.swing.JInternalFrame {
         tblSanPhamSAle.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPhamSAle.getTableHeader().setForeground(Color.WHITE);
         tblbangdaketthuc.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-
+    tblSanPhamSAle.setGridColor(new Color(25,29,74));
+      tblSanPhamSAle.setShowGrid(true);
+          tblSanPhamSAle.setSelectionBackground(new Color(38,117,191));
         tblbangdaketthuc.getTableHeader().setOpaque(false);
         tblbangdaketthuc.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangdaketthuc.getTableHeader().setForeground(Color.WHITE);
+         tblbangdaketthuc.setGridColor(new Color(25,29,74));
+        tblbangdaketthuc.setShowGrid(true);
+          tblbangdaketthuc.setSelectionBackground(new Color(38,117,191));
         tblbangsapdienra.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-
+ tblbangđangienra.setSelectionBackground(new Color(38,117,191));
         tblbangsapdienra.getTableHeader().setOpaque(false);
         tblbangsapdienra.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangsapdienra.getTableHeader().setForeground(Color.WHITE);
-
+   tblbangsapdienra.setGridColor(new Color(25,29,74));
+        tblbangsapdienra.setShowGrid(true);
         tblbangtatca.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-
+tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         tblbangtatca.getTableHeader().setOpaque(false);
         tblbangtatca.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangtatca.getTableHeader().setForeground(Color.WHITE);
+          tblbangtatca.setGridColor(new Color(25,29,74));
+       tblbangtatca.setShowGrid(true);
+       tblbangtatca.setSelectionBackground(new Color(38,117,191));
         tblbangđangienra.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
 
         tblbangđangienra.getTableHeader().setOpaque(false);
         tblbangđangienra.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangđangienra.getTableHeader().setForeground(Color.WHITE);
+        tblbangđangienra.setGridColor(new Color(25,29,74));
+       tblbangđangienra.setShowGrid(true);
+        tblbangđangienra.setSelectionBackground(new Color(38,117,191));
     }
 
      private void fillloaima() {

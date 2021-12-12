@@ -82,11 +82,17 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         tblDSNVON.getTableHeader().setOpaque(false);
         tblDSNVON.getTableHeader().setBackground(new Color(25, 29, 74));
         tblDSNVON.getTableHeader().setForeground(Color.WHITE);
+         tblDSNVON.setGridColor(new Color(25,29,74));
+         tblDSNVON.setSelectionBackground(new Color(38,117,191));
+       tblDSNVON.setShowGrid(true);
         tblDSNVOFF.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblDSNVON.getTableHeader().setDraggedColumn(null);
         tblDSNVOFF.getTableHeader().setOpaque(false);
         tblDSNVOFF.getTableHeader().setBackground(new Color(25, 29, 74));
         tblDSNVOFF.getTableHeader().setForeground(Color.WHITE);
+          tblDSNVOFF.setGridColor(new Color(25,29,74));
+          tblDSNVOFF.setSelectionBackground(new Color(38,117,191));
+        tblDSNVOFF.setShowGrid(true);
     }
 
     private void filltableNVON() {

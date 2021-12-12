@@ -11,8 +11,11 @@ import BUS.Services.DongSPService;
 import BUS.Services.HangService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,6 +48,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
         getContentPane().setBackground(Color.WHITE);
         desginTable();
         this.init();
+         setIconImage(ImageService.getAppIcon());
     }
 
     public void changeColor(JButton hover, Color rand) {
@@ -54,11 +60,15 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
         tbldsd.getTableHeader().setOpaque(false);
         tbldsd.getTableHeader().setBackground(new Color(25, 29, 74));
         tbldsd.getTableHeader().setForeground(Color.WHITE);
+        tbldsd.setGridColor(new Color(25,29,74));
+      tbldsd.setShowGrid(true);
         tblnsd.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tbldsd.getTableHeader().setDraggedColumn(null);
         tblnsd.getTableHeader().setOpaque(false);
         tblnsd.getTableHeader().setBackground(new Color(25, 29, 74));
         tblnsd.getTableHeader().setForeground(Color.WHITE);
+            tblnsd.setGridColor(new Color(25,29,74));
+      tblnsd.setShowGrid(true);
     }
 
     /**
@@ -91,6 +101,7 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
         cboHangsp = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Dòng SP");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -304,29 +315,24 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
                 .addContainerGap()
                 .addComponent(TAB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cboHangsp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(rdo1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenDongsp))
-                .addGap(34, 34, 34))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(634, Short.MAX_VALUE)
-                    .addComponent(rdo0, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(24, 24, 24)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cboHangsp, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(txtTenDongsp, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rdo1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdo0, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(TAB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTenDongsp, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -337,15 +343,15 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rdo1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rdo1)
+                    .addComponent(rdo0))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel54, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(185, 185, 185)
-                    .addComponent(rdo0)
-                    .addContainerGap(92, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(TAB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboHangsp, txtTenDongsp});
@@ -450,6 +456,12 @@ public class QLDongSP extends javax.swing.JFrame implements IEditService<BusDong
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                     FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

@@ -11,8 +11,11 @@ import BUS.Models.BusRamModel;
 import BUS.Services.RamService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +42,8 @@ public class QLRam extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         desginTable();
         init();
+         setIconImage(ImageService.getAppIcon());
+         setTitle("Ram");
     }
 
 
@@ -49,12 +56,15 @@ public class QLRam extends javax.swing.JFrame {
         tblram.getTableHeader().setOpaque(false);
         tblram.getTableHeader().setBackground(new Color(25, 29, 74));
         tblram.getTableHeader().setForeground(Color.WHITE);
-
+        tblram.setGridColor(new Color(25,29,74));
+        tblram.setShowGrid(true);
         tblram.getTableHeader().setDraggedColumn(null);
         tblram2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblram2.getTableHeader().setOpaque(false);
         tblram2.getTableHeader().setBackground(new Color(25, 29, 74));
         tblram2.getTableHeader().setForeground(Color.WHITE);
+        tblram2.setGridColor(new Color(25,29,74));
+        tblram2.setShowGrid(true);
     }
 
     /**
@@ -89,7 +99,8 @@ public class QLRam extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblram2 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Ram");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -508,6 +519,13 @@ public class QLRam extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                     FlatLightLaf.setup(); //setting the look and feel
+                      
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

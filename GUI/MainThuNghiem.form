@@ -202,7 +202,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icon/z2921058777779_e85c01ef9cc3ffd53f5e4af4023c07ea.png"/>
+              <Image iconType="3" name="/icon/logomobi.png"/>
             </Property>
           </Properties>
           <Constraints>

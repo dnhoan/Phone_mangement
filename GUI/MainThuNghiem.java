@@ -7,7 +7,9 @@ package GUI;
 
 import GUI.MainThuNghiem;
 import GUI.Services.AuthService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -29,6 +31,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -49,6 +52,8 @@ public class MainThuNghiem extends javax.swing.JFrame {
         initComponents();
         changeLAFI("Windows");
         init();
+        FlatLightLaf.setup(); 
+              setIconImage(ImageService.getAppIcon());
     }
 
     public static void changeLAFI(String nameLAFI) {
@@ -56,6 +61,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if (nameLAFI.equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    FlatLightLaf.setup(); 
                     break;
                 }
             }
@@ -346,7 +352,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
         pnlHeader.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/z2921058777779_e85c01ef9cc3ffd53f5e4af4023c07ea.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/logomobi.png"))); // NOI18N
         pnlHeader.add(jLabel2, java.awt.BorderLayout.LINE_START);
 
         getContentPane().add(pnlHeader, java.awt.BorderLayout.PAGE_START);
@@ -1358,6 +1364,12 @@ public class MainThuNghiem extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                     FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

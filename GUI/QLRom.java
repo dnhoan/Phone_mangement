@@ -9,8 +9,11 @@ import BUS.Models.BusRomModel;
 import BUS.Services.RomService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +22,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,18 +40,23 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
         getContentPane().setBackground(Color.WHITE);
          desginTable();
         this.init();
+           setIconImage(ImageService.getAppIcon());
+           setTitle("Rom");
     }
  public void desginTable() {
         tblRom.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblRom.getTableHeader().setOpaque(false);
         tblRom.getTableHeader().setBackground(new Color(25, 29, 74));
        tblRom.getTableHeader().setForeground(Color.WHITE);
-        
+         tblRom.setGridColor(new Color(25,29,74));
+      tblRom.setShowGrid(true);
         tblRom.getTableHeader().setDraggedColumn(null);
          tblXoa.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
       tblXoa.getTableHeader().setOpaque(false);
           tblXoa.getTableHeader().setBackground(new Color(25, 29, 74));
           tblXoa.getTableHeader().setForeground(Color.WHITE);
+           tblXoa.setGridColor(new Color(25,29,74));
+      tblXoa.setShowGrid(true);
     }
      public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
@@ -78,7 +88,8 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
         tblXoa = new javax.swing.JTable();
         btnbackup = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Rom");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -254,8 +265,10 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Danh sách", jPanel1);
@@ -324,7 +337,7 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addComponent(btnbackup, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Đã xóa", jPanel2);
@@ -442,6 +455,13 @@ public class QLRom extends javax.swing.JFrame implements IEditService<BusRomMode
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                     FlatLightLaf.setup(); //setting the look and feel
+                      
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

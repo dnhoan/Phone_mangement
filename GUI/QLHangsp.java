@@ -10,7 +10,10 @@ import BUS.Models.BusHangModel;
 import BUS.Services.HangService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +37,8 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         getContentPane().setBackground(Color.WHITE);
         desginTable();
         init();
+          setIconImage(ImageService.getAppIcon());
+          setTitle("Hãng SP");
     }
 
     public void changeColor(JButton hover, Color rand) {
@@ -43,12 +50,15 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         tblHang.getTableHeader().setOpaque(false);
         tblHang.getTableHeader().setBackground(new Color(25, 29, 74));
         tblHang.getTableHeader().setForeground(Color.WHITE);
-
         tblHang.getTableHeader().setDraggedColumn(null);
+         tblHang.setGridColor(new Color(25,29,74));
+      tblHang.setShowGrid(true);
         tblhang2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblhang2.getTableHeader().setOpaque(false);
         tblhang2.getTableHeader().setBackground(new Color(25, 29, 74));
         tblhang2.getTableHeader().setForeground(Color.WHITE);
+        tblhang2.setGridColor(new Color(25,29,74));
+      tblhang2.setShowGrid(true);
     }
 
     /**
@@ -81,6 +91,7 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hãng SP");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -486,6 +497,12 @@ public class QLHangsp extends javax.swing.JFrame implements IEditService<Object>
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                     FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

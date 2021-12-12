@@ -121,17 +121,28 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         tblCart.getTableHeader().setOpaque(false);
         tblCart.getTableHeader().setBackground(new Color(25, 29, 74));
         tblCart.getTableHeader().setForeground(Color.WHITE);
+       tblCart.setGridColor(new Color(25,29,74));
+          tblCart.setSelectionBackground(new Color(38,117,191));
+       tblCart.setShowGrid(true);
+      
         tblHoaDon.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-
+        
         tblHoaDon.getTableHeader().setOpaque(false);
         tblHoaDon.getTableHeader().setBackground(new Color(25, 29, 74));
         tblHoaDon.getTableHeader().setForeground(Color.WHITE);
+         tblHoaDon.setGridColor(new Color(25,29,74));
+         tblHoaDon.setSelectionBackground(new Color(38,117,191));
+       tblHoaDon.setShowGrid(true);
         tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
 
         tblSanPham.getTableHeader().setOpaque(false);
         tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPham.getTableHeader().setForeground(Color.WHITE);
+        tblSanPham.setGridColor(new Color(25,29,74));
+          tblSanPham.setSelectionBackground(new Color(38,117,191));
+        tblSanPham.setShowGrid(true);
     }
+    
 
     static void setTienThanhToan() {
         tienKhuyenMai = giamTheoTien ? giamGia : (totalMoney * giamGia / 100);

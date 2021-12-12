@@ -10,8 +10,11 @@ import BUS.Models.BusManHinhModel;
 import BUS.Services.ManHinhService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +24,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,6 +48,8 @@ BusManHinhModel mh = new BusManHinhModel();
          getContentPane().setBackground(Color.WHITE);
          desginTable();
         init();
+        setIconImage(ImageService.getAppIcon());
+        
     }
     public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
@@ -52,12 +59,15 @@ BusManHinhModel mh = new BusManHinhModel();
         tblDKD.getTableHeader().setOpaque(false);
         tblDKD.getTableHeader().setBackground(new Color(25, 29, 74));
        tblDKD.getTableHeader().setForeground(Color.WHITE);
-        
+        tblDKD.setGridColor(new Color(25,29,74));
+      tblDKD.setShowGrid(true);
         tblDKD.getTableHeader().setDraggedColumn(null);
         tblNKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
       tblNKD.getTableHeader().setOpaque(false);
          tblNKD.getTableHeader().setBackground(new Color(25, 29, 74));
          tblNKD.getTableHeader().setForeground(Color.WHITE);
+          tblNKD.setGridColor(new Color(25,29,74));
+      tblNKD.setShowGrid(true);
     }
 
     /**
@@ -484,6 +494,13 @@ BusManHinhModel mh = new BusManHinhModel();
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    FlatLightLaf.setup(); //setting the look and feel
+                      
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

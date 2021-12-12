@@ -9,7 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import DAL.Services.JDBCHelper;
+import GUI.Services.ImageService;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.sun.glass.ui.Size;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +26,12 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.UIDefaults;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
@@ -39,6 +49,9 @@ public class BaoCao extends javax.swing.JFrame {
 //        con = JDBCHelper.ketnoi();
         setLocationRelativeTo(this);
         getContentPane().setBackground(Color.white);
+        setIconImage(ImageService.getAppIcon());
+
+  
 
     }
  public void changeColor(JButton hover, Color rand) {
@@ -59,7 +72,8 @@ public class BaoCao extends javax.swing.JFrame {
         btnbaocao = new javax.swing.JButton();
         lbltime = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Báo cáo");
         setBackground(new java.awt.Color(255, 255, 255));
 
         txtemail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -166,6 +180,12 @@ public class BaoCao extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                      FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

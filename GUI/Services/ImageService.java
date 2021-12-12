@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 public class ImageService {
 
     public static Image getAppIcon() {
-        URL url = ImageService.class.getResource("/icon/logo.png");
+        URL url = ImageService.class.getResource("/icon/logomobi.png");
         return new ImageIcon(url).getImage();
     }
 

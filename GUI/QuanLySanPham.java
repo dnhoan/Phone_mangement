@@ -90,11 +90,17 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         tblSanPham.getTableHeader().setOpaque(false);
         tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPham.getTableHeader().setForeground(Color.WHITE);
+        tblSanPham.setGridColor(new Color(25,29,74));
+          tblSanPham.setSelectionBackground(new Color(38,117,191));
+        tblSanPham.setShowGrid(true);
         tblRecycle.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
 
         tblRecycle.getTableHeader().setOpaque(false);
         tblRecycle.getTableHeader().setBackground(new Color(25, 29, 74));
         tblRecycle.getTableHeader().setForeground(Color.WHITE);
+        tblRecycle.setGridColor(new Color(25,29,74));
+            tblRecycle.setSelectionBackground(new Color(38,117,191));
+          tblRecycle.setShowGrid(true);
     }
 
     /**

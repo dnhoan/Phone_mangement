@@ -88,11 +88,17 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         tblKhachHang.getTableHeader().setOpaque(false);
         tblKhachHang.getTableHeader().setBackground(new Color(25, 29, 74));
         tblKhachHang.getTableHeader().setForeground(Color.WHITE);
+        tblKhachHang.setGridColor(new Color(25,29,74));
+        tblKhachHang.setSelectionBackground(new Color(38,117,191));
+      tblKhachHang.setShowGrid(true);
         tblKhachHang2.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblKhachHang.getTableHeader().setDraggedColumn(null);
         tblKhachHang2.getTableHeader().setOpaque(false);
         tblKhachHang2.getTableHeader().setBackground(new Color(25, 29, 74));
         tblKhachHang2.getTableHeader().setForeground(Color.WHITE);
+        tblKhachHang2.setGridColor(new Color(25,29,74));
+      tblKhachHang2.setShowGrid(true);
+         tblKhachHang2.setSelectionBackground(new Color(38,117,191));
     }
 
     /**
@@ -214,6 +220,7 @@ public class QuanLyKhachHang extends javax.swing.JInternalFrame implements IEdit
         tblKhachHang.setFocusable(false);
         tblKhachHang.setGridColor(new java.awt.Color(25, 29, 74));
         tblKhachHang.setRowHeight(30);
+        tblKhachHang.setSelectionBackground(new java.awt.Color(0, 192, 215));
         tblKhachHang.getTableHeader().setReorderingAllowed(false);
         tblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

@@ -69,14 +69,23 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         tblHoaDon.getTableHeader().setOpaque(false);
         tblHoaDon.getTableHeader().setBackground(new Color(25, 29, 74));
         tblHoaDon.getTableHeader().setForeground(Color.WHITE);
+        tblHoaDon.setGridColor(new Color(25,29,74));
+         tblHoaDon.setSelectionBackground(new Color(38,117,191));
+      tblHoaDon.setShowGrid(true);
         tblImei.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblImei.getTableHeader().setOpaque(false);
         tblImei.getTableHeader().setBackground(new Color(25, 29, 74));
         tblImei.getTableHeader().setForeground(Color.WHITE);
+         tblImei.setGridColor(new Color(25,29,74));
+          tblImei.setSelectionBackground(new Color(38,117,191));
+       tblImei.setShowGrid(true);
         tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblSanPham.getTableHeader().setOpaque(false);
         tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPham.getTableHeader().setForeground(Color.WHITE);
+        tblSanPham.setGridColor(new Color(25,29,74));
+          tblSanPham.setSelectionBackground(new Color(38,117,191));
+      tblSanPham.setShowGrid(true);
 
     }
 

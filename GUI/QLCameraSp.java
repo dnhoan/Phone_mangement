@@ -10,8 +10,11 @@ import BUS.Services.CameraService;
 import BUS.Services.HeDieuHanhService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +46,7 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         desginTable();
         getContentPane().setBackground(Color.WHITE);
         this.init();
+         setIconImage(ImageService.getAppIcon());
     }
 
     public void changeColor(JButton hover, Color rand) {
@@ -52,11 +58,15 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         tbldsd.getTableHeader().setOpaque(false);
         tbldsd.getTableHeader().setBackground(new Color(25, 29, 74));
         tbldsd.getTableHeader().setForeground(Color.WHITE);
+         tbldsd.setGridColor(new Color(25,29,74));
+      tbldsd.setShowGrid(true);
         tblnsd.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tbldsd.getTableHeader().setDraggedColumn(null);
         tblnsd.getTableHeader().setOpaque(false);
         tblnsd.getTableHeader().setBackground(new Color(25, 29, 74));
         tblnsd.getTableHeader().setForeground(Color.WHITE);
+            tblnsd.setGridColor(new Color(25,29,74));
+      tblnsd.setShowGrid(true);
     }
 
     /**
@@ -90,6 +100,7 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Camera");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -441,6 +452,12 @@ public class QLCameraSp extends javax.swing.JFrame implements IEditService<BusCa
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                       FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

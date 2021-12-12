@@ -9,8 +9,11 @@ import BUS.Models.BusCPUModel;
 import BUS.Services.CpuService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,6 +43,7 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
 
         desginTable();
         init();
+         setIconImage(ImageService.getAppIcon());
     }
 
     public void changeColor(JButton hover, Color rand) {
@@ -51,11 +55,15 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         tbldsd.getTableHeader().setOpaque(false);
         tbldsd.getTableHeader().setBackground(new Color(25, 29, 74));
         tbldsd.getTableHeader().setForeground(Color.WHITE);
+         tbldsd.setGridColor(new Color(25,29,74));
+      tbldsd.setShowGrid(true);
         tblnsd.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tbldsd.getTableHeader().setDraggedColumn(null);
         tblnsd.getTableHeader().setOpaque(false);
         tblnsd.getTableHeader().setBackground(new Color(25, 29, 74));
         tblnsd.getTableHeader().setForeground(Color.WHITE);
+         tblnsd.setGridColor(new Color(25,29,74));
+     tblnsd.setShowGrid(true);
     }
 
     /**
@@ -86,6 +94,7 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
         tblnsd = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CPU");
         setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -416,6 +425,12 @@ public class QLCPU extends javax.swing.JFrame implements IEditService<BusCPUMode
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

@@ -12,8 +12,11 @@ import BUS.Services.CpuService;
 import BUS.Services.HeDieuHanhService;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +24,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,6 +48,9 @@ public class QLHeDieuHanh extends javax.swing.JFrame implements IEditService<Bus
          getContentPane().setBackground(Color.WHITE);
          desginTable();
         init();
+    
+
+        setIconImage(ImageService.getAppIcon());
     }
      public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
@@ -52,12 +60,15 @@ public void desginTable() {
         tblDSD.getTableHeader().setOpaque(false);
         tblDSD.getTableHeader().setBackground(new Color(25, 29, 74));
        tblDSD.getTableHeader().setForeground(Color.WHITE);
-        
+      tblDSD.setGridColor(new Color(25,29,74));
+      tblDSD.setShowGrid(true);
         tblDSD.getTableHeader().setDraggedColumn(null);
         tblNSD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
        tblNSD.getTableHeader().setOpaque(false);
          tblNSD.getTableHeader().setBackground(new Color(25, 29, 74));
          tblNSD.getTableHeader().setForeground(Color.WHITE);
+          tblNSD.setGridColor(new Color(25,29,74));
+      tblNSD.setShowGrid(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,6 +134,7 @@ public void desginTable() {
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add1.png"))); // NOI18N
         btnThem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnThem.setBorderPainted(false);
+        btnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnThemMouseEntered(evt);
@@ -142,6 +154,7 @@ public void desginTable() {
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/update.png"))); // NOI18N
         btnSua.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnSua.setBorderPainted(false);
+        btnSua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSuaMouseEntered(evt);
@@ -161,6 +174,7 @@ public void desginTable() {
         btnLamMoiForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/neww.png"))); // NOI18N
         btnLamMoiForm4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
         btnLamMoiForm4.setBorderPainted(false);
+        btnLamMoiForm4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLamMoiForm4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLamMoiForm4MouseEntered(evt);
@@ -398,6 +412,14 @@ public void desginTable() {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                      FlatLightLaf.setup(); //setting the look and feel
+                      
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
+                    
                     break;
                 }
             }

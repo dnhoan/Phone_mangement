@@ -22,8 +22,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import BUS.Models.thongkediemdanh;
 import GUI.Services.ButtonColumn;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -33,6 +36,8 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
@@ -48,9 +53,10 @@ public class DiemDanh extends javax.swing.JFrame {
     public DiemDanh() {
         initComponents();
         getContentPane().setBackground(Color.WHITE);
-
+        setIconImage(ImageService.getAppIcon());
         desginTable();
         initt();
+            
     }
 
     public void changeColor(JButton hover, Color rand) {
@@ -63,7 +69,10 @@ public class DiemDanh extends javax.swing.JFrame {
         tblDiemDanh.getTableHeader().setBackground(new Color(25, 29, 74));
         tblDiemDanh.getTableHeader().setForeground(Color.WHITE);
         tbllichsu.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-
+ tblDiemDanh.setGridColor(new Color(25,29,74));
+      tblDiemDanh.setShowGrid(true);
+       tbllichsu.setGridColor(new Color(25,29,74));
+     tbllichsu.setShowGrid(true);
         tbllichsu.getTableHeader().setOpaque(false);
         tbllichsu.getTableHeader().setBackground(new Color(25, 29, 74));
         tbllichsu.getTableHeader().setForeground(Color.WHITE);
@@ -95,6 +104,7 @@ public class DiemDanh extends javax.swing.JFrame {
         tbllichsu = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Điểm danh");
         setBackground(new java.awt.Color(255, 255, 255));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -398,6 +408,12 @@ public class DiemDanh extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                     FlatLightLaf.setup(); //setting the look and feel
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

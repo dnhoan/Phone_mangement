@@ -9,15 +9,22 @@ import BUS.Models.BusPhanLoaiSpModel;
 import BUS.Services.BusPhanLoaiSpService;
 import DAL.Models.DalPhanLoaiSpModel;
 import DAL.Services.JDBCHelper;
+import static GUI.QLMauSac.tblKD;
+import static GUI.QLMauSac.tblNKD;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +42,7 @@ public class QLPhanLoai extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         desginTable();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setIconImage(ImageService.getAppIcon());
     }
 
     public void changeColor(JButton hover, Color rand) {
@@ -46,12 +54,15 @@ public class QLPhanLoai extends javax.swing.JFrame {
         tblKD.getTableHeader().setOpaque(false);
         tblKD.getTableHeader().setBackground(new Color(25, 29, 74));
         tblKD.getTableHeader().setForeground(Color.WHITE);
-
+tblKD.setGridColor(new Color(25,29,74));
+      tblKD.setShowGrid(true);
         tblKD.getTableHeader().setDraggedColumn(null);
         tblNKD.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblNKD.getTableHeader().setOpaque(false);
         tblNKD.getTableHeader().setBackground(new Color(25, 29, 74));
         tblNKD.getTableHeader().setForeground(Color.WHITE);
+          tblNKD.setGridColor(new Color(25,29,74));
+      tblNKD.setShowGrid(true);
     }
     DefaultTableModel modelDkd;
     DefaultTableModel modelNkd;
@@ -85,6 +96,7 @@ public class QLPhanLoai extends javax.swing.JFrame {
         rdoNKD = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Phân loại");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -559,6 +571,13 @@ public class QLPhanLoai extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    FlatLightLaf.setup(); //setting the look and feel
+                      
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }

@@ -15,8 +15,11 @@ import BUS.Services.SanPhamService;
 import DAL.Models.DalLoaiSanPham;
 import DAL.Services.JDBCHelper;
 import GUI.Services.IEditService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
@@ -27,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -44,18 +49,22 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
          getContentPane().setBackground(Color.WHITE);
          desginTable();
         this.init();
+        setIconImage(ImageService.getAppIcon());
     }
     public void desginTable() {
         tblHoatDong.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
        tblHoatDong.getTableHeader().setOpaque(false);
         tblHoatDong.getTableHeader().setBackground(new Color(25, 29, 74));
        tblHoatDong.getTableHeader().setForeground(Color.WHITE);
-        
+        tblHoatDong.setGridColor(new Color(25,29,74));
+     tblHoatDong.setShowGrid(true);
         tblXOa.getTableHeader().setDraggedColumn(null);
             tblXOa.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
          tblXOa.getTableHeader().setOpaque(false);
              tblXOa.getTableHeader().setBackground(new Color(25, 29, 74));
              tblXOa.getTableHeader().setForeground(Color.WHITE);
+             tblXOa.setGridColor(new Color(25,29,74));
+    tblXOa.setShowGrid(true);
     }
  public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
@@ -89,7 +98,8 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
         jScrollPane3 = new javax.swing.JScrollPane();
         tblXOa = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Loại SP");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -530,6 +540,13 @@ public class QLLoaiSanPham extends javax.swing.JFrame implements IEditService<Bu
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    FlatLightLaf.setup(); //setting the look and feel
+                      
+                   UIManager.put("TitlePane.background", new ColorUIResource(5,10,46));
+                   UIManager.put("TitlePane.foreground", new ColorUIResource(255,255,255));
+                   UIManager.put("TitlePane.buttonHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.closeHoverBackground", new ColorUIResource( 25, 29, 74));
+                    UIManager.put("TitlePane.iconSize", new Dimension(20, 10));
                     break;
                 }
             }
