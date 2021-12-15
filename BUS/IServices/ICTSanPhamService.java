@@ -62,13 +62,13 @@ public interface ICTSanPhamService {
     String UPDATE_STOCK = "update CTSANPHAM set TonKho = ? where MACTSP = ?";
 
     String LAST_ID = "SELECT Max(MACTSP) as LastID FROM CTSANPHAM";
-    String SELECT_SP_BY_HOADON = "select TenSP, GiaBan, Hinh, CTSANPHAM.MACTSP, sum(GiabanSauSale) as tongTien, COUNT(ChiTietHoaDon.MaCTHD) as sl\n"
-            + "from ChiTietHoaDon join \n"
-            + "imei on Imei.maimei = chitiethoadon.maimei join ctsanpham\n"
-            + "on ctsanpham.mactsp = imei.mactsp join SanPham\n"
-            + "on SanPham.MaSP = CTSANPHAM.MaSP\n"
-            + "where mahd = ? and ChiTietHoaDon.trangthai = 1\n"
-            + "Group by TenSP, GiaBan, Hinh, CTSANPHAM.MACTSP";
+    String SELECT_SP_BY_HOADON = "select TenSP, CTSANPHAM.GiaBan, Hinh, CTSANPHAM.MACTSP, sum(GiabanSauSale) as tongTien, COUNT(ChiTietHoaDon.MaCTHD) as sl \n"
+            + "             from ChiTietHoaDon join  \n"
+            + "             imei on Imei.maimei = chitiethoadon.maimei join ctsanpham \n"
+            + "             on ctsanpham.mactsp = imei.mactsp join SanPham \n"
+            + "             on SanPham.MaSP = CTSANPHAM.MaSP\n"
+            + "             where MaHD = ? and ChiTietHoaDon.trangthai = 1 \n"
+            + "             Group by TenSP, CTSANPHAM.GiaBan, Hinh, CTSANPHAM.MACTSP";
     String SELECT_BY_KEYWORD_AND_PHAN_LOAI = "SELECT MACTSP, GiaNhap, GiaBan,SoLuongNhap, NgayNhap, TonKho, Hinh,  \n"
             + "             MoTa, SanPham.MaSP, TenSP, DongSP.MaDong, TenDong, HangSanPham.MaHang,  \n"
             + "             TenHang, CameraSP.MaCamera, LoaiCamera, CameraSP.DoPhanGiai AS DOPHANGIACAM,  \n"
@@ -94,5 +94,5 @@ public interface ICTSanPhamService {
             + "			 where CTSANPHAM.TrangThai = ? AND CTSANPHAM.TonKho >= ? AND PhanLoai.MaPhanLoai = ?\n"
             + "			and (TenSP like ? or TenDong like ? or LoaiCamera like ? or TenRom like ? or LoaiRam like ? or LoaiManHinh like ? \n"
             + "			or LoaiPin like ? or TenCPU like ? or noixuatxu like ? or TenHeDieuHanh like ? or TenMau like ? or Loai like ?)";
-    
+
 }

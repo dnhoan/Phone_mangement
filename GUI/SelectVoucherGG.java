@@ -5,6 +5,8 @@ import BUS.Services.SanPhamService;
 import BUS.Services.VoucherService;
 import DAL.Models.DalImeiModel;
 import GUI.Models.CartModel;
+import GUI.Services.ImageService;
+import GUI.Services.MessageService;
 import javax.swing.DefaultComboBoxModel;
 
 public class SelectVoucherGG extends javax.swing.JFrame {
@@ -20,6 +22,7 @@ public class SelectVoucherGG extends javax.swing.JFrame {
         this.masp = sanPhamService.selectMaspByMactsp(mactsp);
         System.out.println("masp " + this.masp);
         setTitle("Chọn mã voucher giảm giá");
+        setIconImage(ImageService.getAppIcon());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         VoucherService.fillCombo(model, cboGiamGia, masp);
@@ -30,14 +33,14 @@ public class SelectVoucherGG extends javax.swing.JFrame {
     private void initComponents() {
 
         cboGiamGia = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
@@ -49,7 +52,7 @@ public class SelectVoucherGG extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(cboGiamGia, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnOk)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -58,17 +61,17 @@ public class SelectVoucherGG extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cboGiamGia, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (cboGiamGia.getSelectedIndex() == 0) {
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        if (cboGiamGia.getSelectedIndex() == 0 || cboGiamGia.getSelectedItem() == null) {
             for (CartModel cart : QuanLyBanHang.listCart) {
-                if (cart.getBusSanPham().getMasp() == this.masp) {
+                if (cart.getMactsp() == this.mactsp) {
                     cart.setTongTien(cart.getTongTienHang());
                     cart.getListImeis().forEach(imei -> {
                         imei.setMaSpSale(0);
@@ -78,6 +81,7 @@ public class SelectVoucherGG extends javax.swing.JFrame {
                     break;
                 }
             }
+            MessageService.alert(rootPane, "Bạn chưa chọn mã giảm giá !");
         } else {
             BusVoucherModel busVoucherModel = (BusVoucherModel) cboGiamGia.getSelectedItem();
             for (CartModel cart : QuanLyBanHang.listCart) {
@@ -101,7 +105,7 @@ public class SelectVoucherGG extends javax.swing.JFrame {
         }
         QuanLyBanHang.fillToCart(QuanLyBanHang.cartModel, QuanLyBanHang.tblCart);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnOkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,7 +143,7 @@ public class SelectVoucherGG extends javax.swing.JFrame {
 //            }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOk;
     private javax.swing.JComboBox<String> cboGiamGia;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

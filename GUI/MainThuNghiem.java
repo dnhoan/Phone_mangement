@@ -5,34 +5,17 @@
  */
 package GUI;
 
-import GUI.MainThuNghiem;
 import GUI.Services.AuthService;
 import GUI.Services.ImageService;
 import GUI.Services.MessageService;
 import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.FocusTraversalPolicy;
-import java.awt.Font;
 import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.io.File;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
  *
@@ -982,10 +965,10 @@ public class MainThuNghiem extends javax.swing.JFrame {
             }
         });
         lblName.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lblNameInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         lblName.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -1394,7 +1377,7 @@ public class MainThuNghiem extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel close;
-    private javax.swing.JDesktopPane dashboardview;
+    public static javax.swing.JDesktopPane dashboardview;
     private javax.swing.JLabel hidemenu;
     private javax.swing.JLabel hidesetting;
     private javax.swing.JLabel jLabel1;

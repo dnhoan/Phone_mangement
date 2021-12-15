@@ -9,6 +9,8 @@ import BUS.Models.BusCTSanPhamModel;
 import BUS.Services.SanPhamService;
 import GUI.Models.CartModel;
 import GUI.Services.ButtonColumn;
+import GUI.Services.ImageService;
+import GUI.Services.MessageService;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -23,17 +25,20 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class RemoveImeiHoaDon extends javax.swing.JFrame {
+
     CartModel cart = new CartModel();
     int index;
     int indexsp;
     BusCTSanPhamModel busCTSanPhamModel;
     Icon iconDelete = new ImageIcon(getClass().getResource("/icon/bin.png"));
     SanPhamService sanPhamService = new SanPhamService();
+    boolean isEditting;
     /**
      * Creates new form RemoveImeiHoaDon
      */
     public RemoveImeiHoaDon() {
         initComponents();
+        setIconImage(ImageService.getAppIcon());
     }
 
     /**
@@ -139,13 +144,14 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
     public static javax.swing.JTable tblImei;
     // End of variables declaration//GEN-END:variables
 
-    public RemoveImeiHoaDon(CartModel cart, int index) {
+    public RemoveImeiHoaDon(CartModel cart, int index, boolean isEditting) {
         initComponents();
+        this.isEditting = isEditting;
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.cart = cart;
-        if(QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP()== cart.getMactsp()).toList().size() > 0) {
-            busCTSanPhamModel = QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP()== cart.getMactsp()).toList().get(0);
+        if (QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP() == cart.getMactsp()).toList().size() > 0) {
+            busCTSanPhamModel = QuanLyBanHang.listSp.stream().filter(sp -> sp.getMaCTSP() == cart.getMactsp()).toList().get(0);
             indexsp = QuanLyBanHang.listSp.indexOf(busCTSanPhamModel);
         } else {
             busCTSanPhamModel = sanPhamService.selectID(this.cart.getMactsp());
@@ -157,27 +163,44 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
     }
     DefaultTableModel model;
     boolean isGiaoDich = false;
+
     void fillTable() {
         model = (DefaultTableModel) tblImei.getModel();
         model.setRowCount(0);
         cart.getListImeis().forEach(imei -> {
-            model.addRow(new Object[] {
+            model.addRow(new Object[]{
                 imei.getMaImei(),
                 imei.getTenImei(),
                 iconDelete
             });
         });
     }
+
     private void btnRemoveCart() {
         Action remove = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int row: tblImei.getSelectedRows()) {
-                    int tonKho = busCTSanPhamModel.getTonKho() + 1;
-                    busCTSanPhamModel.setTonKho(tonKho);
-//                    BusImeiService.updateStatusSell((Integer) tblImei.getValueAt(row, 0), 1);
-                    cart.getListImeis().remove(row);
-                    fillTable();
+                if(MessageService.confirm(rootPane, "Bạn có thực sự muốn xóa Imei này không ?")) {
+                    for (int row : tblImei.getSelectedRows()) {
+                        int tonKho = busCTSanPhamModel.getTonKho() + 1;
+                        busCTSanPhamModel.setTonKho(tonKho);
+    //                    BusImeiService.updateStatusSell((Integer) tblImei.getValueAt(row, 0), 1);
+                        if(isEditting) {
+    //                        cart.getListImeis()
+                            QuanLyBanHang.listImeiXoa.add(cart.getListImeis().get(row));
+                        } 
+//                        else {
+                            cart.getListImeis().remove(row);
+    //                    }
+                        if (cart.getListImeis().size() > 0) {
+                            cart.setTongTienHang(cart.getGia() * cart.getListImeis().size());
+                            float tongTienGiam = cart.isGiamTheoTien() ? 
+                                    (cart.getListImeis().size() * cart.getSoLuongGiam()) : 
+                                    (cart.getGia() * cart.getSoLuongGiam() / 100) * cart.getListImeis().size();
+                            cart.setTongTien(cart.getTongTienHang() - tongTienGiam);
+                        }
+                        fillTable();
+                    }
                 }
             }
         };

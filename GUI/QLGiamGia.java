@@ -93,53 +93,53 @@ public class QLGiamGia extends javax.swing.JInternalFrame {
         tblSanPhamSAle.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPhamSAle.getTableHeader().setForeground(Color.WHITE);
         tblbangdaketthuc.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-    tblSanPhamSAle.setGridColor(new Color(25,29,74));
-      tblSanPhamSAle.setShowGrid(true);
-          tblSanPhamSAle.setSelectionBackground(new Color(38,117,191));
+        tblSanPhamSAle.setGridColor(new Color(25, 29, 74));
+        tblSanPhamSAle.setShowGrid(true);
+        tblSanPhamSAle.setSelectionBackground(new Color(38, 117, 191));
         tblbangdaketthuc.getTableHeader().setOpaque(false);
         tblbangdaketthuc.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangdaketthuc.getTableHeader().setForeground(Color.WHITE);
-         tblbangdaketthuc.setGridColor(new Color(25,29,74));
+        tblbangdaketthuc.setGridColor(new Color(25, 29, 74));
         tblbangdaketthuc.setShowGrid(true);
-          tblbangdaketthuc.setSelectionBackground(new Color(38,117,191));
+        tblbangdaketthuc.setSelectionBackground(new Color(38, 117, 191));
         tblbangsapdienra.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
- tblbangđangienra.setSelectionBackground(new Color(38,117,191));
+        tblbangđangienra.setSelectionBackground(new Color(38, 117, 191));
         tblbangsapdienra.getTableHeader().setOpaque(false);
         tblbangsapdienra.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangsapdienra.getTableHeader().setForeground(Color.WHITE);
-   tblbangsapdienra.setGridColor(new Color(25,29,74));
+        tblbangsapdienra.setGridColor(new Color(25, 29, 74));
         tblbangsapdienra.setShowGrid(true);
         tblbangtatca.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
+        tblbangsapdienra.setSelectionBackground(new Color(38, 117, 191));
         tblbangtatca.getTableHeader().setOpaque(false);
         tblbangtatca.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangtatca.getTableHeader().setForeground(Color.WHITE);
-          tblbangtatca.setGridColor(new Color(25,29,74));
-       tblbangtatca.setShowGrid(true);
-       tblbangtatca.setSelectionBackground(new Color(38,117,191));
+        tblbangtatca.setGridColor(new Color(25, 29, 74));
+        tblbangtatca.setShowGrid(true);
+        tblbangtatca.setSelectionBackground(new Color(38, 117, 191));
         tblbangđangienra.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
 
         tblbangđangienra.getTableHeader().setOpaque(false);
         tblbangđangienra.getTableHeader().setBackground(new Color(25, 29, 74));
         tblbangđangienra.getTableHeader().setForeground(Color.WHITE);
-        tblbangđangienra.setGridColor(new Color(25,29,74));
-       tblbangđangienra.setShowGrid(true);
-        tblbangđangienra.setSelectionBackground(new Color(38,117,191));
+        tblbangđangienra.setGridColor(new Color(25, 29, 74));
+        tblbangđangienra.setShowGrid(true);
+        tblbangđangienra.setSelectionBackground(new Color(38, 117, 191));
     }
 
-     private void fillloaima() {
-        cbbloaima.removeAllItems();
-
-        try {
-            String sql = "select * from loaimagiamgia";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                cbbloaima.addItem(rs.getString("tenloaigiamgia"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void fillloaima() {
+//        cbbloaima.removeAllItems();
+//
+//        try {
+//            String sql = "select * from loaimagiamgia";
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                cbbloaima.addItem(rs.getString("tenloaigiamgia"));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     boolean cheksua() {
@@ -583,7 +583,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
                     vc.getMaVC(),
                     vc.MucGGtable(),
                     vc.TrangThaitable(),
-                    "từ " + vc.getNgayBD() + " đến " + vc.getNgayKT()
+                    "từ " + DateService.toString(vc.getNgayBD(), "dd-MM-yyyy") + " đến " + DateService.toString(vc.getNgayKT(), "dd-MM-yyyy")
                 };
                 model.addRow(row);
             }
@@ -765,7 +765,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }
 
@@ -911,7 +911,8 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         }
 
     }
-    boolean checkthemsalehoadon(){
+
+    boolean checkthemsalehoadon() {
         if (chekrong() == false) {
             return false;
         } else if (chekngay() == false) {
@@ -927,7 +928,8 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         }
         return true;
     }
-    boolean cheksuasalehoadon(){
+
+    boolean cheksuasalehoadon() {
         if (chekrong() == false) {
             return false;
         } else if (chekmucGG() == false) {
@@ -939,10 +941,9 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         }
         return true;
     }
+
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -1119,6 +1120,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
         cbbloaima.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cbbloaima.setForeground(new java.awt.Color(25, 29, 74));
+        cbbloaima.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Giảm giá toàn shop", "Giảm giá theo từng sản phẩm", "Giảm giá theo hóa đơn" }));
         cbbloaima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbloaimaActionPerformed(evt);
@@ -1140,7 +1142,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         txtdonvidonhangtoiithieu.setText("VNĐ");
         jPanel1.add(txtdonvidonhangtoiithieu, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 40, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 200, 580, 310));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 210, 580, 310));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1387,7 +1389,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         jLabel12.setText("Sản Phẩm Được Áp Dụng:");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, -1, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 490, -1, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 500, -1, -1));
 
         jtap.setForeground(new java.awt.Color(102, 0, 102));
         jtap.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1424,6 +1426,14 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         if (tblbangtatca.getColumnModel().getColumnCount() > 0) {
             tblbangtatca.getColumnModel().getColumn(0).setMinWidth(0);
             tblbangtatca.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblbangtatca.getColumnModel().getColumn(1).setMinWidth(200);
+            tblbangtatca.getColumnModel().getColumn(1).setMaxWidth(200);
+            tblbangtatca.getColumnModel().getColumn(3).setMinWidth(120);
+            tblbangtatca.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblbangtatca.getColumnModel().getColumn(4).setMinWidth(120);
+            tblbangtatca.getColumnModel().getColumn(4).setMaxWidth(120);
+            tblbangtatca.getColumnModel().getColumn(5).setMinWidth(120);
+            tblbangtatca.getColumnModel().getColumn(5).setMaxWidth(120);
         }
 
         javax.swing.GroupLayout tab1Layout = new javax.swing.GroupLayout(tab1);
@@ -1432,7 +1442,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
             tab1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tab1Layout.setVerticalGroup(
@@ -1477,6 +1487,12 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         if (tblbangđangienra.getColumnModel().getColumnCount() > 0) {
             tblbangđangienra.getColumnModel().getColumn(0).setMinWidth(0);
             tblbangđangienra.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblbangđangienra.getColumnModel().getColumn(3).setMinWidth(120);
+            tblbangđangienra.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblbangđangienra.getColumnModel().getColumn(4).setMinWidth(150);
+            tblbangđangienra.getColumnModel().getColumn(4).setMaxWidth(150);
+            tblbangđangienra.getColumnModel().getColumn(5).setMinWidth(150);
+            tblbangđangienra.getColumnModel().getColumn(5).setMaxWidth(150);
         }
 
         javax.swing.GroupLayout tab2Layout = new javax.swing.GroupLayout(tab2);
@@ -1485,7 +1501,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
             tab2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tab2Layout.setVerticalGroup(
@@ -1530,17 +1546,23 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         if (tblbangsapdienra.getColumnModel().getColumnCount() > 0) {
             tblbangsapdienra.getColumnModel().getColumn(0).setMinWidth(0);
             tblbangsapdienra.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblbangsapdienra.getColumnModel().getColumn(3).setMinWidth(120);
+            tblbangsapdienra.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblbangsapdienra.getColumnModel().getColumn(4).setMinWidth(120);
+            tblbangsapdienra.getColumnModel().getColumn(4).setMaxWidth(120);
+            tblbangsapdienra.getColumnModel().getColumn(5).setMinWidth(120);
+            tblbangsapdienra.getColumnModel().getColumn(5).setMaxWidth(120);
         }
 
         javax.swing.GroupLayout tab3Layout = new javax.swing.GroupLayout(tab3);
         tab3.setLayout(tab3Layout);
         tab3Layout.setHorizontalGroup(
             tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1100, Short.MAX_VALUE)
+            .addGap(0, 1040, Short.MAX_VALUE)
             .addGroup(tab3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(tab3Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         tab3Layout.setVerticalGroup(
@@ -1587,6 +1609,12 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
         if (tblbangdaketthuc.getColumnModel().getColumnCount() > 0) {
             tblbangdaketthuc.getColumnModel().getColumn(0).setMinWidth(0);
             tblbangdaketthuc.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblbangdaketthuc.getColumnModel().getColumn(3).setMinWidth(120);
+            tblbangdaketthuc.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblbangdaketthuc.getColumnModel().getColumn(4).setMinWidth(120);
+            tblbangdaketthuc.getColumnModel().getColumn(4).setMaxWidth(120);
+            tblbangdaketthuc.getColumnModel().getColumn(5).setMinWidth(120);
+            tblbangdaketthuc.getColumnModel().getColumn(5).setMaxWidth(120);
         }
 
         javax.swing.GroupLayout tab4Layout = new javax.swing.GroupLayout(tab4);
@@ -1595,7 +1623,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
             tab4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tab4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tab4Layout.setVerticalGroup(
@@ -1608,7 +1636,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
         jtap.addTab("Đã Kết Thúc", tab4);
 
-        getContentPane().add(jtap, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 196, 1100, 720));
+        getContentPane().add(jtap, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 196, 1040, 720));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(5, 10, 46));
@@ -1659,7 +1687,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
     private void cbbLoaiGGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbLoaiGGActionPerformed
         // TODO add your handling code here:
-       if (cbbLoaiGG.getSelectedIndex() == 0) {
+        if (cbbLoaiGG.getSelectedIndex() == 0) {
             txtTienTe.setText("VNĐ");
         } else
             txtTienTe.setText("%");
@@ -1704,7 +1732,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
     private void btnchonlaisanphamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnchonlaisanphamActionPerformed
         // TODO add your handling code here:
-         for (int i = 0; i < tblSanPhamSAle.getRowCount(); i++) {
+        for (int i = 0; i < tblSanPhamSAle.getRowCount(); i++) {
             tblSanPhamSAle.setValueAt(false, i, 2);
 
         }
@@ -1713,11 +1741,10 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
     private void tblbangtatcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbangtatcaMouseClicked
         // TODO add your handling code here:
-       if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
 
             this.index = tblbangtatca.rowAtPoint(evt.getPoint());
-            if (this.index >= 0) 
-            {
+            if (this.index >= 0) {
                 clicktable();
                 this.loaima();
                 this.filltabletoForm();
@@ -1728,7 +1755,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
     private void tblbangđangienraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbangđangienraMouseClicked
         // TODO add your handling code here:
-      if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
 
             this.index = tblbangđangienra.rowAtPoint(evt.getPoint());
             if (this.index >= 0) {
@@ -1743,7 +1770,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
     private void tblbangsapdienraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbangsapdienraMouseClicked
         // TODO add your handling code here:
-      if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
 
             this.index = tblbangsapdienra.rowAtPoint(evt.getPoint());
             if (this.index >= 0) {
@@ -1759,7 +1786,7 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
 
     private void tblbangdaketthucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbangdaketthucMouseClicked
         // TODO add your handling code here:
-         if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
 
             this.index = tblbangdaketthuc.rowAtPoint(evt.getPoint());
             if (this.index >= 0) {
@@ -1774,30 +1801,31 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
     }//GEN-LAST:event_tblbangdaketthucMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if(cbbloaima.getSelectedIndex()==0||cbbloaima.getSelectedIndex()==1){
-        if (checkthem() == true) {
-            try {
-                insertnew();
-                filltb();
-                MessageService.alert(this, "Thêm mới thành công!");
-                clear();
-            } catch (Exception e) {
-                MessageService.alert(this, "Thêm mới thất bại!");
-                e.printStackTrace();
+        if (cbbloaima.getSelectedIndex() == 0 || cbbloaima.getSelectedIndex() == 1) {
+            if (checkthem() == true) {
+                try {
+                    insertnew();
+                    filltb();
+                    MessageService.alert(this, "Thêm mới thành công!");
+                    clear();
+                } catch (Exception e) {
+                    MessageService.alert(this, "Thêm mới thất bại!");
+                    e.printStackTrace();
+                }
             }
-        }}else if(cbbloaima.getSelectedIndex()==2){
+        } else if (cbbloaima.getSelectedIndex() == 2) {
             if (checkthemsalehoadon() == true) {
-            try {
-                insertnew();
-                filltb();
-                MessageService.alert(this, "Thêm mới thành công!");
-                clear();
-            } catch (Exception e) {
-                MessageService.alert(this, "Thêm mới thất bại!");
-                e.printStackTrace();
+                try {
+                    insertnew();
+                    filltb();
+                    MessageService.alert(this, "Thêm mới thành công!");
+                    clear();
+                } catch (Exception e) {
+                    MessageService.alert(this, "Thêm mới thất bại!");
+                    e.printStackTrace();
+                }
             }
-        }
-            
+
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -1811,25 +1839,24 @@ tblbangsapdienra.setSelectionBackground(new Color(38,117,191));
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         //        insert()
-     if(cbbloaima.getSelectedIndex()==0||cbbloaima.getSelectedIndex()==1){
-    
+        if (cbbloaima.getSelectedIndex() == 0 || cbbloaima.getSelectedIndex() == 1) {
 
-        if (cheksua() == true) {
-            update();
+            if (cheksua() == true) {
+                update();
 
-        }}
-else if(cbbloaima.getSelectedIndex()==2){
-    if (cheksuasalehoadon() == true) {
-            update();
+            }
+        } else if (cbbloaima.getSelectedIndex() == 2) {
+            if (cheksuasalehoadon() == true) {
+                update();
 
+            }
         }
-}
 
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btndn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndn2ActionPerformed
         // TODO add your handling code here:
-       if (btndn2.getText().equals("Sửa ngày kết thúc")) {
+        if (btndn2.getText().equals("Sửa ngày kết thúc")) {
 
             themngaysale();
 
@@ -1842,59 +1869,59 @@ else if(cbbloaima.getSelectedIndex()==2){
     }//GEN-LAST:event_btndn2ActionPerformed
 
     private void btndanangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndanangMouseEntered
-         changeColor(btndanang, new Color(102,0,102));
+        changeColor(btndanang, new Color(102, 0, 102));
     }//GEN-LAST:event_btndanangMouseEntered
 
     private void btndanangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndanangMouseExited
-        changeColor(btndanang, new Color(25,29,74));
+        changeColor(btndanang, new Color(25, 29, 74));
     }//GEN-LAST:event_btndanangMouseExited
 
     private void btnchontatcasanphamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnchontatcasanphamMouseEntered
-      changeColor(btnchontatcasanpham, new Color(102,0,102));
+        changeColor(btnchontatcasanpham, new Color(102, 0, 102));
     }//GEN-LAST:event_btnchontatcasanphamMouseEntered
 
     private void btnchontatcasanphamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnchontatcasanphamMouseExited
-        changeColor(btnchontatcasanpham, new Color(25,29,74));
+        changeColor(btnchontatcasanpham, new Color(25, 29, 74));
     }//GEN-LAST:event_btnchontatcasanphamMouseExited
 
     private void btnchonlaisanphamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnchonlaisanphamMouseEntered
-      changeColor(btnchonlaisanpham, new Color(102,0,102));
+        changeColor(btnchonlaisanpham, new Color(102, 0, 102));
     }//GEN-LAST:event_btnchonlaisanphamMouseEntered
 
     private void btnchonlaisanphamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnchonlaisanphamMouseExited
-        changeColor(btnchonlaisanpham, new Color(25,29,74));
+        changeColor(btnchonlaisanpham, new Color(25, 29, 74));
     }//GEN-LAST:event_btnchonlaisanphamMouseExited
 
     private void btndn2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndn2MouseEntered
-         changeColor(btndn2, new Color(102,0,102));
+        changeColor(btndn2, new Color(102, 0, 102));
     }//GEN-LAST:event_btndn2MouseEntered
 
     private void btndn2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btndn2MouseExited
-          changeColor(btndn2, new Color(25,29,74));
+        changeColor(btndn2, new Color(25, 29, 74));
     }//GEN-LAST:event_btndn2MouseExited
 
     private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
-         changeColor(btnSua, new Color(102,0,102));
+        changeColor(btnSua, new Color(102, 0, 102));
     }//GEN-LAST:event_btnSuaMouseEntered
 
     private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
-           changeColor(btnSua, new Color(25,29,74));
+        changeColor(btnSua, new Color(25, 29, 74));
     }//GEN-LAST:event_btnSuaMouseExited
 
     private void btnMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoiMouseEntered
-        changeColor(btnMoi, new Color(102,0,102));
+        changeColor(btnMoi, new Color(102, 0, 102));
     }//GEN-LAST:event_btnMoiMouseEntered
 
     private void btnMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMoiMouseExited
-      changeColor(btnMoi, new Color(25,29,74));
+        changeColor(btnMoi, new Color(25, 29, 74));
     }//GEN-LAST:event_btnMoiMouseExited
 
     private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
-         changeColor(btnThem, new Color(102,0,102));
+        changeColor(btnThem, new Color(102, 0, 102));
     }//GEN-LAST:event_btnThemMouseEntered
 
     private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
-         changeColor(btnThem, new Color(25,29,74));
+        changeColor(btnThem, new Color(25, 29, 74));
     }//GEN-LAST:event_btnThemMouseExited
 
     private void cbbloaimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbloaimaActionPerformed
@@ -1903,7 +1930,7 @@ else if(cbbloaima.getSelectedIndex()==2){
     }//GEN-LAST:event_cbbloaimaActionPerformed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
-       if (cbbTimSP.getSelectedIndex() == 0) {
+        if (cbbTimSP.getSelectedIndex() == 0) {
             filltableByTen();
         } else
             filltableByMaSP();
@@ -1969,7 +1996,7 @@ else if(cbbloaima.getSelectedIndex()==2){
     private javax.swing.JTextField txtgiatridonhangtoiitheu;
     // End of variables declaration//GEN-END:variables
 
-   private void setModel(BusVoucherModel model) {
+    private void setModel(BusVoucherModel model) {
         cbbloaima.setSelectedIndex(model.getLoaikm());
         txtTenChuongTrinh.setText(model.getTenKM());
         txtMaVC.setText(model.getMaVC());

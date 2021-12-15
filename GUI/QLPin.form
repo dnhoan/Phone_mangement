@@ -322,7 +322,6 @@
                       <Color blue="4a" green="1d" red="19" type="rgb"/>
                     </Property>
                     <Property name="rowHeight" type="int" value="25"/>
-                    <Property name="rowMargin" type="int" value="0"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
@@ -412,7 +411,6 @@
                       <Color blue="4a" green="1d" red="19" type="rgb"/>
                     </Property>
                     <Property name="rowHeight" type="int" value="25"/>
-                    <Property name="rowMargin" type="int" value="0"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>

@@ -15,6 +15,7 @@ import static GUI.QuanLyBanHang.listCart;
 import static GUI.QuanLyBanHang.listSp;
 import static GUI.QuanLyBanHang.tblCart;
 import static GUI.QuanLyBanHang.tblSanPham;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class SelectImei extends javax.swing.JFrame {
     public SelectImei(BusCTSanPhamModel busCTSanPhamModel) {
         initComponents();
         SelectImei.busCTSanPhamModel = busCTSanPhamModel;
+        setIconImage(ImageService.getAppIcon());
         this.init();
     }
 

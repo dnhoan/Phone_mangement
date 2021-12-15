@@ -655,7 +655,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
 
     public boolean validateForm() {
         if (txtGhiChu.getText().length() < 30) {
-            MessageService.alert(this, "Vui lòng nhập lý do trả hàng tối thiểu 30 ký tự");
+            MessageService.alert(this, "Vui lòng nhập lý do đổi máy tối thiểu 30 ký tự");
             return false;
         }
         Date ngayThanhToan = DateService.toDate(tblHoaDon.getValueAt(currentRowHoaDon, 4) + "", "dd-MM-yyyy");

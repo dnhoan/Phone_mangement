@@ -30,6 +30,8 @@ public class XemChiTietSanPham extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.id = id;
         desginTable();
+        setTitle("Thông tin chi tiết sản phẩm");
+        setIconImage(ImageService.getAppIcon());
         this.init();
     }
 public void desginTable() {

@@ -35,10 +35,10 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
                     entity.getGhiChu(),
                     entity.getTongTien(),
                     entity.getTienKhachTra(),
-                    entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-yy"),
+                    entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-dd"),
                     entity.getDiaChiNhanHang(),
                     entity.getPhiVanChuyen(),
-                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy"),
+                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-dd"),
                     entity.getTrangThaiGiaoHang(),
                     entity.getMaKm(),
                     entity.getTienKm()
@@ -52,7 +52,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     public void update(DalHoaDon entity) {
         try {
             JDBCHelper.executeUpdate(UPDATE,
-                    entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-yy"),
+                    entity.getNgayThanhToan() == null ? null : DateService.toString(entity.getNgayThanhToan(), "yyyy-MM-dd"),
                     entity.getTongTien(),
                     entity.getTienKhachTra(),
                     entity.getManv(),
@@ -60,10 +60,10 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
                     entity.getGhiChu(),
                     entity.getDiaChiNhanHang(),
                     entity.getPhiVanChuyen(),
-                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-yy"),
+                    entity.getNgayGiaoHang() == null ? null : DateService.toString(entity.getNgayGiaoHang(), "yyyy-MM-dd"),
                     entity.getTrangThaiGiaoHang(),
-                    entity.getTienKm(),
                     entity.getMaKm(),
+                    entity.getTienKm(),
                     entity.getMaHD()
             );
         } catch (SQLException e) {
@@ -126,19 +126,48 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
             switch (filter) {
                 case 0:
                     sql = SELECT_ALL1; // tất cả hóa đơn đang treo
-                    list = this.selectSql(sql, 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+                    list = this.selectSql(sql, 1, "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%");
                     break;
                 case 1: // đang giao
                     sql = SELECT_BY_TRANG_THAI_GIAO_HANG;
-                    list = this.selectSql(sql, 2, 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+                    list = this.selectSql(sql, 2, 1, "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%");
                     break;
                 case 2: // chưa giao
                     sql = SELECT_BY_TRANG_THAI_GIAO_HANG;
-                    list = this.selectSql(sql, 0, 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+                    list = this.selectSql(sql, 0, 1, "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%");
                     break;
                 case 3: // hóa đơn xóa
                     sql = SELECT_TREO_BI_XOA;
-                    list = this.selectSql(sql, 0, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+                    list = this.selectSql(sql, 0,
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%",
+                            "%" + term + "%");
                     break;
                 default:
                     sql = SELECT_ALL1;
@@ -155,7 +184,16 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
     }
 
     public List<BusHoaDon> getAllHoaDon(String term, int statusHoaDon) {
-        List<BusHoaDon> list = this.selectSql(SELECT_ALL, statusHoaDon == 1 ? 0: 1, "%" + term + "%", "%" + term + "%", "%" + term + "%", "%" + term + "%");
+        List<BusHoaDon> list = this.selectSql(SELECT_ALL, statusHoaDon == 1 ? 0 : 1,
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%",
+                "%" + term + "%"
+        );
         if (list.size() > 0) {
             return list;
         }
@@ -245,7 +283,7 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
 //                return null;
 //            }
             return this.selectSql(SELECT_BY_MAHD, isRemoved, mahd).get(0);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;

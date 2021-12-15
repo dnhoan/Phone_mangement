@@ -29,13 +29,26 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
     
     @Override
     public void insert(DalChiTietHoaDon entity) {
+        boolean isInsert = true;
         try {
-            JDBCHelper.executeUpdate(INSERT,
-                    entity.getMahd(),
-                    entity.getMaImei(),
-                    entity.getGiaBanSauSale()
-            );
+            ResultSet rs = JDBCHelper.executeQuery("select * from ChiTietHoaDon where MaImei = ?", entity.getMaImei());
+            while (rs.next()) {
+                isInsert = false;
+            }
+            rs.getStatement().close();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(isInsert) {
+            try {
+                JDBCHelper.executeUpdate(INSERT,
+                        entity.getMahd(),
+                        entity.getMaImei(),
+                        entity.getGiaBanSauSale()
+                );
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -64,7 +77,12 @@ public class CTHoaDonService implements ICTHoaDonService, IPhoneMangementService
     }
 
     @Override
-    public void delete(Integer idHoaDon) {
+    public void delete(Integer maImei) {
+//        try {
+//            JDBCHelper.executeUpdate(UPDATE_BY_MAIMEI, maImei);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
     public void updateStatus(Integer status, Integer idHoaDon) {
         try {

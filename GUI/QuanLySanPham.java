@@ -46,6 +46,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -90,17 +91,17 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         tblSanPham.getTableHeader().setOpaque(false);
         tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPham.getTableHeader().setForeground(Color.WHITE);
-        tblSanPham.setGridColor(new Color(25,29,74));
-          tblSanPham.setSelectionBackground(new Color(38,117,191));
+        tblSanPham.setGridColor(new Color(25, 29, 74));
+        tblSanPham.setSelectionBackground(new Color(38, 117, 191));
         tblSanPham.setShowGrid(true);
         tblRecycle.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
 
         tblRecycle.getTableHeader().setOpaque(false);
         tblRecycle.getTableHeader().setBackground(new Color(25, 29, 74));
         tblRecycle.getTableHeader().setForeground(Color.WHITE);
-        tblRecycle.setGridColor(new Color(25,29,74));
-            tblRecycle.setSelectionBackground(new Color(38,117,191));
-          tblRecycle.setShowGrid(true);
+        tblRecycle.setGridColor(new Color(25, 29, 74));
+        tblRecycle.setSelectionBackground(new Color(38, 117, 191));
+        tblRecycle.setShowGrid(true);
     }
 
     /**
@@ -1362,7 +1363,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnLamMoiFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiFormActionPerformed
-        if(MessageService.confirm(rootPane, "Bạn có muốn làm mới form không ?")) {
+        if (MessageService.confirm(rootPane, "Bạn có muốn làm mới form không ?")) {
             this.clearForm();
         }
     }//GEN-LAST:event_btnLamMoiFormActionPerformed
@@ -1434,7 +1435,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void btnRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestoreActionPerformed
         if (this.rowRecycle >= 0) {
-            if(MessageService.confirm(rootPane, "Bạn có thực sự muốn khôi phục sản phẩm này không ?")) {
+            if (MessageService.confirm(rootPane, "Bạn có thực sự muốn khôi phục sản phẩm này không ?")) {
                 this.backUp();
                 btnRestore.setEnabled(false);
                 this.rowRecycle = -1;
@@ -1859,7 +1860,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         if (sp.getMaCTSP() > 0) {
             BusImeiService.getImeiByMactsp(sp.getMaCTSP(), "");
             BusImeiService.fillComboImei(imeiModel, cboListImei, BusImeiService.listDalImei);
-        } 
+        }
         if (sp.getHinh() != null) {
             lblImage.setToolTipText(sp.getHinh());
             lblImage.setIcon(ImageService.readImage(sp.getHinh(), lblImage));
@@ -1868,8 +1869,8 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             lblImage.setIcon(null);
         }
         txtTonKho.setText(sp.getTonKho() + "");
-        txtGiaBan.setText(sp.getGiaBan() + "");
-        txtGiaNhap.setText(sp.getGiaNhap() + "");
+        txtGiaBan.setText(new BigDecimal(sp.getGiaBan()) + "");
+        txtGiaNhap.setText(new BigDecimal(sp.getGiaNhap()) + "");
 //        txtSoluongNhap.setText(sp.getSoLuongNhap() + "");
         txtMota.setText(sp.getMota());
         cboCamera.getModel().setSelectedItem(sp.getCameraModel());
@@ -2098,7 +2099,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             int kq = fileChooser.showOpenDialog(fileChooser);
             if (kq == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
-                if(file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")) {
+                if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")) {
                     ImageService.save(file);
                     ImageIcon icon = ImageService.readImage(file.getName(), lblImage);
                     lblImage.setIcon(icon);
@@ -2239,77 +2240,77 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             this.edit();
         }
     }
-    
+
     @Override
     public boolean validateForm(boolean isEdit) {
-        if(lblImage.getToolTipText().isBlank() || lblImage.getToolTipText().isEmpty()) {
+        if (lblImage.getToolTipText() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn ảnh cho sản phẩm");
             return false;
         }
-        if (cboCamera.getSelectedItem() == null)  {
+        if (cboCamera.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn camera cho sản phẩm");
             return false;
         }
-        if (cboCpu.getSelectedItem() == null)  {
+        if (cboCpu.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn CPU cho sản phẩm");
             return false;
         }
-        if (cboHang.getSelectedItem() == null)  {
+        if (cboHang.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn hãng cho sản phẩm");
             return false;
         }
-        if (cboDongsp.getSelectedItem() == null)  {
+        if (cboDongsp.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn dòng cho sản phẩm");
             return false;
         }
-        if (cboHeDieuHanh.getSelectedItem() == null)  {
+        if (cboHeDieuHanh.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn hệ điều hành cho sản phẩm");
             return false;
         }
-        if (cboManHinh.getSelectedItem() == null)  {
+        if (cboManHinh.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn loại màn hình cho sản phẩm");
             return false;
         }
-        if (cboMauSac.getSelectedItem() == null)  {
+        if (cboMauSac.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn màu sắc cho sản phẩm");
             return false;
         }
-        if (cboPhanLoai.getSelectedItem() == null)  {
+        if (cboPhanLoai.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn phân loại sản phẩm");
             return false;
         }
-        if (cboPin.getSelectedItem() == null)  {
+        if (cboPin.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn pin sản phẩm");
             return false;
         }
-        if (cboRam.getSelectedItem() == null)  {
+        if (cboRam.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn Ram sản phẩm");
             return false;
         }
-        if (cboRom.getSelectedItem() == null)  {
+        if (cboRom.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn Rom sản phẩm");
             return false;
         }
-        if (cboSanPham.getSelectedItem() == null)  {
+        if (cboSanPham.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn tên sản phẩm");
             return false;
         }
-        if (cboXuatXu.getSelectedItem() == null)  {
+        if (cboXuatXu.getSelectedItem() == null) {
             MessageService.alert(rootPane, "Bạn chưa chọn xuất xứ sản phẩm");
             return false;
         }
-        if(txtGiaNhap.getText().isBlank() || txtGiaNhap.getText().isEmpty()) {
+        if (txtGiaNhap.getText().isBlank() || txtGiaNhap.getText().isEmpty()) {
             MessageService.alert(rootPane, "Vui lòng nhập giá nhập cho sản phẩm");
             return false;
         }
-        if(txtGiaBan.getText().isBlank() || txtGiaBan.getText().isEmpty()) {
+        if (txtGiaBan.getText().isBlank() || txtGiaBan.getText().isEmpty()) {
             MessageService.alert(rootPane, "Vui lòng nhập giá bán cho sản phẩm");
             return false;
         }
         float giaNhap;
         try {
             giaNhap = Float.parseFloat(txtGiaNhap.getText());
-            if(giaNhap < 1000) {
+            if (giaNhap < 1000) {
                 MessageService.alert(rootPane, "Vui lòng nhập giá nhập tối thiểu " + UtilityService.toVnd(1000));
                 return false;
             }
@@ -2320,7 +2321,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         float giaban;
         try {
             giaban = Float.parseFloat(txtGiaBan.getText());
-            if(giaban < 1000) {
+            if (giaban < 1000) {
                 MessageService.alert(rootPane, "Vui lòng nhập giá bán tối thiểu " + UtilityService.toVnd(1000));
                 return false;
             }
@@ -2328,15 +2329,15 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             MessageService.alert(rootPane, "Vui lòng nhập giá bán bằng số");
             return false;
         }
-        if(giaban < giaNhap) {
+        if (giaban < giaNhap) {
             MessageService.alert(rootPane, "Vui lòng nhập giá bán lớn hơn hoặc bằng giá nhập");
             return false;
         }
-        if(BusImeiService.listDalImei.size() <= 0) {
+        if (BusImeiService.listDalImei.size() <= 0) {
             MessageService.alert(rootPane, "Vui lòng nhập Imei cho máy");
             return false;
         }
-            return true;
+        return true;
     }
 
     @Override

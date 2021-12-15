@@ -1,7 +1,3 @@
-// cập nhập tồn kho sau khi xóa back up
-// sửa hóa đơn trả hàng
-// in hóa đơn
-// xuất file excel
 package GUI;
 
 import BUS.Models.BusCTSanPhamModel;
@@ -24,6 +20,7 @@ import GUI.Models.CartModel;
 import GUI.Services.AuthService;
 import GUI.Services.ButtonColumn;
 import GUI.Services.DateService;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
 import GUI.Services.UtilityService;
 import com.toedter.calendar.JTextFieldDateEditor;
@@ -48,20 +45,16 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -77,6 +70,8 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     SanPhamService sanPhamService = new SanPhamService();
     public static List<CartModel> listCart = new ArrayList<>();
     List<KhachHangModel> listKhachHang = new ArrayList<>();
+    public static List<DalImeiModel> listImeiThem = new ArrayList<>();
+    public static List<DalImeiModel> listImeiXoa = new ArrayList<>();
     static DefaultTableModel cartModel;
     static DefaultTableModel modelSp;
     DefaultTableModel sanPhamModel;
@@ -121,28 +116,27 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         tblCart.getTableHeader().setOpaque(false);
         tblCart.getTableHeader().setBackground(new Color(25, 29, 74));
         tblCart.getTableHeader().setForeground(Color.WHITE);
-       tblCart.setGridColor(new Color(25,29,74));
-          tblCart.setSelectionBackground(new Color(38,117,191));
-       tblCart.setShowGrid(true);
-      
+        tblCart.setGridColor(new Color(25, 29, 74));
+        tblCart.setSelectionBackground(new Color(38, 117, 191));
+        tblCart.setShowGrid(true);
+
         tblHoaDon.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
-        
+
         tblHoaDon.getTableHeader().setOpaque(false);
         tblHoaDon.getTableHeader().setBackground(new Color(25, 29, 74));
         tblHoaDon.getTableHeader().setForeground(Color.WHITE);
-         tblHoaDon.setGridColor(new Color(25,29,74));
-         tblHoaDon.setSelectionBackground(new Color(38,117,191));
-       tblHoaDon.setShowGrid(true);
+        tblHoaDon.setGridColor(new Color(25, 29, 74));
+        tblHoaDon.setSelectionBackground(new Color(38, 117, 191));
+        tblHoaDon.setShowGrid(true);
         tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
 
         tblSanPham.getTableHeader().setOpaque(false);
         tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPham.getTableHeader().setForeground(Color.WHITE);
-        tblSanPham.setGridColor(new Color(25,29,74));
-          tblSanPham.setSelectionBackground(new Color(38,117,191));
+        tblSanPham.setGridColor(new Color(25, 29, 74));
+        tblSanPham.setSelectionBackground(new Color(38, 117, 191));
         tblSanPham.setShowGrid(true);
     }
-    
 
     static void setTienThanhToan() {
         tienKhuyenMai = giamTheoTien ? giamGia : (totalMoney * giamGia / 100);
@@ -305,6 +299,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         txtGhiChu.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
         txtGhiChu.setForeground(new java.awt.Color(25, 29, 74));
         txtGhiChu.setRows(5);
+        txtGhiChu.setAutoscrolls(false);
         txtGhiChu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(5, 10, 46)));
         jScrollPane4.setViewportView(txtGhiChu);
 
@@ -330,7 +325,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Mahd", "Manv", "Ten kh + st", "Ngay tao", "SL", "Phi ship", "Thanh tien", "Khach tra", ""
+                "Mahd", "Mã nv", "Tên KH + SĐT", "Ngày tạo", "SL", "Phí vận chuyển", "Thành tiền", "Khách trả", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -832,7 +827,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         this.insert(false);
                     }
                 } else {
-                    MessageService.alert(this, "Vui lòng chọn giao hàng thành công nếu muốn thanh toán");
+                    MessageService.alert(rootPane, "Vui lòng chọn giao hàng thành công nếu muốn thanh toán");
                 }
             }
         }
@@ -840,9 +835,12 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
     private void editKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editKhachHangActionPerformed
 //        removeAllImei();
-//        QuanLyKhachHang kh = new QuanLyKhachHang();
-//        MainThuNghiem.dashboardview.removeAll();
-//        MainThuNghiem.dashboardview.add(kh).setVisible(true);
+        if (MessageService.confirm(rootPane, "Bạn có muốn mở form khách hàng không ?")) {
+            QuanLyKhachHang kh = new QuanLyKhachHang();
+            MainThuNghiem.dashboardview.removeAll();
+            MainThuNghiem.dashboardview.add(kh).setVisible(true);
+
+        }
     }//GEN-LAST:event_editKhachHangActionPerformed
 
     private void tblCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCartMouseClicked
@@ -946,7 +944,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         this.insert(true);
                     }
                 } else {
-                    MessageService.alert(this, "Nếu bạn muốn lưu vui lòng chọn trạng thái giao hàng khác giao hàng thành công");
+                    MessageService.alert(rootPane, "Nếu bạn muốn lưu vui lòng chọn trạng thái giao hàng khác giao hàng thành công");
                 }
 
             }
@@ -996,7 +994,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
     private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
         if (validateForm()) {
-            if (MessageService.confirm(this, "Bạn có muốn in hóa đơn này không")) {
+            if (MessageService.confirm(rootPane, "Bạn có muốn in hóa đơn này không")) {
                 printHoaDon();
             }
         }
@@ -1122,7 +1120,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         try {
             QuanLyBanHang.listSp = sanPhamService.selectBySearchAndPhanLoai(1, keyWord, maPhanLoai);
         } catch (Exception e) {
-            MessageService.alert(this, "Lỗi lấy phân loại sản phẩm");
+            MessageService.alert(rootPane, "Lỗi lấy phân loại sản phẩm");
         }
     }
 
@@ -1132,7 +1130,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             QuanLyBanHang.listSp = sanPhamService.selectBySearch(1, keyWord);
 
         } catch (Exception e) {
-            MessageService.alert(this, "Lỗi get data");
+            MessageService.alert(rootPane, "Lỗi get data");
         }
     }
 
@@ -1194,7 +1192,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         if (busCTSanPhamModel.getTonKho() > 0) {
             new SelectImei(busCTSanPhamModel).setVisible(true);
         } else {
-            MessageService.alert(this, "Sản phẩm này hết đã hết hàng vui lòng chọn sản phẩm khác");
+            MessageService.alert(rootPane, "Sản phẩm này hết đã hết hàng vui lòng chọn sản phẩm khác");
         }
     }
 
@@ -1211,7 +1209,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             }
             if (listCart.size() > 0) {
                 for (CartModel ca : listCart) {
-                    totalMoney = ca.getTongTien();
+                    totalMoney += ca.getTongTien();
                     JLabel imageLabel = new JLabel();
                     File path = new File("logos", ca.getHinh());
                     ImageIcon imageicon = new ImageIcon(path.getAbsolutePath());
@@ -1223,7 +1221,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         ca.getTensp(),
                         UtilityService.toVnd(ca.getGia()),
                         ca.getListImeis().size(),
-                        "- " + (ca.isGiamTheoTien() ? UtilityService.toVnd(ca.getSoLuongGiam()) : ca.getSoLuongGiam() + " %"),
+                        (ca.isGiamTheoTien() ? UtilityService.toVnd(ca.getSoLuongGiam()) : ca.getSoLuongGiam() + " %"),
                         UtilityService.toVnd(ca.getTongTien()),
                         "Xem"
                     });
@@ -1238,13 +1236,13 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         int idcthd = (int) tblHoaDon.getValueAt(rowHoaDon, 0);
         try {
             cTHoaDonService.delete(idcthd);
-            MessageService.alert(this, "yeaehhhh");
+            MessageService.alert(rootPane, "Xóa hóa đơn thành công !");
         } catch (Exception e) {
-            MessageService.alert(this, "loi xoa");
+            MessageService.alert(rootPane, "Lỗi xóa hóa đơn");
         }
     }
     Date currentDate = new Date();
-
+    
     void update(boolean isSave) {
         try {
             DalHoaDon dalHoaDon = this.getFormHoaDon();
@@ -1252,9 +1250,29 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 dalHoaDon.setNgayThanhToan(currentDate);
                 dalHoaDon.setTienKhachTra(phiShip + totalMoney);
             } else {
-                dalHoaDon.setNgayThanhToan(currentHoaDonSelected.getNgayThanhToan());
+                dalHoaDon.setNgayThanhToan(null);
             }
             hoaDonService.update(dalHoaDon);
+            listCart.forEach(ca -> {
+//                    Thêm từng imei vào chi tiết hóa đơn dong thoi update imei thanh da ban
+                for (DalImeiModel imei : ca.getListImeis()) {
+                    DalChiTietHoaDon dalChiTietHoaDon = new DalChiTietHoaDon();
+                    dalChiTietHoaDon.setMaImei(imei.getMaImei());
+                    dalChiTietHoaDon.setMahd(dalHoaDon.getMaHD());
+                    dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : (ca.getGia() * ca.getSoLuongGiam() / 100));
+                    try {
+                        cTHoaDonService.insert(dalChiTietHoaDon);
+                        dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale() > 0 ? imei.getMaSpSale() : null);
+                    } catch (Exception e) {
+                        System.out.println("Lỗi lưu hóa đơn @" + ca.getMactsp());
+                    }
+                }
+                if(listImeiXoa.size() > 0) {
+                    listImeiXoa.forEach(imei -> {
+                        cTHoaDonService.updateByMaImei(imei.getMaImei());
+                    });
+                } 
+            });
             MessageService.alert(this, isSave ? "Lưu hóa đơn thành công" : "Thanh toán thành công");
             if (MessageService.confirm(rootPane, "Bạn có muốn in hóa này đơn không ?")) {
                 this.printHoaDon();
@@ -1262,7 +1280,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             clearHoaDon(false);
             fillButtonHoaDonTreo();
         } catch (Exception e) {
-            MessageService.alert(rootPane, "error");
+            MessageService.alert(rootPane, "Lỗi cập nhật dữ liệu @");
         }
     }
 
@@ -1288,12 +1306,12 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         DalChiTietHoaDon dalChiTietHoaDon = new DalChiTietHoaDon();
                         dalChiTietHoaDon.setMaImei(imei.getMaImei());
                         dalChiTietHoaDon.setMahd(lastID);
-                        dalChiTietHoaDon.setGiaBanSauSale(ca.getGia());
+                        dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : (ca.getGia() * ca.getSoLuongGiam() / 100));
                         try {
                             cTHoaDonService.insert(dalChiTietHoaDon);
-                            dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale());
+                            dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale() > 0 ? imei.getMaSpSale() : null);
                         } catch (Exception e) {
-                            System.out.println("error insert" + ca.getMactsp());
+                            System.out.println("Lỗi lưu hóa đơn @" + ca.getMactsp());
                         }
                     }
                 });
@@ -1331,6 +1349,15 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         DalHoaDon dalHoaDon = new DalHoaDon();
         KhachHangModel kh = (KhachHangModel) cboKhachHang.getSelectedItem();
         dalHoaDon.setMakh(kh.getMaKH());
+        System.out.println("mkh " + cboGiamGia.getSelectedIndex());
+        if (cboGiamGia.getSelectedIndex() > 0) {
+            BusVoucherModel busVoucherModel = (BusVoucherModel) cboGiamGia.getSelectedItem();
+            dalHoaDon.setMaKm(busVoucherModel.getMaKM());
+        } else {
+            dalHoaDon.setMaKm(0);
+            tienKhuyenMai = 0;
+        }
+        dalHoaDon.setTienKm(tienKhuyenMai);
         if (rdoShipHang.isSelected()) {
             dalHoaDon.setDiaChiNhanHang(txtDiahChiKh.getText());
             dalHoaDon.setNgayGiaoHang(txtNgayGiaoHang.getDate());
@@ -1342,7 +1369,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         }
         dalHoaDon.setManv(currentUser.getMaNV());
         dalHoaDon.setGhiChu(txtGhiChu.getText());
-        dalHoaDon.setTongTien(totalMoney);
+        dalHoaDon.setTongTien(khachCanTra);
         if (!txtKhachThanhToan.getText().isEmpty()) {
             dalHoaDon.setTienKhachTra(Float.parseFloat(txtKhachThanhToan.getText()));
         } else {
@@ -1359,11 +1386,6 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         if (isEditting) {
             dalHoaDon.setMaHD(currentHoaDonSelected.getMahd());
             dalHoaDon.setNgayTao(currentHoaDonSelected.getNgayTao());
-        }
-        if (cboGiamGia.getSelectedIndex() > 0) {
-            BusVoucherModel busVoucherModel = (BusVoucherModel) cboGiamGia.getSelectedItem();
-            dalHoaDon.setMaKm(busVoucherModel.getMaKM());
-            dalHoaDon.setTienKm(tienKhuyenMai);
         }
         return dalHoaDon;
     }
@@ -1398,11 +1420,21 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             scrollPaneTreo.setBounds(10, 10, 180, 250);
             jpnHoaDonTreo.setPreferredSize(new Dimension(180, 250));
             jpnHoaDonTreo.add(scrollPaneTreo);
+        } else {
+            JPanel panelTreo = new JPanel();
+            GridLayout gridLayoutTreo = new GridLayout(listHDTreo.size() < 10 ? 10 : listHDTreo.size(), 1, 0, 2);
+            panelTreo.setLayout(gridLayoutTreo);
+            JScrollPane scrollPaneTreo = new JScrollPane(panelTreo);
+            scrollPaneTreo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPaneTreo.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            scrollPaneTreo.setBounds(10, 10, 180, 250);
+            jpnHoaDonTreo.setPreferredSize(new Dimension(180, 250));
+            jpnHoaDonTreo.add(scrollPaneTreo);
         }
     }
     BusHoaDon currentHoaDonSelected;
     boolean isEditting = false;
-
+    
     void setFormHoaDon(int maHd) {
         isEditting = true;
         clearHoaDon(true);
@@ -1457,7 +1489,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 //            currentHoaDonSelected = hoaDon.getMahd();
             phiShip = currentHoaDonSelected.getPhiVanChuyen();
             khachThanhToan = currentHoaDonSelected.getTienKhachTra();
-            
+
             txtTienShip.setText(new BigDecimal(currentHoaDonSelected.getPhiVanChuyen()) + "");
             txtKhachThanhToan.setText(new BigDecimal(currentHoaDonSelected.getTienKhachTra()) + "");
 //            getPhiShip();
@@ -1465,7 +1497,8 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             if (listVoucher.size() > 0) {
                 for (BusVoucherModel voucher : listVoucher) {
                     if (voucher.getMaKM() == currentHoaDonSelected.getMakm()) {
-                        cboGiamGia.getModel().setSelectedItem(voucher);
+                        cboGiamGia.setSelectedIndex(listVoucher.indexOf(voucher) + 1);
+//                        cboGiamGia.getModel().setSelectedItem(voucher);
                         break;
                     }
                 }
@@ -1485,31 +1518,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     void removeCart() {
         int rowCart = tblCart.getSelectedRow();
         CartModel cart = listCart.get(rowCart);
-        new RemoveImeiHoaDon(cart, rowCart).setVisible(true);
-    }
-
-    void sortDesc() {
-        Collections.sort(QuanLyBanHang.listSp, comparator);
-        fillTable(QuanLyBanHang.listSp);
-    }
-
-    void sortAsend() {
-        Collections.sort(QuanLyBanHang.listSp, comparator);
-        Collections.reverse(QuanLyBanHang.listSp);
-        fillTable(QuanLyBanHang.listSp);
-    }
-
-    void fillToComboKhachHang() {
-        khachHangModel = (DefaultComboBoxModel) cboKhachHang.getModel();
-        khachHangModel.removeAllElements();
-        try {
-            listKhachHang = khachHangService.selectToFillCombo();
-            listKhachHang.forEach(kh -> {
-                khachHangModel.addElement(kh);
-            });
-            cboKhachHang.getModel().setSelectedItem(null);
-        } catch (Exception e) {
-        }
+        new RemoveImeiHoaDon(cart, rowCart, isEditting).setVisible(true);
     }
 
     private void buttonAdd() {
@@ -1517,7 +1526,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (cboKhachHang.getSelectedItem() == null || cboKhachHang.getSelectedItem().equals("")) {
-                    MessageService.alert(null, "Vui lòng chọn khách hàng trước khi thêm sản phẩm");
+                    MessageService.alert(rootPane, "Vui lòng chọn khách hàng trước khi thêm sản phẩm");
                 } else {
                     addToCart();
                 }
@@ -1534,14 +1543,14 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 int row = tblHoaDon.getSelectedRow();
                 currentMahd = (int) tblHoaDon.getValueAt(row, 0);
                 if (cboSelected == 3) {
-                    if (MessageService.confirm(null, "Bạn có muốn khôi phục hóa đơn này không ?")) {
+                    if (MessageService.confirm(rootPane, "Bạn có muốn khôi phục hóa đơn này không ?")) {
                         hoaDonService.updateStatus(1, currentMahd);
-                        MessageService.alert(null, "Khôi phục hóa đơn thành công");
+                        MessageService.alert(rootPane, "Khôi phục hóa đơn thành công");
                     }
                 } else {
-                    if (MessageService.confirm(null, "Bạn có muốn xóa hóa đơn này không ?")) {
+                    if (MessageService.confirm(rootPane, "Bạn có muốn xóa hóa đơn này không ?")) {
                         hoaDonService.updateStatus(0, currentMahd);
-                        MessageService.alert(null, "Xóa hóa đơn thành công");
+                        MessageService.alert(rootPane, "Xóa hóa đơn thành công");
                     }
                 }
                 fillButtonHoaDonTreo();
@@ -1601,17 +1610,29 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             currentMahd = -1;
             this.getProductData();
             fillTable(QuanLyBanHang.listSp);
+        } else {
+            int filter = cboPhanLoai.getSelectedIndex();
+            this.getDataHoaDon(filter);
+            fillTableHoaDon(hoaDonModel, tblHoaDon, listHoaDon);
         }
         cboGiamGia.setSelectedIndex(0);
     }
 
+    public void updateSoLuongGiam() {
+        if (listCart.size() > 0) {
+            listCart.forEach(ca -> {
+
+            });
+        }
+    }
+
     boolean validateForm() {
         if (cboKhachHang.getSelectedItem() == null || cboKhachHang.getSelectedItem().equals("")) {
-            MessageService.alert(this, "Vui lòng chọn khách hàng");
+            MessageService.alert(rootPane, "Vui lòng chọn khách hàng");
             return false;
         }
         if (listCart.size() <= 0) {
-            MessageService.alert(this, "Vui lòng thêm sản phẩm vào đơn hàng");
+            MessageService.alert(rootPane, "Vui lòng thêm sản phẩm vào đơn hàng");
             return false;
         }
         try {
@@ -1700,9 +1721,9 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             KhachHangModel khachHang = (KhachHangModel) cboKhachHang.getSelectedItem();
             String diaChiNhanHang = txtDiahChiKh.getText();
             expPdf.exportFile(khachHang, phiShip, khachThanhToan, diaChiNhanHang, listCart);
-            MessageService.alert(this, "In thành công");
+            MessageService.alert(rootPane, "In thành công");
         } catch (Exception e) {
-            MessageService.alert(this, "Lỗi in hóa đơn");
+            MessageService.alert(rootPane, "Lỗi in hóa đơn");
         }
     }
 
@@ -1788,5 +1809,27 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtSearchBox;
     public static javax.swing.JTextField txtTienShip;
     // End of variables declaration//GEN-END:variables
+void sortDesc() {
+        Collections.sort(QuanLyBanHang.listSp, comparator);
+        fillTable(QuanLyBanHang.listSp);
+    }
 
+    void sortAsend() {
+        Collections.sort(QuanLyBanHang.listSp, comparator);
+        Collections.reverse(QuanLyBanHang.listSp);
+        fillTable(QuanLyBanHang.listSp);
+    }
+
+    void fillToComboKhachHang() {
+        khachHangModel = (DefaultComboBoxModel) cboKhachHang.getModel();
+        khachHangModel.removeAllElements();
+        try {
+            listKhachHang = khachHangService.selectToFillCombo();
+            listKhachHang.forEach(kh -> {
+                khachHangModel.addElement(kh);
+            });
+            cboKhachHang.getModel().setSelectedItem(null);
+        } catch (Exception e) {
+        }
+    }
 }

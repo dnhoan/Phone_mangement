@@ -35,7 +35,6 @@ public class CartModel {
         this.tongTienHang = tongTienHang;
     }
 
-
     public boolean isGiamTheoTien() {
         return giamTheoTien;
     }
@@ -43,6 +42,8 @@ public class CartModel {
     public void setGiamTheoTien(boolean giamTheoTien) {
         this.giamTheoTien = giamTheoTien;
     }
+
+
 
     public float getSoLuongGiam() {
         return soLuongGiam;

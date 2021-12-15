@@ -9,6 +9,7 @@ import BUS.Services.BusImeiService;
 import DAL.Models.DalImeiModel;
 import DAL.Services.DalImeiService;
 import GUI.Services.ButtonColumn;
+import GUI.Services.ImageService;
 import GUI.Services.MessageService;
 import java.awt.Color;
 import java.awt.Font;
@@ -45,6 +46,8 @@ public class QLImei extends javax.swing.JFrame {
         this.isNewProduct = true;
         buttonRemove();
         fillTable(listImei);
+        btnThem.setEnabled(false);
+        setIconImage(ImageService.getAppIcon());
     }
 
     public void desginTable() {
@@ -60,6 +63,8 @@ public class QLImei extends javax.swing.JFrame {
     public QLImei(int mactsp) {
         initComponents();
         this.mactsp = mactsp;
+        setIconImage(ImageService.getAppIcon());
+        btnThem.setEnabled(false);
         init();
     }
 
@@ -451,7 +456,7 @@ public class QLImei extends javax.swing.JFrame {
     }
 
     void init() {
-        
+
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         BusImeiService.fillTable(modelImei, tblImei, BusImeiService.listDalImei);

@@ -27,7 +27,7 @@ public interface IHoaDonService {
             + "                ON ChiTietHoaDon.MaHD = HoaDon.MaHD join KhachHang  \n"
             + "                on KhachHang.MaKH = HoaDon.MaKH join NhanVien   \n"
             + "                on NhanVien.MaNV = HoaDon.MaNV  \n"
-            + "            where NgayThanhToan is null and HoaDon.TrangThai = ? and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ?) \n"
+            + "            where NgayThanhToan is null and HoaDon.TrangThai = ? and ChiTietHoaDon.TrangThai = 1 and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ? or NhanVien.Manv like ? or HoaDon.DiaChiNhanHang like ? or HoaDon.NgayTao like ? or HoaDon.NgayThanhToan like ?) \n"
             + "            Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
             + "                KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen, TrangThaiGiaoHang, iif(TienKhuyenMai is null, 0, TienKhuyenMai), Makm \n"
             + "            order by HoaDon.NgayTao desc";
@@ -38,7 +38,7 @@ public interface IHoaDonService {
             + "                ON ChiTietHoaDon.MaHD = HoaDon.MaHD inner join KhachHang  \n"
             + "                on KhachHang.MaKH = HoaDon.MaKH inner join NhanVien   \n"
             + "                on NhanVien.MaNV = HoaDon.MaNV  \n"
-            + "            where HoaDon.TrangThai = ? and NgayThanhToan is not null and (HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ?)   \n"
+            + "            where HoaDon.TrangThai = ? and NgayThanhToan is not null and (HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ? or NhanVien.Manv like ? or HoaDon.DiaChiNhanHang like ? or HoaDon.NgayTao like ? or HoaDon.NgayThanhToan like ?)   \n"
             + "            Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,  \n"
             + "                KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen ,TrangThaiGiaoHang,HoaDon.TrangThai, Makm , iif(TienKhuyenMai is null, 0, TienKhuyenMai) \n"
             + "            order by HoaDon.NgayTao desc";
@@ -49,7 +49,7 @@ public interface IHoaDonService {
             + "                ON ChiTietHoaDon.MaHD = HoaDon.MaHD join KhachHang  \n"
             + "                on KhachHang.MaKH = HoaDon.MaKH join NhanVien   \n"
             + "                on NhanVien.MaNV = HoaDon.MaNV  \n"
-            + "            where HoaDon.TrangThai = ?  AND HoaDon.TienKhachTra !=  HoaDon.TongTien + HoaDon.PhiVanChuyen   and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ?) \n"
+            + "            where HoaDon.TrangThai = ?  AND HoaDon.TienKhachTra !=  HoaDon.TongTien + HoaDon.PhiVanChuyen   and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ? or NhanVien.Manv like ? or HoaDon.DiaChiNhanHang like ? or HoaDon.NgayTao like ? or HoaDon.NgayThanhToan like ?) \n"
             + "            Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,TrangThaiGiaoHang  \n"
             + "                KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen, iif(TienKhuyenMai is null, 0, TienKhuyenMai) , Makm \n"
             + "            order by HoaDon.NgayTao desc";
@@ -60,7 +60,7 @@ public interface IHoaDonService {
             + "               ON ChiTietHoaDon.MaHD = HoaDon.MaHD join KhachHang   \n"
             + "               on KhachHang.MaKH = HoaDon.MaKH join NhanVien    \n"
             + "               on NhanVien.MaNV = HoaDon.MaNV   \n"
-            + "           where TrangThaiGiaoHang = ? and NgayThanhToan is null and HoaDon.TrangThai = ?  and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ?)  \n"
+            + "           where TrangThaiGiaoHang = ? and NgayThanhToan is null and ChiTietHoaDon.TrangThai = 1 and HoaDon.TrangThai = ?  and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ? or NhanVien.Manv like ? or HoaDon.DiaChiNhanHang like ? or HoaDon.NgayTao like ? or HoaDon.NgayThanhToan like ?)  \n"
             + "           Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,   \n"
             + "               KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen, TrangThaiGiaoHang , iif(TienKhuyenMai is null, 0, TienKhuyenMai), Makm   \n"
             + "           order by HoaDon.NgayTao desc";
@@ -71,7 +71,7 @@ public interface IHoaDonService {
             + "                           ON ChiTietHoaDon.MaHD = HoaDon.MaHD join KhachHang   \n"
             + "                           on KhachHang.MaKH = HoaDon.MaKH join NhanVien    \n"
             + "                           on NhanVien.MaNV = HoaDon.MaNV   \n"
-            + "                       where NgayThanhToan is null and HoaDon.TrangThai = ?   and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ?)  \n"
+            + "                       where NgayThanhToan is null and ChiTietHoaDon.TrangThai = 1 and HoaDon.TrangThai = ?   and ( HoaDon.DiaChiNhanHang like ? or KhachHang.HoTen like ? or KhachHang.SDT like ? or NhanVien.HoTen like ? or NhanVien.Manv like ? or HoaDon.DiaChiNhanHang like ? or HoaDon.NgayTao like ? or HoaDon.NgayThanhToan like ?)  \n"
             + "                       Group by HoaDon.MaHD, HoaDon.NgayThanhToan, HoaDon.NgayTao, HoaDon.TongTien, HoaDon.TienKhachTra, HoaDon.DiaChiNhanHang, HoaDon.GhiChu,   \n"
             + "                           KhachHang.MaKH, KhachHang.HoTen , KhachHang.SDT, NhanVien.MaNV, NhanVien.HoTen, PhiVanChuyen, TrangThaiGiaoHang , iif(TienKhuyenMai is null, 0, TienKhuyenMai), Makm   \n"
             + "                       order by HoaDon.NgayTao desc";

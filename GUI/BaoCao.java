@@ -11,7 +11,7 @@ import javax.swing.Timer;
 import DAL.Services.JDBCHelper;
 import GUI.Services.ImageService;
 import com.formdev.flatlaf.FlatLightLaf;
-import com.sun.glass.ui.Size;
+//import com.sun.glass.ui.Size;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

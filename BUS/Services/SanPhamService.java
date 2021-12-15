@@ -231,7 +231,7 @@ public class SanPhamService implements ICTSanPhamService, IPhoneMangementService
                     CartModel cart = new CartModel();
                     cart.setTensp(resultSet.getString("TenSP"));
                     cart.setHinh(resultSet.getString("hinh"));
-                    cart.setGia(resultSet.getFloat("giaban"));
+                    cart.setGia(resultSet.getFloat("Giaban"));
                     cart.setMactsp(resultSet.getInt("mactsp"));
                     cart.setTongTien(resultSet.getFloat("tongtien"));
                     cart.setSoLuong(resultSet.getInt("sl"));

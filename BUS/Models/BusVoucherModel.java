@@ -61,7 +61,7 @@ public class BusVoucherModel {
     public  String MucGGtable(){
         String ha= null;
         if(LoaiGG==0){
-            ha=mucGG+" VND";
+            ha= UtilityService.toVnd(mucGG);
         }else if(LoaiGG==1){
             ha= mucGG+" %";
         }
