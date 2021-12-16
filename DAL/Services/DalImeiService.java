@@ -78,10 +78,11 @@ public class DalImeiService implements IPhoneMangementService<DalImeiModel, Inte
             e.printStackTrace();
         }
     }
-    public boolean updateDoiHang(int currentImei, int newImei, String ghiChu) {
+    public boolean updateDoiHang(int currentImei, int newImei, String ghiChu, int maspsale) {
         try {
             JDBCHelper.executeUpdate(UPDATE_GHICHU, ghiChu, currentImei);
             JDBCHelper.executeUpdate(UPDATE_IMEI_IN_CTHD, newImei, currentImei);
+            JDBCHelper.executeUpdate(UPDATE_MASPSALE_NEWIMEI_IN_HOADON, maspsale, newImei);
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -91,10 +91,10 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     static float tienKhuyenMai = 0;
     float hoaDonTong;
     int currentId;
-    Icon iconAddToCart = new ImageIcon(getClass().getResource("/icon/add-cart (3).png"));
+    static Icon iconAddToCart = new ImageIcon();
     Icon iconBackUp = new ImageIcon(getClass().getResource("/icon/curve-arrow.png"));
     Icon iconDelete = new ImageIcon(getClass().getResource("/icon/bin.png"));
-    Icon iconView = new ImageIcon(getClass().getResource("/icon/view.png"));
+    static Icon iconView = new ImageIcon();
     static float phiShip = 0;
 
     public QuanLyBanHang() {
@@ -108,6 +108,8 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         int w = d.width;
         this.setSize(w, h);
         desginTable();
+        iconAddToCart = new ImageIcon(getClass().getResource("/icon/add-cart (3).png"));
+        iconView = new ImageIcon(getClass().getResource("/icon/view.png"));
         this.init();
     }
 
@@ -155,7 +157,9 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             btnLuuHoaDon.setEnabled(false);
         } else {
             btnThanhToan.setEnabled(false);
-            rdoChuaGiao.setSelected(true);
+            if (!rdoShipHang.isSelected()) {
+                rdoChuaGiao.setSelected(true);
+            }
             btnLuuHoaDon.setEnabled(true);
         }
     }
@@ -274,6 +278,9 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtKhachThanhToanKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtKhachThanhToanKeyTyped(evt);
+            }
         });
         getContentPane().add(txtKhachThanhToan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 620, 290, 35));
 
@@ -355,8 +362,8 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             tblHoaDon.getColumnModel().getColumn(3).setMaxWidth(100);
             tblHoaDon.getColumnModel().getColumn(4).setMinWidth(40);
             tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(40);
-            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(100);
-            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(100);
+            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(120);
+            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(120);
             tblHoaDon.getColumnModel().getColumn(6).setMinWidth(120);
             tblHoaDon.getColumnModel().getColumn(6).setMaxWidth(120);
             tblHoaDon.getColumnModel().getColumn(7).setMinWidth(120);
@@ -388,14 +395,14 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "MaCTSP", "Ảnh", "Tên sản phẩm", "Giá", "SL", "Sale", "Tổng tiền", "Imei"
+                "MaCTSP", "Ảnh", "Tên sản phẩm", "Giá", "Sale /1 SP", "SL", "Tổng tiền", "Imei"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false, true
+                false, false, false, false, true, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -436,10 +443,10 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             tblCart.getColumnModel().getColumn(1).setMaxWidth(60);
             tblCart.getColumnModel().getColumn(3).setMinWidth(120);
             tblCart.getColumnModel().getColumn(3).setMaxWidth(120);
-            tblCart.getColumnModel().getColumn(4).setMinWidth(50);
-            tblCart.getColumnModel().getColumn(4).setMaxWidth(50);
-            tblCart.getColumnModel().getColumn(5).setMinWidth(100);
-            tblCart.getColumnModel().getColumn(5).setMaxWidth(100);
+            tblCart.getColumnModel().getColumn(4).setMinWidth(100);
+            tblCart.getColumnModel().getColumn(4).setMaxWidth(100);
+            tblCart.getColumnModel().getColumn(5).setMinWidth(50);
+            tblCart.getColumnModel().getColumn(5).setMaxWidth(50);
             tblCart.getColumnModel().getColumn(6).setMinWidth(120);
             tblCart.getColumnModel().getColumn(6).setMaxWidth(120);
             tblCart.getColumnModel().getColumn(7).setMinWidth(60);
@@ -923,7 +930,6 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         rowHoaDon = tblHoaDon.getSelectedRow();
         currentMahd = (int) tblHoaDon.getValueAt(rowHoaDon, 0);
-        System.out.println("curent hoa don" + currentMahd);
         setFormHoaDon(currentMahd);
         isEditting = true;
     }//GEN-LAST:event_tblHoaDonMouseClicked
@@ -1026,6 +1032,10 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             selectGiamGiaHoaDon();
         }
     }//GEN-LAST:event_cboGiamGiaItemStateChanged
+
+    private void txtKhachThanhToanKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKhachThanhToanKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKhachThanhToanKeyTyped
     static void getPhiShip() {
         if (!txtTienShip.getText().isEmpty()) {
             try {
@@ -1094,7 +1104,6 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         cboPhanLoai.addItem("Tất cả");
         cboPhanLoai.addItem("Đang giao");
         cboPhanLoai.addItem("Chưa giao");
-        cboPhanLoai.addItem("Đã xóa");
         cboPhanLoai.setSelectedItem("Tất cả");
         fillTableHoaDon(hoaDonModel, tblHoaDon, listHoaDon);
     }
@@ -1181,7 +1190,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 + " - " + sp.getBusPhanLoaiSpModel().getDalPhanLoaiSpModel().getTenLoai(),
                 UtilityService.toVnd(sp.getGiaBan()),
                 sp.getTonKho(),
-                "Thêm"
+                iconAddToCart
             });
         });
     }
@@ -1220,10 +1229,10 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         imageLabel,
                         ca.getTensp(),
                         UtilityService.toVnd(ca.getGia()),
-                        ca.getListImeis().size(),
                         (ca.isGiamTheoTien() ? UtilityService.toVnd(ca.getSoLuongGiam()) : ca.getSoLuongGiam() + " %"),
+                        ca.getListImeis().size(),
                         UtilityService.toVnd(ca.getTongTien()),
-                        "Xem"
+                        iconView
                     });
                 }
                 getPhiShip();
@@ -1242,7 +1251,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         }
     }
     Date currentDate = new Date();
-    
+
     void update(boolean isSave) {
         try {
             DalHoaDon dalHoaDon = this.getFormHoaDon();
@@ -1259,7 +1268,8 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                     DalChiTietHoaDon dalChiTietHoaDon = new DalChiTietHoaDon();
                     dalChiTietHoaDon.setMaImei(imei.getMaImei());
                     dalChiTietHoaDon.setMahd(dalHoaDon.getMaHD());
-                    dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : (ca.getGia() * ca.getSoLuongGiam() / 100));
+                    dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : ca.getGia() - (ca.getGia() * ca.getSoLuongGiam() / 100));
+                    dalChiTietHoaDon.setGiaBan(ca.getGia());
                     try {
                         cTHoaDonService.insert(dalChiTietHoaDon);
                         dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale() > 0 ? imei.getMaSpSale() : null);
@@ -1267,11 +1277,11 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         System.out.println("Lỗi lưu hóa đơn @" + ca.getMactsp());
                     }
                 }
-                if(listImeiXoa.size() > 0) {
+                if (listImeiXoa.size() > 0) {
                     listImeiXoa.forEach(imei -> {
                         cTHoaDonService.updateByMaImei(imei.getMaImei());
                     });
-                } 
+                }
             });
             MessageService.alert(this, isSave ? "Lưu hóa đơn thành công" : "Thanh toán thành công");
             if (MessageService.confirm(rootPane, "Bạn có muốn in hóa này đơn không ?")) {
@@ -1306,7 +1316,8 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                         DalChiTietHoaDon dalChiTietHoaDon = new DalChiTietHoaDon();
                         dalChiTietHoaDon.setMaImei(imei.getMaImei());
                         dalChiTietHoaDon.setMahd(lastID);
-                        dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : (ca.getGia() * ca.getSoLuongGiam() / 100));
+                        dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : ca.getGia() - (ca.getGia() * ca.getSoLuongGiam() / 100));
+                        dalChiTietHoaDon.setGiaBan(ca.getGia());
                         try {
                             cTHoaDonService.insert(dalChiTietHoaDon);
                             dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale() > 0 ? imei.getMaSpSale() : null);
@@ -1434,7 +1445,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     }
     BusHoaDon currentHoaDonSelected;
     boolean isEditting = false;
-    
+
     void setFormHoaDon(int maHd) {
         isEditting = true;
         clearHoaDon(true);
@@ -1541,15 +1552,15 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = tblHoaDon.getSelectedRow();
-                currentMahd = (int) tblHoaDon.getValueAt(row, 0);
+                int mahd = (int) tblHoaDon.getValueAt(row, 0);
                 if (cboSelected == 3) {
                     if (MessageService.confirm(rootPane, "Bạn có muốn khôi phục hóa đơn này không ?")) {
-                        hoaDonService.updateStatus(1, currentMahd);
+                        hoaDonService.updateStatus(1, mahd, "");
                         MessageService.alert(rootPane, "Khôi phục hóa đơn thành công");
                     }
                 } else {
                     if (MessageService.confirm(rootPane, "Bạn có muốn xóa hóa đơn này không ?")) {
-                        hoaDonService.updateStatus(0, currentMahd);
+                        hoaDonService.updateStatus(0, mahd, "");
                         MessageService.alert(rootPane, "Xóa hóa đơn thành công");
                     }
                 }
@@ -1715,41 +1726,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         tblCart.getColumn("Ảnh").setCellRenderer(new CellRenderer());
     }
 
-    void printHoaDon() {
-        FirstPdf expPdf = new FirstPdf();
-        try {
-            KhachHangModel khachHang = (KhachHangModel) cboKhachHang.getSelectedItem();
-            String diaChiNhanHang = txtDiahChiKh.getText();
-            expPdf.exportFile(khachHang, phiShip, khachThanhToan, diaChiNhanHang, listCart);
-            MessageService.alert(rootPane, "In thành công");
-        } catch (Exception e) {
-            MessageService.alert(rootPane, "Lỗi in hóa đơn");
-        }
-    }
 
-    class CellRenderer implements TableCellRenderer {
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table,
-                Object value,
-                boolean isSelected,
-                boolean hasFocus,
-                int row,
-                int column) {
-
-            TableColumn tb = tblSanPham.getColumn("Ảnh");
-            tb.setMaxWidth(60);
-            tb.setMinWidth(60);
-            tblSanPham.setRowHeight(60);
-
-            TableColumn cart = tblCart.getColumn("Ảnh");
-            cart.setMaxWidth(60);
-            cart.setMinWidth(60);
-            tblCart.setRowHeight(60);
-            return (Component) value;
-        }
-
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAscen;
     private javax.swing.JButton btnDesc;
@@ -1797,7 +1774,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton rdoDangGiao;
     public static javax.swing.JRadioButton rdoGiaoThanhCong;
     private javax.swing.JRadioButton rdoKhongGiao;
-    private javax.swing.JRadioButton rdoShipHang;
+    public static javax.swing.JRadioButton rdoShipHang;
     public static javax.swing.JTable tblCart;
     public static javax.swing.JTable tblHoaDon;
     public static javax.swing.JTable tblSanPham;
@@ -1831,5 +1808,41 @@ void sortDesc() {
             cboKhachHang.getModel().setSelectedItem(null);
         } catch (Exception e) {
         }
+    }
+
+    void printHoaDon() {
+        FirstPdf expPdf = new FirstPdf();
+        try {
+            KhachHangModel khachHang = (KhachHangModel) cboKhachHang.getSelectedItem();
+            String diaChiNhanHang = txtDiahChiKh.getText();
+            expPdf.exportFile(khachHang, phiShip, khachThanhToan, diaChiNhanHang, listCart);
+            MessageService.alert(rootPane, "In thành công");
+        } catch (Exception e) {
+            MessageService.alert(rootPane, "Lỗi in hóa đơn");
+        }
+    }
+
+    class CellRenderer implements TableCellRenderer {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table,
+                Object value,
+                boolean isSelected,
+                boolean hasFocus,
+                int row,
+                int column) {
+
+            TableColumn tb = tblSanPham.getColumn("Ảnh");
+            tb.setMaxWidth(60);
+            tb.setMinWidth(60);
+            tblSanPham.setRowHeight(60);
+
+            TableColumn cart = tblCart.getColumn("Ảnh");
+            cart.setMaxWidth(60);
+            cart.setMinWidth(60);
+            tblCart.setRowHeight(60);
+            return (Component) value;
+        }
+
     }
 }

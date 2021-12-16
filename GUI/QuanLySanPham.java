@@ -1980,9 +1980,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             });
             this.clearForm();
             this.getDataTable();
-            MessageService.alert(this, "yeahhhh");
+            MessageService.alert(this, "Thêm sản phẩm thành công");
         } catch (Exception e) {
-            MessageService.alert(this, "error");
+            MessageService.alert(this, "Lỗi thêm sản phẩm");
         }
     }
 
@@ -1991,15 +1991,16 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         int mactsp = (int) tblSanPham.getValueAt(row, 0);
         DalCTSanPhamModel sp = this.getInfoForm();
         sp.setMactsp(mactsp);
+        sp.setSoLuongNhap(cboListImei.getItemCount());
         try {
             sanPhamService.update(sp);
             listImei.forEach(dalImeiModel -> {
                 BusImeiService.update(dalImeiModel);
             });
             this.getDataTable();
-            MessageService.alert(this, "yeahhhh");
+            MessageService.alert(this, "Cập nhật sản phẩm thành công");
         } catch (Exception e) {
-            MessageService.alert(this, "error");
+            MessageService.alert(this, "Lỗi cập nhật sản phẩm");
         }
     }
 
@@ -2010,9 +2011,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             sanPhamService.delete(id);
             this.clearForm();
             this.getDataTable();
-            MessageService.alert(this, "yeahhhh");
+            MessageService.alert(this, "Xóa sản phẩm thành công");
         } catch (Exception e) {
-            MessageService.alert(this, "error");
+            MessageService.alert(this, "lỗi xóa sản phẩm");
         }
     }
 
@@ -2044,9 +2045,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             sanPhamService.backup(currentIDRecycle);
             this.clearForm();
             this.getDataRecycle();
-            MessageService.alert(this, "yeahhhh");
+            MessageService.alert(this, "Khôi phục sản phẩm thành công");
         } catch (Exception e) {
-            MessageService.alert(this, "error");
+            MessageService.alert(this, "lỗi khôi phục sản phẩm");
         }
     }
 
@@ -2056,7 +2057,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             this.listSp = sanPhamService.selectBySearch(0, keyWord);
             fillTableSP(listSp, modelSp, tblSanPham);
         } catch (Exception e) {
-            MessageService.alert(this, "loi");
+            MessageService.alert(this, "lỗi get data");
         }
     }
 
@@ -2067,7 +2068,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             btnRestore.setEnabled(false);
             fillTableSP(listSp, modelRecycle, tblRecycle);
         } catch (Exception e) {
-            MessageService.alert(this, "loi");
+            MessageService.alert(this, "lỗi get data xóa");
         }
     }
 

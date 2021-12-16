@@ -14,7 +14,16 @@ public class DalChiTietHoaDon {
     private int mahd;
     private int maImei;
     private float GiaBanSauSale;
+    private float giaBan;
     private boolean trangThai;
+
+    public float getGiaBan() {
+        return giaBan;
+    }
+
+    public void setGiaBan(float giaBan) {
+        this.giaBan = giaBan;
+    }
 
     public float getGiaBanSauSale() {
         return GiaBanSauSale;

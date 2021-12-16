@@ -156,9 +156,9 @@ public class BusImeiService {
         return false;
     }
 
-    public static boolean updateGhiChuImei(int currentImei, int newImei, String ghiChu) {
+    public static boolean updateGhiChuImei(int currentImei, int newImei, String ghiChu, int maspsale) {
         try {
-            dalImeiService.updateDoiHang(currentImei, newImei, ghiChu);
+            dalImeiService.updateDoiHang(currentImei, newImei, ghiChu, maspsale);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

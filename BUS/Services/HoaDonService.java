@@ -98,10 +98,34 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
         }
     }
 
-    public void updateStatus(Integer status, Integer id) {
+    public boolean isXoaHoaDon(int mahd) {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(COUNT_NGAY_THANH_TOAN, mahd);
+            System.out.println("mahd "+ mahd);
+            while (rs.next()) {
+                System.out.println("so ngay");
+                return rs.getInt("soNgay") <= 7;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean isBackUpHoaDon(int mahd) {
+        try {
+            ResultSet rs = JDBCHelper.executeQuery(CHECK_IMEI_BY_MAD, mahd);
+            while (rs.next()) {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public void updateStatus(Integer status, Integer id, String ghiChu) {
         try {
             cTHoaDonService.updateStatus(status, id);
-            JDBCHelper.executeUpdate(UPDATE_STATUS, status, id);
+            JDBCHelper.executeUpdate(UPDATE_STATUS, status,ghiChu, id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

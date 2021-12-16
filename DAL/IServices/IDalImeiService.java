@@ -13,7 +13,8 @@ public interface IDalImeiService {
 
     String INSERT = "INSERT INTO IMEI(MACTSP, MaSPSale, TenImei) VALUES(?,?,?)";
     String UPDATE = "update IMEI set TenImei = ? where MaIMEI = ?";
-    String UPDATE_GHICHU =  "update imei set ghichu = ? where maimei = ?";
+    String UPDATE_GHICHU =  "update imei set ghichu = ?, maspsale = null where maimei = ?";
+    String UPDATE_MASPSALE_NEWIMEI_IN_HOADON =  "update imei set maspsale = ? where maimei = ?";
     String UPDATE_IMEI_IN_CTHD = "update ChiTietHoaDon set MaImei = ? where MaImei = ?";
     String UPDATE_STATUS_SELL = "update IMEI set TrangThaiBan = ? where MaIMEI = ?";
     String UPDATE_STATUS_SELL_BY_MAHD = "update IMEI set IMEI.TrangThaiBan = ? \n"

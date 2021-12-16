@@ -329,6 +329,6 @@ end
 -- c?p nh?t tr?ng th�i trong imei khi tr?ng th�i ? chi ti?t h�a b? x�a
 create trigger trg_updateTrangThaiBanTo1 on ChiTietHoaDon after update as
 begin
-	update IMEI set TrangThaiBan = 1 from IMEI join deleted on deleted.MaImei = IMEI.MaImei where deleted.trangThai = 1
+	update IMEI set TrangThaiBan = 1, MaSPSale = null from IMEI join deleted on deleted.MaImei = IMEI.MaImei where deleted.trangThai = 1
 	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei where inserted.trangThai = 1
 end

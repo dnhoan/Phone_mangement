@@ -25,7 +25,16 @@ public class CartModel {
     private BusSanPham busSanPham;
     private boolean giamTheoTien;
     private float soLuongGiam;
+    private float giaBanRa;
     private List<DalImeiModel> listImeis;
+
+    public float getGiaBanRa() {
+        return giaBanRa;
+    }
+
+    public void setGiaBanRa(float giaBanRa) {
+        this.giaBanRa = giaBanRa;
+    }
 
     public float getTongTienHang() {
         return tongTienHang;

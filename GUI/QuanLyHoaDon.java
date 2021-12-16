@@ -6,14 +6,17 @@
 package GUI;
 
 import BUS.Models.BusHoaDon;
+import BUS.Models.BusVoucherModel;
 import BUS.Services.BusImeiService;
 import BUS.Services.CTHoaDonService;
 import BUS.Services.HoaDonService;
 import BUS.Services.SanPhamService;
+import BUS.Services.VoucherService;
 import DAL.Models.DalImeiModel;
 import GUI.Models.CartModel;
 import static GUI.QuanLyBanHang.currentMahd;
 import GUI.Services.AuthService;
+import GUI.Services.ButtonColumn;
 import GUI.Services.DateService;
 import GUI.Services.MessageService;
 import GUI.Services.UtilityService;
@@ -21,7 +24,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -29,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -37,6 +44,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -44,8 +52,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class QuanLyHoaDon extends javax.swing.JInternalFrame {
 
-    Icon iconBackUp = new ImageIcon(getClass().getResource("/icon/curve-arrow.png"));
-    Icon iconDelete = new ImageIcon(getClass().getResource("/icon/bin.png"));
+    static Icon iconBackUp = new ImageIcon();
+    static Icon iconDelete = new ImageIcon();
     CTHoaDonService cTHoaDonService = new CTHoaDonService();
 
     public QuanLyHoaDon() {
@@ -59,7 +67,8 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         int h = d.height;
         int w = d.width;
         this.setSize(w, h);
-
+        iconBackUp = new ImageIcon(getClass().getResource("/icon/curve-arrow.png"));
+        iconDelete = new ImageIcon(getClass().getResource("/icon/bin.png"));
         desginTable();
         this.init();
     }
@@ -69,23 +78,23 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         tblHoaDon.getTableHeader().setOpaque(false);
         tblHoaDon.getTableHeader().setBackground(new Color(25, 29, 74));
         tblHoaDon.getTableHeader().setForeground(Color.WHITE);
-        tblHoaDon.setGridColor(new Color(25,29,74));
-         tblHoaDon.setSelectionBackground(new Color(38,117,191));
-      tblHoaDon.setShowGrid(true);
+        tblHoaDon.setGridColor(new Color(25, 29, 74));
+        tblHoaDon.setSelectionBackground(new Color(38, 117, 191));
+        tblHoaDon.setShowGrid(true);
         tblImei.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblImei.getTableHeader().setOpaque(false);
         tblImei.getTableHeader().setBackground(new Color(25, 29, 74));
         tblImei.getTableHeader().setForeground(Color.WHITE);
-         tblImei.setGridColor(new Color(25,29,74));
-          tblImei.setSelectionBackground(new Color(38,117,191));
-       tblImei.setShowGrid(true);
+        tblImei.setGridColor(new Color(25, 29, 74));
+        tblImei.setSelectionBackground(new Color(38, 117, 191));
+        tblImei.setShowGrid(true);
         tblSanPham.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 15));
         tblSanPham.getTableHeader().setOpaque(false);
         tblSanPham.getTableHeader().setBackground(new Color(25, 29, 74));
         tblSanPham.getTableHeader().setForeground(Color.WHITE);
-        tblSanPham.setGridColor(new Color(25,29,74));
-          tblSanPham.setSelectionBackground(new Color(38,117,191));
-      tblSanPham.setShowGrid(true);
+        tblSanPham.setGridColor(new Color(25, 29, 74));
+        tblSanPham.setSelectionBackground(new Color(38, 117, 191));
+        tblSanPham.setShowGrid(true);
 
     }
 
@@ -119,7 +128,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         lblCount = new javax.swing.JLabel();
         cboImei = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        btnXoa2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -128,17 +136,17 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         tblHoaDon.setForeground(new java.awt.Color(25, 29, 74));
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "MaHD", "Khách hàng", "Sđt KH", "Mã nv", "Ngày tạo", "Ngày thanh toán", "SL", "Tổng tiền hàng", "Phí vận chuyển", "Số tiền giảm giá", "Tổng tiền hóa đơn"
+                "MaHD", "Khách hàng", "Sđt KH", "Mã nv", "Ngày tạo", "Ngày thanh toán", "SL", "Tổng tiền hàng", "Phí vận chuyển", "Giảm theo hóa đơn", "Tổng tiền hóa đơn", "Ghi chú", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -157,16 +165,28 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         if (tblHoaDon.getColumnModel().getColumnCount() > 0) {
             tblHoaDon.getColumnModel().getColumn(0).setMinWidth(0);
             tblHoaDon.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblHoaDon.getColumnModel().getColumn(1).setMinWidth(200);
-            tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(200);
+            tblHoaDon.getColumnModel().getColumn(1).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(2).setMinWidth(100);
+            tblHoaDon.getColumnModel().getColumn(2).setMaxWidth(100);
             tblHoaDon.getColumnModel().getColumn(3).setMinWidth(70);
             tblHoaDon.getColumnModel().getColumn(3).setMaxWidth(70);
-            tblHoaDon.getColumnModel().getColumn(4).setMinWidth(150);
-            tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(4).setMinWidth(100);
+            tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(100);
             tblHoaDon.getColumnModel().getColumn(5).setMinWidth(150);
             tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(150);
             tblHoaDon.getColumnModel().getColumn(6).setMinWidth(40);
             tblHoaDon.getColumnModel().getColumn(6).setMaxWidth(40);
+            tblHoaDon.getColumnModel().getColumn(7).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(7).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(8).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(8).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(9).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(9).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(10).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(10).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(12).setMinWidth(50);
+            tblHoaDon.getColumnModel().getColumn(12).setMaxWidth(50);
         }
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1600, 450));
@@ -192,7 +212,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 140, 180, 41));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1430, 140, 180, 41));
 
         tblImei.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         tblImei.setForeground(new java.awt.Color(25, 29, 74));
@@ -334,11 +354,11 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Masp", "Tên sp", "Giá bán", "SL", "Thành tiền"
+                "Masp", "Tên sp", "Giá bán", "Sale/1 SP", "SL", "Thành tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -358,10 +378,12 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             tblSanPham.getColumnModel().getColumn(0).setMaxWidth(0);
             tblSanPham.getColumnModel().getColumn(2).setMinWidth(120);
             tblSanPham.getColumnModel().getColumn(2).setMaxWidth(120);
-            tblSanPham.getColumnModel().getColumn(3).setMinWidth(50);
-            tblSanPham.getColumnModel().getColumn(3).setMaxWidth(50);
-            tblSanPham.getColumnModel().getColumn(4).setMinWidth(120);
-            tblSanPham.getColumnModel().getColumn(4).setMaxWidth(120);
+            tblSanPham.getColumnModel().getColumn(3).setMinWidth(120);
+            tblSanPham.getColumnModel().getColumn(3).setMaxWidth(120);
+            tblSanPham.getColumnModel().getColumn(4).setMinWidth(50);
+            tblSanPham.getColumnModel().getColumn(4).setMaxWidth(50);
+            tblSanPham.getColumnModel().getColumn(5).setMinWidth(120);
+            tblSanPham.getColumnModel().getColumn(5).setMaxWidth(120);
         }
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, 870, 240));
@@ -385,34 +407,15 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jLabel8.setText("Chọn Imei máy muốn đổi");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 810, -1, -1));
 
-        btnXoa2.setBackground(new java.awt.Color(25, 29, 74));
-        btnXoa2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        btnXoa2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/delete1.png"))); // NOI18N
-        btnXoa2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
-        btnXoa2.setBorderPainted(false);
-        btnXoa2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnXoa2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnXoa2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnXoa2MouseExited(evt);
-            }
-        });
-        btnXoa2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnXoa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1540, 140, 70, 40));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void cboStatusHoadonItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboStatusHoadonItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            currentSelectedHoaDon = cboStatusHoadon.getSelectedIndex();
+//            int status = cboStatusHoadon.getSelectedIndex();
+//            currentSelectedHoaDon = status;
             getDataHoaDon();
+            buttonRemoveHoaDon();
         }
     }//GEN-LAST:event_cboStatusHoadonItemStateChanged
 
@@ -426,9 +429,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             currentRowHoaDon = tblHoaDon.getSelectedRow();
             this.currentMaHd = (int) tblHoaDon.getValueAt(currentRowHoaDon, 0);
             this.getDataSanPhamByMahd();
-            if(cboStatusHoadon.getSelectedIndex() == 0) {
-                btnXoa2.setEnabled(true);
-            }
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
@@ -454,7 +454,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         txtGhiChu.setEnabled(true);
         int row = tblImei.getSelectedRow();
         if (row >= 0) {
-            currentMaImei = (int) tblImei.getValueAt(row, 0);
+            currentImeiSelected = listImei.get(row);
             txtGhiChu.setEnabled(true);
         }
     }//GEN-LAST:event_tblImeiMouseClicked
@@ -476,27 +476,16 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         xuatfile();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnXoa2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa2MouseEntered
-        changeColor(btnXoa2, new Color(102, 0, 102));
-    }//GEN-LAST:event_btnXoa2MouseEntered
-
-    private void btnXoa2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa2MouseExited
-        changeColor(btnXoa2, new Color(25, 29, 74));
-    }//GEN-LAST:event_btnXoa2MouseExited
-
-    private void btnXoa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa2ActionPerformed
-        delete();
-    }//GEN-LAST:event_btnXoa2ActionPerformed
-
     public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTraHang;
-    private javax.swing.JButton btnXoa2;
-    private javax.swing.JComboBox<String> cboImei;
-    private javax.swing.JComboBox<String> cboStatusHoadon;
-    private javax.swing.JButton jButton1;
+    public static javax.swing.JButton btnTraHang;
+    private javax.swing.JButton btnXoa;
+    private javax.swing.JButton btnXoa1;
+    public static javax.swing.JComboBox<String> cboImei;
+    public static javax.swing.JComboBox<String> cboStatusHoadon;
+    public static javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -510,50 +499,51 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblCount;
-    private javax.swing.JTable tblHoaDon;
-    private javax.swing.JTable tblImei;
-    private javax.swing.JTable tblSanPham;
-    private javax.swing.JTextArea txtGhiChu;
-    private javax.swing.JTextField txtSearchHD;
+    public static javax.swing.JLabel lblCount;
+    public static javax.swing.JTable tblHoaDon;
+    public static javax.swing.JTable tblImei;
+    public static javax.swing.JTable tblSanPham;
+    public static javax.swing.JTextArea txtGhiChu;
+    public static javax.swing.JTextField txtSearchHD;
     // End of variables declaration//GEN-END:variables
-    int currentSelectedHoaDon = 0;
-    int currentMaHd = -1;
-    int currentMactsp = -1;
-    int currentMaImei = -1;
-    int currentRowHoaDon = -1;
-    Date currentDate = new Date();
-    HoaDonService hoaDonService = new HoaDonService();
-    SanPhamService sanPhamService = new SanPhamService();
-    DefaultComboBoxModel<DalImeiModel> imeiModel;
-    DefaultTableModel modelHoaDon;
-    DefaultTableModel modelSanPham;
-    DefaultTableModel modelImei;
-    List<BusHoaDon> listHoaDon = new ArrayList<>();
-    List<BusHoaDon> listFilterHoaDon = new ArrayList<>();
-    List<CartModel> listCart = new ArrayList<>();
-    List<DalImeiModel> listImei = new ArrayList<>();
+//    static int currentSelectedHoaDon = 0;
+    static int currentMaHd = -1;
+    static int currentMactsp = -1;
+    static DalImeiModel currentImeiSelected;
+    static int currentRowHoaDon = -1;
+    static Date currentDate = new Date();
+    static HoaDonService hoaDonService = new HoaDonService();
+    static SanPhamService sanPhamService = new SanPhamService();
+    static DefaultComboBoxModel<DalImeiModel> imeiModel;
+    static DefaultTableModel modelHoaDon;
+    static DefaultTableModel modelSanPham;
+    static DefaultTableModel modelImei;
+    static List<BusHoaDon> listHoaDon = new ArrayList<>();
+    static List<BusHoaDon> listFilterHoaDon = new ArrayList<>();
+    static List<CartModel> listCart = new ArrayList<>();
+    static List<DalImeiModel> listImei = new ArrayList<>();
+    static VoucherService voucherService = new VoucherService();
 
     void init() {
         getDataHoaDon();
+        buttonRemoveHoaDon();
     }
 
-    void getDataHoaDon() {
+    public static void getDataHoaDon() {
         try {
-            btnXoa2.setEnabled(false);
-            String term = this.txtSearchHD.getText();
+            String term = txtSearchHD.getText();
             int statusHoaDon = cboStatusHoadon.getSelectedIndex();
-            this.listHoaDon = this.hoaDonService.getAllHoaDon(term, statusHoaDon);
+            listHoaDon = hoaDonService.getAllHoaDon(term, statusHoaDon);
         } catch (Exception e) {
         }
         fillTableHoaDon(listHoaDon);
     }
 
-    void clearForm() {
-        currentSelectedHoaDon = 0;
+    static void clearForm() {
+//        currentSelectedHoaDon = 0;
         currentMaHd = -1;
         currentMactsp = -1;
-        currentMaImei = -1;
+        currentImeiSelected = null;
         currentRowHoaDon = -1;
         modelSanPham = (DefaultTableModel) tblSanPham.getModel();
         modelSanPham.setRowCount(0);
@@ -566,7 +556,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         cboImei.removeAllItems();
     }
 
-    void fillTableHoaDon(List<BusHoaDon> listShow) {
+    static void fillTableHoaDon(List<BusHoaDon> listShow) {
         clearForm();
         modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
         modelHoaDon.setRowCount(0);
@@ -584,7 +574,8 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                     UtilityService.toVnd(hd.getPhiVanChuyen()),
                     UtilityService.toVnd(hd.getTiemKhuyenMai()),
                     UtilityService.toVnd(hd.getTienKhachTra()),
-                    this.currentSelectedHoaDon == 1 ? iconBackUp : iconDelete
+                    hd.getGhiChu(),
+                    cboStatusHoadon.getSelectedIndex() == 1 ? iconBackUp : iconDelete
                 });
             });
         }
@@ -593,6 +584,35 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     void getDataSanPhamByMahd() {
         try {
             this.listCart = sanPhamService.selectSpByMahd(currentMaHd);
+            if (listCart.size() > 0) {
+                listCart.forEach(cart -> {
+//                    lấy danh sách imei by masp
+                    List<DalImeiModel> dalImeiModels = BusImeiService.getImeisByMactspAndMahd(cart.getMactsp(), currentMaHd);
+                    cart.setListImeis(dalImeiModels);
+                    cart.setTongTienHang(dalImeiModels.size() * cart.getGia());
+                    BusVoucherModel busVoucherModel;
+//                            lấy voucher đã lưu của sản phẩm trong db
+                    busVoucherModel = voucherService.selectVoucherByMaImei(dalImeiModels.get(0).getMaSpSale());
+                    if (busVoucherModel == null) {
+                        cart.setTongTien(cart.getTongTienHang());
+                        cart.getListImeis().forEach(imei -> {
+                            imei.setMaSpSale(0);
+                        });
+                        cart.setSoLuongGiam(0);
+                        cart.setGiamTheoTien(true);
+                    } else {
+                        float tongTienSauSale;
+                        if (busVoucherModel.getLoaiGG() == 1) {
+                            tongTienSauSale = cart.getTongTienHang() - ((cart.getGia() * busVoucherModel.getMucGG() / 100) * cart.getListImeis().size());
+                        } else {
+                            tongTienSauSale = cart.getTongTienHang() - (busVoucherModel.getMucGG() * cart.getListImeis().size());
+                        }
+                        cart.setSoLuongGiam(busVoucherModel.getMucGG());
+                        cart.setGiamTheoTien(busVoucherModel.getLoaiGG() == 0);
+                        cart.setTongTien(tongTienSauSale);
+                    }
+                });
+            }
             fillTableSanPham();
         } catch (Exception e) {
         }
@@ -602,15 +622,16 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         currentMactsp = -1;
         modelSanPham = (DefaultTableModel) tblSanPham.getModel();
         modelSanPham.setRowCount(0);
-        this.listCart.forEach(sp -> {
+        for (CartModel ca : listCart) {
             modelSanPham.addRow(new Object[]{
-                sp.getMactsp(),
-                sp.getTensp(),
-                UtilityService.toVnd(sp.getGia()),
-                sp.getSoLuong(),
-                UtilityService.toVnd(sp.getTongTien())
+                ca.getMactsp(),
+                ca.getTensp(),
+                UtilityService.toVnd(ca.getGia()),
+                (ca.isGiamTheoTien() ? UtilityService.toVnd(ca.getSoLuongGiam()) : ca.getSoLuongGiam() + " %"),
+                ca.getListImeis().size(),
+                UtilityService.toVnd(ca.getTongTien())
             });
-        });
+        }
     }
 
     void getDataImeiByMactsp() {
@@ -628,7 +649,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         txtGhiChu.setText("");
         lblCount.setText("");
         btnTraHang.setEnabled(false);
-        currentMaImei = -1;
+        currentImeiSelected = null;
         this.listImei.forEach(imei -> {
             modelImei.addRow(new Object[]{
                 imei.getMaImei(),
@@ -642,71 +663,86 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             DalImeiModel newImei = (DalImeiModel) cboImei.getSelectedItem();
             String ghiChu = txtGhiChu.getText();
             String commit = AuthService.user.getMaNV() + " " + DateService.toString(new Date(), "ss:mm:hh dd/MM/yyyy");
-            if (BusImeiService.updateGhiChuImei(currentMaImei, newImei.getMaImei(), ghiChu + "\n " + commit)) {
+            if (BusImeiService.updateGhiChuImei(currentImeiSelected.getMaImei(), newImei.getMaImei(), ghiChu + "\n " + commit, currentImeiSelected.getMaSpSale())) {
                 MessageService.alert(rootPane, "Đổi sản phẩm thành công");
                 getDataImeiByMactsp();
             } else {
-                MessageService.alert(this, "Error");
+                MessageService.alert(rootPane, "Lỗi đổi hàng");
             }
         } catch (Exception e) {
-            MessageService.alert(this, "Error");
+            MessageService.alert(rootPane, "Lỗi đổi hàng");
         }
     }
 
     public boolean validateForm() {
         if (txtGhiChu.getText().length() < 30) {
-            MessageService.alert(this, "Vui lòng nhập lý do đổi máy tối thiểu 30 ký tự");
+            MessageService.alert(rootPane, "Vui lòng nhập lý do đổi máy tối thiểu 30 ký tự");
             return false;
         }
         Date ngayThanhToan = DateService.toDate(tblHoaDon.getValueAt(currentRowHoaDon, 4) + "", "dd-MM-yyyy");
         long diff = currentDate.getTime() - ngayThanhToan.getTime();
         int khoangNgay = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         if (khoangNgay > 30) {
-            MessageService.alert(this, "Hóa đơn này đã hết hạn trả hàng");
+            MessageService.alert(rootPane, "Hóa đơn này đã hết hạn đổi trả");
             return false;
         }
         return true;
     }
 
-    void exportFileExcel() {
-
-    }
-
-    void delete() {
-        int row = tblHoaDon.getSelectedRow();
-        currentMahd = (int) tblHoaDon.getValueAt(row, 0);
-        if (currentSelectedHoaDon == 1) {
-            if (MessageService.confirm(null, "Bạn có thực sự muốn xóa hóa đơn này không")) {
-                hoaDonService.updateStatus(0, currentMahd);
-                MessageService.alert(null, "Xóa hóa đơn thành công");
-            }
-        }
-        getDataHoaDon();
-    }
-//    private void buttonRemoveHoaDon() {
-//        Action add = new AbstractAction() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int row = tblHoaDon.getSelectedRow();
-//                currentMahd = (int) tblHoaDon.getValueAt(row, 0);
-//                if (currentSelectedHoaDon == 1) {
-//                    if (MessageService.confirm(null, "Bạn có muốn khôi phục hóa đơn này không")) {
-//                        hoaDonService.updateStatus(1, currentMahd);
-//                        getDataHoaDon();
-//                        MessageService.alert(null, "Khôi phục hóa đơn thành công");
+//    private void delete() {
+//        if (AuthService.isManager()) {
+//            int row = tblHoaDon.getSelectedRow();
+//            int mahd = Integer.parseInt(tblHoaDon.getValueAt(row, 0) + "");
+//            int statusHoaDon = cboStatusHoadon.getSelectedIndex();
+//            if (statusHoaDon == 1) {
+//            } else {
+//                if (hoaDonService.isXoaHoaDon(mahd)) {
+//                    if (MessageService.confirm(rootPane, "Bạn có thực sự muốn xóa hóa đơn này không !")) {
+//                        new LyDoXoaHD(mahd, 0).setVisible(true);
 //                    }
 //                } else {
-//                    if (MessageService.confirm(null, "Bạn có thực sự muốn xóa hóa đơn này không")) {
-//                        hoaDonService.updateStatus(0, currentMahd);
-//                        MessageService.alert(null, "Xóa hóa đơn thành công");
-//                    }
+//                    MessageService.alert(rootPane, "Không thể xóa hóa đơn này do đã thanh toán được hơn 7 ngày @");
 //                }
-//                getDataHoaDon();
 //            }
-//        };
-//        ButtonColumn buttonColumn = new ButtonColumn(tblHoaDon, add, 10);
-//        buttonColumn.setMnemonic(KeyEvent.VK_D);
+//            getDataHoaDon();
+//        } else {
+//            MessageService.alert(rootPane, "Bạn không có quyền chỉnh sửa hóa đơn này @");
+//        }
 //    }
+    private void buttonRemoveHoaDon() {
+        Action add = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (AuthService.isManager()) {
+                    int row = tblHoaDon.getSelectedRow();
+                    int mahd = Integer.parseInt(tblHoaDon.getValueAt(row, 0) + "");
+                    int statusHoaDon = cboStatusHoadon.getSelectedIndex();
+                    if (statusHoaDon == 1) {
+                        if (hoaDonService.isBackUpHoaDon(mahd)) {
+                            if (MessageService.confirm(rootPane, "Bạn có muốn khôi phục hóa đơn này không !")) {
+                                new LyDoXoaHD(mahd, 1).setVisible(true);
+                            }
+                        } else {
+                            MessageService.alert(rootPane, "Sản phẩm trong hóa đơn này đã có người mua không thể khôi phục được @");
+                        }
+                    } else {
+                        if (hoaDonService.isXoaHoaDon(mahd)) {
+                            if (MessageService.confirm(rootPane, "Bạn có thực sự muốn xóa hóa đơn này không !")) {
+                                new LyDoXoaHD(mahd, 0).setVisible(true);
+                            }
+                        } else {
+                            MessageService.alert(rootPane, "Không thể xóa hóa đơn này do đã thanh toán được hơn 7 ngày @");
+                        }
+                    }
+                    getDataHoaDon();
+                } else {
+                    MessageService.alert(rootPane, "Bạn không có quyền chỉnh sửa hóa đơn này @");
+                }
+            }
+        };
+        ButtonColumn buttonColumn = new ButtonColumn(tblHoaDon, add, 12);
+        buttonColumn.setMnemonic(KeyEvent.VK_D);
+    }
 
     public void xuatfile() {
         JFileChooser chooser = new JFileChooser();
@@ -718,13 +754,13 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                 BufferedWriter bwrite = new BufferedWriter(out);
                 DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
                 // ten Cot
-                for (int j = 0; j < tblHoaDon.getColumnCount(); j++) {
+                for (int j = 0; j < tblHoaDon.getColumnCount() - 1; j++) {
                     bwrite.write(model.getColumnName(j) + "\t");
                 }
                 bwrite.write("\n");
                 // Lay du lieu dong
                 for (int j = 0; j < tblHoaDon.getRowCount(); j++) {
-                    for (int k = 0; k < tblHoaDon.getColumnCount(); k++) {
+                    for (int k = 0; k < tblHoaDon.getColumnCount() - 1; k++) {
                         bwrite.write(model.getValueAt(j, k) + "\t");
                     }
                     bwrite.write("\n");
