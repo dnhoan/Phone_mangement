@@ -1,9 +1,9 @@
-CREATE DATABASE MOBIMONSTER0
+CREATE DATABASE MOBIMONSTER
 GO
-USE MOBIMONSTER0
+USE MOBIMONSTER
 GO
 
-drop table DiemDanh
+
 CREATE TABLE DiemDanh
 (
 	MaDiemDanh INT IDENTITY(1,1) NOT NULL,
@@ -16,16 +16,7 @@ CREATE TABLE DiemDanh
 	FOREIGN KEY(MaNV) REFERENCES NhanVien(MaNV)
 )
 
-GO
 
-CREATE TABLE Luong
-(
-	MaLuong INT IDENTITY(1,1) NOT NULL,
-	LuongHopDong money,
-	TongLuong money,
-	TrangThai BIT DEFAULT 1 NULL,
-	PRIMARY KEY (MaLuong)
-)
 
 GO
 
@@ -45,12 +36,7 @@ CREATE TABLE NhanVien
 	NgayKT DATE NULL,
 	Email NVARCHAR(100) NULL,
 	TrangThai BIT DEFAULT 1 NULL,
-	MaLuong INT NULL,
-	
 	PRIMARY KEY(MaNV),
-	FOREIGN KEY(MaLuong) REFERENCES Luong(MaLuong),
-	
-
 )
 
 GO
@@ -90,6 +76,7 @@ CREATE TABLE HoaDon(
 	FOREIGN KEY(MaKH) REFERENCES KhachHang(MaKH),
 )
 GO
+select * from HoaDon
 CREATE TABLE HangSanPham(
 	MaHang INT IDENTITY(1,1) NOT NULL,
 	TenHang NVARCHAR(20) NULL,
@@ -120,9 +107,6 @@ GO
 
 
 
-
-
-
 CREATE TABLE KhuyenMai
 (
 	MaKM INT IDENTITY(1,1) NOT NULL,
@@ -137,6 +121,8 @@ CREATE TABLE KhuyenMai
 	DKKM int null
 	PRIMARY KEY (MaKM)
 )
+select * from HoaDon
+select * from KhuyenMai
 
 CREATE TABLE loaimagiamgia(
 	idloaimagiamgia int primary key,
@@ -148,6 +134,7 @@ insert into loaimagiamgia values(1,'Giảm giá theo sản phẩm')
 insert into loaimagiamgia values(2,'Giảm giá theo hóa đơn')
 
 GO
+iif(TienKhuyenMai is null, 0, TienKhuyenMai)
 CREATE TABLE SanPhamDCSale
 (
 	MaSPSale INT IDENTITY(1,1) NOT NULL,
@@ -238,8 +225,8 @@ CREATE TABLE CameraSP(
 GO
 CREATE TABLE RomSP(
 	MaROM INT IDENTITY(1,1) NOT NULL,
-	TenRom NVARCHAR(20) NULL,
-	DungLuong FLOAT NULL,
+	LoaiRom NVARCHAR(20) NULL,
+	DungLuongRom FLOAT NULL,
 	TrangThai BIT DEFAULT 1 NULL,
 	PRIMARY KEY (MaROM)
 )
@@ -326,9 +313,187 @@ create trigger trg_updateTrangThaiBanTo0 on ChiTietHoaDon after insert as
 begin
 	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei
 end
+
+drop trigger trg_updateTrangThaiBanTo1
 -- c?p nh?t tr?ng th�i trong imei khi tr?ng th�i ? chi ti?t h�a b? x�a
+update ChiTietHoaDon set MaImei = ? where MaImei = ?
 create trigger trg_updateTrangThaiBanTo1 on ChiTietHoaDon after update as
 begin
-	update IMEI set TrangThaiBan = 1, MaSPSale = null from IMEI join deleted on deleted.MaImei = IMEI.MaImei where deleted.trangThai = 1
+	update IMEI set TrangThaiBan = 1 from IMEI join deleted on deleted.MaImei = IMEI.MaImei where deleted.trangThai = 1
 	update IMEI set TrangThaiBan = 0 from IMEI join inserted on inserted.MaImei = IMEI.MaImei where inserted.trangThai = 1
 end
+select count(mactsp) from Imei where TrangThaiBan = 0 and MACTSP = 1
+
+update CTSANPHAM set TonKho = SoLuongNhap - (select count(mactsp) from Imei join inserted on inserted.MaImei = IMEI.MaIMEI 
+	where TrangThaiBan = 0 and MACTSP = IMEI.MaCTSP and inserted.TrangThai = 1 and Imei.TrangThai = 1)
+end
+
+
+
+
+CREATE TABLE NhanVien
+(
+	MaNV VARCHAR(20) NOT NULL,
+	MatKhau NVARCHAR(50) NULL,
+	HoTen NVARCHAR(50) NULL,
+	SDT VARCHAR(15) NULL,
+	GioiTinh BIT  NULL,
+	NgaySinh DATE NULL,
+	DiaChi NVARCHAR(150) NULL,
+	VaiTro BIT DEFAULT 0 NULL,
+	Hinh NVARCHAR(50) NULL,
+	GhiChu NVARCHAR(200) NULL,
+	NgayBD DATE NULL,
+	NgayKT DATE NULL,
+	Email NVARCHAR(100) NULL,
+	TrangThai BIT DEFAULT 1 NULL,
+	PRIMARY KEY(MaNV),
+)
+
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Nam01', N'123',N'Lê đức nam',N'0966349996', 1,'2002/07/04', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','leducnam209@gmail.com',1)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Trong01', N'123',N'Phan đức trọng',N'0328250138', 1,'2002/02/13', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','trong123@gmail.com',1)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Cuong01', N'123',N'Nguyễn duy cuong',N'0398250138', 1,'2002/02/15', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','cuong123@gmail.com',1)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Hoan01', N'123',N'Đào ngọc hoan',N'0398250138', 1,'2002/02/16', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','hoan123@gmail.com',1)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Khang01', N'123',N'Trần vĩ khang',N'0398250138', 1,'2002/02/17', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','khang123@gmail.com',1)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Kha01', N'123',N'Trần vĩ kha',N'0398250138', 1,'2002/01/11', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','khang123@gmail.com',0)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Kh01', N'123',N'Trần vĩ kh',N'0398250138', 1,'2002/02/12', N'DC01', 1,'HINH01','adu chat','2020/12/01','2021/12/22','khang123@gmail.com',0)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'Khang02', N'123',N'Trần vi khang',N'0398250138', 1,'2002/02/13', N'DC02', 1,'HINH01','adu chat','2020/12/01','2021/12/22','kha123@gmail.com',0)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'trong02', N'123',N'Trần vĩ trong',N'0398250138', 1,'2002/02/14', N'DC02', 1,'HINH01','adu chat','2020/12/01','2021/12/22','kha123@gmail.com',0)
+INSERT [dbo].[NhanVien] ([MaNV],[MatKhau], [HoTen],[SDT] , [GioiTinh], [NgaySinh],[DiaChi], [VaiTro],[Hinh],[GhiChu],[NgayBD],[NgayKT],[Email],[TrangThai]) VALUES ( N'hoan02', N'123',N'Trần vĩ hoan',N'0398250138', 1,'2002/02/15', N'DC02', 1,'HINH01','adu chat','2020/12/01','2021/12/22','trong123@gmail.com',0)
+
+select * from NhanVien
+SET IDENTITY_INSERT [dbo].[CPU] On
+
+
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (1,N'Ngô Văn Dũng',N'011226651','ngovana@gmail.com',N'DC01',1,N'2002-10-02',CAST(N'2020-11-10' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]  ) VALUES (2,N'Phan đức trọng',N'01122665','ngovanb@gmail.com',  N'DC02',1,N'2002-12-08',CAST(N'2020-11-11' AS Date),'aduchat', 1)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (3,N'trần vĩ khang',N'011226653', 'ngovanc@gmail.com', N'DC03',0,N'2002-01-07',CAST(N'2020-11-12' AS Date),'dsds', 1)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (4,N'trần quyết chiến',N'011226654', 'ngovand@gmail.com', N'DC04',0,N'2002-10-06',CAST(N'2020-11-13' AS Date),'m', 1)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (5,N'lê đức nam',N'011226655','ngovanf@gmail.com',  N'DC05',1,N'2002-05-01',CAST(N'2020-11-14' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (6,N'phạm quốc huy',N'011226655','ngovane@gmail.com',  N'DC06',1,N'1997-05-02',CAST(N'2020-11-14' AS Date),'', 1)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (7,N'trần quốc trường',N'011226655','ngovang@gmail.com',  N'DC07',1,N'1989-05-03',CAST(N'2020-11-14' AS Date),'', 0)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (8,N'Hồ thị mai',N'011226655','ngovang@gmail.com',  N'DC08',1,N'1982-05-04',CAST(N'2020-11-14' AS Date),'', 0)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (9,N'lê văn đức',N'011226655','ngovang@gmail.com',  N'DC09',1,N'1982-05-05',CAST(N'2020-11-14' AS Date),'', 0)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (10,N'ngô kiến huy',N'011226655','ngovang@gmail.com',  N'DC10',1,N'1987-05-06',CAST(N'2020-11-14' AS Date),'', 0)
+INSERT [dbo].[KhachHang] ( [MaKH],[HoTen], [SDT],[Email],[DiaChi],[GioiTinh], [NgaySinh],[NgayTao],[GhiChu],[TrangThai]) VALUES (11,N'trần như quỳnh',N'011226655','ngovang@gmail.com',  N'DC11',1,N'1987-05-07',CAST(N'2020-11-14' AS Date),'', 0)
+
+delete from khachhang
+
+select * from KhachHang
+
+
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (1,N'CPU Intel P Core i7',1) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (2,N'CPU In Core i9',1) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (3,N'CPU AMD Ryzen 7 ',1) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (4,N'CPU Intel P Core i7',1) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (5,N'CPU Intel P Core i9',1) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (5,N'Exynos 2100 8 nhân',1) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (6,N'Apple A15 Bionic 6 nhân',1) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (7,N'MediaTek Dimensity 700 5G 8 nhân',0) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (8,N'Snapdragon 865 8 nhân',0) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (9,N'Snapdragon 720G 8 nhân',0) 
+INSERT [dbo].[CPU] ([MaCPU],[TenCPU] ,[TrangThai]) VALUES (10,N'Apple A13 Bionic 6 nhân',0) 
+
+select * from CPU
+
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Li-Ion',3300,1)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Li-po',5000,1)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES (N'Lithium (thế hệ mới)',3300,1)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('LiFe',2400,0)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Pin 3 cell',6500,1)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Pin 6 cell',6500,0)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Li-Ion',3110,1)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Li-Ion',10090,0)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Nicd',6500,0)
+INSERT INTO [DBO].[Pin] ([LoaiPin],[DungLuongPin],[TrangThai]) VALUES ('Li-po',6500,0)
+
+select * from pin
+
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('AMOLED',6,'HD',1)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('IPS Quantum',5.5,'FULL HD+',1)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('LED-backlit',4.7,'WXGA',0)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('ClearBlack',4.5,'HD',0)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('IPS LCD',6.1,'FULL HD',1)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('TFT-LCD',5,'FULL HD',0)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('S-LCD',5.2,'QHD',0)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('LCD',5.5,'UHD',1)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('LTPS LCD',6.4,'FULL HD+',1)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('OLED',6.7,'QHD+',1)
+INSERT INTO [DBO].[ManHinhSP] ([LoaiManHinh],[KichThuoc],[DoPhanGiai],[TrangThai]) VALUES ('PLS LCD',6.5,'FULL HD+',0)
+
+
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('IOS',1)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Android',1)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Windows Phone',0)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Symbian',0)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('BlackBerry OS',0)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Bada',0)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Firefox OS',0)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Windows',0)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Ubuntu',0)
+INSERT INTO [DBO].[HeDieuHanh] ([TenHeDieuHanh],[TrangThai]) VALUES ('Bada',0)
+
+select * from HeDieuHanh
+
+
+
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'TRUNG QUỐC',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'NGA',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'MỸ',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'ANH',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'VIỆT NAM',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'ĐỨC',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'ITALY',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'NHẬT BẢN',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'HÀN QUỐC',1)
+INSERT INTO [DBO].[XuatXu] ([NoiXuatXu],[TrangThai]) VALUES(N'THÁI LAN',1)
+
+
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM01',2,1)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM02',4,1)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM03',8,1)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM04',16,1)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM05',32,1)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM06',64,0)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM07',512,0)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM08',3,0)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM09',1.5,0)
+INSERT INTO [DBO].[RamSP] ([LoaiRam],[DungLuongRam],[TrangThai]) VALUES(N'RAM10',10,1)
+
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM03',256,1)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM02',512,1)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM03',32,1)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM04',16,1)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM05',64,1)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM06',128,1)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM07',256,0)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM08',32,0)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM09',64,0)
+INSERT INTO [DBO].[RomSP] ([LoaiRom],[DungLuongRom],[TrangThai]) VALUES(N'ROM10',16,0)
+
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAMERA KÉP',N'20MP',1)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAMERA ĐƠN',N'20MP',1)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAMERA DỌC',N'32MP',1)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAMERA NGANG',N'16MP',1)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAMERA VUÔNG',N'48MP',1)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAM KÉP',N'32MP',0)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAM VUÔNG',N'16MP',0)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAM NGANG',N'32MP',0)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAM KÉP',N'16MP',0)
+INSERT INTO [DBO].[CameraSP] ([LoaiCamera],[DoPhanGiai],[TrangThai]) VALUES(N'CAM KÉP',N'48MP',0)
+
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'XANH',1)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'ĐỎ',1)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'TÍM',1)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'VÀNG',1)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'HỒNG',1)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'ĐEN NHÁM',1)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'XANH NGỌC',0)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'TÍM',0)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'TRẮNG',1)
+INSERT INTO [DBO].[MauSac] ([TenMau],[TrangThai]) VALUES(N'NÂU',0)
+
+
+
+
+
