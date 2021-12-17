@@ -8,6 +8,7 @@ package BUS.IServices;
 import BUS.Models.soluongbanmodel;
 
 import BUS.Models.doanhthuModel;
+import GUI.Services.DateService;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.util.List;
@@ -17,10 +18,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.gantt.Task;
-import org.jfree.data.gantt.TaskSeries;
-import org.jfree.data.gantt.TaskSeriesCollection;
-import org.jfree.data.time.SimpleTimePeriod;
 
 /**
  *
@@ -40,7 +37,7 @@ public class QuanLyThongKeCTL {
         if (listItem != null) {
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
             for (soluongbanmodel x : listItem) {
-                dataset.addValue(x.getSoluongban(), "số lượng", "Ngày: " + x.getThang());
+                dataset.addValue(x.getSoluongban(), "số lượng", "Ngày: " + DateService.toString(x.getThang(), "dd-MM-yyyy"));
             }
 
             JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê số lượng hàng bán được trong tháng".toUpperCase(),

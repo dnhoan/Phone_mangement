@@ -104,6 +104,7 @@ public class SelectVoucherGG extends javax.swing.JFrame {
             }
         }
         QuanLyBanHang.fillToCart(QuanLyBanHang.cartModel, QuanLyBanHang.tblCart);
+        QuanLyBanHang.selectGiamGiaHoaDon();
         this.dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 

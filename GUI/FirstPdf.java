@@ -10,6 +10,7 @@ package de.vogella.itext.write;
 import BUS.Models.KhachHangModel;
 import BUS.Services.HoaDonService;
 import GUI.Models.CartModel;
+import GUI.Services.AuthService;
 import GUI.Services.DateService;
 import GUI.Services.UtilityService;
 import java.io.FileOutputStream;
@@ -26,6 +27,8 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,15 +47,18 @@ public class FirstPdf {
     float tongTienHang = 0;
     float phiVanChuyen;
     float khachThanhToan;
+    float khuyenMai;
     String diaChiNhanHang;
     List<CartModel> listCart = new ArrayList<>();
+    Date currentDate = new Date();
 
-    public boolean exportFile(KhachHangModel khachHangModel,  float phiVanChuyen, float khachThanhToan, String diaChiNhanHang, List<CartModel> carts) {
+    public boolean exportFile(KhachHangModel khachHangModel,  float phiVanChuyen, float khachThanhToan, String diaChiNhanHang, List<CartModel> carts, float khuyenMai) {
 //        FirstPdf.busHoaDon = currentHoaDonSelected;
         this.khachHang = khachHangModel;
         this.phiVanChuyen = phiVanChuyen;
         this.khachThanhToan = khachThanhToan;
         this.listCart = carts;
+        this.khuyenMai = khuyenMai;
         this.diaChiNhanHang = diaChiNhanHang;
         try {
             titleFont = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25);
@@ -62,8 +68,9 @@ public class FirstPdf {
             font_12_normer = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
             font_i = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 22);
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
-            document.open();
+//            boolean x = new File("C:/temp/hoadon-"+DateService.toString(currentDate, "hh-mm-ss_dd-MM-yyyy")+".xls").createNewFile();
+            PdfWriter.getInstance(document, new FileOutputStream("C:/temp/bill/hoadon_"+DateService.toString(currentDate, "hh-mm-ss_dd-MM-yyyy")+".pdf"));
+            document.open();  
             addMetaData(document);
             addTitlePage(document);
             document.close();
@@ -74,28 +81,6 @@ public class FirstPdf {
         }
     }
     static HoaDonService hoaDonService = new HoaDonService();
-
-//    public static void main(String[] args) {
-//        FirstPdf.busHoaDon = hoaDonService.selectByMahd(3, 1);
-////        FirstPdf.listCart = carts;
-//        try {
-//            titleFont = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 25);
-//            font_20 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 20);
-//            font_16 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 16);
-//            font_12 = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
-//            font_12_normer = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED), 12);
-//            font_i = new Font(BaseFont.createFont("C:/temp/Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 22);
-//            Document document = new Document();
-//            PdfWriter.getInstance(document, new FileOutputStream(FILE));
-//            document.open();
-//            addMetaData(document);
-//            addTitlePage(document);
-//            addContent(document);
-//            document.close();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
     private static void addMetaData(Document document) {
         document.addTitle("Cửa hàng điện thoại MobiMonster");
         document.addSubject("Biên nhận thanh toán " + new Date());
@@ -129,7 +114,7 @@ public class FirstPdf {
         addEmptyLine(preface, 1);
 
         preface.add(new Paragraph(
-                "Khách hàng: " + khachHang.getTenKH(),
+                "Khách hàng: " + khachHang.getTenKH()+ "                                                                  Thu ngân: " + AuthService.user.getMaNV(),
                 font_12_normer));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph(
@@ -146,9 +131,9 @@ public class FirstPdf {
                 "Địa chỉ nhận hàng: " + diaChiNhanHang,
                 font_12_normer));
 //        addEmptyLine(preface, 1);
-        PdfPTable table = new PdfPTable(5);
+        PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(100);
-        float[] columnWidths = new float[]{6f, 40f, 16f, 6f, 16f};
+        float[] columnWidths = new float[]{5f, 40f, 16f, 16f, 5f, 16f};
         table.setWidths(columnWidths);
         PdfPCell c1 = new PdfPCell(new Phrase("STT", font_12));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -157,6 +142,9 @@ public class FirstPdf {
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
         c1 = new PdfPCell(new Phrase("Đơn giá", font_12));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+        c1 = new PdfPCell(new Phrase("Sale/1SP", font_12));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
         c1 = new PdfPCell(new Phrase("SL", font_12));
@@ -171,8 +159,9 @@ public class FirstPdf {
                 table.addCell(new Phrase(listCart.indexOf(ca) + 1 + "", font_12_normer));
                 table.addCell(new Phrase(ca.getTensp(), font_12_normer));
                 table.addCell(new Phrase(UtilityService.toVnd(ca.getGia()), font_12_normer));
+                table.addCell(new Phrase(ca.isGiamTheoTien() ? UtilityService.toVnd(ca.getSoLuongGiam()) : ca.getSoLuongGiam() + " %"));
                 table.addCell(new Phrase(ca.getSoLuong() + "", font_12_normer));
-                table.addCell(new Phrase(UtilityService.toVnd(ca.getSoLuong() * ca.getGia()), font_12_normer));
+                table.addCell(new Phrase(UtilityService.toVnd(ca.getTongTien()), font_12_normer));
                 tongTienHang += ca.getTongTien();
             }
         }
@@ -186,6 +175,8 @@ public class FirstPdf {
 //        preface.add(new Paragraph("Tổng tiền hàng:                                                                                           " + UtilityService.toVnd(busHoaDon.getPhiVanChuyen()) , font_12_normer));
 //        addEmptyLine(preface, 1);
         preface.add(new Paragraph("Phí vận chuyển:                                                                                          " + UtilityService.toVnd(phiVanChuyen), font_12_normer));
+        addEmptyLine(preface, 1);
+        preface.add(new Paragraph("Giảm giá hóa đơn:                                                                                       " + UtilityService.toVnd(khuyenMai), font_12_normer));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Tổng phải trả:                                                               " + UtilityService.toVnd(tongTienHang + phiVanChuyen), font_16));
         addEmptyLine(preface, 1);

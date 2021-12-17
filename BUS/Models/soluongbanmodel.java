@@ -5,15 +5,17 @@
  */
 package BUS.Models;
 
+import java.util.Date;
+
 /**
  *
  * @author LENOVO
  */
 public class soluongbanmodel {
-    private String thang;
+    private Date thang;
     private int soluongban;
 
-    public soluongbanmodel(String thang, int soluongban) {
+    public soluongbanmodel(Date thang, int soluongban) {
         this.thang = thang;
         this.soluongban = soluongban;
     }
@@ -21,7 +23,7 @@ public class soluongbanmodel {
     public soluongbanmodel() {
     }
 
-    public String getThang() {
+    public Date getThang() {
         return thang;
     }
 
@@ -29,7 +31,7 @@ public class soluongbanmodel {
         return soluongban;
     }
 
-    public void setThang(String thang) {
+    public void setThang(Date thang) {
         this.thang = thang;
     }
 

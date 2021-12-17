@@ -35,7 +35,7 @@ public class ThongKeDaoImpl implements ThongKeDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 soluongbanmodel sl = new soluongbanmodel();
-                sl.setThang(rs.getString(1));
+                sl.setThang(rs.getDate(1));
                 sl.setSoluongban(rs.getInt(2));
                 list.add(sl);
             }

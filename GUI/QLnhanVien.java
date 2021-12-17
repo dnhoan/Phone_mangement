@@ -107,12 +107,12 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
                     nv.getHoTen(),
                     nv.getSDT(),
                     nv.getEmail(),
-                    nv.getNgaySinh(),
+                    DateService.toString(nv.getNgaySinh(), "dd-MM-yyyy"),
                     nv.isGioiTinh() ? "Nam" : "Nữ",
                     nv.getDiaChi(),
                     nv.getGhiChu(),
                     nv.isVaiTro() ? "Trưởng phòng" : "Nhân viên",
-                    nv.getNgayBD()
+                    DateService.toString(nv.getNgayBD(), "dd-MM-yyyy")
 
                 };
                 model.addRow(row);
@@ -139,7 +139,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
                     nv.getSDT(),
                     nv.getEmail(),
                     nv.getDiaChi(),
-                    nv.getNgayKT(),
+                    DateService.toString(nv.getNgayKT(), "dd-MM-yyyy"),
                     nv.isVaiTro() ? "Trưởng phòng" : "Nhân viên",
                     nv.NamLamViec()
                 };

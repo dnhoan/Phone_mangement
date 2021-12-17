@@ -1339,13 +1339,13 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
     }
     static boolean giamTheoTien;
 
-    static void selectGiamGiaHoaDon() {
+    public static void selectGiamGiaHoaDon() {
         if (cboGiamGia.getSelectedIndex() == 0) {
             giamGia = 0;
         } else {
             BusVoucherModel busVoucherModel = (BusVoucherModel) cboGiamGia.getSelectedItem();
             if (totalMoney < busVoucherModel.getDKKM()) {
-                MessageService.alert(null, "Bạn không đủ điều kiện để chọn mã giảm giá này");
+                MessageService.alert(null, "Bạn không đủ điều kiện để chọn mã giảm giá theo hóa đơn");
                 cboGiamGia.setSelectedIndex(0);
             } else {
                 giamGia = busVoucherModel.getMucGG();
@@ -1509,7 +1509,6 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 for (BusVoucherModel voucher : listVoucher) {
                     if (voucher.getMaKM() == currentHoaDonSelected.getMakm()) {
                         cboGiamGia.setSelectedIndex(listVoucher.indexOf(voucher) + 1);
-//                        cboGiamGia.getModel().setSelectedItem(voucher);
                         break;
                     }
                 }
@@ -1815,7 +1814,7 @@ void sortDesc() {
         try {
             KhachHangModel khachHang = (KhachHangModel) cboKhachHang.getSelectedItem();
             String diaChiNhanHang = txtDiahChiKh.getText();
-            expPdf.exportFile(khachHang, phiShip, khachThanhToan, diaChiNhanHang, listCart);
+            expPdf.exportFile(khachHang, phiShip, khachThanhToan, diaChiNhanHang, listCart,tienKhuyenMai);
             MessageService.alert(rootPane, "In thành công");
         } catch (Exception e) {
             MessageService.alert(rootPane, "Lỗi in hóa đơn");
