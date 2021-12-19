@@ -146,6 +146,7 @@ public class RemoveImeiHoaDon extends javax.swing.JFrame {
 
     public RemoveImeiHoaDon(CartModel cart, int index, boolean isEditting) {
         initComponents();
+        setIconImage(ImageService.getAppIcon());
         this.isEditting = isEditting;
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

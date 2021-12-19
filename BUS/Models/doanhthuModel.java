@@ -5,23 +5,25 @@
  */
 package BUS.Models;
 
+import java.util.Date;
+
 /**
  *
  * @author LENOVO
  */
 public class doanhthuModel {
-    String thang;
+    Date thang;
     float doanhthu;
 
     public doanhthuModel() {
     }
 
-    public doanhthuModel(String thang, float doanhthu) {
+    public doanhthuModel(Date thang, float doanhthu) {
         this.thang = thang;
         this.doanhthu = doanhthu;
     }
 
-    public String getThang() {
+    public Date getThang() {
         return thang;
     }
 
@@ -29,7 +31,7 @@ public class doanhthuModel {
         return doanhthu;
     }
 
-    public void setThang(String thang) {
+    public void setThang(Date thang) {
         this.thang = thang;
     }
 

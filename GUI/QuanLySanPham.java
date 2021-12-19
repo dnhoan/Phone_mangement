@@ -566,6 +566,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtSearchBoxKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchBoxKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSearchBoxsearch(evt);
             }
@@ -1205,15 +1208,23 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
         tblRecycle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã sp", "Tên sp", "Hãng sp", "Dòng sp", "Xuất xứ", "CPU", "Ram", "Rom", "Màn hình", "Pin", "Camera", "Giá"
+                "Mã sp", "Tên sp", "Loại", "Ram ", "Pin", "Rom", "Màn hình", "SL", "Tồn kho", "Giá SP"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblRecycle.setGridColor(new java.awt.Color(25, 29, 74));
         tblRecycle.setRowHeight(30);
         tblRecycle.getTableHeader().setReorderingAllowed(false);
@@ -1226,12 +1237,23 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         if (tblRecycle.getColumnModel().getColumnCount() > 0) {
             tblRecycle.getColumnModel().getColumn(0).setMinWidth(0);
             tblRecycle.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblRecycle.getColumnModel().getColumn(1).setMinWidth(450);
+            tblRecycle.getColumnModel().getColumn(1).setMaxWidth(450);
+            tblRecycle.getColumnModel().getColumn(7).setMinWidth(50);
+            tblRecycle.getColumnModel().getColumn(7).setMaxWidth(50);
+            tblRecycle.getColumnModel().getColumn(8).setMinWidth(80);
+            tblRecycle.getColumnModel().getColumn(8).setMaxWidth(80);
+            tblRecycle.getColumnModel().getColumn(9).setMinWidth(150);
+            tblRecycle.getColumnModel().getColumn(9).setMaxWidth(150);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 102, 1580, 715));
 
         txtSearchRecycle.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
         txtSearchRecycle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchRecycleKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSearchRecyclesearch(evt);
             }
@@ -1298,7 +1320,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchBoxsearch(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBoxsearch
-        this.getDataTable();
+
     }//GEN-LAST:event_txtSearchBoxsearch
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
@@ -1355,7 +1377,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (validateForm(true)) {
-            if (MessageService.confirm(rootPane, "Bạn có muốn sửa sản phẩm này không ?")) {
+            if (MessageService.confirm(rootPane, "Bạn có muốn thêm sản phẩm này không ?")) {
                 this.insert();
 
             }
@@ -1426,11 +1448,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     }//GEN-LAST:event_btnLoaiSanPhamActionPerformed
 
     private void txtSearchRecyclesearch(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRecyclesearch
-        if (tabs.getSelectedIndex() == 0) {
-            this.getDataTable();
-        } else {
-            this.getDataRecycle();
-        }
+
     }//GEN-LAST:event_txtSearchRecyclesearch
 
     private void btnRestoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestoreActionPerformed
@@ -1449,6 +1467,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         this.rowRecycle = tblRecycle.getSelectedRow();
         this.currentIDRecycle = (int) tblRecycle.getValueAt(rowRecycle, 0);
         btnRestore.setEnabled(true);
+        if (evt.getClickCount() == 2) {
+            new XemChiTietSanPham(this.currentIDRecycle).setVisible(true);
+        }
     }//GEN-LAST:event_tblRecycleMouseClicked
 
     private void txtSearchBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBoxKeyPressed
@@ -1465,6 +1486,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
     private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
         if (tabs.getSelectedIndex() == 0) {
             this.getDataTable();
+            this.row = -1;
         } else {
             this.getDataRecycle();
             this.clearForm();
@@ -1689,6 +1711,20 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         changeColor(btnLamMoiForm, new Color(25, 29, 74));
     }//GEN-LAST:event_btnLamMoiFormMouseExited
 
+    private void txtSearchRecycleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRecycleKeyReleased
+        if (tabs.getSelectedIndex() == 0) {
+            this.getDataTable();
+            this.row = -1;
+        } else {
+            this.getDataRecycle();
+        }
+    }//GEN-LAST:event_txtSearchRecycleKeyReleased
+
+    private void txtSearchBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchBoxKeyReleased
+        this.getDataTable();
+        this.row = -1;
+    }//GEN-LAST:event_txtSearchBoxKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -1859,6 +1895,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         listImei.clear();
         if (sp.getMaCTSP() > 0) {
             BusImeiService.getImeiByMactsp(sp.getMaCTSP(), "");
+            listImei = BusImeiService.listDalImei;
             BusImeiService.fillComboImei(imeiModel, cboListImei, BusImeiService.listDalImei);
         }
         if (sp.getHinh() != null) {
@@ -1980,6 +2017,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             });
             this.clearForm();
             this.getDataTable();
+            this.row = -1;
             MessageService.alert(this, "Thêm sản phẩm thành công");
         } catch (Exception e) {
             MessageService.alert(this, "Lỗi thêm sản phẩm");
@@ -2034,6 +2072,9 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
         BusImeiService.listDalImei.clear();
         BusCTSanPhamModel sp = new BusCTSanPhamModel();
         this.setForm(sp);
+        listImei.clear();
+        imeiModel = (DefaultComboBoxModel) cboListImei.getModel();
+        imeiModel.removeAllElements();
         this.updateStatus();
     }
 
@@ -2089,7 +2130,6 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
                 UtilityService.toVnd(sp.getGiaBan())
             });
         };
-        this.row = -1;
         this.rowRecycle = -1;
         btnRestore.setEnabled(false);
     }
@@ -2334,7 +2374,7 @@ public class QuanLySanPham extends javax.swing.JInternalFrame implements IEditSe
             MessageService.alert(rootPane, "Vui lòng nhập giá bán lớn hơn hoặc bằng giá nhập");
             return false;
         }
-        if (BusImeiService.listDalImei.size() <= 0) {
+        if (listImei.size() <= 0) {
             MessageService.alert(rootPane, "Vui lòng nhập Imei cho máy");
             return false;
         }

@@ -15,14 +15,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -48,6 +56,8 @@ public class QLImei extends javax.swing.JFrame {
         fillTable(listImei);
         btnThem.setEnabled(false);
         setIconImage(ImageService.getAppIcon());
+        modelImei = (DefaultTableModel) tblImei.getModel();
+        modelImei.setRowCount(0);
     }
 
     public void desginTable() {
@@ -157,6 +167,7 @@ public class QLImei extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lblSoluong = new javax.swing.JLabel();
         btnThem = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Imei");
@@ -247,59 +258,72 @@ public class QLImei extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(25, 29, 74));
+        jButton2.setForeground(new java.awt.Color(25, 29, 74));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/excel.png"))); // NOI18N
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 30));
+        jButton2.setBorderPainted(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblThem)
                     .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52)
-                        .addComponent(lblSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+                        .addGap(6, 6, 6)
+                        .addComponent(lblSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblThem)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
-                .addGap(12, 12, 12)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(13, 13, 13)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblThem)
-                        .addGap(12, 12, 12)
-                        .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblThem)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTenImei, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnThem, jButton2});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-//        if(isGiaoDich) {
-//            QuanlyGiaoDichJFrame.listCart.set(index, cart);
-//            QuanlyGiaoDichJFrame.listSp.set(indexsp, busCTSanPhamModel);
-//            QuanlyGiaoDichJFrame.fillTable(QuanlyGiaoDichJFrame.listSp);
-//            QuanlyGiaoDichJFrame.fillToCart(QuanlyGiaoDichJFrame.cartModel, QuanlyGiaoDichJFrame.tblCart);
-//        }
+
         QuanLySanPham.listImei.clear();
         for (int i = 0; i < tblImei.getRowCount(); i++) {
             DalImeiModel dalImeiModel = new DalImeiModel();
@@ -315,8 +339,7 @@ public class QLImei extends javax.swing.JFrame {
         }
         BusImeiService.fillComboImei(QuanLySanPham.imeiModel, QuanLySanPham.cboListImei, QuanLySanPham.listImei);
         lblSoluong.setText("Tổng: " + 0);
-        modelImei = (DefaultTableModel) tblImei.getModel();
-        modelImei.setRowCount(0);
+        
     }//GEN-LAST:event_formWindowClosed
 
     private void txtTenImeiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTenImeiKeyPressed
@@ -357,6 +380,11 @@ public class QLImei extends javax.swing.JFrame {
             clearForm();
         }
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        importExcel();
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
     }
@@ -394,6 +422,7 @@ public class QLImei extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThem;
+    public static javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JLabel lblSoluong;
@@ -402,33 +431,73 @@ public class QLImei extends javax.swing.JFrame {
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtTenImei;
     // End of variables declaration//GEN-END:variables
-//  014109002431693
-//    546168219735897
-//    864675917024329
-//    500653521781436
-//    547465960596091
-//    333946805840024
-//    869068252624140
-//    501236005641190
-//    999133656101641
-//    013762940416993
-//    502463588344716
-//    863107742209660
-//    499523071863608
-//    350736940239200
-//    997890792366840
-//    535582199013666
-//    997519698738394
-//    507869074025871
-//    449062261104649
-//    501144457670669
-//    532144552937172
+
     DefaultTableModel modelImei;
+
+    void importExcel() {
+        try {
+            JFileChooser fileChooser = new JFileChooser("C:");
+            int kq = fileChooser.showOpenDialog(fileChooser);
+            if (kq == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();   //creating a new file instance  
+                FileInputStream fis = new FileInputStream(file);   //obtaining bytes from the file  
+                //creating Workbook instance that refers to .xlsx file  
+                XSSFWorkbook wb = new XSSFWorkbook(fis);
+                XSSFSheet sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object  
+                Iterator<Row> itr = sheet.iterator();    //iterating over excel file  
+                while (itr.hasNext()) {
+                    Row row = itr.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column  
+                    while (cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_STRING:    //field that represents string cell type  
+                                System.out.print(cell.getStringCellValue() + "\t\t\t");
+                                String imeiAdd = cell.getStringCellValue();
+                                if (isValidIMEI(imeiAdd)) {
+                                    if (!dalImeiService.isImeiExist(imeiAdd)) {
+                                        if (isNewProduct) {
+                                            listImei.add(imeiAdd);
+                                            clearFormList();
+                                        } else {
+                                            DalImeiModel dalImeiModel = new DalImeiModel();
+                                            dalImeiModel.setMaCtsp(this.mactsp);
+                                            dalImeiModel.setTenImei(imeiAdd);
+                                            if (BusImeiService.insert(dalImeiModel)) {
+                                                int currentStock = Integer.parseInt(QuanLySanPham.txtTonKho.getText());
+                                                currentStock++;
+                                                QuanLySanPham.txtTonKho.setText(currentStock + "");
+                                                clearForm();
+                                            } else {
+                                                MessageService.alert(rootPane, "Thêm Imei " + imeiAdd + " thất bại @");
+                                            }
+                                        }
+                                    } else {
+                                        MessageService.alert(rootPane, "Imei " + imeiAdd + " đã tồn tại vui lòng nhập Imei khác @");
+                                    }
+                                } else {
+                                    MessageService.alert(rootPane, "Imei " + imeiAdd + " không đúng quy định vui lòng kiểm tra lại @");
+                                }
+                                break;
+                            case Cell.CELL_TYPE_NUMERIC:    //field that represents number cell type  
+                                System.out.print(cell.getNumericCellValue() + "\t\t\t");
+                                break;
+                            default:
+                        }
+                    }
+                    System.out.println("");
+                }
+                MessageService.alert(rootPane, "Thêm Imei thành công!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     void addImei(String imeiAdd) {
         if (isValidIMEI(imeiAdd)) {
             if (!dalImeiService.isImeiExist(imeiAdd)) {
-                if (MessageService.confirm(rootPane, "Bạn có muốn thêm Imei này không ?")) {
+                if (MessageService.confirm(rootPane, "Bạn có muốn thêm Imei " + imeiAdd + " không ?")) {
                     if (isNewProduct) {
                         listImei.add(imeiAdd);
                         clearFormList();
@@ -440,18 +509,18 @@ public class QLImei extends javax.swing.JFrame {
                             int currentStock = Integer.parseInt(QuanLySanPham.txtTonKho.getText());
                             currentStock++;
                             QuanLySanPham.txtTonKho.setText(currentStock + "");
-                            MessageService.alert(this, "Thêm Imei thành công!");
+                            MessageService.alert(rootPane, "Thêm Imei " + imeiAdd + " thành công!");
                             clearForm();
                         } else {
-                            MessageService.alert(this, "Thêm Imei thất bại @");
+                            MessageService.alert(rootPane, "Thêm Imei " + imeiAdd + " thất bại @");
                         }
                     }
                 }
             } else {
-                MessageService.alert(rootPane, "Imei này đã tồn tại vui lòng nhập Imei khác @");
+                MessageService.alert(rootPane, "Imei " + imeiAdd + " đã tồn tại vui lòng nhập Imei khác @");
             }
         } else {
-            MessageService.alert(rootPane, "Imei này không đúng quy định vui lòng kiểm tra lại @");
+            MessageService.alert(rootPane, "Imei " + imeiAdd + " không đúng quy định vui lòng kiểm tra lại @");
         }
     }
 

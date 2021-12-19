@@ -1013,6 +1013,7 @@
               </Properties>
               <Events>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchBoxKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchBoxKeyReleased"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchBoxsearch"/>
               </Events>
             </Component>
@@ -1904,19 +1905,17 @@
                 <Component class="javax.swing.JTable" name="tblRecycle">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="12" rowCount="4">
-                        <Column editable="true" title="M&#xe3; sp" type="java.lang.Object"/>
-                        <Column editable="true" title="T&#xea;n sp" type="java.lang.Object"/>
-                        <Column editable="true" title="H&#xe3;ng sp" type="java.lang.Object"/>
-                        <Column editable="true" title="D&#xf2;ng sp" type="java.lang.Object"/>
-                        <Column editable="true" title="Xu&#x1ea5;t x&#x1ee9;" type="java.lang.Object"/>
-                        <Column editable="true" title="CPU" type="java.lang.Object"/>
-                        <Column editable="true" title="Ram" type="java.lang.Object"/>
-                        <Column editable="true" title="Rom" type="java.lang.Object"/>
-                        <Column editable="true" title="M&#xe0;n h&#xec;nh" type="java.lang.Object"/>
-                        <Column editable="true" title="Pin" type="java.lang.Object"/>
-                        <Column editable="true" title="Camera" type="java.lang.Object"/>
-                        <Column editable="true" title="Gi&#xe1;" type="java.lang.Object"/>
+                      <Table columnCount="10" rowCount="4">
+                        <Column editable="false" title="M&#xe3; sp" type="java.lang.Object"/>
+                        <Column editable="false" title="T&#xea;n sp" type="java.lang.Object"/>
+                        <Column editable="false" title="Lo&#x1ea1;i" type="java.lang.Object"/>
+                        <Column editable="false" title="Ram " type="java.lang.Object"/>
+                        <Column editable="false" title="Pin" type="java.lang.Object"/>
+                        <Column editable="false" title="Rom" type="java.lang.Object"/>
+                        <Column editable="false" title="M&#xe0;n h&#xec;nh" type="java.lang.Object"/>
+                        <Column editable="false" title="SL" type="java.lang.Object"/>
+                        <Column editable="false" title="T&#x1ed3;n kho" type="java.lang.Object"/>
+                        <Column editable="false" title="Gi&#xe1; SP" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1926,7 +1925,7 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="450" minWidth="450" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1956,27 +1955,17 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="50" minWidth="50" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="80" minWidth="80" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="150" minWidth="150" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -2008,6 +1997,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchRecycleKeyReleased"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchRecyclesearch"/>
               </Events>
               <Constraints>

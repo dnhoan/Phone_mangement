@@ -119,7 +119,6 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         cboStatusHoadon = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -128,6 +127,14 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         lblCount = new javax.swing.JLabel();
         cboImei = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtNgayBD = new com.toedter.calendar.JDateChooser();
+        txtNgayKt = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        cboNgay = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -136,17 +143,17 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         tblHoaDon.setForeground(new java.awt.Color(25, 29, 74));
         tblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "MaHD", "Khách hàng", "Sđt KH", "Mã nv", "Ngày tạo", "Ngày thanh toán", "SL", "Tổng tiền hàng", "Phí vận chuyển", "Giảm theo hóa đơn", "Tổng tiền hóa đơn", "Ghi chú", ""
+                "MaHD", "MaHD", "Khách hàng", "Sđt KH", "Mã nv", "Ngày tạo", "Ngày thanh toán", "SL", "Tổng tiền hàng", "Phí vận chuyển", "Giảm theo hóa đơn", "Tổng tiền hóa đơn", "Ghi chú", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -165,31 +172,33 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         if (tblHoaDon.getColumnModel().getColumnCount() > 0) {
             tblHoaDon.getColumnModel().getColumn(0).setMinWidth(0);
             tblHoaDon.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblHoaDon.getColumnModel().getColumn(1).setMinWidth(150);
-            tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(150);
-            tblHoaDon.getColumnModel().getColumn(2).setMinWidth(100);
-            tblHoaDon.getColumnModel().getColumn(2).setMaxWidth(100);
-            tblHoaDon.getColumnModel().getColumn(3).setMinWidth(70);
-            tblHoaDon.getColumnModel().getColumn(3).setMaxWidth(70);
-            tblHoaDon.getColumnModel().getColumn(4).setMinWidth(100);
-            tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(100);
-            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(150);
-            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(150);
-            tblHoaDon.getColumnModel().getColumn(6).setMinWidth(40);
-            tblHoaDon.getColumnModel().getColumn(6).setMaxWidth(40);
-            tblHoaDon.getColumnModel().getColumn(7).setMinWidth(150);
-            tblHoaDon.getColumnModel().getColumn(7).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(1).setMinWidth(60);
+            tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(60);
+            tblHoaDon.getColumnModel().getColumn(2).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(2).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(3).setMinWidth(100);
+            tblHoaDon.getColumnModel().getColumn(3).setMaxWidth(100);
+            tblHoaDon.getColumnModel().getColumn(4).setMinWidth(70);
+            tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(70);
+            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(100);
+            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(100);
+            tblHoaDon.getColumnModel().getColumn(6).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(6).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(7).setMinWidth(40);
+            tblHoaDon.getColumnModel().getColumn(7).setMaxWidth(40);
             tblHoaDon.getColumnModel().getColumn(8).setMinWidth(150);
             tblHoaDon.getColumnModel().getColumn(8).setMaxWidth(150);
             tblHoaDon.getColumnModel().getColumn(9).setMinWidth(150);
             tblHoaDon.getColumnModel().getColumn(9).setMaxWidth(150);
             tblHoaDon.getColumnModel().getColumn(10).setMinWidth(150);
             tblHoaDon.getColumnModel().getColumn(10).setMaxWidth(150);
-            tblHoaDon.getColumnModel().getColumn(12).setMinWidth(50);
-            tblHoaDon.getColumnModel().getColumn(12).setMaxWidth(50);
+            tblHoaDon.getColumnModel().getColumn(11).setMinWidth(150);
+            tblHoaDon.getColumnModel().getColumn(11).setMaxWidth(150);
+            tblHoaDon.getColumnModel().getColumn(13).setMinWidth(50);
+            tblHoaDon.getColumnModel().getColumn(13).setMaxWidth(50);
         }
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1600, 450));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 1600, 460));
 
         txtSearchHD.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         txtSearchHD.setForeground(new java.awt.Color(25, 29, 74));
@@ -248,7 +257,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             tblImei.getColumnModel().getColumn(0).setMaxWidth(0);
         }
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 680, 380, 240));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 700, 380, 220));
 
         txtGhiChu.setColumns(20);
         txtGhiChu.setFont(new java.awt.Font("Monospaced", 1, 12)); // NOI18N
@@ -262,7 +271,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(txtGhiChu);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 680, 330, 100));
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 700, 330, 80));
 
         btnTraHang.setBackground(new java.awt.Color(25, 29, 74));
         btnTraHang.setForeground(new java.awt.Color(25, 29, 74));
@@ -280,17 +289,17 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(5, 10, 46));
         jLabel2.setText("Sản phẩm");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 660, 80, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, 80, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(5, 10, 46));
         jLabel3.setText("Imei");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 660, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 680, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(5, 10, 46));
         jLabel4.setText("Lý do đổi máy");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 660, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 680, -1, -1));
 
         cboStatusHoadon.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cboStatusHoadon.setForeground(new java.awt.Color(25, 29, 74));
@@ -301,17 +310,12 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                 cboStatusHoadonItemStateChanged(evt);
             }
         });
-        getContentPane().add(cboStatusHoadon, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 229, 36));
+        getContentPane().add(cboStatusHoadon, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 170, 36));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(5, 10, 46));
         jLabel5.setText("Tìm kiếm");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(5, 10, 46));
-        jLabel6.setText("Trạng thái hóa đơn");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(25, 29, 74));
         jPanel3.setPreferredSize(new java.awt.Dimension(1870, 100));
@@ -386,7 +390,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             tblSanPham.getColumnModel().getColumn(5).setMaxWidth(120);
         }
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 680, 870, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, 870, 220));
 
         lblCount.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         lblCount.setForeground(new java.awt.Color(5, 10, 46));
@@ -406,6 +410,59 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         jLabel8.setForeground(new java.awt.Color(5, 10, 46));
         jLabel8.setText("Chọn Imei máy muốn đổi");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 810, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(5, 10, 46));
+        jLabel9.setText("Trạng thái hóa đơn");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 130, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtNgayBD.setDateFormatString("dd/MM/yyyy");
+        txtNgayBD.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtNgayBDPropertyChange(evt);
+            }
+        });
+        jPanel1.add(txtNgayBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 160, 30));
+
+        txtNgayKt.setDateFormatString("dd/MM/yyyy");
+        txtNgayKt.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtNgayKtPropertyChange(evt);
+            }
+        });
+        jPanel1.add(txtNgayKt, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 160, 30));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(5, 10, 46));
+        jLabel10.setText("Đến");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(5, 10, 46));
+        jLabel6.setText("Từ");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(5, 10, 46));
+        jLabel11.setText("Lọc");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, -1));
+
+        cboNgay.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        cboNgay.setForeground(new java.awt.Color(25, 29, 74));
+        cboNgay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  ", "Ngày tạo", "Ngày thanh toán" }));
+        cboNgay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(5, 10, 46), 2));
+        cboNgay.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboNgayItemStateChanged(evt);
+            }
+        });
+        jPanel1.add(cboNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 36));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 120, 620, 80));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -476,16 +533,40 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
         xuatfile();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cboNgayItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboNgayItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (cboNgay.getSelectedIndex() == 0) {
+                txtNgayBD.setEnabled(false);
+                txtNgayKt.setEnabled(false);
+                txtNgayBD.setDate(null);
+                txtNgayKt.setDate(null);
+            } else {
+                txtNgayBD.setEnabled(true);
+                txtNgayKt.setEnabled(true);
+            }
+            filter();
+        }
+    }//GEN-LAST:event_cboNgayItemStateChanged
+
+    private void txtNgayBDPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtNgayBDPropertyChange
+        filter();
+    }//GEN-LAST:event_txtNgayBDPropertyChange
+
+    private void txtNgayKtPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtNgayKtPropertyChange
+        filter();
+    }//GEN-LAST:event_txtNgayKtPropertyChange
+
     public void changeColor(JButton hover, Color rand) {
         hover.setBackground(rand);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton btnTraHang;
-    private javax.swing.JButton btnXoa;
-    private javax.swing.JButton btnXoa1;
     public static javax.swing.JComboBox<String> cboImei;
+    public static javax.swing.JComboBox<String> cboNgay;
     public static javax.swing.JComboBox<String> cboStatusHoadon;
     public static javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -493,6 +574,8 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -504,6 +587,8 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     public static javax.swing.JTable tblImei;
     public static javax.swing.JTable tblSanPham;
     public static javax.swing.JTextArea txtGhiChu;
+    public static com.toedter.calendar.JDateChooser txtNgayBD;
+    public static com.toedter.calendar.JDateChooser txtNgayKt;
     public static javax.swing.JTextField txtSearchHD;
     // End of variables declaration//GEN-END:variables
 //    static int currentSelectedHoaDon = 0;
@@ -527,6 +612,8 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
     void init() {
         getDataHoaDon();
         buttonRemoveHoaDon();
+        txtNgayBD.setEnabled(false);
+        txtNgayKt.setEnabled(false);
     }
 
     public static void getDataHoaDon() {
@@ -536,7 +623,26 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             listHoaDon = hoaDonService.getAllHoaDon(term, statusHoaDon);
         } catch (Exception e) {
         }
-        fillTableHoaDon(listHoaDon);
+        filter();
+    }
+
+    static void filter() {
+        listFilterHoaDon = listHoaDon;
+        int statusFilterNgay = cboNgay.getSelectedIndex();
+        Date ngayBd = txtNgayBD.getDate();
+        Date ngayKt = txtNgayKt.getDate();
+        if (ngayBd != null && ngayKt != null) {
+            if (ngayBd.before(ngayKt)) {
+                if (statusFilterNgay == 1) {
+                    //        filter theo ngay tao
+                    listFilterHoaDon = listFilterHoaDon.stream().filter((hd -> hd.getNgayTao().after(ngayBd) && hd.getNgayTao().before(ngayKt))).toList();
+                } else if (statusFilterNgay == 2) {
+                    //            filter theo ngay thanh toan
+                    listFilterHoaDon = listFilterHoaDon.stream().filter((hd -> hd.getNgayThanhToan().after(ngayBd) && hd.getNgayThanhToan().before(ngayKt))).toList();
+                }
+            }
+        }
+        fillTableHoaDon(listFilterHoaDon);
     }
 
     static void clearForm() {
@@ -564,6 +670,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
             listShow.forEach((hd) -> {
                 modelHoaDon.addRow(new Object[]{
                     hd.getMahd(),
+                    "HD0" + hd.getMahd(),
                     hd.getKhachHangModel().getTenKH(),
                     hd.getKhachHangModel().getSDT(),
                     hd.getNhanVienModel().getMaNV(),
@@ -740,7 +847,7 @@ public class QuanLyHoaDon extends javax.swing.JInternalFrame {
                 }
             }
         };
-        ButtonColumn buttonColumn = new ButtonColumn(tblHoaDon, add, 12);
+        ButtonColumn buttonColumn = new ButtonColumn(tblHoaDon, add, 13);
         buttonColumn.setMnemonic(KeyEvent.VK_D);
     }
 

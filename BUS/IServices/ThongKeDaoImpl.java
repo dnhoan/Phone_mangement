@@ -60,7 +60,7 @@ public class ThongKeDaoImpl implements ThongKeDao {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 doanhthuModel sl = new doanhthuModel();
-                sl.setThang(rs.getString(1));
+                sl.setThang(rs.getDate(1));
                 sl.setDoanhthu(rs.getInt(2));
                 list.add(sl);
             }

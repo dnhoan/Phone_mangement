@@ -16,6 +16,9 @@ public interface IHoaDonService {
             + "TienKhachTra = ?,MaNV = ?, Makh = ?, ghichu = ?, DiaChiNhanHang = ?,\n"
             + "PhiVanChuyen = ?, NgayShip = ?, TrangThaiGiaoHang = ?, makm = ?, tienkhuyenmai = ?\n"
             + "where MaHD = ?";
+    String UPDATE_TON_KHO = "update CTSANPHAM set TonKho = SoLuongNhap - stock.sl from \n"
+            + "(select count(mactsp) as sl, mactsp from imei where Imei.MaCTSP = ? and Imei.TrangThaiBan = 0 group by mactsp) as stock\n"
+            + "where stock.mactsp = CTSANPHAM.MACTSP";
     String UPDATE_STATUS = "update HoaDon set TrangThai = ?, ghiChu = ? where MaHD = ?";
     String COUNT_NGAY_THANH_TOAN = "select  DATEDIFF(day,HoaDon.NgayThanhToan, getDate()) as soNgay from HoaDon where mahd = ?";
     String CHECK_IMEI_BY_MAD = "select * from HoaDon inner join ChiTietHoaDon \n"

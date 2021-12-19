@@ -120,8 +120,8 @@ public class RomService implements IRomService, IPhoneMangementService<BusRomMod
             while (rs.next()) {
                 BusRomModel romModel = new BusRomModel(
                         rs.getInt("marom"),
-                        rs.getString("tenrom"),
-                        rs.getFloat("Dungluong"),
+                        rs.getString("TenRom"),
+                        rs.getFloat("DungLuong"),
                         rs.getBoolean("trangthai")
                 );
                 listRoms.add(romModel);

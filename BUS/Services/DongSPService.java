@@ -12,6 +12,7 @@ import BUS.Models.BusDongSpModel;
 import DAL.IServices.IPhoneMangementService;
 import DAL.Services.JDBCHelper;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -105,7 +106,8 @@ public class DongSPService implements IDongService, IPhoneMangementService<BusDo
             }
             rs.getStatement().close();
             return listDongsp;
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }

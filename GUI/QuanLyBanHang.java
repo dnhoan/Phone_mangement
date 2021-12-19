@@ -254,7 +254,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         lblGiamGia.setText("Tổng tiền hàng: 0 VNĐ");
         getContentPane().add(lblGiamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 780, 390, -1));
 
-        cboKhachHang.setBackground(new java.awt.Color(153, 153, 153));
+        cboKhachHang.setBackground(new java.awt.Color(255, 255, 255));
         cboKhachHang.setEditable(true);
         cboKhachHang.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cboKhachHang.setForeground(new java.awt.Color(25, 29, 74));
@@ -332,11 +332,11 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Mahd", "Mã nv", "Tên KH + SĐT", "Ngày tạo", "SL", "Phí vận chuyển", "Thành tiền", "Khách trả", ""
+                "MaHD", "MaHD", "Mã nv", "Tên KH + SĐT", "Ngày tạo", "SL", "Phí vận chuyển", "Thành tiền", "Khách trả", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -356,20 +356,22 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         if (tblHoaDon.getColumnModel().getColumnCount() > 0) {
             tblHoaDon.getColumnModel().getColumn(0).setMinWidth(0);
             tblHoaDon.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblHoaDon.getColumnModel().getColumn(1).setMinWidth(50);
-            tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(50);
-            tblHoaDon.getColumnModel().getColumn(3).setMinWidth(100);
-            tblHoaDon.getColumnModel().getColumn(3).setMaxWidth(100);
-            tblHoaDon.getColumnModel().getColumn(4).setMinWidth(40);
-            tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(40);
-            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(120);
-            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(120);
+            tblHoaDon.getColumnModel().getColumn(1).setMinWidth(60);
+            tblHoaDon.getColumnModel().getColumn(1).setMaxWidth(60);
+            tblHoaDon.getColumnModel().getColumn(2).setMinWidth(50);
+            tblHoaDon.getColumnModel().getColumn(2).setMaxWidth(50);
+            tblHoaDon.getColumnModel().getColumn(4).setMinWidth(100);
+            tblHoaDon.getColumnModel().getColumn(4).setMaxWidth(100);
+            tblHoaDon.getColumnModel().getColumn(5).setMinWidth(40);
+            tblHoaDon.getColumnModel().getColumn(5).setMaxWidth(40);
             tblHoaDon.getColumnModel().getColumn(6).setMinWidth(120);
             tblHoaDon.getColumnModel().getColumn(6).setMaxWidth(120);
             tblHoaDon.getColumnModel().getColumn(7).setMinWidth(120);
             tblHoaDon.getColumnModel().getColumn(7).setMaxWidth(120);
-            tblHoaDon.getColumnModel().getColumn(8).setMinWidth(60);
-            tblHoaDon.getColumnModel().getColumn(8).setMaxWidth(60);
+            tblHoaDon.getColumnModel().getColumn(8).setMinWidth(120);
+            tblHoaDon.getColumnModel().getColumn(8).setMaxWidth(120);
+            tblHoaDon.getColumnModel().getColumn(9).setMinWidth(60);
+            tblHoaDon.getColumnModel().getColumn(9).setMaxWidth(60);
         }
 
         javax.swing.GroupLayout jpnHoaDOnLayout = new javax.swing.GroupLayout(jpnHoaDOn);
@@ -783,7 +785,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 114));
 
-        cboGiamGia.setBackground(new java.awt.Color(153, 153, 153));
+        cboGiamGia.setBackground(new java.awt.Color(255, 255, 255));
         cboGiamGia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cboGiamGia.setForeground(new java.awt.Color(25, 29, 74));
         cboGiamGia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(5, 10, 46), 2));
@@ -805,7 +807,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
         lblTongTien.setText("Tổng tiền hàng: 0 VNĐ");
         getContentPane().add(lblTongTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 750, 390, -1));
 
-        cboPhanLoai.setBackground(new java.awt.Color(153, 153, 153));
+        cboPhanLoai.setBackground(new java.awt.Color(255, 255, 255));
         cboPhanLoai.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cboPhanLoai.setForeground(new java.awt.Color(25, 29, 74));
         cboPhanLoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(5, 10, 46), 2));
@@ -1159,6 +1161,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 for (BusHoaDon hd : list) {
                     model.addRow(new Object[]{
                         hd.getMahd(),
+                        "HD0" + hd.getMahd(),
                         hd.getNhanVienModel().getMaNV(),
                         hd.getKhachHangModel().getTenKH() + " - " + hd.getKhachHangModel().getSDT(),
                         hd.getNgayTao(),
@@ -1270,13 +1273,17 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                     dalChiTietHoaDon.setMahd(dalHoaDon.getMaHD());
                     dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : ca.getGia() - (ca.getGia() * ca.getSoLuongGiam() / 100));
                     dalChiTietHoaDon.setGiaBan(ca.getGia());
+                    cTHoaDonService.insert(dalChiTietHoaDon);
                     try {
-                        cTHoaDonService.insert(dalChiTietHoaDon);
-                        dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale() > 0 ? imei.getMaSpSale() : null);
+                        if (imei.getMaSpSale() > 0) {
+                            dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale());
+                        }
                     } catch (Exception e) {
+                        e.printStackTrace();
                         System.out.println("Lỗi lưu hóa đơn @" + ca.getMactsp());
                     }
                 }
+                hoaDonService.updateTonKho(ca.getMactsp());
                 if (listImeiXoa.size() > 0) {
                     listImeiXoa.forEach(imei -> {
                         cTHoaDonService.updateByMaImei(imei.getMaImei());
@@ -1313,18 +1320,23 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 listCart.forEach(ca -> {
 //                    Thêm từng imei vào chi tiết hóa đơn dong thoi update imei thanh da ban
                     for (DalImeiModel imei : ca.getListImeis()) {
+                        System.out.println("list imei" + imei);
                         DalChiTietHoaDon dalChiTietHoaDon = new DalChiTietHoaDon();
                         dalChiTietHoaDon.setMaImei(imei.getMaImei());
                         dalChiTietHoaDon.setMahd(lastID);
                         dalChiTietHoaDon.setGiaBanSauSale(ca.isGiamTheoTien() ? (ca.getGia() - ca.getSoLuongGiam()) : ca.getGia() - (ca.getGia() * ca.getSoLuongGiam() / 100));
                         dalChiTietHoaDon.setGiaBan(ca.getGia());
+                        cTHoaDonService.insert(dalChiTietHoaDon);
                         try {
-                            cTHoaDonService.insert(dalChiTietHoaDon);
-                            dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale() > 0 ? imei.getMaSpSale() : null);
+                            if (imei.getMaSpSale() > 0) {
+                                dalImeiService.updateMaSPSale(imei.getMaImei(), imei.getMaSpSale());
+                            }
                         } catch (Exception e) {
+                            e.printStackTrace();
                             System.out.println("Lỗi lưu hóa đơn @" + ca.getMactsp());
                         }
                     }
+                    hoaDonService.updateTonKho(ca.getMactsp());
                 });
                 MessageService.alert(this, isSave ? "Lưu hóa đơn thành công" : "Thanh toán thành công");
                 if (MessageService.confirm(rootPane, "Bạn có muốn in hóa đơn này không ?")) {
@@ -1344,13 +1356,15 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
             giamGia = 0;
         } else {
             BusVoucherModel busVoucherModel = (BusVoucherModel) cboGiamGia.getSelectedItem();
-            if (totalMoney < busVoucherModel.getDKKM()) {
-                MessageService.alert(null, "Bạn không đủ điều kiện để chọn mã giảm giá theo hóa đơn");
-                cboGiamGia.setSelectedIndex(0);
-            } else {
-                giamGia = busVoucherModel.getMucGG();
-                //            0: tiền 1: %
-                giamTheoTien = busVoucherModel.getLoaiGG() == 0;
+            if (busVoucherModel != null) {
+                if (totalMoney < busVoucherModel.getDKKM()) {
+                    MessageService.alert(null, "Bạn không đủ điều kiện để chọn mã giảm giá theo hóa đơn");
+                    cboGiamGia.setSelectedIndex(0);
+                } else {
+                    giamGia = busVoucherModel.getMucGG();
+                    //            0: tiền 1: %
+                    giamTheoTien = busVoucherModel.getLoaiGG() == 0;
+                }
             }
         }
         setTienThanhToan();
@@ -1569,7 +1583,7 @@ public class QuanLyBanHang extends javax.swing.JInternalFrame {
                 fillTableHoaDon(hoaDonModel, tblHoaDon, listHoaDon);
             }
         };
-        ButtonColumn buttonColumn = new ButtonColumn(tblHoaDon, add, 8);
+        ButtonColumn buttonColumn = new ButtonColumn(tblHoaDon, add, 9);
         buttonColumn.setMnemonic(KeyEvent.VK_D);
     }
 
@@ -1814,7 +1828,7 @@ void sortDesc() {
         try {
             KhachHangModel khachHang = (KhachHangModel) cboKhachHang.getSelectedItem();
             String diaChiNhanHang = txtDiahChiKh.getText();
-            expPdf.exportFile(khachHang, phiShip, khachThanhToan, diaChiNhanHang, listCart,tienKhuyenMai);
+            expPdf.exportFile(khachHang, phiShip, khachThanhToan, diaChiNhanHang, listCart, tienKhuyenMai);
             MessageService.alert(rootPane, "In thành công");
         } catch (Exception e) {
             MessageService.alert(rootPane, "Lỗi in hóa đơn");

@@ -47,7 +47,13 @@ public class HoaDonService implements IPhoneMangementService<DalHoaDon, Integer>
             e.printStackTrace();
         }
     }
-
+    public void updateTonKho(int mactsp) {
+        try {
+            JDBCHelper.executeUpdate(UPDATE_TON_KHO, mactsp);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void update(DalHoaDon entity) {
         try {

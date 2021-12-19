@@ -178,7 +178,7 @@ public class FirstPdf {
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Giảm giá hóa đơn:                                                                                       " + UtilityService.toVnd(khuyenMai), font_12_normer));
         addEmptyLine(preface, 1);
-        preface.add(new Paragraph("Tổng phải trả:                                                               " + UtilityService.toVnd(tongTienHang + phiVanChuyen), font_16));
+        preface.add(new Paragraph("Tổng phải trả:                                                               " + UtilityService.toVnd(tongTienHang + phiVanChuyen - khuyenMai), font_16));
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Khách thanh toán:                                                                                      " + UtilityService.toVnd(khachThanhToan), font_12_normer));
         addEmptyLine(preface, 1);

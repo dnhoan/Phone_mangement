@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -47,7 +48,6 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
     Date d;
 
     public QLnhanVien() {
-        System.out.println("chay nhan vien");
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
@@ -60,20 +60,8 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         filltableNVON();
         filltableNVOFF();
         desginTable();
-//        System.out.println(tblDSNVON.getRowCount());
-
-        try {
-            //        System.out.println(today);
-//        lastday=LocalDate.parse(txtNgayBD.getText()).getYear();
-//        System.out.println(lastday);
-//        Date date=jDateChooser1.getDate();
-//        txtNgayBD.setDate(DateService.addDays(date,today ));
-//        System.out.println(date);
-            d = new SimpleDateFormat("yyyy-MM-dd").parse(dateNgay.toString());
-            txtNgaySinh.setDate(d);
-        } catch (ParseException ex) {
-            Logger.getLogger(QLnhanVien.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        txtNgaySinh.setDate(null);
+        rdoGTNam.setSelected(true);
     }
 
     public void desginTable() {
@@ -241,7 +229,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
             txtemail.requestFocus();
             return false;
         } else if (!(txtNgayBD.getText()).matches("^((19|20)\\d\\d)-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$")) {
-            JOptionPane.showMessageDialog(rootPane, "Sai định dạng ngày sinh \nĐịnh dạng năm-tháng-ngày(năm từ 19xx-20xx)", "Error", 1);
+            JOptionPane.showMessageDialog(rootPane, "Sai định dạng ngày bắt đầu \nĐịnh dạng năm-tháng-ngày(năm từ 19xx-20xx)", "Error", 1);
             txtemail.requestFocus();
             return false;
         }
@@ -310,14 +298,13 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
 
     private void clear() {
         try {
-
+            txtNgaySinh.setDate(null);
             txtChekMatKhau.setText("");
             txtDiaChi.setText("");
             txtGhiChu.setText("");
             txtHoTen.setText("");
             txtMaNV.setText("");
             txtNgayBD.setText("");
-            txtNgaySinh.setDate(d);
             txtSDT.setText("");
             txtemail.setText("");
             txtmatkhau.setText("");
@@ -397,9 +384,12 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         txtemail.setText(model.getEmail());
         txtDiaChi.setText(model.getDiaChi());
         txtNgayBD.setText(model.getNgayBD() + "");
-        imgAnh.setToolTipText(model.getHinh());
         if (model.getHinh() != null) {
-            imgAnh.setIcon(ImageService.readLogo(model.getHinh()));
+            imgAnh.setToolTipText(model.getHinh());
+            imgAnh.setIcon(ImageService.readImage(model.getHinh(), imgAnh));
+        } else {
+            imgAnh.setToolTipText(null);
+            imgAnh.setIcon(null);
         }
         txtGhiChu.setText(model.getGhiChu());
 //        setMaNV(txtMaNV.getText());
@@ -522,6 +512,8 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -814,7 +806,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         jButton3.setBackground(new java.awt.Color(25, 29, 74));
         jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(51, 51, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restore.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/restore1.png"))); // NOI18N
         jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(25, 29, 74), 90));
         jButton3.setBorderPainted(false);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -831,7 +823,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 120, 70));
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 40, 90, 40));
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(5, 10, 46));
@@ -900,6 +892,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         jLabel6.setText("Vai trò");
 
         rdoVTruongPhong.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdoVTruongPhong);
         rdoVTruongPhong.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         rdoVTruongPhong.setForeground(new java.awt.Color(25, 29, 74));
         rdoVTruongPhong.setSelected(true);
@@ -911,6 +904,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         });
 
         rdoVTNhanVien.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdoVTNhanVien);
         rdoVTNhanVien.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         rdoVTNhanVien.setForeground(new java.awt.Color(25, 29, 74));
         rdoVTNhanVien.setText("Nhân viên");
@@ -1040,9 +1034,9 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         txtDiaChi.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(5, 10, 46)));
 
         rdoGTNam.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(rdoGTNam);
         rdoGTNam.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         rdoGTNam.setForeground(new java.awt.Color(25, 29, 74));
-        rdoGTNam.setSelected(true);
         rdoGTNam.setText("Nam");
         rdoGTNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1051,6 +1045,7 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         });
 
         rdoGTNu.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(rdoGTNu);
         rdoGTNu.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         rdoGTNu.setForeground(new java.awt.Color(25, 29, 74));
         rdoGTNu.setText("Nữ");
@@ -1372,17 +1367,6 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblDSNVOFFMouseEntered
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        j = tblDSNVOFF.getSelectedRow();
-        if (j < 0) {
-            MessageService.alert(rootPane, "Bạn phải trọn nhân viên trên bảng để sử dụng chức năng");
-        } else {
-            KhoiPhuc();
-            //            MessageService.alert(rootPane, "Xóa Thành Công");
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void btnTimKiem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiem2ActionPerformed
         // TODO add your handling code here:
         timNhanVienOFF();
@@ -1513,14 +1497,20 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNgayBDActionPerformed
 
     private void imgAnhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgAnhMouseClicked
-        // TODO add your handling code here:
+
         try {
-            JFileChooser file = new JFileChooser("image\\");
-            int kq = file.showOpenDialog(file);
+            JFileChooser fileChooser = new JFileChooser("image\\");
+            int kq = fileChooser.showOpenDialog(fileChooser);
             if (kq == JFileChooser.APPROVE_OPTION) {
-                imageName = file.getSelectedFile().getName();
-                ResizeImage(imageName);
-                imgAnh.setToolTipText(imageName);
+                File file = fileChooser.getSelectedFile();
+                if (file.getName().endsWith(".jpg") || file.getName().endsWith(".png") || file.getName().endsWith(".jpeg")) {
+                    ImageService.save(file);
+                    ImageIcon icon = ImageService.readImage(file.getName(), imgAnh);
+                    imgAnh.setIcon(icon);
+                    imgAnh.setToolTipText(file.getName());
+                } else {
+                    MessageService.alert(rootPane, "Vui lòng chọn file ảnh có các đuôi sau: jpg, jpeg, png");
+                }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Bạn chưa chọn ảnh...");
             }
@@ -1528,10 +1518,6 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         } catch (Exception a) {
 
         }
-        //            try {
-        //                ImageService.getAppIcon();
-        //        } catch (Exception e) {
-        //        }
     }//GEN-LAST:event_imgAnhMouseClicked
 
     private void rdoGTNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoGTNamActionPerformed
@@ -1586,14 +1572,6 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         changeColor(btnMoi, new Color(25, 29, 74));
     }//GEN-LAST:event_btnMoiMouseExited
 
-    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
-        changeColor(jButton3, new Color(102, 0, 102));
-    }//GEN-LAST:event_jButton3MouseEntered
-
-    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
-        changeColor(jButton3, new Color(25, 29, 74));
-    }//GEN-LAST:event_jButton3MouseExited
-
     private void btnPrevMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrevMouseEntered
         changeColor(btnPrev, new Color(102, 0, 102));
     }//GEN-LAST:event_btnPrevMouseEntered
@@ -1638,6 +1616,25 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
         new DiemDanh().setVisible(true);
     }//GEN-LAST:event_btnDiemDanhActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        j = tblDSNVOFF.getSelectedRow();
+        if (j < 0) {
+            MessageService.alert(rootPane, "Bạn phải trọn nhân viên trên bảng để sử dụng chức năng");
+        } else {
+            KhoiPhuc();
+            //            MessageService.alert(rootPane, "Xóa Thành Công");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseExited
+        changeColor(jButton3, new Color(25, 29, 74));
+    }//GEN-LAST:event_jButton3MouseExited
+
+    private void jButton3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseEntered
+        changeColor(jButton3, new Color(102, 0, 102));
+    }//GEN-LAST:event_jButton3MouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDiemDanh;
@@ -1651,6 +1648,8 @@ public class QLnhanVien extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnTimKiem2;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnnext;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel imgAnh;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;

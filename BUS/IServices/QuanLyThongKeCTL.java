@@ -37,7 +37,7 @@ public class QuanLyThongKeCTL {
         if (listItem != null) {
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
             for (soluongbanmodel x : listItem) {
-                dataset.addValue(x.getSoluongban(), "số lượng", "Ngày: " + DateService.toString(x.getThang(), "dd-MM-yyyy"));
+                dataset.addValue(x.getSoluongban(), "số lượng",DateService.toString(x.getThang(), "dd-MM-yyyy"));
             }
 
             JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê số lượng hàng bán được trong tháng".toUpperCase(),
@@ -60,7 +60,7 @@ public class QuanLyThongKeCTL {
         if (listItem != null) {
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
             for (doanhthuModel x : listItem) {
-                dataset.addValue(x.getDoanhthu(), "Doanh thu", "Ngày: " + x.getThang());
+                dataset.addValue(x.getDoanhthu(), "Doanh thu",DateService.toString(x.getThang(), "dd-MM-yyyy"));
             }
 
             JFreeChart baChart = ChartFactory.createBarChart("Biểu đồ thống kê doanh thu trong tháng".toUpperCase(),
